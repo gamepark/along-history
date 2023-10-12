@@ -1,8 +1,8 @@
 {
-  "name": "@gamepark/game-template-app",
+  "name": "@gamepark/along-history-app",
   "version": "0.0.0",
   "private": true,
-  "description": "The user interface of Game Template adaptation for Game Park",
+  "description": "The user interface of Along History adaptation for Game Park",
   "author": "Romain Fromi <romain@game-park.com> (https://game-park.com/)",
   "license": "ISC",
   "dependencies": {
@@ -34,7 +34,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "deploy": "yarn build && rclone sync build game-template:game-template.game-park.com --progress --s3-acl=public-read"
+    "deploy": "yarn build && rclone sync build along-history:along-history.game-park.com --progress --s3-acl=public-read"
   },
   "eslintConfig": {
     "extends": [
@@ -56,7 +56,7 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "^@gamepark/game-template/(.*)$": "<rootDir>/../rules/src/$1"
+      "^@gamepark/along-history/(.*)$": "<rootDir>/../rules/src/$1"
     }
   }
 }

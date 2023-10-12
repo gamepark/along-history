@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
-import { RuleId } from '@gamepark/game-template/rules/RuleId'
+import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { FailuresDialog, FullscreenDialog, LoadingScreen, MaterialHeader, Menu, useGame } from '@gamepark/react-game'
 import { MaterialGame } from '@gamepark/rules-api'
 import { useEffect, useState } from 'react'

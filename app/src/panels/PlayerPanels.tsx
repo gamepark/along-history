@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { PlayerColor } from '@gamepark/game-template/PlayerColor'
+import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { PlayerPanel, usePlayers } from '@gamepark/react-game'
 import { FC } from 'react'
 
@@ -23,8 +23,9 @@ const panelPosition = (index: number) => css`
 `
 
 export const playerColorCode: Record<PlayerColor, string> = {
-  [PlayerColor.Red]: 'red',
+  [PlayerColor.White]: 'white',
+  [PlayerColor.Yellow]: 'yellow',
   [PlayerColor.Blue]: 'blue',
   [PlayerColor.Green]: 'green',
-  [PlayerColor.Yellow]: 'yellow'
+  [PlayerColor.Red]: 'red'
 }

@@ -1,3 +1,3 @@
-export { GameTemplateRules } from './GameTemplateRules'
-export { GameOptionsSpec } from './GameTemplateOptions'
-export { GameTemplateSetup } from './GameTemplateSetup'
+export { AlongHistoryRules } from './AlongHistoryRules'
+export { GameOptionsSpec } from './AlongHistoryOptions'
+export { AlongHistorySetup } from './AlongHistorySetup'
