@@ -35,6 +35,7 @@ import Earthquake from '../images/cards/prehistory/fr/Earthquake.jpg'
 import HarshWinter from '../images/cards/prehistory/fr/HarshWinter.jpg'
 import Starving from '../images/cards/prehistory/fr/Starving.jpg'
 import VolcanicEruption from '../images/cards/prehistory/fr/VolcanicEruption.jpg'
+import Prehistory from '../images/cards/prehistory/back.jpg'
 
 class AlongHistoryCardDescription extends CardDescription {
   images = {
@@ -74,6 +75,8 @@ class AlongHistoryCardDescription extends CardDescription {
     [Card.Starving]: Starving,
     [Card.VolcanicEruption]: VolcanicEruption
   }
+
+  backImage = Prehistory
 
   rules = () => <></>
 }
