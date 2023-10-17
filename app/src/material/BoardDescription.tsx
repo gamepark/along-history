@@ -11,4 +11,4 @@ class AlongHistoryBoardDescription extends BoardDescription {
   rules = () => <></>
 }
 
-export const alongHistoryBoardDescription = new AlongHistoryBoardDescription()
+export const boardDescription = new AlongHistoryBoardDescription()
