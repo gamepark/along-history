@@ -1,3 +1,3 @@
 export enum MaterialType {
-  Board = 1, Card
+  Board = 1, Card, CivilisationToken
 }

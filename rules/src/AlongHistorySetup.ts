@@ -17,6 +17,9 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     this.material(MaterialType.Card).createItems(listingToList(AgesCards[Age.Prehistory]).map(card => (
       { id: { front: card, back: Age.Prehistory }, location: { type: LocationType.Deck } }
     )))
+    this.material(MaterialType.CivilisationToken).createItems(this.game.players.map(player => (
+      { id: player, location: { type: LocationType.AchievementsBoard, x: 0, y: 0 } }
+    )))
   }
 
   start() {

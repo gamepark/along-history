@@ -4,6 +4,7 @@ import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
 import { PlayerTurn } from './rules/PlayerTurn'
 import { RuleId } from './rules/RuleId'
+import { ArrivalOrderZStrategy } from './util/ArrivalOrderZStrategy'
 
 
 /**
@@ -18,6 +19,9 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
   locationsStrategies = {
     [MaterialType.Card]: {
       [LocationType.Deck]: new PositiveSequenceStrategy()
+    },
+    [MaterialType.CivilisationToken]: {
+      [LocationType.AchievementsBoard]: new ArrivalOrderZStrategy()
     }
   }
 
