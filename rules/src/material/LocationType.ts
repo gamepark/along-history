@@ -1,3 +1,3 @@
 export enum LocationType {
-  Table = 1
+  Table = 1, Deck
 }

@@ -1,4 +1,4 @@
-import { MaterialRules } from '@gamepark/rules-api'
+import { HiddenMaterialRules, hideFront, PositiveSequenceStrategy } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
@@ -10,8 +10,20 @@ import { RuleId } from './rules/RuleId'
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
-export class AlongHistoryRules extends MaterialRules<PlayerColor, MaterialType, LocationType> {
+export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, MaterialType, LocationType> {
   rules = {
     [RuleId.PlayerTurn]: PlayerTurn
+  }
+
+  locationsStrategies = {
+    [MaterialType.Card]: {
+      [LocationType.Deck]: new PositiveSequenceStrategy()
+    }
+  }
+
+  hidingStrategies = {
+    [MaterialType.Card]: {
+      [LocationType.Deck]: hideFront
+    }
   }
 }

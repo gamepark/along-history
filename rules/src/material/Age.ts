@@ -45,5 +45,5 @@ export const AgesCards: Record<Age, Partial<Record<Card, number>>> = {
     [Card.VolcanicEruption]: 1
   },
   [Age.Antiquity]: {},
-  [Age.MiddleAges]: {},
+  [Age.MiddleAges]: {}
 }
