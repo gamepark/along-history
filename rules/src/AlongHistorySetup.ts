@@ -5,6 +5,7 @@ import { Age, AgesCards } from './material/Age'
 import { DiceCount, DiceType } from './material/Dice'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
+import { ResultTokens } from './material/ResultTokens'
 import { PlayerColor } from './PlayerColor'
 import { RuleId } from './rules/RuleId'
 
@@ -22,7 +23,10 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
       { id: player, location: { type: LocationType.AchievementsBoard, x: 0, y: 0 } }
     )))
     this.material(MaterialType.Dice).createItems(listingToList(DiceCount).filter(dice => dice !== DiceType.Gold).map(dice => (
-      { id: dice, location: { type: LocationType.DiscardTile }}
+      { id: dice, location: { type: LocationType.DiscardTile } }
+    )))
+    this.material(MaterialType.ResultToken).createItems(listingToList(ResultTokens).map(id => (
+      { id, location: { type: LocationType.ResultTokenStock } }
     )))
   }
 

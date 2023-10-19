@@ -1,4 +1,4 @@
-import { HiddenMaterialRules, hideFront, PositiveSequenceStrategy } from '@gamepark/rules-api'
+import { FillGapStrategy, HiddenMaterialRules, hideFront, PositiveSequenceStrategy } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
@@ -24,7 +24,10 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
       [LocationType.AchievementsBoard]: new ArrivalOrderZStrategy()
     },
     [MaterialType.Dice]: {
-      [LocationType.DiscardTile]: new PositiveSequenceStrategy()
+      [LocationType.DiscardTile]: new FillGapStrategy()
+    },
+    [MaterialType.ResultToken]: {
+      [LocationType.ResultTokenStock]: new FillGapStrategy()
     }
   }
 

@@ -1,3 +1,3 @@
 export enum LocationType {
-  Table = 1, Deck, AchievementsBoard, DiscardTile
+  Table = 1, Deck, AchievementsBoard, DiscardTile, ResultTokenStock
 }

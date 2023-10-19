@@ -1,0 +1,16 @@
+export enum DiceSymbol {
+  Population1 = 1,
+  Population2,
+  Population3,
+  Culture,
+  Ingenuity,
+  Strength,
+  GoldenAge,
+  Multiplier,
+  Reroll,
+  War,
+  Gold3,
+  Gold4,
+  Gold5,
+  Gold6,
+}
