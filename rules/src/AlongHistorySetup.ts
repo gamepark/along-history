@@ -2,6 +2,7 @@ import { listingToList, MaterialGameSetup } from '@gamepark/rules-api'
 import { AlongHistoryOptions } from './AlongHistoryOptions'
 import { AlongHistoryRules } from './AlongHistoryRules'
 import { Age, AgesCards } from './material/Age'
+import { DiceCount, DiceType } from './material/Dice'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
@@ -19,6 +20,9 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     )))
     this.material(MaterialType.CivilisationToken).createItems(this.game.players.map(player => (
       { id: player, location: { type: LocationType.AchievementsBoard, x: 0, y: 0 } }
+    )))
+    this.material(MaterialType.Dice).createItems(listingToList(DiceCount).filter(dice => dice !== DiceType.Gold).map(dice => (
+      { id: dice, location: { type: LocationType.DiscardTile }}
     )))
   }
 

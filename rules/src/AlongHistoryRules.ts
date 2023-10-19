@@ -22,6 +22,9 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     },
     [MaterialType.CivilisationToken]: {
       [LocationType.AchievementsBoard]: new ArrivalOrderZStrategy()
+    },
+    [MaterialType.Dice]: {
+      [LocationType.DiscardTile]: new PositiveSequenceStrategy()
     }
   }
 
