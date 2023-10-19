@@ -28,6 +28,10 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     this.material(MaterialType.ResultToken).createItems(listingToList(ResultTokens).map(id => (
       { id, location: { type: LocationType.ResultTokenStock } }
     )))
+    this.material(MaterialType.UniversalResource).createItem({ location: { type: LocationType.UniversalResourceStock }, quantity: this.players.length })
+    for (const player of this.players) {
+      this.material(MaterialType.UniversalResource).createItem({ location: { type: LocationType.PlayerUniversalResource, player } })
+    }
   }
 
   start() {
