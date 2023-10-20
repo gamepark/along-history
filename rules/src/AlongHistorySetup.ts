@@ -1,6 +1,8 @@
 import { listingToList, MaterialGameSetup } from '@gamepark/rules-api'
 import { AlongHistoryOptions } from './AlongHistoryOptions'
 import { AlongHistoryRules } from './AlongHistoryRules'
+import { Achievement, achievements, getAchievementValue } from './material/Achievement'
+import { AchievementBoardLocations } from './material/AchievementBoard'
 import { Age, AgesCards } from './material/Age'
 import { DiceCount, DiceType } from './material/Dice'
 import { LocationType } from './material/LocationType'
@@ -32,6 +34,21 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     for (const player of this.players) {
       this.material(MaterialType.UniversalResource).createItem({ location: { type: LocationType.PlayerUniversalResource, player } })
     }
+    this.setupAchievementTokens()
+  }
+
+  setupAchievementTokens() {
+    this.material(MaterialType.AchievementToken).createItems(achievements.filter(achievement => achievement !== Achievement.Gold15).map(achievement => (
+      { id: achievement, location: { type: LocationType.Table } }
+    )))
+    this.material(MaterialType.AchievementToken).shuffle()
+    for (let x = 1; x < AchievementBoardLocations.length; x++) {
+      for (const y of AchievementBoardLocations[x]) {
+        this.material(MaterialType.AchievementToken).location(LocationType.Table).id<Achievement>(id => getAchievementValue(id) === x)
+          .moveItem({ location: { type: LocationType.AchievementsBoard, x, y } })
+      }
+    }
+    this.material(MaterialType.AchievementToken).location(LocationType.Table).deleteItems()
   }
 
   start() {
