@@ -28,5 +28,5 @@ export default function App() {
 }
 
 const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
-  [RuleId.PlayerTurn]: PlayerTurnHeader
+  [RuleId.RollDices]: PlayerTurnHeader
 }

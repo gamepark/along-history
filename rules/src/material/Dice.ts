@@ -7,7 +7,7 @@ export enum DiceType {
 
 export const DiceCount: Record<DiceType, number> = {
   [DiceType.Population]: 3,
-  [DiceType.Resource]: 2,
-  [DiceType.Special]: 1,
+  [DiceType.Resource]: 1,
+  [DiceType.Special]: 2,
   [DiceType.Gold]: 1,
 }

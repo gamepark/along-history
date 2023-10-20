@@ -63,7 +63,7 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     for (let x = 1; x < AchievementBoardLocations.length; x++) {
       for (const y of AchievementBoardLocations[x]) {
         this.material(MaterialType.AchievementToken).location(LocationType.Table).id<Achievement>(id => getAchievementValue(id) === x)
-          .moveItem({ location: { type: LocationType.AchievementsBoard, x, y } })
+          .moveItem({ type: LocationType.AchievementsBoard, x, y })
       }
     }
     this.material(MaterialType.AchievementToken).location(LocationType.Table).deleteItems()
@@ -75,21 +75,21 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     }
     const discard = this.material(MaterialType.Card).location(LocationType.Discard)
     if (discard.length) {
-      discard.moveItems({ location: { type: LocationType.Deck } })
+      discard.moveItems({ type: LocationType.Deck })
       this.material(MaterialType.Card).location(LocationType.Deck).shuffle()
     }
   }
 
   setupPlayerEventArea(player: PlayerColor) {
-    this.material(MaterialType.Card).location(LocationType.Deck).deck().deal({ location: { type: LocationType.EventArea, player } }, 3)
+    this.material(MaterialType.Card).location(LocationType.Deck).deck().deal({ type: LocationType.EventArea, player }, 3)
     this.discardCalamitiesAndWonders(player)
   }
 
   discardCalamitiesAndWonders(player: PlayerColor) {
     const cards = this.material(MaterialType.Card).location(LocationType.EventArea).player(player).id(isWonderOrCalamity)
     if (cards.length) {
-      cards.moveItems({ location: { type: LocationType.Discard } })
-      this.material(MaterialType.Card).location(LocationType.Deck).deck().deal({ location: { type: LocationType.EventArea, player } }, cards.length)
+      cards.moveItems({ type: LocationType.Discard })
+      this.material(MaterialType.Card).location(LocationType.Deck).deck().deal({ type: LocationType.EventArea, player }, cards.length)
       this.discardCalamitiesAndWonders(player)
     }
   }
@@ -99,7 +99,7 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
   }
 
   start() {
-    this.startPlayerTurn(RuleId.PlayerTurn, this.game.players[0])
+    this.startPlayerTurn(RuleId.RollDices, this.game.players[0])
   }
 }
 
