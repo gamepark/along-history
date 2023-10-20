@@ -4,6 +4,9 @@ import { AlongHistoryRules } from './AlongHistoryRules'
 import { Achievement, achievements, getAchievementValue } from './material/Achievement'
 import { AchievementBoardLocations } from './material/AchievementBoard'
 import { Age, AgesCards } from './material/Age'
+import { CardId } from './material/cards/CardId'
+import { CardsInfo } from './material/cards/CardsInfo'
+import { CardType } from './material/cards/CardType'
 import { DiceCount, DiceType } from './material/Dice'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
@@ -18,12 +21,27 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
   Rules = AlongHistoryRules
 
   setupMaterial(_options: AlongHistoryOptions) {
+    this.setupDeck()
+    this.setupCivilisationTokens()
+    this.setupResourceItems()
+    this.setupAchievementTokens()
+    this.setupEventAreas()
+  }
+
+  setupDeck() {
     this.material(MaterialType.Card).createItems(listingToList(AgesCards[Age.Prehistory]).map(card => (
       { id: { front: card, back: Age.Prehistory }, location: { type: LocationType.Deck } }
     )))
+    this.material(MaterialType.Card).shuffle()
+  }
+
+  setupCivilisationTokens() {
     this.material(MaterialType.CivilisationToken).createItems(this.game.players.map(player => (
       { id: player, location: { type: LocationType.AchievementsBoard, x: 0, y: 0 } }
     )))
+  }
+
+  setupResourceItems() {
     this.material(MaterialType.Dice).createItems(listingToList(DiceCount).filter(dice => dice !== DiceType.Gold).map(dice => (
       { id: dice, location: { type: LocationType.DiscardTile } }
     )))
@@ -34,7 +52,6 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     for (const player of this.players) {
       this.material(MaterialType.UniversalResource).createItem({ location: { type: LocationType.PlayerUniversalResource, player } })
     }
-    this.setupAchievementTokens()
   }
 
   setupAchievementTokens() {
@@ -51,7 +68,37 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     this.material(MaterialType.AchievementToken).location(LocationType.Table).deleteItems()
   }
 
+  setupEventAreas() {
+    for (const player of this.players) {
+      this.setupPlayerEventArea(player)
+    }
+    const discard = this.material(MaterialType.Card).location(LocationType.Discard)
+    if (discard.length) {
+      discard.moveItems({ location: { type: LocationType.Deck } })
+      this.material(MaterialType.Card).location(LocationType.Deck).shuffle()
+    }
+  }
+
+  setupPlayerEventArea(player: PlayerColor) {
+    this.material(MaterialType.Card).location(LocationType.Deck).deck().deal({ location: { type: LocationType.EventArea, player } }, 3)
+    this.discardCalamitiesAndWonders(player)
+  }
+
+  discardCalamitiesAndWonders(player: PlayerColor) {
+    const cards = this.material(MaterialType.Card).location(LocationType.EventArea).player(player).id(isWonderOrCalamity)
+    if (cards.length) {
+      cards.moveItems({ location: { type: LocationType.Discard } })
+      this.material(MaterialType.Card).location(LocationType.Deck).deck().deal({ location: { type: LocationType.EventArea, player } }, cards.length)
+      this.discardCalamitiesAndWonders(player)
+    }
+  }
+
   start() {
     this.startPlayerTurn(RuleId.PlayerTurn, this.game.players[0])
   }
+}
+
+function isWonderOrCalamity(cardId: CardId) {
+  const type = CardsInfo[cardId.front].type
+  return type === CardType.Wonder || type === CardType.Calamity
 }

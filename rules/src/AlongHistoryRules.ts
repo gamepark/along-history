@@ -18,7 +18,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
 
   locationsStrategies = {
     [MaterialType.Card]: {
-      [LocationType.Deck]: new PositiveSequenceStrategy()
+      [LocationType.Deck]: new PositiveSequenceStrategy(),
+      [LocationType.EventArea]: new FillGapStrategy()
     },
     [MaterialType.CivilisationToken]: {
       [LocationType.AchievementsBoard]: new ArrivalOrderZStrategy()

@@ -39,6 +39,8 @@ import Woodlands from '../images/cards/prehistory/fr/Woodlands.jpg'
 import WoollyRhinoceros from '../images/cards/prehistory/fr/WoollyRhinoceros.jpg'
 
 class AlongHistoryCardDescription extends CardDescription {
+  height = 8.89
+
   images = {
     [Card.Forest]: Forest,
     [Card.Hills]: Hills,
