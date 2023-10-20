@@ -17,7 +17,8 @@ export default function App() {
   return (
     <>
       <GameDisplay/>
-      <LoadingScreen display={loading} author="Someone" artist="Somebody" publisher="Nobody" developer="You"/>
+      <LoadingScreen display={loading} author="François Bachelart" artist={['Antonio Mainez', 'Julie Gruet']} publisher="Nostromo Éditions"
+                     developer="Game Park"/>
       <MaterialHeader rulesStepsHeaders={RulesHeaders} loading={loading}/>
       <Menu/>
       <FailuresDialog/>
