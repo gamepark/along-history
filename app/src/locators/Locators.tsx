@@ -5,11 +5,15 @@ import { ItemLocator } from '@gamepark/react-game'
 import { achievementsBoardLocator } from './AchievementsBoardLocator'
 import { deckLocator } from './DeckLocator'
 import { discardTileLocator } from './DiscardTileLocator'
+import { playerUniversalResourceLocator } from './PlayerUniversalResourceLocator'
 import { resultTokenStockLocator } from './ResultTokenStockLocator'
+import { universalResourceStockLocator } from './UniversalResourceStockLocator'
 
 export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, MaterialType, LocationType>>> = {
   [LocationType.Deck]: deckLocator,
   [LocationType.AchievementsBoard]: achievementsBoardLocator,
   [LocationType.DiscardTile]: discardTileLocator,
-  [LocationType.ResultTokenStock]: resultTokenStockLocator
+  [LocationType.ResultTokenStock]: resultTokenStockLocator,
+  [LocationType.UniversalResourceStock]: universalResourceStockLocator,
+  [LocationType.PlayerUniversalResource]: playerUniversalResourceLocator
 }
