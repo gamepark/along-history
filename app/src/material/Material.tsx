@@ -5,6 +5,7 @@ import { boardDescription } from './BoardDescription'
 import { cardDescription } from './CardDescription'
 import { civilisationTokenDescription } from './CivilisationTokenDescription'
 import { diceDescription } from './DiceDescription'
+import { discardTileDescription } from './DiscardTileDescription'
 import { resultTokenDescription } from './ResultTokenDescription'
 import { universalResourceDescription } from './UniversalResourceDescription'
 
@@ -15,5 +16,6 @@ export const Material: Partial<Record<MaterialType, MaterialDescription>> = {
   [MaterialType.Dice]: diceDescription,
   [MaterialType.ResultToken]: resultTokenDescription,
   [MaterialType.UniversalResource]: universalResourceDescription,
-  [MaterialType.AchievementToken]: achievementTokenDescription
+  [MaterialType.AchievementToken]: achievementTokenDescription,
+  [MaterialType.DiscardTile]: discardTileDescription
 }

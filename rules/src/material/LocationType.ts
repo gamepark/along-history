@@ -1,4 +1,4 @@
 export enum LocationType {
   Table = 1, Deck, AchievementsBoard, DiscardTile, ResultTokenStock, UniversalResourceStock,
-  PlayerUniversalResource, EventArea, Discard
+  PlayerUniversalResource, EventArea, Discard, PlayerDiscardTile
 }

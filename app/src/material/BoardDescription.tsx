@@ -1,6 +1,6 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { BoardDescription } from '@gamepark/react-game'
-import board1 from '../images/board/plateau_recto.jpg'
+import board1 from '../images/board/BoardFront.jpg'
 
 class AlongHistoryBoardDescription extends BoardDescription {
   image = board1 // TODO: game option & dynamic image

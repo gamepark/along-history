@@ -26,6 +26,7 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     this.setupResourceItems()
     this.setupAchievementTokens()
     this.setupEventAreas()
+    this.setupDiscardTile()
   }
 
   setupDeck() {
@@ -43,7 +44,7 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
 
   setupResourceItems() {
     this.material(MaterialType.Dice).createItems(listingToList(DiceCount).filter(dice => dice !== DiceType.Gold).map(dice => (
-      { id: dice, location: { type: LocationType.DiscardTile } }
+      { id: dice, location: { type: LocationType.DiscardTile, parent: 0 } }
     )))
     this.material(MaterialType.ResultToken).createItems(listingToList(ResultTokens).map(id => (
       { id, location: { type: LocationType.ResultTokenStock } }
@@ -91,6 +92,10 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
       this.material(MaterialType.Card).location(LocationType.Deck).deck().deal({ location: { type: LocationType.EventArea, player } }, cards.length)
       this.discardCalamitiesAndWonders(player)
     }
+  }
+
+  setupDiscardTile() {
+    this.material(MaterialType.DiscardTile).createItem({ location: { type: LocationType.PlayerDiscardTile, player: this.players[0] } })
   }
 
   start() {
