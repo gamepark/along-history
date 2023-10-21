@@ -1,4 +1,5 @@
-import { DiceType } from '@gamepark/along-history/material/Dice'
+import { DiceType, GoldDice, PopulationDice, ResourceDice, SpecialDice } from '@gamepark/along-history/material/Dice'
+import { DiceSymbol } from '@gamepark/along-history/material/DiceSymbol'
 import { CubicDiceDescription } from '@gamepark/react-game'
 import Gold3 from '../images/dices/gold/Gold3.jpg'
 import Gold4 from '../images/dices/gold/Gold4.jpg'
@@ -18,10 +19,20 @@ import War from '../images/dices/special/War.jpg'
 class DiceDescription extends CubicDiceDescription {
 
   images = {
-    [DiceType.Population]: [Population1, Population1, Population1, Population2, Population2, Population3],
-    [DiceType.Resource]: [Culture, Culture, Ingenuity, Ingenuity, Strength, Strength],
-    [DiceType.Special]: [GoldenAge, GoldenAge, Multiplier, Reroll, Reroll, War],
-    [DiceType.Gold]: [Gold3, Gold3, Gold3, Gold4, Gold5, Gold6],
+    [DiceSymbol.Population1]: Population1,
+    [DiceSymbol.Population2]: Population2,
+    [DiceSymbol.Population3]: Population3,
+    [DiceSymbol.Culture]: Culture,
+    [DiceSymbol.Ingenuity]: Ingenuity,
+    [DiceSymbol.Strength]: Strength,
+    [DiceSymbol.GoldenAge]: GoldenAge,
+    [DiceSymbol.Multiplier]: Multiplier,
+    [DiceSymbol.Reroll]: Reroll,
+    [DiceSymbol.War]: War,
+    [DiceSymbol.Gold3]: Gold3,
+    [DiceSymbol.Gold4]: Gold4,
+    [DiceSymbol.Gold5]: Gold5,
+    [DiceSymbol.Gold6]: Gold6
   }
 
   getColor(diceType: DiceType) {
@@ -34,6 +45,19 @@ class DiceDescription extends CubicDiceDescription {
         return '#b5050e'
       case DiceType.Gold:
         return '#222222'
+    }
+  }
+
+  getSideId(index: number, diceType: DiceType) {
+    switch (diceType) {
+      case DiceType.Population:
+        return PopulationDice[index]
+      case DiceType.Resource:
+        return ResourceDice[index]
+      case DiceType.Special:
+        return SpecialDice[index]
+      case DiceType.Gold:
+        return GoldDice[index]
     }
   }
 }
