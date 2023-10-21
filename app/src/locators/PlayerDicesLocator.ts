@@ -24,8 +24,8 @@ class PlayerDicesLocator extends ItemLocator {
     }
   }
 
-  getRotations(item: MaterialItem): string[] {
-    return ['rotate3d(1, -1, 0, 15deg)', diceDescription.getRotationForSide((item.location.rotation ?? 1) - 1)]
+  getRotations(item: MaterialItem, context: ItemContext): string[] {
+    return ['rotate3d(1, -1, 0, 15deg)', ...super.getRotations(item, context)]
   }
 }
 
