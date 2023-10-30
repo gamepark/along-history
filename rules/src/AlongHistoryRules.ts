@@ -2,8 +2,7 @@ import { FillGapStrategy, HiddenMaterialRules, hideFront, PositiveSequenceStrate
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
-import { ReRollDices } from './rules/ReRollDices'
-import { RollDices } from './rules/RollDices'
+import { ActivePlayerTurn } from './rules/ActivePlayerTurn'
 import { RuleId } from './rules/RuleId'
 import { ArrivalOrderZStrategy } from './util/ArrivalOrderZStrategy'
 
@@ -14,8 +13,7 @@ import { ArrivalOrderZStrategy } from './util/ArrivalOrderZStrategy'
  */
 export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, MaterialType, LocationType> {
   rules = {
-    [RuleId.RollDices]: RollDices,
-    [RuleId.ReRollDices]: ReRollDices
+    [RuleId.ActivePlayerTurn]: ActivePlayerTurn
   }
 
   locationsStrategies = {
