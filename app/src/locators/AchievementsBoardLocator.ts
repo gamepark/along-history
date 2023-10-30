@@ -1,6 +1,6 @@
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
-import { Coordinates, Location, MaterialItem } from '../../../../workshop/packages/rules-api'
+import { Coordinates, Location, MaterialItem } from '@gamepark/rules-api'
 
 class AchievementsBoardLocator extends ItemLocator {
   parentItemType = MaterialType.Board

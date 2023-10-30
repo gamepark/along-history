@@ -1,5 +1,5 @@
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
-import { Coordinates, MaterialItem } from '../../../../workshop/packages/rules-api'
+import { Coordinates, MaterialItem } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
 

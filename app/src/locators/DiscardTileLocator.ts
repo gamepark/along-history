@@ -1,6 +1,6 @@
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { GridLocator, ItemContext } from '@gamepark/react-game'
-import { MaterialItem } from '../../../../workshop/packages/rules-api'
+import { MaterialItem } from '@gamepark/rules-api'
 import { diceDescription } from '../material/DiceDescription'
 
 class DiscardTileLocator extends GridLocator {
