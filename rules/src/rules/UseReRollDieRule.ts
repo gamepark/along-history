@@ -3,9 +3,9 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
 import { RuleId } from './RuleId'
-import { TradeRule } from './TradeRule'
+import { TradeCardsRule } from './TradeCardsRule'
 
-export class UseReRollDieRule extends TradeRule {
+export class UseReRollDieRule extends TradeCardsRule {
   getPlayerMoves() {
     if (this.selectedDice.length > 0) {
       return this.selectDices.concat(this.rules().customMove(CustomMoveType.Reroll))
