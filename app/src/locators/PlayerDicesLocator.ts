@@ -1,11 +1,11 @@
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
-import { Coordinates, MaterialItem } from '../../../../workshop/packages/rules-api'
+import { MaterialItem } from '../../../../workshop/packages/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { diceDescription } from '../material/DiceDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
 
 class PlayerDicesLocator extends ItemLocator {
-  getPosition(item: MaterialItem, context: ItemContext): Coordinates {
+  getPosition(item: MaterialItem, context: ItemContext) {
     const playerIndex = this.getRelativePlayerIndex(context, item.location.player!)
     const itemIndex = this.getItemIndex(item, context)
     switch (playerIndex) {
@@ -24,7 +24,7 @@ class PlayerDicesLocator extends ItemLocator {
     }
   }
 
-  getRotations(item: MaterialItem, context: ItemContext): string[] {
+  getRotations(item: MaterialItem, context: ItemContext) {
     return ['rotate3d(1, -1, 0, 15deg)', ...super.getRotations(item, context)]
   }
 }
