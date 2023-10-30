@@ -5,6 +5,10 @@ import { FailuresDialog, FullscreenDialog, LoadingScreen, MaterialHeader, Menu, 
 import { MaterialGame } from '@gamepark/rules-api'
 import { useEffect, useState } from 'react'
 import GameDisplay from './GameDisplay'
+import { RollDiceHeader } from './headers/RollDiceHeader'
+import { TradeCardsHeader } from './headers/TradeCardsHeader'
+import { UseDiceHeader } from './headers/UseDiceHeader'
+import { UseDiscardedDieHeader } from './headers/UseDiscardedDieHeader'
 import { UseReRollDieHeader } from './headers/UseReRollDieHeader'
 
 export default function App() {
@@ -28,5 +32,9 @@ export default function App() {
 }
 
 const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
-  [RuleId.UseReRollDie]: UseReRollDieHeader
+  [RuleId.RollDice]: RollDiceHeader,
+  [RuleId.UseDice]: UseDiceHeader,
+  [RuleId.UseDiscardedDie]: UseDiscardedDieHeader,
+  [RuleId.UseReRollDie]: UseReRollDieHeader,
+  [RuleId.TradeCards]: TradeCardsHeader
 }
