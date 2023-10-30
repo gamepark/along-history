@@ -5,7 +5,7 @@ import { FailuresDialog, FullscreenDialog, LoadingScreen, MaterialHeader, Menu, 
 import { MaterialGame } from '@gamepark/rules-api'
 import { useEffect, useState } from 'react'
 import GameDisplay from './GameDisplay'
-import { PlayerTurnHeader } from './headers/PlayerTurnHeader'
+import { ActivePlayerTurnHeader } from './headers/ActivePlayerTurnHeader'
 
 export default function App() {
   const game = useGame<MaterialGame>()
@@ -28,5 +28,5 @@ export default function App() {
 }
 
 const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
-  [RuleId.ActivePlayerTurn]: PlayerTurnHeader
+  [RuleId.ActivePlayerTurn]: ActivePlayerTurnHeader
 }

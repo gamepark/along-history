@@ -1,4 +1,4 @@
-import { isMoveItem, isRoll, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isMoveItem, isRoll, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { getDiceSymbol } from '../material/Dices'
 import { DiceSymbol } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
@@ -54,6 +54,17 @@ export class ActivePlayerTurn extends PlayerTurnRule {
         } else if (isRoll(move)) {
           this.forget(Memory.DiscardedDice)
         }
+    }
+    return []
+  }
+
+  onCustomMove(move: CustomMove) {
+    if (move.type === CustomMoveType.Reroll) {
+      const selectedDice = this.material(MaterialType.Dice).selected()
+      for (const item of selectedDice.getItems()) {
+        delete item.selected
+      }
+      return selectedDice.rollItems()
     }
     return []
   }
