@@ -1,3 +1,3 @@
 export enum RuleId {
-  ActivePlayerTurn
+  RollDice, UseDice, UseDiscardedDie, UseReRollDie, AcquireCards
 }

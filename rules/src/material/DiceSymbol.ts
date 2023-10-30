@@ -7,7 +7,7 @@ export enum DiceSymbol {
   Strength,
   GoldenAge,
   Multiplier,
-  Reroll,
+  ReRoll,
   War,
   Gold3,
   Gold4,

@@ -35,10 +35,10 @@ export const ResourceDice = [
 
 export const SpecialDice = [
   DiceSymbol.GoldenAge,
-  DiceSymbol.Reroll,
+  DiceSymbol.ReRoll,
   DiceSymbol.Multiplier,
   DiceSymbol.War,
-  DiceSymbol.Reroll,
+  DiceSymbol.ReRoll,
   DiceSymbol.GoldenAge
 ]
 

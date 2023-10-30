@@ -6,7 +6,7 @@ import { PlayMoveButton, useLegalMoves, useRules } from '@gamepark/react-game'
 import { isCustomMoveType } from '@gamepark/rules-api'
 import { Trans } from 'react-i18next'
 
-export const ActivePlayerTurnHeader = () => {
+export const UseReRollDieHeader = () => {
   const rules = useRules<AlongHistoryRules>()
   const legalMoves = useLegalMoves()
 

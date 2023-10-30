@@ -27,7 +27,7 @@ class DiceDescription extends CubicDiceDescription {
     [DiceSymbol.Strength]: Strength,
     [DiceSymbol.GoldenAge]: GoldenAge,
     [DiceSymbol.Multiplier]: Multiplier,
-    [DiceSymbol.Reroll]: Reroll,
+    [DiceSymbol.ReRoll]: Reroll,
     [DiceSymbol.War]: War,
     [DiceSymbol.Gold3]: Gold3,
     [DiceSymbol.Gold4]: Gold4,

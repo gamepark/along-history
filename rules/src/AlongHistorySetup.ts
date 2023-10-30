@@ -99,7 +99,7 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
   }
 
   start() {
-    this.startPlayerTurn(RuleId.ActivePlayerTurn, this.game.players[0])
+    this.startRule(RuleId.RollDice)
   }
 }
 
