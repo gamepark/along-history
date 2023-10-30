@@ -1,3 +1,4 @@
+import { MaterialItem } from '../../../../workshop/packages/rules-api'
 import { DiceSymbol } from './DiceSymbol'
 
 export enum DiceType {
@@ -49,3 +50,12 @@ export const GoldDice = [
   DiceSymbol.Gold5,
   DiceSymbol.Gold6
 ]
+
+export const Dices: Record<DiceType, DiceSymbol[]> = {
+  [DiceType.Population]: PopulationDice,
+  [DiceType.Resource]: ResourceDice,
+  [DiceType.Special]: SpecialDice,
+  [DiceType.Gold]: GoldDice
+}
+
+export const getDiceSymbol = (dice: MaterialItem): DiceSymbol => Dices[dice.id][dice.location.rotation]

@@ -1,4 +1,4 @@
-import { DiceType, GoldDice, PopulationDice, ResourceDice, SpecialDice } from '@gamepark/along-history/material/Dice'
+import { DiceType, GoldDice, PopulationDice, ResourceDice, SpecialDice } from '@gamepark/along-history/material/Dices'
 import { DiceSymbol } from '@gamepark/along-history/material/DiceSymbol'
 import { CubicDiceDescription } from '@gamepark/react-game'
 import Gold3 from '../images/dices/gold/Gold3.jpg'

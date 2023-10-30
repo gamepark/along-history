@@ -1,6 +1,9 @@
 import { isMoveItem, isRoll, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { getDiceSymbol } from '../material/Dices'
+import { DiceSymbol } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { CustomMoveType } from './CustomMoveType'
 import { Memory } from './Memory'
 
 export class ActivePlayerTurn extends PlayerTurnRule {
@@ -9,11 +12,21 @@ export class ActivePlayerTurn extends PlayerTurnRule {
   }
 
   getPlayerMoves() {
+    const moves: MaterialMove[] = []
     const discardedDice = this.remind(Memory.DiscardedDice)
     if (discardedDice !== undefined) {
-      return this.rerollDice
+      if (getDiceSymbol(this.material(MaterialType.Dice).getItem(discardedDice)!) === DiceSymbol.Reroll) {
+        moves.push(...this.selectDices)
+        if (this.selectedDices.length > 0) {
+          moves.push(this.rules().customMove(CustomMoveType.Reroll))
+        }
+      } else {
+        moves.push(...this.rerollOneDice)
+      }
+    } else {
+      moves.push(...this.discardDice)
     }
-    return this.discardDice
+    return moves
   }
 
   get discardDice() {
@@ -21,8 +34,16 @@ export class ActivePlayerTurn extends PlayerTurnRule {
       .moveItems(item => ({ type: LocationType.DiscardTile, parent: 0, rotation: item.location.rotation }))
   }
 
-  get rerollDice() {
+  get rerollOneDice() {
     return this.material(MaterialType.Dice).location(LocationType.PlayerDices).player(this.player).rollItems()
+  }
+
+  get selectDices() {
+    return this.material(MaterialType.Dice).location(LocationType.PlayerDices).player(this.player).selected(false).selectItems()
+  }
+
+  get selectedDices() {
+    return this.material(MaterialType.Dice).selected()
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {

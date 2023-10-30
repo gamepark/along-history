@@ -11,9 +11,9 @@ class PlayerDicesLocator extends ItemLocator {
     switch (playerIndex) {
       case 0:
         return {
-          x: itemIndex * 2.2 + 2,
-          y: boardDescription.height / 2 + diceDescription.width / 2 + 1,
-          z: diceDescription.width / 2
+          x: itemIndex * 2.2 + 2 - (item.selected ? 0.2 : 0),
+          y: boardDescription.height / 2 + diceDescription.width / 2 + 1 - (item.selected ? 0.5 : 0),
+          z: diceDescription.width / 2 + (item.selected ? diceDescription.width : 0)
         }
       default:
         return {
