@@ -34,7 +34,7 @@ class PlayerUniversalResourceLocator extends LineLocator {
     }
   }
 
-  getRotation(item: MaterialItem, context: ItemContext): number {
+  getRotateZ(item: MaterialItem, context: ItemContext): number {
     const playerIndex = this.getRelativePlayerIndex(context, item.location.player!)
     return playerIndex === 0 ? 45 : -45
   }

@@ -24,7 +24,7 @@ class EventAreaLocator extends LineLocator {
     }
   }
 
-  getRotation(item: MaterialItem<number, number>, context: ItemContext<number, number, number>): number {
+  getRotateZ(item: MaterialItem<number, number>, context: ItemContext<number, number, number>): number {
     const playerIndex = this.getRelativePlayerIndex(context, item.location.player!)
     return playerIndex === 0 ? 0 : -90
   }
