@@ -22,6 +22,7 @@ import { Mountain } from './prehistory/Mountain'
 import { Neanderthal } from './prehistory/Neanderthal'
 import { Peninsula } from './prehistory/Peninsula'
 import { River } from './prehistory/River'
+import { Sedentism } from './prehistory/Sedentism'
 import { Starving } from './prehistory/Starving'
 import { Stonehenge } from './prehistory/Stonehenge'
 import { Swamp } from './prehistory/Swamp'
@@ -64,6 +65,7 @@ export const CardsInfo: Record<Card, CardInfo> = {
   [Card.Wildcrafting]: Wildcrafting,
   [Card.Fishing]: Fishing,
   [Card.Hunting]: Hunting,
+  [Card.Sedentism]: Sedentism,
   [Card.Tools]: Tools,
   [Card.Weapons]: Weapons,
   [Card.Cannibals]: Cannibals,

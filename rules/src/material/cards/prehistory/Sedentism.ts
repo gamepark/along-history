@@ -2,8 +2,8 @@ import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
 
-export const Hunting: CardInfo = {
+export const Sedentism: CardInfo = {
   type: CardType.Progress,
-  populationCost: 4,
+  populationCost: 5,
   resourcesCost: [Resource.Ingenuity]
 }

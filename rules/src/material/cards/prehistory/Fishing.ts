@@ -1,6 +1,9 @@
+import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
 
 export const Fishing: CardInfo = {
-  type: CardType.Progress
+  type: CardType.Progress,
+  populationCost: 4,
+  resourcesCost: [Resource.Ingenuity]
 }

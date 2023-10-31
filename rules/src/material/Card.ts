@@ -26,6 +26,7 @@ export enum Card {
   Wildcrafting,
   Fishing,
   Hunting,
+  Sedentism,
   Tools,
   Weapons,
   Cannibals,

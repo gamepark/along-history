@@ -1,6 +1,9 @@
+import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
 
 export const Wolves: CardInfo = {
-  type: CardType.Calamity
+  type: CardType.Calamity,
+  populationCost: 4,
+  resourcesCost: [Resource.Strength]
 }

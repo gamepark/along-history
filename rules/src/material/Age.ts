@@ -35,6 +35,7 @@ export const AgesCards: Record<Age, Partial<Record<Card, number>>> = {
     [Card.Wildcrafting]: 2,
     [Card.Fishing]: 2,
     [Card.Hunting]: 2,
+    [Card.Sedentism]: 1,
     [Card.Tools]: 1,
     [Card.Weapons]: 1,
     [Card.Cannibals]: 1,

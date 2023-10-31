@@ -24,6 +24,7 @@ import Mountain from '../images/cards/prehistory/fr/Mountain.jpg'
 import Neanderthal from '../images/cards/prehistory/fr/Neanderthal.jpg'
 import Peninsula from '../images/cards/prehistory/fr/Peninsula.jpg'
 import River from '../images/cards/prehistory/fr/River.jpg'
+import Sedentism from '../images/cards/prehistory/fr/Sedentism.jpg'
 import Starving from '../images/cards/prehistory/fr/Starving.jpg'
 import Stonehenge from '../images/cards/prehistory/fr/Stonehenge.jpg'
 import Swamp from '../images/cards/prehistory/fr/Swamp.jpg'
@@ -69,6 +70,7 @@ class AlongHistoryCardDescription extends CardDescription {
     [Card.Wildcrafting]: Wildcrafting,
     [Card.Fishing]: Fishing,
     [Card.Hunting]: Hunting,
+    [Card.Sedentism]: Sedentism,
     [Card.Tools]: Tools,
     [Card.Weapons]: Weapons,
     [Card.Cannibals]: Cannibals,
