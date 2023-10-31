@@ -2,6 +2,7 @@ import { FillGapStrategy, HiddenMaterialRules, hideFront, PositiveSequenceStrate
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
+import { AcquireCardsRule } from './rules/AcquireCardsRule'
 import { PayCardRule } from './rules/PayCardRule'
 import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
@@ -23,7 +24,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.UseDiscardedDie]: UseDiscardedDieRule,
     [RuleId.UseReRollDie]: UseReRollDieRule,
     [RuleId.TradeCards]: TradeCardsRule,
-    [RuleId.PayCard]: PayCardRule
+    [RuleId.PayCard]: PayCardRule,
+    [RuleId.AcquireCards]: AcquireCardsRule
   }
 
   locationsStrategies = {

@@ -5,6 +5,7 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Resource } from '../material/Resource'
 import { Memory } from './Memory'
+import { RuleId } from './RuleId'
 
 export class PayCardRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
@@ -33,6 +34,10 @@ export class PayCardRule extends PlayerTurnRule {
     return this.playerDice.id(DiceType.Population).moveItems(diceToDiscardTile)
   }
 
+  get costPaid() {
+    return this.remind<number>(Memory.PopulationCost) === 0 && this.remind<Resource[]>(Memory.ResourcesCost).length === 0
+  }
+
   afterItemMove(move: ItemMove) {
     if (isMoveItem(move) && move.itemType === MaterialType.Dice && move.location.type === LocationType.DiscardTile) {
       const symbol = getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!)
@@ -42,6 +47,9 @@ export class PayCardRule extends PlayerTurnRule {
         const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
         resourcesCost.splice(resourcesCost.indexOf(symbol), 1)
       }
+    }
+    if (this.costPaid) {
+      return [this.rules().startRule(RuleId.AcquireCards)]
     }
     return []
   }

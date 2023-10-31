@@ -3,10 +3,10 @@ import { diceToDiscardTile, getDiceSymbol } from '../material/Dices'
 import { DiceSymbol } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { ActivePlayerRule } from './ActivePlayerRule'
+import { AcquireCardsRule } from './AcquireCardsRule'
 import { RuleId } from './RuleId'
 
-export class UseDiceRule extends ActivePlayerRule {
+export class UseDiceRule extends AcquireCardsRule {
   getPlayerMoves() {
     return super.getPlayerMoves().concat(this.discardDice)
   }
