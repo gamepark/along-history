@@ -1,11 +1,11 @@
-import { ItemContext, LineLocator } from '@gamepark/react-game'
+import { getRelativePlayerIndex, ItemContext, LineLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
 
 class EventAreaLocator extends LineLocator {
   getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
-    const playerIndex = this.getRelativePlayerIndex(context, item.location.player!)
+    const playerIndex = getRelativePlayerIndex(context, item.location.player)
     switch (playerIndex) {
       case 0:
         return {
@@ -23,7 +23,7 @@ class EventAreaLocator extends LineLocator {
   }
 
   getDelta(item: MaterialItem, context: ItemContext): Partial<Coordinates> {
-    const playerIndex = this.getRelativePlayerIndex(context, item.location.player!)
+    const playerIndex = getRelativePlayerIndex(context, item.location.player)
     switch (playerIndex) {
       case 0:
         return { x: cardDescription.width + 1 }
@@ -33,7 +33,7 @@ class EventAreaLocator extends LineLocator {
   }
 
   getRotateZ(item: MaterialItem<number, number>, context: ItemContext<number, number, number>): number {
-    const playerIndex = this.getRelativePlayerIndex(context, item.location.player!)
+    const playerIndex = getRelativePlayerIndex(context, item.location.player)
     return playerIndex === 0 ? 0 : -90
   }
 }

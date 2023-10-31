@@ -21,6 +21,6 @@ export class UseDiceRule extends ActivePlayerRule {
       const isReRoll = getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!) === DiceSymbol.ReRoll
       return [this.rules().startRule(isReRoll ? RuleId.UseReRollDie : RuleId.UseDiscardedDie)]
     }
-    return []
+    return super.afterItemMove(move)
   }
 }

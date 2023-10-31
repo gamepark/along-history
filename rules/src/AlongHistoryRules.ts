@@ -2,6 +2,7 @@ import { FillGapStrategy, HiddenMaterialRules, hideFront, PositiveSequenceStrate
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
+import { PayCardRule } from './rules/PayCardRule'
 import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
 import { TradeCardsRule } from './rules/TradeCardsRule'
@@ -21,13 +22,15 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.UseDice]: UseDiceRule,
     [RuleId.UseDiscardedDie]: UseDiscardedDieRule,
     [RuleId.UseReRollDie]: UseReRollDieRule,
-    [RuleId.TradeCards]: TradeCardsRule
+    [RuleId.TradeCards]: TradeCardsRule,
+    [RuleId.PayCard]: PayCardRule
   }
 
   locationsStrategies = {
     [MaterialType.Card]: {
       [LocationType.Deck]: new PositiveSequenceStrategy(),
-      [LocationType.EventArea]: new FillGapStrategy()
+      [LocationType.EventArea]: new FillGapStrategy(),
+      [LocationType.CivilisationArea]: new PositiveSequenceStrategy()
     },
     [MaterialType.CivilisationToken]: {
       [LocationType.AchievementsBoard]: new ArrivalOrderZStrategy()

@@ -1,4 +1,4 @@
-import { ItemContext, LineLocator } from '@gamepark/react-game'
+import { getRelativePlayerIndex, ItemContext, LineLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
@@ -7,7 +7,7 @@ class PlayerUniversalResourceLocator extends LineLocator {
   delta = { y: 3 }
 
   getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
-    const playerIndex = this.getRelativePlayerIndex(context, item.location.player!)
+    const playerIndex = getRelativePlayerIndex(context, item.location.player)
     switch (playerIndex) {
       case 0:
         return {
@@ -25,7 +25,7 @@ class PlayerUniversalResourceLocator extends LineLocator {
   }
 
   getDelta(item: MaterialItem, context: ItemContext): Partial<Coordinates> {
-    const playerIndex = this.getRelativePlayerIndex(context, item.location.player!)
+    const playerIndex = getRelativePlayerIndex(context, item.location.player)
     switch (playerIndex) {
       case 0:
         return { x: 3 }
@@ -35,7 +35,7 @@ class PlayerUniversalResourceLocator extends LineLocator {
   }
 
   getRotateZ(item: MaterialItem, context: ItemContext): number {
-    const playerIndex = this.getRelativePlayerIndex(context, item.location.player!)
+    const playerIndex = getRelativePlayerIndex(context, item.location.player)
     return playerIndex === 0 ? 45 : -45
   }
 }

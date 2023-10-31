@@ -1,3 +1,3 @@
 export enum RuleId {
-  RollDice, UseDice, UseDiscardedDie, UseReRollDie, TradeCards, AcquireCards
+  RollDice, UseDice, UseDiscardedDie, UseReRollDie, TradeCards, PayCard, AcquireCards
 }

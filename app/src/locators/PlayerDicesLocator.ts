@@ -1,4 +1,4 @@
-import { ItemContext, ItemLocator } from '@gamepark/react-game'
+import { getRelativePlayerIndex, ItemContext, ItemLocator } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { diceDescription } from '../material/DiceDescription'
@@ -6,7 +6,7 @@ import { discardTileDescription } from '../material/DiscardTileDescription'
 
 class PlayerDicesLocator extends ItemLocator {
   getPosition(item: MaterialItem, context: ItemContext) {
-    const playerIndex = this.getRelativePlayerIndex(context, item.location.player!)
+    const playerIndex = getRelativePlayerIndex(context, item.location.player)
     const itemIndex = this.getItemIndex(item, context)
     switch (playerIndex) {
       case 0:
