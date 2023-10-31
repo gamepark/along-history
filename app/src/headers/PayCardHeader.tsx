@@ -26,7 +26,7 @@ export const PayCardHeader = () => {
 
   return <Trans defaults={key} values={{ population, player: playerName }}>
     <Picture src={Population} css={iconCss}/>
-    <>{resources.map(resource => <Picture src={ResourceImages[resource]} css={iconCss}/>)}</>
+    <>{resources.map((resource, index) => <Picture key={index} src={ResourceImages[resource]} css={iconCss}/>)}</>
   </Trans>
 }
 
