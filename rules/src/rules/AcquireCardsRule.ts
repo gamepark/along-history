@@ -1,4 +1,4 @@
-import { isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { LocationType } from '../material/LocationType'
@@ -24,6 +24,13 @@ export class AcquireCardsRule extends PlayerTurnRule {
       this.memorize(Memory.PopulationCost, cardInfo.populationCost)
       this.memorize(Memory.ResourcesCost, cardInfo.resourcesCost)
       return [this.rules().startRule(RuleId.PayCard)]
+    }
+    return []
+  }
+
+  onCustomMove(move: CustomMove) {
+    if (move.type === CustomMoveType.Pass) {
+      return [this.rules().startRule(RuleId.Calamities)]
     }
     return []
   }

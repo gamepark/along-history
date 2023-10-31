@@ -2,7 +2,10 @@ import { FillGapStrategy, HiddenMaterialRules, hideFront, PositiveSequenceStrate
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
+import { AchievementsRule } from './rules/AchievementsRule'
 import { AcquireCardsRule } from './rules/AcquireCardsRule'
+import { CalamitiesRule } from './rules/CalamitiesRule'
+import { NewEventsRule } from './rules/NewEventsRule'
 import { PayCardRule } from './rules/PayCardRule'
 import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
@@ -10,6 +13,7 @@ import { TradeCardsRule } from './rules/TradeCardsRule'
 import { UseDiceRule } from './rules/UseDiceRule'
 import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
+import { WarsRule } from './rules/WarsRule'
 import { ArrivalOrderZStrategy } from './util/ArrivalOrderZStrategy'
 
 
@@ -25,7 +29,11 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.UseReRollDie]: UseReRollDieRule,
     [RuleId.TradeCards]: TradeCardsRule,
     [RuleId.PayCard]: PayCardRule,
-    [RuleId.AcquireCards]: AcquireCardsRule
+    [RuleId.AcquireCards]: AcquireCardsRule,
+    [RuleId.Calamities]: CalamitiesRule,
+    [RuleId.Wars]: WarsRule,
+    [RuleId.NewEvents]: NewEventsRule,
+    [RuleId.Achievements]: AchievementsRule
   }
 
   locationsStrategies = {
