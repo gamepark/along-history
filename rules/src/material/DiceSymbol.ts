@@ -14,3 +14,5 @@ export enum DiceSymbol {
   Gold5,
   Gold6,
 }
+
+export const isPopulationSymbol = (symbol: DiceSymbol): boolean => symbol <= 3
