@@ -5,6 +5,7 @@ import { FailuresDialog, FullscreenDialog, LoadingScreen, MaterialHeader, Menu, 
 import { MaterialGame } from '@gamepark/rules-api'
 import { useEffect, useState } from 'react'
 import GameDisplay from './GameDisplay'
+import { AcquireCardsHeader } from './headers/AcquireCardsHeader'
 import { PayCardHeader } from './headers/PayCardHeader'
 import { RollDiceHeader } from './headers/RollDiceHeader'
 import { TradeCardsHeader } from './headers/TradeCardsHeader'
@@ -38,5 +39,6 @@ const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
   [RuleId.UseDiscardedDie]: UseDiscardedDieHeader,
   [RuleId.UseReRollDie]: UseReRollDieHeader,
   [RuleId.TradeCards]: TradeCardsHeader,
-  [RuleId.PayCard]: PayCardHeader
+  [RuleId.PayCard]: PayCardHeader,
+  [RuleId.AcquireCards]: AcquireCardsHeader
 }

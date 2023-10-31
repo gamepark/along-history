@@ -3,11 +3,16 @@ import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { CustomMoveType } from './CustomMoveType'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
 export class AcquireCardsRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
+    return this.moveAffordableCardsToCivilisationArea.concat(this.rules().customMove(CustomMoveType.Pass))
+  }
+
+  get moveAffordableCardsToCivilisationArea(): MaterialMove[] {
     return this.material(MaterialType.Card).location(LocationType.EventArea).player(this.player)
       .moveItems({ type: LocationType.CivilisationArea, player: this.player })
   }
