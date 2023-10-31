@@ -1,9 +1,10 @@
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { ItemContext, ItemLocator } from '@gamepark/react-game'
+import { ItemContext, ItemLocator, LocationDescription } from '@gamepark/react-game'
 import { Coordinates, Location, MaterialItem } from '@gamepark/rules-api'
 
 class AchievementsBoardLocator extends ItemLocator {
   parentItemType = MaterialType.Board
+  locationDescription = new AchievementBoardLocationDescription()
 
   getPositionOnParent(location: Location) {
     const x = location.x!
@@ -26,6 +27,12 @@ class AchievementsBoardLocator extends ItemLocator {
         return { x: 0, y: tokenDeltaY, z: 0.2 }
     }
   }
+}
+
+class AchievementBoardLocationDescription extends LocationDescription {
+  width = 3
+  ratio = 1
+  borderRadius = 1.5
 }
 
 export const achievementsBoardLocator = new AchievementsBoardLocator()

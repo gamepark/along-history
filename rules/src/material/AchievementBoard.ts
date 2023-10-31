@@ -1,3 +1,5 @@
+import { XYCoordinates } from '@gamepark/rules-api'
+
 export const AchievementBoardLocations = [
   [0], // start column: start location in the middle
   [-3, -1, 1, 3], // column 1
@@ -7,4 +9,44 @@ export const AchievementBoardLocations = [
   [-3, -1, 1, 3],
   [-2, 0, 2],
   [0]
+]
+
+export const AchievementsFrontPaths: Record<number, XYCoordinates[]>[] = [
+  {
+    [0]: [{ x: 1, y: -3 }, { x: 1, y: -1 }, { x: 2, y: 0 }, { x: 1, y: 1 }, { x: 1, y: 3 }]
+  },
+  {
+    [-3]: [{ x: 2, y: -2 }],
+    [-1]: [{ x: 2, y: -2 }, { x: 2, y: 0 }],
+    [1]: [{ x: 2, y: 2 }],
+    [3]: [{ x: 2, y: 2 }, { x: 3, y: 3 }]
+  },
+  {
+    [-2]: [{ x: 3, y: -3 }],
+    [0]: [{ x: 3, y: -1 }, { x: 3, y: 1 }],
+    [2]: [{ x: 3, y: 1 }]
+  },
+  {
+    [-3]: [{ x: 5, y: -3 }, { x: 4, y: -2 }, { x: 3, y: -1 }],
+    [-1]: [{ x: 3, y: -3 }, { x: 4, y: -2 }, { x: 4, y: 0 }, { x: 3, y: 1 }],
+    [1]: [{ x: 3, y: -1 }, { x: 4, y: 2 }, { x: 3, y: 3 }],
+    [3]: [{ x: 3, y: 1 }, { x: 4, y: 2 }]
+  },
+  {
+    [-2]: [{ x: 5, y: -3 }, { x: 5, y: -1 }],
+    [0]: [{ x: 6, y: 0 }, { x: 5, y: 1 }],
+    [2]: [{ x: 5, y: 3 }]
+  },
+  {
+    [-3]: [{ x: 6, y: -2 }, { x: 5, y: -1 }],
+    [-1]: [{ x: 5, y: -3 }, { x: 6, y: 0 }],
+    [1]: [{ x: 6, y: 0 }, { x: 6, y: 2 }, { x: 5, y: 3 }],
+    [3]: [{ x: 5, y: 1 }, { x: 6, y: 2 }]
+  },
+  {
+    [-2]: [{ x: 7, y: 0 }],
+    [0]: [{ x: 7, y: 0 }],
+    [2]: [{ x: 7, y: 0 }]
+  },
+  { [0]: [] }
 ]

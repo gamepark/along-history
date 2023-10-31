@@ -1,6 +1,6 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { getRelativePlayerIndex, ItemContext, LineLocator, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, MaterialItem } from '../../../../workshop/packages/rules-api'
+import { Coordinates, MaterialItem } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
 
