@@ -23,6 +23,10 @@ export class PayCardRule extends PlayerTurnRule {
         moves.push(resourceDie.moveItem(diceToDiscardTile))
       }
     }
+    const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
+    if (universalResource.length) {
+      moves.push(universalResource.moveItem({ type: LocationType.UniversalResourceStock }))
+    }
     return moves
   }
 
@@ -46,6 +50,13 @@ export class PayCardRule extends PlayerTurnRule {
       } else if (isResource(symbol)) {
         const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
         resourcesCost.splice(resourcesCost.indexOf(symbol), 1)
+      }
+    } else if (isMoveItem(move) && move.itemType === MaterialType.UniversalResource && move.location.type === LocationType.UniversalResourceStock) {
+      const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
+      if (resourcesCost.length > 0) {
+        resourcesCost.pop()
+      } else {
+        this.memorize<number>(Memory.PopulationCost, cost => Math.max(cost - 3, 0))
       }
     }
     if (this.costPaid) {
