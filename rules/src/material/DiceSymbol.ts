@@ -1,3 +1,5 @@
+import { Resource } from './Resource'
+
 export enum DiceSymbol {
   Population1 = 1,
   Population2,
@@ -16,3 +18,4 @@ export enum DiceSymbol {
 }
 
 export const isPopulationSymbol = (symbol: DiceSymbol): boolean => symbol <= 3
+export const isResource = (symbol: DiceSymbol): symbol is DiceSymbol & Resource => symbol >= 4 && symbol <= 6

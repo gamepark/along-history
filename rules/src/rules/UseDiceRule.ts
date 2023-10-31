@@ -1,5 +1,5 @@
 import { isMoveItem, ItemMove, MaterialMove } from '@gamepark/rules-api'
-import { getDiceSymbol } from '../material/Dices'
+import { diceToDiscardTile, getDiceSymbol } from '../material/Dices'
 import { DiceSymbol } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -12,8 +12,7 @@ export class UseDiceRule extends ActivePlayerRule {
   }
 
   get discardDice() {
-    return this.material(MaterialType.Dice).location(LocationType.PlayerDices).player(this.player)
-      .moveItems(item => ({ type: LocationType.DiscardTile, parent: 0, rotation: item.location.rotation }))
+    return this.material(MaterialType.Dice).location(LocationType.PlayerDices).player(this.player).moveItems(diceToDiscardTile)
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {
