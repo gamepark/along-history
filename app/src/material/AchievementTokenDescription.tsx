@@ -1,5 +1,7 @@
 import { Achievement, getAchievementValue } from '@gamepark/along-history/material/Achievement'
-import { TokenDescription } from '@gamepark/react-game'
+import { LocationType } from '@gamepark/along-history/material/LocationType'
+import { ItemContext, TokenDescription } from '@gamepark/react-game'
+import { Location, MaterialItem } from '@gamepark/rules-api'
 import AchievementValue1 from '../images/tokens/achievement/AchievementValue1.jpg'
 import AchievementValue2 from '../images/tokens/achievement/AchievementValue2.jpg'
 import AchievementValue3 from '../images/tokens/achievement/AchievementValue3.jpg'
@@ -89,6 +91,10 @@ class AchievementTokenDescription extends TokenDescription {
     [5]: AchievementValue5,
     [6]: AchievementValue6,
     [7]: AchievementValue7
+  }
+
+  getLocations(_item: MaterialItem<number, number>, { index }: ItemContext<number, number, number>): Location<number, number>[] {
+    return [{ type: LocationType.AchievementToken, parent: index }]
   }
 
   rules = () => <></>

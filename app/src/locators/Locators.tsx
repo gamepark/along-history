@@ -3,6 +3,7 @@ import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { ItemLocator } from '@gamepark/react-game'
 import { achievementsBoardLocator } from './AchievementsBoardLocator'
+import { achievementTokenLocator } from './AchievementTokenLocator'
 import { civilisationAreaLocator } from './CivilisationAreaLocator'
 import { deckLocator } from './DeckLocator'
 import { discardTileLocator } from './DiscardTileLocator'
@@ -23,5 +24,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, Mat
   [LocationType.EventArea]: eventAreaLocator,
   [LocationType.PlayerDiscardTile]: playerDiscardTileLocator,
   [LocationType.PlayerDices]: playerDicesLocator,
-  [LocationType.CivilisationArea]: civilisationAreaLocator
+  [LocationType.CivilisationArea]: civilisationAreaLocator,
+  [LocationType.AchievementToken]: achievementTokenLocator
 }

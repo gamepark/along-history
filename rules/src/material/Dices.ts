@@ -1,4 +1,4 @@
-import { MaterialItem } from '../../../../workshop/packages/rules-api'
+import { MaterialItem } from '@gamepark/rules-api'
 import { DiceSymbol } from './DiceSymbol'
 import { LocationType } from './LocationType'
 
