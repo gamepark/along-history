@@ -1,4 +1,4 @@
-import { MaterialItem, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
+import { isMoveItem, ItemMove, MaterialItem, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
 import { AchievementBoardLocations, AchievementsFrontPaths } from '../material/AchievementBoard'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -31,5 +31,20 @@ export class AchievementsRule extends PlayerTurnRule {
       explored[x].push(y)
     }
     return tokens
+  }
+
+  afterItemMove(move: ItemMove) {
+    if (isMoveItem(move) && move.itemType === MaterialType.CivilisationToken) {
+      const moves: MaterialMove[] = []
+      const { type, x, y } = move.location
+      const achievementToken = this.material(MaterialType.AchievementToken).location(location =>
+        location.type === type && location.x === x && location.y === y
+      )
+      if (achievementToken.length) {
+        moves.push(achievementToken.moveItem({ type: LocationType.PlayerAchievements, player: this.player, rotation: true }))
+      }
+      return moves
+    }
+    return []
   }
 }
