@@ -6,5 +6,6 @@ export const CroMagnon: CardInfo = {
   type: CardType.Figure,
   populationCost: 7,
   resourcesCost: [Resource.Culture],
-  victoryPoints: 3
+  victoryPoints: 3,
+  bonus: []
 }

@@ -6,5 +6,6 @@ export const VolcanicEruption: CardInfo = {
   type: CardType.Calamity,
   populationCost: 6,
   resourcesCost: [Resource.Ingenuity],
-  victoryPoints: 1
+  victoryPoints: 1,
+  bonus: []
 }

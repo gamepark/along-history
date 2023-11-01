@@ -6,5 +6,6 @@ export const FuneralRites: CardInfo = {
   type: CardType.Progress,
   populationCost: 5,
   resourcesCost: [Resource.Culture],
-  victoryPoints: 2
+  victoryPoints: 2,
+  bonus: []
 }

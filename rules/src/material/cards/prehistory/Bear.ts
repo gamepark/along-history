@@ -6,5 +6,6 @@ export const Bear: CardInfo = {
   type: CardType.Figure,
   populationCost: 4,
   resourcesCost: [Resource.Strength],
-  victoryPoints: 1
+  victoryPoints: 1,
+  bonus: []
 }

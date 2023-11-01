@@ -6,5 +6,6 @@ export const Megaliths: CardInfo = {
   type: CardType.Wonder,
   populationCost: 6,
   resourcesCost: [Resource.Ingenuity],
-  victoryPoints: 3
+  victoryPoints: 3,
+  bonus: []
 }

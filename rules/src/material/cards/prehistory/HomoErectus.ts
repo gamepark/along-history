@@ -6,5 +6,6 @@ export const HomoErectus: CardInfo = {
   type: CardType.Figure,
   populationCost: 6,
   resourcesCost: [Resource.Culture],
-  victoryPoints: 2
+  victoryPoints: 2,
+  bonus: []
 }

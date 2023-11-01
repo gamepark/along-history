@@ -6,5 +6,6 @@ export const Wolves: CardInfo = {
   type: CardType.Calamity,
   populationCost: 4,
   resourcesCost: [Resource.Strength],
-  victoryPoints: 1
+  victoryPoints: 1,
+  bonus: []
 }

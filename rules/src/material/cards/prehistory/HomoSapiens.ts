@@ -6,5 +6,6 @@ export const HomoSapiens: CardInfo = {
   type: CardType.Figure,
   populationCost: 7,
   resourcesCost: [Resource.Culture],
-  victoryPoints: 3
+  victoryPoints: 3,
+  bonus: []
 }
