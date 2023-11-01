@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const Earthquake: CardInfo = {
   type: CardType.Calamity,
   populationCost: 6,
-  resourcesCost: [Resource.Ingenuity, Resource.Ingenuity]
+  resourcesCost: [Resource.Ingenuity, Resource.Ingenuity],
+  victoryPoints: 1
 }

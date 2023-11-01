@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const Peninsula: CardInfo = {
   type: CardType.Land,
   populationCost: 4,
-  resourcesCost: [Resource.Ingenuity]
+  resourcesCost: [Resource.Ingenuity],
+  victoryPoints: 1
 }

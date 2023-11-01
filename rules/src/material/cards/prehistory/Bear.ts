@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const Bear: CardInfo = {
   type: CardType.Figure,
   populationCost: 4,
-  resourcesCost: [Resource.Strength]
+  resourcesCost: [Resource.Strength],
+  victoryPoints: 1
 }

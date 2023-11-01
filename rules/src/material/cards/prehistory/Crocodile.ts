@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const Crocodile: CardInfo = {
   type: CardType.Figure,
   populationCost: 5,
-  resourcesCost: [Resource.Strength]
+  resourcesCost: [Resource.Strength],
+  victoryPoints: 1
 }

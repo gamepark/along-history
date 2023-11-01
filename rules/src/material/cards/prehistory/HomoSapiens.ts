@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const HomoSapiens: CardInfo = {
   type: CardType.Figure,
   populationCost: 7,
-  resourcesCost: [Resource.Culture]
+  resourcesCost: [Resource.Culture],
+  victoryPoints: 3
 }

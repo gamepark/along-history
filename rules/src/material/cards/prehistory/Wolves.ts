@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const Wolves: CardInfo = {
   type: CardType.Calamity,
   populationCost: 4,
-  resourcesCost: [Resource.Strength]
+  resourcesCost: [Resource.Strength],
+  victoryPoints: 1
 }

@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const River: CardInfo = {
   type: CardType.Land,
   populationCost: 3,
-  resourcesCost: [Resource.Ingenuity]
+  resourcesCost: [Resource.Ingenuity],
+  victoryPoints: 1
 }

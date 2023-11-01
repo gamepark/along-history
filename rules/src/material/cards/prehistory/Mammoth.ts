@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const Mammoth: CardInfo = {
   type: CardType.Figure,
   populationCost: 6,
-  resourcesCost: [Resource.Strength]
+  resourcesCost: [Resource.Strength],
+  victoryPoints: 2
 }

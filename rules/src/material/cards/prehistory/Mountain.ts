@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const Mountain: CardInfo = {
   type: CardType.Land,
   populationCost: 5,
-  resourcesCost: [Resource.Ingenuity]
+  resourcesCost: [Resource.Ingenuity],
+  victoryPoints: 2
 }

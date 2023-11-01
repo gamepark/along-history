@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const TheFire: CardInfo = {
   type: CardType.Progress,
   populationCost: 5,
-  resourcesCost: [Resource.Ingenuity, Resource.Ingenuity]
+  resourcesCost: [Resource.Ingenuity, Resource.Ingenuity],
+  victoryPoints: 3
 }

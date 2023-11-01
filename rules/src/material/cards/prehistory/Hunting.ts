@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const Hunting: CardInfo = {
   type: CardType.Progress,
   populationCost: 4,
-  resourcesCost: [Resource.Ingenuity]
+  resourcesCost: [Resource.Ingenuity],
+  victoryPoints: 2
 }

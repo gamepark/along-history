@@ -5,4 +5,5 @@ export type CardInfo = {
   type: CardType
   populationCost: number
   resourcesCost: Resource[]
+  victoryPoints: number
 }

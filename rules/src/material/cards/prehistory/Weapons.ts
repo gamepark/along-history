@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const Weapons: CardInfo = {
   type: CardType.Progress,
   populationCost: 6,
-  resourcesCost: [Resource.Ingenuity]
+  resourcesCost: [Resource.Ingenuity],
+  victoryPoints: 2
 }

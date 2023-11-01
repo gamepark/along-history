@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const LascauxCave: CardInfo = {
   type: CardType.Wonder,
   populationCost: 6,
-  resourcesCost: [Resource.Culture]
+  resourcesCost: [Resource.Culture],
+  victoryPoints: 3
 }

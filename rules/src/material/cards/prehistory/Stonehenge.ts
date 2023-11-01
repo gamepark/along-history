@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const Stonehenge: CardInfo = {
   type: CardType.Wonder,
   populationCost: 5,
-  resourcesCost: [Resource.Ingenuity, Resource.Ingenuity]
+  resourcesCost: [Resource.Ingenuity, Resource.Ingenuity],
+  victoryPoints: 4
 }

@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const HarshWinter: CardInfo = {
   type: CardType.Calamity,
   populationCost: 6,
-  resourcesCost: [Resource.Ingenuity]
+  resourcesCost: [Resource.Ingenuity],
+  victoryPoints: 1
 }

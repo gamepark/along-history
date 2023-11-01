@@ -5,5 +5,6 @@ import { CardType } from '../CardType'
 export const Cannibals: CardInfo = {
   type: CardType.Calamity,
   populationCost: 6,
-  resourcesCost: [Resource.Strength]
+  resourcesCost: [Resource.Strength],
+  victoryPoints: 1
 }
