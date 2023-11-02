@@ -64,4 +64,9 @@ export class PayCardRule extends PlayerTurnRule {
     }
     return []
   }
+
+  onRuleEnd() {
+    this.memorize(Memory.CardAcquired, true)
+    return []
+  }
 }

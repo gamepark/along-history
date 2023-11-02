@@ -8,6 +8,7 @@ import { CardsInfo } from '../material/cards/CardsInfo'
 import { CardType } from '../material/cards/CardType'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { RuleId } from './RuleId'
 
 export class AchievementsRule extends PlayerTurnRule {
   getPlayerMoves() {
@@ -140,6 +141,7 @@ export class AchievementsRule extends PlayerTurnRule {
       if (achievementToken.length) {
         moves.push(achievementToken.moveItem({ type: LocationType.PlayerAchievements, player: this.player, rotation: true }))
       }
+      moves.push(this.rules().startRule(RuleId.UniversalResource))
       return moves
     }
     return []

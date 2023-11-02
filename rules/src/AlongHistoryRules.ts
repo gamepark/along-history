@@ -10,6 +10,7 @@ import { PayCardRule } from './rules/PayCardRule'
 import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
 import { TradeCardsRule } from './rules/TradeCardsRule'
+import { UniversalResourceRule } from './rules/UniversalResourceRule'
 import { UseDiceRule } from './rules/UseDiceRule'
 import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
@@ -33,7 +34,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.Calamities]: CalamitiesRule,
     [RuleId.Wars]: WarsRule,
     [RuleId.NewEvents]: NewEventsRule,
-    [RuleId.Achievements]: AchievementsRule
+    [RuleId.Achievements]: AchievementsRule,
+    [RuleId.UniversalResource]: UniversalResourceRule
   }
 
   locationsStrategies = {
