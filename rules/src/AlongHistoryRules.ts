@@ -11,6 +11,7 @@ import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
 import { TradeCardsRule } from './rules/TradeCardsRule'
 import { UniversalResourceRule } from './rules/UniversalResourceRule'
+import { UpkeepRule } from './rules/UpkeepRule'
 import { UseDiceRule } from './rules/UseDiceRule'
 import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
@@ -35,7 +36,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.Wars]: WarsRule,
     [RuleId.NewEvents]: NewEventsRule,
     [RuleId.Achievements]: AchievementsRule,
-    [RuleId.UniversalResource]: UniversalResourceRule
+    [RuleId.UniversalResource]: UniversalResourceRule,
+    [RuleId.Upkeep]: UpkeepRule
   }
 
   locationsStrategies = {
