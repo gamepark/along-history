@@ -10,7 +10,7 @@ class AchievementsBoardLocator extends ItemLocator {
 
   getPositionOnParent(location: Location) {
     const x = location.x!
-    return { x: x === 0 ? 6.1 : 7.2 + 12.52 * x, y: 50 + 13.5 * location.y! }
+    return { x: x === 0 ? 5.3 : x === 7 ? 95.6 : 6.3 + 12.8 * x, y: 50 + 13.25 * location.y! }
   }
 
   getPosition(item: MaterialItem, { type }: ItemContext): Coordinates {
