@@ -4,6 +4,7 @@ import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
 import { AchievementsRule } from './rules/AchievementsRule'
 import { AcquireCardsRule } from './rules/AcquireCardsRule'
+import { ActionsRule } from './rules/ActionsRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
 import { NewEventsRule } from './rules/NewEventsRule'
 import { PayCardRule } from './rules/PayCardRule'
@@ -12,7 +13,6 @@ import { RuleId } from './rules/RuleId'
 import { TradeCardsRule } from './rules/TradeCardsRule'
 import { UniversalResourceRule } from './rules/UniversalResourceRule'
 import { UpkeepRule } from './rules/UpkeepRule'
-import { UseDiceRule } from './rules/UseDiceRule'
 import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
 import { WarsRule } from './rules/WarsRule'
@@ -26,7 +26,7 @@ import { ArrivalOrderZStrategy } from './util/ArrivalOrderZStrategy'
 export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, MaterialType, LocationType> {
   rules = {
     [RuleId.RollDice]: RollDiceRule,
-    [RuleId.UseDice]: UseDiceRule,
+    [RuleId.Actions]: ActionsRule,
     [RuleId.UseDiscardedDie]: UseDiscardedDieRule,
     [RuleId.UseReRollDie]: UseReRollDieRule,
     [RuleId.TradeCards]: TradeCardsRule,
@@ -62,5 +62,9 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [MaterialType.Card]: {
       [LocationType.Deck]: hideFront
     }
+  }
+
+  get isActivePlayerTurn() {
+    return this.material(MaterialType.DiscardTile).getItem()?.location.player === this.game.rule?.player
   }
 }

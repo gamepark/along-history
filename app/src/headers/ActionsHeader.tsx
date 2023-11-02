@@ -5,7 +5,7 @@ import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } fr
 import { isCustomMoveType } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 
-export const UseDiceHeader = () => {
+export const ActionsHeader = () => {
   const { t } = useTranslation()
   const rules = useRules<AlongHistoryRules>()!
   const activePlayer = rules.game.rule?.player
@@ -14,8 +14,16 @@ export const UseDiceHeader = () => {
   const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
 
   if (player === activePlayer) {
-    return <Trans defaults="header.use-dice.you"><PlayMoveButton move={pass}/></Trans>
+    if (rules.isActivePlayerTurn) {
+      return <Trans defaults="header.actions.you"><PlayMoveButton move={pass}/></Trans>
+    } else {
+      return <Trans defaults="header.actions.other.you"><PlayMoveButton move={pass}/></Trans>
+    }
   } else {
-    return <>{t('header.use-dice', { player: playerName })}</>
+    if (rules.isActivePlayerTurn) {
+      return <>{t('header.actions', { player: playerName })}</>
+    } else {
+      return <>{t('header.actions.other', { player: playerName })}</>
+    }
   }
 }

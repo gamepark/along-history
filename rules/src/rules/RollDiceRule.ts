@@ -7,7 +7,7 @@ export class RollDiceRule extends MaterialRulesPart {
   onRuleStart(): MaterialMove[] {
     const player = this.activePlayer
     const moves: MaterialMove[] = this.material(MaterialType.Dice).rollItems({ type: LocationType.PlayerDices, player })
-    moves.push(this.rules().startPlayerTurn(RuleId.UseDice, player))
+    moves.push(this.rules().startPlayerTurn(RuleId.Actions, player))
     return moves
   }
 

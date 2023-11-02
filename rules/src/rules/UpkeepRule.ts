@@ -8,7 +8,7 @@ export class UpkeepRule extends PlayerTurnRule {
     if (this.isActivePlayer) {
       return [this.rules().startRule(RuleId.RollDice)]
     } else {
-      return [this.rules().startRule(RuleId.AcquireCards)]
+      return [this.rules().startRule(RuleId.Actions)]
     }
   }
 

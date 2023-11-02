@@ -40,7 +40,7 @@ export class TradeCardsRule extends PlayerTurnRule {
         return [
           playerCard.moveItem(opponentCard.getItem()!.location),
           opponentCard.moveItem(playerCard.getItem()!.location),
-          this.rules().startRule(RuleId.UseDice)
+          this.rules().startRule(RuleId.Actions)
         ]
       } else {
         return [this.rules().startRule(RuleId.TradeCards)]

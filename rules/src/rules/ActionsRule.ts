@@ -6,7 +6,7 @@ import { MaterialType } from '../material/MaterialType'
 import { AcquireCardsRule } from './AcquireCardsRule'
 import { RuleId } from './RuleId'
 
-export class UseDiceRule extends AcquireCardsRule {
+export class ActionsRule extends AcquireCardsRule {
   getPlayerMoves() {
     return super.getPlayerMoves().concat(this.discardDice)
   }

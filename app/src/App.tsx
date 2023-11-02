@@ -9,7 +9,7 @@ import { AcquireCardsHeader } from './headers/AcquireCardsHeader'
 import { PayCardHeader } from './headers/PayCardHeader'
 import { RollDiceHeader } from './headers/RollDiceHeader'
 import { TradeCardsHeader } from './headers/TradeCardsHeader'
-import { UseDiceHeader } from './headers/UseDiceHeader'
+import { ActionsHeader } from './headers/ActionsHeader'
 import { UseDiscardedDieHeader } from './headers/UseDiscardedDieHeader'
 import { UseReRollDieHeader } from './headers/UseReRollDieHeader'
 
@@ -35,7 +35,7 @@ export default function App() {
 
 const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
   [RuleId.RollDice]: RollDiceHeader,
-  [RuleId.UseDice]: UseDiceHeader,
+  [RuleId.Actions]: ActionsHeader,
   [RuleId.UseDiscardedDie]: UseDiscardedDieHeader,
   [RuleId.UseReRollDie]: UseReRollDieHeader,
   [RuleId.TradeCards]: TradeCardsHeader,

@@ -15,7 +15,7 @@ export class UseDiscardedDieRule extends TradeCardsRule {
 
   afterItemMove(move: ItemMove) {
     if (isRoll(move)) {
-      return [this.rules().startRule(RuleId.UseDice)]
+      return [this.rules().startRule(RuleId.Actions)]
     }
     return super.afterItemMove(move)
   }

@@ -29,7 +29,7 @@ export class UseReRollDieRule extends TradeCardsRule {
       for (const item of selectedDice.getItems()) {
         delete item.selected
       }
-      moves.push(this.rules().startRule(RuleId.UseDice))
+      moves.push(this.rules().startRule(RuleId.Actions))
       return moves
     }
     return []
