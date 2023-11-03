@@ -1,6 +1,6 @@
 import { isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { diceToDiscardTile, DiceType, getDiceSymbol } from '../material/Dices'
-import { isPopulationSymbol, isResource } from '../material/DiceSymbol'
+import { DiceSymbol, isPopulationSymbol, isResource } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Resource } from '../material/Resource'
@@ -13,6 +13,7 @@ export class PayCardRule extends PlayerTurnRule {
     const populationCost = this.remind<number>(Memory.PopulationCost)
     if (populationCost > 0) {
       moves.push(...this.discardPopulationDice)
+      moves.push(...this.flipPopulationResultToken)
     }
     const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
     const resourceDie = this.playerDice.id(DiceType.Resource)
@@ -22,6 +23,10 @@ export class PayCardRule extends PlayerTurnRule {
       if (isResource(dieResource) && resourcesCost.includes(dieResource)) {
         moves.push(resourceDie.moveItem(diceToDiscardTile))
       }
+    }
+    const resourceResultToken = this.playerResultTokens.id(isResource)
+    if (resourceResultToken.length && resourcesCost.includes(resourceResultToken.getItem()!.id)) {
+      moves.push(resourceResultToken.rotateItem(true))
     }
     const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
     if (universalResource.length) {
@@ -34,8 +39,16 @@ export class PayCardRule extends PlayerTurnRule {
     return this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player)
   }
 
+  get playerResultTokens() {
+    return this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player).rotation(undefined)
+  }
+
   get discardPopulationDice() {
     return this.playerDice.id(DiceType.Population).moveItems(diceToDiscardTile)
+  }
+
+  get flipPopulationResultToken() {
+    return this.playerResultTokens.id(isPopulationSymbol).rotateItems(true)
   }
 
   get costPaid() {
@@ -44,13 +57,9 @@ export class PayCardRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (isMoveItem(move) && move.itemType === MaterialType.Dice && move.location.type === LocationType.DiscardTile) {
-      const symbol = getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!)
-      if (isPopulationSymbol(symbol)) {
-        this.memorize<number>(Memory.PopulationCost, cost => Math.max(cost - symbol, 0))
-      } else if (isResource(symbol)) {
-        const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
-        resourcesCost.splice(resourcesCost.indexOf(symbol), 1)
-      }
+      this.pay(getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!))
+    } else if (isMoveItem(move) && move.itemType === MaterialType.ResultToken && move.location.rotation) {
+      this.pay(this.material(MaterialType.ResultToken).getItem(move.itemIndex)!.id)
     } else if (isMoveItem(move) && move.itemType === MaterialType.UniversalResource && move.location.type === LocationType.UniversalResourceStock) {
       const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
       if (resourcesCost.length > 0) {
@@ -63,6 +72,15 @@ export class PayCardRule extends PlayerTurnRule {
       return [this.rules().startRule(RuleId.AcquireCards)]
     }
     return []
+  }
+
+  pay(symbol: DiceSymbol) {
+    if (isPopulationSymbol(symbol)) {
+      this.memorize<number>(Memory.PopulationCost, cost => Math.max(cost - symbol, 0))
+    } else if (isResource(symbol)) {
+      const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
+      resourcesCost.splice(resourcesCost.indexOf(symbol), 1)
+    }
   }
 
   onRuleEnd() {
