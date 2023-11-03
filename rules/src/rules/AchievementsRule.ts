@@ -1,5 +1,5 @@
 import { isMoveItem, ItemMove, MaterialItem, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
-import { sumBy } from 'lodash'
+import { parseInt, sumBy } from 'lodash'
 import { Achievement } from '../material/Achievement'
 import { AchievementBoardLocations, AchievementsFrontPaths } from '../material/AchievementBoard'
 import { Bonus } from '../material/cards/Bonus'
@@ -13,19 +13,38 @@ import { RuleId } from './RuleId'
 export class AchievementsRule extends PlayerTurnRule {
   getPlayerMoves() {
     const moves: MaterialMove[] = this.accessibleTokens.filter(token => this.canAchieve(token.id))
-      .map(token => this.civilizationToken.moveItem(token.location))
+      .map(token => this.civilisationToken.moveItem(token.location))
+    moves.push(...this.moveBackCivilisationToken)
     moves.push(this.rules().startRule(RuleId.UniversalResource))
     return moves
   }
 
-  get civilizationToken() {
+  get civilisationToken() {
     return this.material(MaterialType.CivilisationToken).id(this.player)
+  }
+
+  get moveBackCivilisationToken() {
+    const token = this.civilisationToken
+    const tokenLocation = token.getItem()!.location as XYCoordinates
+    const availableSpots: XYCoordinates[] = []
+    for (let x = 0; x < tokenLocation.x; x++) {
+      for (let y in this.achievementsPaths[x]) {
+        if (this.achievementsPaths[x][y].some(({ x, y }) => x === tokenLocation.x && y === tokenLocation.y)) {
+          availableSpots.push({ x, y: parseInt(y) })
+        }
+      }
+    }
+    return availableSpots.map(coordinates => token.moveItem({ type: LocationType.AchievementsBoard, ...coordinates }))
+  }
+
+  get achievementsPaths() {
+    return AchievementsFrontPaths
   }
 
   get accessibleTokens() {
     const tokens: MaterialItem[] = []
-    const civTokenLocation = this.civilizationToken.getItem()!.location as XYCoordinates
-    const paths = AchievementsFrontPaths
+    const civTokenLocation = this.civilisationToken.getItem()!.location as XYCoordinates
+    const paths = this.achievementsPaths
     const explored: number[][] = AchievementBoardLocations.map(_ => [])
     explored[civTokenLocation.x].push(civTokenLocation.y)
     const available: XYCoordinates[] = [...paths[civTokenLocation.x][civTokenLocation.y]]

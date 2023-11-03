@@ -32,9 +32,12 @@ class AchievementsBoardLocator extends ItemLocator {
 }
 
 class AchievementBoardLocationDescription extends LocationDescription {
-  width = achievementTokenDescription.width
-  ratio = 1
-  borderRadius = this.width / 2
+  borderRadius = 5
+
+  getSize(location: Location) {
+    const size = location.x === 0 ? 3.5 : achievementTokenDescription.width
+    return { width: size, height: size }
+  }
 
   protected isMoveToLocation(move: MaterialMove<number, number, number>, location: Location<number, number>, context: MaterialContext<number, number, number>): boolean {
     return !locationHasAchievementToken(location, context.rules) && super.isMoveToLocation(move, location, context)

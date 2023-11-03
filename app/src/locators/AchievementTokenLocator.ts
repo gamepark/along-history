@@ -11,7 +11,6 @@ class AchievementTokenLocator extends ItemLocator {
 }
 
 class AchievementTokenLocationDescription extends LocationDescription {
-  alwaysVisible = false
   width = achievementTokenDescription.width
   ratio = 1
   borderRadius = achievementTokenDescription.borderRadius
