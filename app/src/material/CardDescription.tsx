@@ -1,6 +1,8 @@
 import { Age } from '@gamepark/along-history/material/Age'
 import { Card } from '@gamepark/along-history/material/Card'
-import { CardDescription } from '@gamepark/react-game'
+import { MaterialType } from '@gamepark/along-history/material/MaterialType'
+import { CardDescription, ItemContext } from '@gamepark/react-game'
+import { isMoveItem, MaterialMove } from '@gamepark/rules-api'
 import Prehistory from '../images/cards/prehistory/back.jpg'
 import Australopithecus from '../images/cards/prehistory/fr/Australopithecus.jpg'
 import Bear from '../images/cards/prehistory/fr/Bear.jpg'
@@ -86,6 +88,11 @@ class AlongHistoryCardDescription extends CardDescription {
   }
 
   rules = () => <></>
+
+  canShortClick(move: MaterialMove, { index, rules }: ItemContext) {
+    return isMoveItem(move) && move.itemType === MaterialType.Card && move.itemIndex === index
+      && move.location.type === rules.material(MaterialType.Card).getItem(index)?.location.type
+  }
 }
 
 export const cardDescription = new AlongHistoryCardDescription()

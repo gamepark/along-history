@@ -1,3 +1,4 @@
+import { Bonus } from './cards/Bonus'
 import { Resource } from './Resource'
 
 export enum DiceSymbol {
@@ -17,5 +18,5 @@ export enum DiceSymbol {
   Gold6,
 }
 
-export const isPopulationSymbol = (symbol: DiceSymbol): boolean => symbol <= 3
-export const isResource = (symbol: DiceSymbol): symbol is DiceSymbol & Resource => symbol >= 4 && symbol <= 6
+export const isPopulationSymbol = (symbol: DiceSymbol | Resource | Bonus): boolean => symbol <= 3
+export const isResource = (symbol: DiceSymbol | Resource | Bonus): symbol is DiceSymbol & Resource => symbol >= 4 && symbol <= 6

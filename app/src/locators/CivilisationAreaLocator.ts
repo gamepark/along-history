@@ -35,9 +35,13 @@ class CivilisationAreaLocator extends LineLocator {
     }
   }
 
-  getRotateZ(item: MaterialItem<number, number>, context: ItemContext<number, number, number>): number {
+  getRotations(item: MaterialItem, context: ItemContext): string[] {
     const playerIndex = getRelativePlayerIndex(context, item.location.player)
-    return playerIndex === 0 ? 0 : -90
+    let rotation = playerIndex === 0 ? 0 : -90
+    if (item.location.rotation) {
+      rotation += 90
+    }
+    return [`rotateZ(${rotation}deg)`]
   }
 }
 
