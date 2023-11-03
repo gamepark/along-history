@@ -5,6 +5,7 @@ import { FailuresDialog, FullscreenDialog, LoadingScreen, MaterialHeader, Menu, 
 import { MaterialGame } from '@gamepark/rules-api'
 import { useEffect, useState } from 'react'
 import GameDisplay from './GameDisplay'
+import { AchievementsHeader } from './headers/AchievementsHeader'
 import { AcquireCardsHeader } from './headers/AcquireCardsHeader'
 import { PayCardHeader } from './headers/PayCardHeader'
 import { RollDiceHeader } from './headers/RollDiceHeader'
@@ -40,5 +41,6 @@ const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
   [RuleId.UseReRollDie]: UseReRollDieHeader,
   [RuleId.TradeCards]: TradeCardsHeader,
   [RuleId.PayCard]: PayCardHeader,
-  [RuleId.AcquireCards]: AcquireCardsHeader
+  [RuleId.AcquireCards]: AcquireCardsHeader,
+  [RuleId.Achievements]: AchievementsHeader,
 }

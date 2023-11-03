@@ -12,7 +12,10 @@ import { RuleId } from './RuleId'
 
 export class AchievementsRule extends PlayerTurnRule {
   getPlayerMoves() {
-    return this.accessibleTokens.filter(token => this.canAchieve(token.id)).map(token => this.civilizationToken.moveItem(token.location))
+    const moves: MaterialMove[] = this.accessibleTokens.filter(token => this.canAchieve(token.id))
+      .map(token => this.civilizationToken.moveItem(token.location))
+    moves.push(this.rules().startRule(RuleId.UniversalResource))
+    return moves
   }
 
   get civilizationToken() {
