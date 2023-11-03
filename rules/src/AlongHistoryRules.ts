@@ -55,7 +55,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     },
     [MaterialType.ResultToken]: {
       [LocationType.ResultTokenStock]: new FillGapStrategy(),
-      [LocationType.PlayerResources]: new PositiveSequenceStrategy()
+      [LocationType.PlayerResources]: new FillGapStrategy()
     }
   }
 

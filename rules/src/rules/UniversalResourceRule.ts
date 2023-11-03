@@ -21,15 +21,16 @@ export class UniversalResourceRule extends PlayerTurnRule {
   }
 
   get endRound() {
+    const moves: MaterialMove[] = this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player)
+      .moveItems({ type: LocationType.ResultTokenStock })
     if (this.ageIsOver) {
-      return [this.rules().endGame()]
+      moves.push(this.rules().endGame())
     } else {
       const nextActivePlayer = this.game.players[(this.game.players.indexOf(this.player) + 2) % this.game.players.length]
-      return [
-        this.material(MaterialType.DiscardTile).moveItem({ type: LocationType.PlayerDiscardTile, player: nextActivePlayer }),
-        this.rules().startPlayerTurn(RuleId.Upkeep, nextActivePlayer)
-      ]
+      moves.push(this.material(MaterialType.DiscardTile).moveItem({ type: LocationType.PlayerDiscardTile, player: nextActivePlayer }))
+      moves.push(this.rules().startPlayerTurn(RuleId.Upkeep, nextActivePlayer))
     }
+    return moves
   }
 
   get ageIsOver() {
