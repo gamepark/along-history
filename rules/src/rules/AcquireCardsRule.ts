@@ -33,25 +33,23 @@ export class AcquireCardsRule extends PlayerTurnRule {
   }
 
   onCustomMove(move: CustomMove) {
+    const moves: MaterialMove[] = []
     if (move.type === CustomMoveType.Pass) {
-      return [this.rules().startRule(RuleId.Calamities)]
-    }
-    return []
-  }
-
-  onRuleEnd() {
-    if (new AlongHistoryRules(this.game).isActivePlayerTurn) {
-      const moves: MaterialMove[] = this.material(MaterialType.Dice).location(LocationType.PlayerResources)
-        .moveItems({ type: LocationType.DiscardTile, parent: 0 })
-      const dice = this.material(MaterialType.Dice).id(id => id !== DiceType.Special).getItems()
-      const diceSymbolCount = countBy(dice, getDiceSymbol)
-      for (const diceSymbol in diceSymbolCount) {
-        moves.push(...this.material(MaterialType.ResultToken).location(LocationType.ResultTokenStock)
-          .id(parseInt(diceSymbol)).limit(diceSymbolCount[diceSymbol])
-          .moveItems({ type: LocationType.PlayerResources, player: this.nextPlayer }))
+      if (new AlongHistoryRules(this.game).isActivePlayerTurn) {
+        moves.push(...this.material(MaterialType.Dice).location(LocationType.PlayerResources)
+          .moveItems({ type: LocationType.DiscardTile, parent: 0 }))
+        const dice = this.material(MaterialType.Dice).id(id => id !== DiceType.Special).getItems()
+        const diceSymbolCount = countBy(dice, getDiceSymbol)
+        for (const diceSymbol in diceSymbolCount) {
+          moves.push(...this.material(MaterialType.ResultToken).location(LocationType.ResultTokenStock)
+            .id(parseInt(diceSymbol)).limit(diceSymbolCount[diceSymbol])
+            .moveItems({ type: LocationType.PlayerResources, player: this.nextPlayer }))
+        }
+        moves.push(this.rules().startRule(RuleId.Calamities))
+      } else {
+        moves.push(this.rules().startRule(RuleId.Wars))
       }
-      return moves
     }
-    return []
+    return moves
   }
 }
