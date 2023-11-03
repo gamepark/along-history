@@ -1,4 +1,5 @@
 import { isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { intersection } from 'lodash'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
@@ -32,6 +33,9 @@ export class PayCardRule extends PlayerTurnRule {
     if (resourceResultToken.length && resourcesCost.includes(resourceResultToken.getItem()!.id)) {
       moves.push(resourceResultToken.rotateItem(true))
     }
+    if (resourcesCost.length) {
+      moves.push(...this.flipCardWithResourceBonus(resourcesCost))
+    }
     const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
     if (universalResource.length) {
       moves.push(universalResource.moveItem({ type: LocationType.UniversalResourceStock }))
@@ -47,8 +51,10 @@ export class PayCardRule extends PlayerTurnRule {
     return this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player).rotation(undefined)
   }
 
-  get playerCards() {
-    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(this.player)
+  get bonusCards() {
+    const cardToPay = this.remind<number>(Memory.CardToPay)
+    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(this.player).rotation(undefined)
+      .filter((_, index) => index !== cardToPay)
   }
 
   get discardPopulationDice() {
@@ -60,8 +66,14 @@ export class PayCardRule extends PlayerTurnRule {
   }
 
   get flipCardWithPopulationBonus() {
-    return this.playerCards.rotation(undefined)
+    return this.bonusCards
       .id<CardId>(cardId => CardsInfo[cardId.front].bonus.includes(Bonus.Population))
+      .rotateItems(true)
+  }
+
+  flipCardWithResourceBonus(resources: (Resource | Bonus)[]) {
+    return this.bonusCards
+      .id<CardId>(cardId => intersection(CardsInfo[cardId.front].bonus, resources).length > 0)
       .rotateItems(true)
   }
 

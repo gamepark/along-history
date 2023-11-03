@@ -3,7 +3,6 @@ import { css } from '@emotion/react'
 import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { Resource } from '@gamepark/along-history/material/Resource'
 import { Memory } from '@gamepark/along-history/rules/Memory'
-import { RollDiceRule } from '@gamepark/along-history/rules/RollDiceRule'
 import { Picture, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { Trans } from 'react-i18next'
 import Population from '../images/dices/population/Population1.jpg'
@@ -15,14 +14,13 @@ export const PayCardHeader = () => {
   const rules = useRules<AlongHistoryRules>()!
   const population = rules.remind<number>(Memory.PopulationCost)
   const resources = rules.remind<Resource[]>(Memory.ResourcesCost)
-  const activePlayer = new RollDiceRule(rules.game).activePlayer
-  const playerName = usePlayerName(activePlayer)
+  const playerName = usePlayerName(rules.game.rule?.player)
   const player = usePlayerId()
 
   let key = 'header.pay'
   if (!resources.length) key += '.pop'
   else if (!population) key += '.resources'
-  if (player === activePlayer) key += '.you'
+  if (player === rules.game.rule?.player) key += '.you'
 
   return <Trans defaults={key} values={{ population, player: playerName }}>
     <Picture src={Population} css={iconCss}/>

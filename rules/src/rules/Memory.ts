@@ -1,3 +1,3 @@
 export enum Memory {
-  PopulationCost, ResourcesCost, GoldCost, CardAcquired
+  PopulationCost, ResourcesCost, GoldCost, CardAcquired, CardToPay,
 }
