@@ -115,6 +115,10 @@ export class PayCardRule extends PlayerTurnRule {
   }
 
   onRuleEnd() {
+    this.forget(Memory.CardToPay)
+    this.forget(Memory.PopulationCost)
+    this.forget(Memory.ResourcesCost)
+    this.forget(Memory.GoldCost)
     this.memorize(Memory.CardAcquired, true)
     return []
   }
