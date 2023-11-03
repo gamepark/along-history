@@ -12,7 +12,7 @@ export class ActionsRule extends AcquireCardsRule {
   }
 
   get discardDice() {
-    return this.material(MaterialType.Dice).location(LocationType.PlayerDices).player(this.player).moveItems(diceToDiscardTile)
+    return this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player).moveItems(diceToDiscardTile)
   }
 
   afterItemMove(move: ItemMove): MaterialMove[] {

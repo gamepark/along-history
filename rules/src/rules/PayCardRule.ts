@@ -31,7 +31,7 @@ export class PayCardRule extends PlayerTurnRule {
   }
 
   get playerDice() {
-    return this.material(MaterialType.Dice).location(LocationType.PlayerDices).player(this.player)
+    return this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player)
   }
 
   get discardPopulationDice() {

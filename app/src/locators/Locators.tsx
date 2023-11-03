@@ -9,7 +9,7 @@ import { deckLocator } from './DeckLocator'
 import { discardTileLocator } from './DiscardTileLocator'
 import { eventAreaLocator } from './EventAreaLocator'
 import { playerAchievementsLocator } from './PlayerAchievementsLocator'
-import { playerDicesLocator } from './PlayerDicesLocator'
+import { playerResourcesLocator } from './PlayerResourcesLocator'
 import { playerDiscardTileLocator } from './PlayerDiscardTileLocator'
 import { playerUniversalResourceLocator } from './PlayerUniversalResourceLocator'
 import { resultTokenStockLocator } from './ResultTokenStockLocator'
@@ -24,7 +24,7 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, Mat
   [LocationType.PlayerUniversalResource]: playerUniversalResourceLocator,
   [LocationType.EventArea]: eventAreaLocator,
   [LocationType.PlayerDiscardTile]: playerDiscardTileLocator,
-  [LocationType.PlayerDices]: playerDicesLocator,
+  [LocationType.PlayerResources]: playerResourcesLocator,
   [LocationType.CivilisationArea]: civilisationAreaLocator,
   [LocationType.AchievementToken]: achievementTokenLocator,
   [LocationType.PlayerAchievements]: playerAchievementsLocator

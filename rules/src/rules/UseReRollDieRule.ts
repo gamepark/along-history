@@ -19,7 +19,7 @@ export class UseReRollDieRule extends TradeCardsRule {
   }
 
   get selectDices(): MaterialMove[] {
-    return this.material(MaterialType.Dice).location(LocationType.PlayerDices).player(this.player).selected(false).selectItems()
+    return this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player).selected(false).selectItems()
   }
 
   onCustomMove(move: CustomMove) {

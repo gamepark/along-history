@@ -1,6 +1,10 @@
 import { CustomMove, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { parseInt } from 'lodash'
+import countBy from 'lodash/countBy'
+import { AlongHistoryRules } from '../AlongHistoryRules'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
+import { DiceType, getDiceSymbol } from '../material/Dices'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
@@ -31,6 +35,22 @@ export class AcquireCardsRule extends PlayerTurnRule {
   onCustomMove(move: CustomMove) {
     if (move.type === CustomMoveType.Pass) {
       return [this.rules().startRule(RuleId.Calamities)]
+    }
+    return []
+  }
+
+  onRuleEnd() {
+    if (new AlongHistoryRules(this.game).isActivePlayerTurn) {
+      const moves: MaterialMove[] = this.material(MaterialType.Dice).location(LocationType.PlayerResources)
+        .moveItems({ type: LocationType.DiscardTile, parent: 0 })
+      const dice = this.material(MaterialType.Dice).id(id => id !== DiceType.Special).getItems()
+      const diceSymbolCount = countBy(dice, getDiceSymbol)
+      for (const diceSymbol in diceSymbolCount) {
+        moves.push(...this.material(MaterialType.ResultToken).location(LocationType.ResultTokenStock)
+          .id(parseInt(diceSymbol)).limit(diceSymbolCount[diceSymbol])
+          .moveItems({ type: LocationType.PlayerResources, player: this.nextPlayer }))
+      }
+      return moves
     }
     return []
   }

@@ -10,7 +10,7 @@ export class UseDiscardedDieRule extends TradeCardsRule {
   }
 
   get rerollOneDice() {
-    return this.material(MaterialType.Dice).location(LocationType.PlayerDices).player(this.player).rollItems()
+    return this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player).rollItems()
   }
 
   afterItemMove(move: ItemMove) {

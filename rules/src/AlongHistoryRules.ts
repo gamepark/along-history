@@ -51,10 +51,11 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     },
     [MaterialType.Dice]: {
       [LocationType.DiscardTile]: new FillGapStrategy(),
-      [LocationType.PlayerDices]: new FillGapStrategy()
+      [LocationType.PlayerResources]: new FillGapStrategy()
     },
     [MaterialType.ResultToken]: {
-      [LocationType.ResultTokenStock]: new FillGapStrategy()
+      [LocationType.ResultTokenStock]: new FillGapStrategy(),
+      [LocationType.PlayerResources]: new PositiveSequenceStrategy()
     }
   }
 
