@@ -7,7 +7,8 @@ import { Condition } from './Condition'
 import { ConditionType } from './ConditionType'
 
 export class ConditionRules extends PlayerTurnRule {
-  hasCondition(condition: Condition, player = this.player): boolean {
+  hasCondition(condition: Condition | undefined, player = this.player): boolean {
+    if (!condition) return true
     switch (condition.type) {
       case ConditionType.Or:
         return condition.conditions.some(condition => this.hasCondition(condition, player))

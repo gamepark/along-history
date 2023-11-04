@@ -3,6 +3,8 @@ import max from 'lodash/max'
 import sumBy from 'lodash/sumBy'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
+import { ConditionRules } from '../material/cards/effects/conditions/ConditionRules'
+import { EffectType } from '../material/cards/effects/EffectType'
 import { DiceType, getDiceSymbol } from '../material/Dices'
 import { DiceSymbol, isPopulationSymbol, isResource } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
@@ -36,8 +38,10 @@ export class ProductionRule extends PlayerTurnRule {
   }
 
   getPopulationProduction(player = this.player) {
+    // TODO: from past in multi ages
     return this.getDicePopulationProduction(player) + this.getResultTokensPopulationProduction(player)
-      + this.getCivCardsPopulationProduction(player) + this.getGoldenAgesPopulationProduction(player) // TODO: from past in multi ages
+      + this.getCivCardsPopulationProduction(player) + this.getGoldenAgesPopulationProduction(player)
+      - this.getPopulationLost(player)
   }
 
   getDicePopulationProduction(player = this.player) {
@@ -71,6 +75,13 @@ export class ProductionRule extends PlayerTurnRule {
       card => CardsInfo[card.id!.front].bonus.filter(isPopulationSymbol).length)
   }
 
+  getPopulationLost(player = this.player) {
+    return this.material(MaterialType.Card).location(LocationType.EventArea).player(player)
+      .getItems<CardId>().filter(item => CardsInfo[item.id!.front].effects.some(effect =>
+        effect.type === EffectType.LosePopulation && new ConditionRules(this.game).hasCondition(effect.condition, player)
+      )).length
+  }
+
   getResourcesProduction(player = this.player): Resource[] {
     return [
       ...this.getResourcesFromDice(player),
@@ -80,6 +91,7 @@ export class ProductionRule extends PlayerTurnRule {
       // TODO: Cards in the past
     ]
   }
+
   getResourcesFromDice(player = this.player): Resource[] {
     return this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(player).id(DiceType.Resource).getItems()
       .map(dice => getDiceSymbol(dice) as DiceSymbol & Resource)

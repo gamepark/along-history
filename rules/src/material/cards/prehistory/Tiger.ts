@@ -1,6 +1,7 @@
 import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
+import { losePopulation } from '../effects/LosePopulationEffect'
 
 export const Tiger: CardInfo = {
   type: CardType.Figure,
@@ -8,5 +9,5 @@ export const Tiger: CardInfo = {
   resourcesCost: [Resource.Strength],
   victoryPoints: 2,
   bonus: [],
-  effects: []
+  effects: [losePopulation()]
 }

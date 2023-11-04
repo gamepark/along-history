@@ -1,6 +1,9 @@
+import { Card } from '../../Card'
 import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
+import { ownOnOfCards } from '../effects/conditions/OwnCardsCondition'
+import { losePopulation } from '../effects/LosePopulationEffect'
 
 export const Bear: CardInfo = {
   type: CardType.Figure,
@@ -8,5 +11,5 @@ export const Bear: CardInfo = {
   resourcesCost: [Resource.Strength],
   victoryPoints: 1,
   bonus: [],
-  effects: []
+  effects: [losePopulation(ownOnOfCards(Card.Hills, Card.Mountain))]
 }
