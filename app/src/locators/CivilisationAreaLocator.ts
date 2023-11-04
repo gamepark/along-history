@@ -3,6 +3,7 @@ import { getRelativePlayerIndex, ItemContext, LineLocator, LocationDescription, 
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
+import { getPlayerRotation } from './getPlayerRotation'
 
 class CivilisationAreaLocator extends LineLocator {
   locationDescription = new CivilisationAreaDescription()
@@ -36,8 +37,7 @@ class CivilisationAreaLocator extends LineLocator {
   }
 
   getRotations(item: MaterialItem, context: ItemContext): string[] {
-    const playerIndex = getRelativePlayerIndex(context, item.location.player)
-    let rotation = playerIndex === 0 ? 0 : -90
+    let rotation = getPlayerRotation(context, item.location.player)
     if (item.location.rotation) {
       rotation += 90
     }

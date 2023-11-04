@@ -2,6 +2,7 @@ import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { GridLocator, ItemContext } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { diceDescription } from '../material/DiceDescription'
+import { getDicePerspective } from './getPlayerRotation'
 
 class DiscardTileLocator extends GridLocator {
   parentItemType = MaterialType.DiscardTile
@@ -12,7 +13,7 @@ class DiscardTileLocator extends GridLocator {
   coordinates = { x: -1.25, y: -2.5, z: diceDescription.width }
 
   getRotations(item: MaterialItem, context: ItemContext) {
-    return ['rotate3d(1, -1, 0, 15deg)', ...super.getRotations(item, context)]
+    return [getDicePerspective(context), ...super.getRotations(item, context)]
   }
 }
 

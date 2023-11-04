@@ -2,6 +2,7 @@ import { getRelativePlayerIndex, ItemContext, LineLocator } from '@gamepark/reac
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
+import { getPlayerRotation } from './getPlayerRotation'
 
 class EventAreaLocator extends LineLocator {
   getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
@@ -33,8 +34,7 @@ class EventAreaLocator extends LineLocator {
   }
 
   getRotateZ(item: MaterialItem<number, number>, context: ItemContext<number, number, number>): number {
-    const playerIndex = getRelativePlayerIndex(context, item.location.player)
-    return playerIndex === 0 ? 0 : -90
+    return getPlayerRotation(context, item.location.player)
   }
 }
 

@@ -4,6 +4,7 @@ import { MaterialItem } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
 import { diceDescription } from '../material/DiceDescription'
+import { getDicePerspective, getPlayerRotation } from './getPlayerRotation'
 
 class PlayerResourcesLocator extends ItemLocator {
   getPosition(item: MaterialItem, context: ItemContext) {
@@ -27,15 +28,14 @@ class PlayerResourcesLocator extends ItemLocator {
 
   getRotations(item: MaterialItem, context: ItemContext) {
     if (context.type === MaterialType.Dice) {
-      return ['rotate3d(1, -1, 0, 15deg)', ...super.getRotations(item, context)]
+      return [getDicePerspective(context), ...super.getRotations(item, context)]
     } else {
       return super.getRotations(item, context)
     }
   }
 
   getRotateZ(item: MaterialItem, context: ItemContext): number {
-    const playerIndex = getRelativePlayerIndex(context, item.location.player)
-    return playerIndex === 0 ? 0 : -90
+    return getPlayerRotation(context, item.location.player)
   }
 }
 
