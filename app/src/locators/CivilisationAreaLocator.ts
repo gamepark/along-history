@@ -14,13 +14,13 @@ class CivilisationAreaLocator extends LineLocator {
         return {
           x: cardDescription.width / 2 - boardDescription.width / 2,
           y: boardDescription.height / 2 + cardDescription.height * 1.5 + 2,
-          z: 0
+          z: 5 - item.location.x! * 0.1
         }
       default:
         return {
           x: boardDescription.width / 2 + cardDescription.height * 1.5 + 2,
           y: boardDescription.height / 2 - cardDescription.width / 2,
-          z: item.selected ? 20 : 0
+          z: 5 - item.location.x! * 0.1
         }
     }
   }
