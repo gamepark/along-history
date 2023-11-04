@@ -26,12 +26,14 @@ export class AcquireCardsRule extends PlayerTurnRule {
 
   beforeItemMove(move: ItemMove): MaterialMove[] {
     if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.type === LocationType.CivilisationArea) {
-      const cardItem = this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!
-      const cardInfo = CardsInfo[cardItem.id!.front]
-      this.memorize(Memory.CardToPay, move.itemIndex)
-      this.memorize(Memory.PopulationCost, this.getPopulationCost(cardItem.id!.front))
-      this.memorize(Memory.ResourcesCost, cardInfo.resourcesCost)
-      return [this.rules().startRule(RuleId.PayCard)]
+      const card = this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front
+      const cardInfo = CardsInfo[card]
+      if (!cardInfo.effects.some(effect => effect.type === EffectType.Free && new ConditionRules(this.game).hasCondition(effect.condition))) {
+        this.memorize(Memory.CardToPay, move.itemIndex)
+        this.memorize(Memory.PopulationCost, this.getPopulationCost(card))
+        this.memorize(Memory.ResourcesCost, cardInfo.resourcesCost)
+        return [this.rules().startRule(RuleId.PayCard)]
+      }
     }
     return []
   }

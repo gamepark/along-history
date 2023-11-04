@@ -1,3 +1,3 @@
 export enum EffectType {
-  Discount
+  Discount = 1, Free,
 }
