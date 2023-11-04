@@ -15,10 +15,13 @@ export class PayCardRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
     const moves: MaterialMove[] = []
     const populationCost = this.remind<number>(Memory.PopulationCost)
+    const mustSpendDice = this.mustSpendDice
     if (populationCost > 0) {
       moves.push(...this.discardPopulationDice)
-      moves.push(...this.flipPopulationResultToken)
-      moves.push(...this.flipCardWithPopulationBonus)
+      if (!mustSpendDice) {
+        moves.push(...this.flipPopulationResultToken)
+        moves.push(...this.flipCardWithPopulationBonus)
+      }
     }
     const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
     const resourceDie = this.playerDice.id(DiceType.Resource)
@@ -29,16 +32,21 @@ export class PayCardRule extends PlayerTurnRule {
         moves.push(resourceDie.moveItem(diceToDiscardTile))
       }
     }
-    const resourceResultToken = this.playerResultTokens.id(isResource)
-    if (resourceResultToken.length && resourcesCost.includes(resourceResultToken.getItem()!.id)) {
-      moves.push(resourceResultToken.rotateItem(true))
+    if (!mustSpendDice) {
+      const resourceResultToken = this.playerResultTokens.id(isResource)
+      if (resourceResultToken.length && resourcesCost.includes(resourceResultToken.getItem()!.id)) {
+        moves.push(resourceResultToken.rotateItem(true))
+      }
+      if (resourcesCost.length) {
+        moves.push(...this.flipCardWithResourceBonus(resourcesCost))
+      }
+      const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
+      if (universalResource.length) {
+        moves.push(universalResource.moveItem({ type: LocationType.UniversalResourceStock }))
+      }
     }
-    if (resourcesCost.length) {
-      moves.push(...this.flipCardWithResourceBonus(resourcesCost))
-    }
-    const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
-    if (universalResource.length) {
-      moves.push(universalResource.moveItem({ type: LocationType.UniversalResourceStock }))
+    if (this.canUseMultiplier) {
+      moves.push(...this.discardMultiplierDice)
     }
     return moves
   }
@@ -77,32 +85,87 @@ export class PayCardRule extends PlayerTurnRule {
       .rotateItems(true)
   }
 
+  get canUseMultiplier() {
+    return this.remind(Memory.DieToMultiply) || this.playerDice.getItems().some(item => item.id !== DiceType.Special)
+  }
+
+  get mustSpendDice() {
+    return !this.remind(Memory.DieToMultiply) && this.remind(Memory.Multiplier)
+  }
+
+  get discardMultiplierDice() {
+    return this.playerDice.filter(item => getDiceSymbol(item) === DiceSymbol.Multiplier).moveItems(diceToDiscardTile)
+  }
+
   get costPaid() {
     return this.remind<number>(Memory.PopulationCost) === 0 && this.remind<Resource[]>(Memory.ResourcesCost).length === 0
   }
 
   afterItemMove(move: ItemMove) {
     if (isMoveItem(move) && move.itemType === MaterialType.Dice && move.location.type === LocationType.DiscardTile) {
-      this.pay(getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!))
-    } else if (isMoveItem(move) && move.itemType === MaterialType.ResultToken && move.location.rotation) {
-      this.pay(this.material(MaterialType.ResultToken).getItem(move.itemIndex)!.id)
-    } else if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.rotation) {
-      const bonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus
-      for (const symbol of bonus) {
-        this.pay(symbol)
-      }
-    } else if (isMoveItem(move) && move.itemType === MaterialType.UniversalResource && move.location.type === LocationType.UniversalResourceStock) {
-      const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
-      if (resourcesCost.length > 0) {
-        resourcesCost.pop()
-      } else {
-        this.memorize<number>(Memory.PopulationCost, cost => Math.max(cost - 3, 0))
+      this.payDice(getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!))
+    } else {
+      this.forget(Memory.DieToMultiply)
+      this.forget(Memory.Multiplier)
+      if (isMoveItem(move) && move.itemType === MaterialType.ResultToken && move.location.rotation) {
+        this.pay(this.material(MaterialType.ResultToken).getItem(move.itemIndex)!.id)
+      } else if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.rotation) {
+        const bonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus
+        for (const symbol of bonus) {
+          this.pay(symbol)
+        }
+      } else if (isMoveItem(move) && move.itemType === MaterialType.UniversalResource && move.location.type === LocationType.UniversalResourceStock) {
+        const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
+        if (resourcesCost.length > 0) {
+          resourcesCost.pop()
+        } else {
+          this.memorize<number>(Memory.PopulationCost, cost => Math.max(cost - 3, 0))
+        }
       }
     }
     if (this.costPaid) {
       return [this.rules().startRule(RuleId.AcquireCards)]
     }
     return []
+  }
+
+  payDice(symbol: DiceSymbol) {
+    const dieToMultiply = this.remind<DiceSymbol>(Memory.DieToMultiply)
+    const multiplier = this.remind<number>(Memory.Multiplier)
+    if (symbol === DiceSymbol.Multiplier) {
+      if (dieToMultiply !== undefined) {
+        for (let i = 0; i < (multiplier ?? 1); i++) {
+          this.pay(dieToMultiply)
+        }
+      }
+      this.memorize(Memory.Multiplier, multiplier ? multiplier * 2 : 2)
+    } else {
+      if (dieToMultiply !== undefined) {
+        this.forget(Memory.Multiplier)
+        this.pay(symbol)
+        this.memorize(Memory.DieToMultiply, symbol)
+      } else if (multiplier !== undefined) {
+        for (let i = 0; i < multiplier; i++) {
+          this.pay(symbol)
+        }
+        this.forget(Memory.Multiplier)
+      } else {
+        this.pay(symbol)
+        this.memorize(Memory.DieToMultiply, symbol)
+      }
+    }
+    this.forgetDieToMultiplyIfCostAlreadyPaid()
+  }
+
+  forgetDieToMultiplyIfCostAlreadyPaid() {
+    const dieToMultiply = this.remind(Memory.DieToMultiply)
+    if (dieToMultiply) {
+      if ((isPopulationSymbol(dieToMultiply) && this.remind<number>(Memory.PopulationCost) === 0)
+        || (isResource(dieToMultiply) && !this.remind<Resource[]>(Memory.ResourcesCost).includes(dieToMultiply))) {
+        this.forget(Memory.DieToMultiply)
+        this.forget(Memory.Multiplier)
+      }
+    }
   }
 
   pay(symbol: DiceSymbol | Resource | Bonus) {
@@ -119,6 +182,8 @@ export class PayCardRule extends PlayerTurnRule {
     this.forget(Memory.PopulationCost)
     this.forget(Memory.ResourcesCost)
     this.forget(Memory.GoldCost)
+    this.forget(Memory.DieToMultiply)
+    this.forget(Memory.Multiplier)
     this.memorize(Memory.CardAcquired, true)
     return []
   }
