@@ -10,6 +10,7 @@ import { MaterialType } from '../material/MaterialType'
 import { Resource } from '../material/Resource'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
+import { UpkeepRule } from './UpkeepRule'
 
 export class PayCardRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
@@ -43,6 +44,9 @@ export class PayCardRule extends PlayerTurnRule {
       const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
       if (universalResource.length) {
         moves.push(universalResource.moveItem({ type: LocationType.UniversalResourceStock }))
+      }
+      if (this.hasRotatedCards) {
+        moves.push(...this.discardGoldenAgeDice)
       }
     }
     if (this.canUseMultiplier) {
@@ -97,13 +101,26 @@ export class PayCardRule extends PlayerTurnRule {
     return this.playerDice.filter(item => getDiceSymbol(item) === DiceSymbol.Multiplier).moveItems(diceToDiscardTile)
   }
 
+  get hasRotatedCards() {
+    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(this.player).rotation(true).length > 0
+  }
+
+  get discardGoldenAgeDice() {
+    return this.playerDice.filter(item => getDiceSymbol(item) === DiceSymbol.GoldenAge).moveItems(diceToDiscardTile)
+  }
+
   get costPaid() {
     return this.remind<number>(Memory.PopulationCost) === 0 && this.remind<Resource[]>(Memory.ResourcesCost).length === 0
   }
 
   afterItemMove(move: ItemMove) {
     if (isMoveItem(move) && move.itemType === MaterialType.Dice && move.location.type === LocationType.DiscardTile) {
-      this.payDice(getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!))
+      const diceSymbol = getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!)
+      if (diceSymbol === DiceSymbol.GoldenAge) {
+        return new UpkeepRule(this.game).unRotateCards
+      } else {
+        this.payDice(diceSymbol)
+      }
     } else {
       this.forget(Memory.DieToMultiply)
       this.forget(Memory.Multiplier)
