@@ -7,5 +7,6 @@ export const Megaliths: CardInfo = {
   populationCost: 6,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 3,
-  bonus: []
+  bonus: [],
+  effects: []
 }

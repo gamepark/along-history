@@ -7,5 +7,6 @@ export const Tiger: CardInfo = {
   populationCost: 4,
   resourcesCost: [Resource.Strength],
   victoryPoints: 2,
-  bonus: []
+  bonus: [],
+  effects: []
 }

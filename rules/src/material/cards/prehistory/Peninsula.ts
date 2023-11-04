@@ -8,5 +8,6 @@ export const Peninsula: CardInfo = {
   populationCost: 4,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
-  bonus: [Bonus.Population]
+  bonus: [Bonus.Population],
+  effects: []
 }

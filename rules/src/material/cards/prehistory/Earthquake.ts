@@ -7,5 +7,6 @@ export const Earthquake: CardInfo = {
   populationCost: 6,
   resourcesCost: [Resource.Ingenuity, Resource.Ingenuity],
   victoryPoints: 1,
-  bonus: []
+  bonus: [],
+  effects: []
 }

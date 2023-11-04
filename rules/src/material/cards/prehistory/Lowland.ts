@@ -8,5 +8,6 @@ export const Lowland: CardInfo = {
   populationCost: 3,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
-  bonus: [Bonus.Population]
+  bonus: [Bonus.Population],
+  effects: []
 }

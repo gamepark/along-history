@@ -7,5 +7,6 @@ export const Valley: CardInfo = {
   populationCost: 3,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
-  bonus: []
+  bonus: [],
+  effects: []
 }

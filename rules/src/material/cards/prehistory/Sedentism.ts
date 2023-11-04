@@ -8,5 +8,6 @@ export const Sedentism: CardInfo = {
   populationCost: 5,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 2,
-  bonus: [Bonus.Population]
+  bonus: [Bonus.Population],
+  effects: []
 }

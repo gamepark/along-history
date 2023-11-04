@@ -7,5 +7,6 @@ export const Crocodile: CardInfo = {
   populationCost: 5,
   resourcesCost: [Resource.Strength],
   victoryPoints: 1,
-  bonus: []
+  bonus: [],
+  effects: []
 }

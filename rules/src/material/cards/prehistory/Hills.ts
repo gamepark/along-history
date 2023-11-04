@@ -8,5 +8,6 @@ export const Hills: CardInfo = {
   populationCost: 4,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
-  bonus: [Bonus.Ingenuity]
+  bonus: [Bonus.Ingenuity],
+  effects: []
 }

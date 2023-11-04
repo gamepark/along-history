@@ -89,9 +89,9 @@ class AlongHistoryCardDescription extends CardDescription {
 
   rules = () => <></>
 
-  canShortClick(move: MaterialMove, { index, rules }: ItemContext) {
-    return isMoveItem(move) && move.itemType === MaterialType.Card && move.itemIndex === index
-      && move.location.type === rules.material(MaterialType.Card).getItem(index)?.location.type
+  canShortClick(move: MaterialMove, context: ItemContext) {
+    return super.canShortClick(move, context) || isMoveItem(move) && move.itemType === MaterialType.Card && move.itemIndex === context.index
+      && move.location.type === context.rules.material(MaterialType.Card).getItem(context.index)?.location.type
   }
 }
 

@@ -7,5 +7,6 @@ export const Mammoth: CardInfo = {
   populationCost: 6,
   resourcesCost: [Resource.Strength],
   victoryPoints: 2,
-  bonus: []
+  bonus: [],
+  effects: []
 }

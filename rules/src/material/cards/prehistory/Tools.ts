@@ -8,5 +8,6 @@ export const Tools: CardInfo = {
   populationCost: 5,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 2,
-  bonus: [Bonus.Ingenuity]
+  bonus: [Bonus.Ingenuity],
+  effects: []
 }

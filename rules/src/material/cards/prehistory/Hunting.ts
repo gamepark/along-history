@@ -8,5 +8,6 @@ export const Hunting: CardInfo = {
   populationCost: 4,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 2,
-  bonus: [Bonus.Population]
+  bonus: [Bonus.Population],
+  effects: []
 }

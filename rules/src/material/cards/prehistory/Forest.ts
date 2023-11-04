@@ -8,5 +8,6 @@ export const Forest: CardInfo = {
   populationCost: 5,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
-  bonus: [Bonus.Ingenuity]
+  bonus: [Bonus.Ingenuity],
+  effects: []
 }

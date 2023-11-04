@@ -7,5 +7,6 @@ export const Australopithecus: CardInfo = {
   populationCost: 3,
   resourcesCost: [Resource.Culture],
   victoryPoints: 1,
-  bonus: []
+  bonus: [],
+  effects: []
 }

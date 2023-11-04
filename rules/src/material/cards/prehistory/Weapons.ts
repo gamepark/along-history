@@ -8,5 +8,6 @@ export const Weapons: CardInfo = {
   populationCost: 6,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 2,
-  bonus: [Bonus.Population, Bonus.Strength]
+  bonus: [Bonus.Population, Bonus.Strength],
+  effects: []
 }

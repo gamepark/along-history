@@ -7,5 +7,6 @@ export const FuneralRites: CardInfo = {
   populationCost: 5,
   resourcesCost: [Resource.Culture],
   victoryPoints: 2,
-  bonus: []
+  bonus: [],
+  effects: []
 }

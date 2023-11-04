@@ -7,5 +7,6 @@ export const Stonehenge: CardInfo = {
   populationCost: 5,
   resourcesCost: [Resource.Ingenuity, Resource.Ingenuity],
   victoryPoints: 4,
-  bonus: []
+  bonus: [],
+  effects: []
 }

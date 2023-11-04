@@ -7,5 +7,6 @@ export const Cannibals: CardInfo = {
   populationCost: 6,
   resourcesCost: [Resource.Strength],
   victoryPoints: 1,
-  bonus: []
+  bonus: [],
+  effects: []
 }

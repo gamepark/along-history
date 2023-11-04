@@ -7,5 +7,6 @@ export const Swamp: CardInfo = {
   populationCost: 5,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
-  bonus: []
+  bonus: [],
+  effects: []
 }

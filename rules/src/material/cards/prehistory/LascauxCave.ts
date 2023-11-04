@@ -7,5 +7,6 @@ export const LascauxCave: CardInfo = {
   populationCost: 6,
   resourcesCost: [Resource.Culture],
   victoryPoints: 3,
-  bonus: []
+  bonus: [],
+  effects: []
 }

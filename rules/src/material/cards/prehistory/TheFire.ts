@@ -8,5 +8,6 @@ export const TheFire: CardInfo = {
   populationCost: 5,
   resourcesCost: [Resource.Ingenuity, Resource.Ingenuity],
   victoryPoints: 3,
-  bonus: [Bonus.Population, Bonus.Population]
+  bonus: [Bonus.Population, Bonus.Population],
+  effects: []
 }

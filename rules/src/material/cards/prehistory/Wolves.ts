@@ -7,5 +7,6 @@ export const Wolves: CardInfo = {
   populationCost: 4,
   resourcesCost: [Resource.Strength],
   victoryPoints: 1,
-  bonus: []
+  bonus: [],
+  effects: []
 }
