@@ -1,5 +1,6 @@
-import { isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItem, ItemMove, MaterialMove, PlayerTurnRule, playMove } from '@gamepark/rules-api'
 import { intersection } from 'lodash'
+import { AlongHistoryRules } from '../AlongHistoryRules'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
@@ -9,7 +10,7 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Resource } from '../material/Resource'
 import { Memory } from './Memory'
-import { Cost, Production, VersatileProduction } from './ProductionRule'
+import { Cost, Production, ProductionRule, VersatileProduction } from './ProductionRule'
 import { RuleId } from './RuleId'
 import { UpkeepRule } from './UpkeepRule'
 
@@ -54,7 +55,7 @@ export class PayCardRule extends PlayerTurnRule {
     if (this.canUseMultiplier) {
       moves.push(...this.discardMultiplierDice)
     }
-    return moves
+    return moves.filter(move => this.willBeAbleToPay(move))
   }
 
   get playerDice() {
@@ -111,6 +112,14 @@ export class PayCardRule extends PlayerTurnRule {
     return this.playerDice.filter(item => getDiceSymbol(item) === DiceSymbol.GoldenAge).moveItems(diceToDiscardTile)
   }
 
+  willBeAbleToPay(move: MaterialMove) {
+    const futureGame = JSON.parse(JSON.stringify(this.game))
+    const rules = new AlongHistoryRules(futureGame)
+    playMove(rules, move)
+    const remainingCost = { population: rules.remind<number>(Memory.PopulationCost), resources: rules.remind<Resource[]>(Memory.ResourcesCost) }
+    return canPay(remainingCost, new ProductionRule(futureGame).getProduction(this.player))
+  }
+
   get costPaid() {
     return this.remind<number>(Memory.PopulationCost) === 0 && this.remind<Resource[]>(Memory.ResourcesCost).length === 0
   }
@@ -135,10 +144,14 @@ export class PayCardRule extends PlayerTurnRule {
         }
       } else if (isMoveItem(move) && move.itemType === MaterialType.UniversalResource && move.location.type === LocationType.UniversalResourceStock) {
         const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
-        if (resourcesCost.length > 0) {
-          resourcesCost.pop()
-        } else {
+        const resourcesProduction = new ProductionRule(this.game).getResourcesProduction()
+        const nonProducedResourceIndex = resourcesCost.findIndex(resource => !resourcesProduction.includes(resource))
+        if (nonProducedResourceIndex !== -1) {
+          resourcesCost.splice(nonProducedResourceIndex, 1)
+        } else if (this.remind<number>(Memory.PopulationCost) > 0) {
           this.memorize<number>(Memory.PopulationCost, cost => Math.max(cost - 3, 0))
+        } else {
+          resourcesCost.pop()
         }
       }
     }
