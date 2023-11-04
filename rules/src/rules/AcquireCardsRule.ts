@@ -1,6 +1,6 @@
 import { CustomMove, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { parseInt } from 'lodash'
 import countBy from 'lodash/countBy'
+import parseInt from 'lodash/parseInt'
 import { AlongHistoryRules } from '../AlongHistoryRules'
 import { Card } from '../material/Card'
 import { CardId } from '../material/cards/CardId'
@@ -12,6 +12,8 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
 import { Memory } from './Memory'
+import { canPay } from './PayCardRule'
+import { Cost, Production, ProductionRule } from './ProductionRule'
 import { RuleId } from './RuleId'
 
 export class AcquireCardsRule extends PlayerTurnRule {
@@ -20,15 +22,24 @@ export class AcquireCardsRule extends PlayerTurnRule {
   }
 
   get moveAffordableCardsToCivilisationArea(): MaterialMove[] {
+    const production = new ProductionRule(this.game).getProduction(this.player)
     return this.material(MaterialType.Card).location(LocationType.EventArea).player(this.player)
+      .id<CardId>(id => this.canAfford(id.front, production))
       .moveItems({ type: LocationType.CivilisationArea, player: this.player })
   }
+
+  canAfford(card: Card, production: Production) {
+    if (this.isFree(card)) return true
+    const cost: Cost = { population: this.getPopulationCost(card), resources: CardsInfo[card].resourcesCost }
+    return canPay(cost, production)
+  }
+
 
   beforeItemMove(move: ItemMove): MaterialMove[] {
     if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.type === LocationType.CivilisationArea) {
       const card = this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front
       const cardInfo = CardsInfo[card]
-      if (!cardInfo.effects.some(effect => effect.type === EffectType.Free && new ConditionRules(this.game).hasCondition(effect.condition))) {
+      if (!this.isFree(card)) {
         this.memorize(Memory.CardToPay, move.itemIndex)
         this.memorize(Memory.PopulationCost, this.getPopulationCost(card))
         this.memorize(Memory.ResourcesCost, cardInfo.resourcesCost)
@@ -36,6 +47,10 @@ export class AcquireCardsRule extends PlayerTurnRule {
       }
     }
     return []
+  }
+
+  isFree(card: Card) {
+    return CardsInfo[card].effects.some(effect => effect.type === EffectType.Free && new ConditionRules(this.game).hasCondition(effect.condition))
   }
 
   getPopulationCost(card: Card) {

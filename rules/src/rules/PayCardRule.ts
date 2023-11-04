@@ -9,11 +9,13 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Resource } from '../material/Resource'
 import { Memory } from './Memory'
+import { Cost, Production, VersatileProduction } from './ProductionRule'
 import { RuleId } from './RuleId'
 import { UpkeepRule } from './UpkeepRule'
 
 export class PayCardRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
+    // TODO: prevent move if player will not be able to pay the card by doing it
     const moves: MaterialMove[] = []
     const populationCost = this.remind<number>(Memory.PopulationCost)
     const mustSpendDice = this.mustSpendDice
@@ -204,4 +206,37 @@ export class PayCardRule extends PlayerTurnRule {
     this.memorize(Memory.CardAcquired, true)
     return []
   }
+}
+
+export function canPay(cost: Cost, production: Production): boolean {
+  const { population, resources } = cost
+  if (population > 0 && production.population > 0) {
+    return canPay({ resources, population: population - production.population }, { ...production, population: 0 })
+  }
+  const resourceToPay = intersection(resources, production.resources)
+  if (resourceToPay.length > 0) {
+    return canPay({ population, resources: removeOne(resources, resourceToPay[0]) },
+      { ...production, resources: removeOne(production.resources, resourceToPay[0]) })
+  }
+  if (population <= 0 && resources.length === 0) return true
+  return canPayWithVersatileProduction(cost, production)
+}
+
+function canPayWithVersatileProduction({ population, resources }: Cost, production: VersatileProduction): boolean {
+  const { bestPopulationDie, multipliers, universalResources, resourceDie } = production
+  if (resources.length === 0) {
+    return universalResources * 3 + bestPopulationDie * (multipliers === 2 ? 3 : multipliers) >= population
+  }
+  if (multipliers > 0 && resourceDie && resources.includes(resourceDie) && canPayWithVersatileProduction(
+    { population, resources: removeOne(resources, resourceDie) }, { ...production, multipliers: multipliers - 1 })) {
+    return true
+  }
+  return universalResources >= resources.length && canPayWithVersatileProduction(
+    { population, resources: [] },
+    { ...production, universalResources: universalResources - resources.length })
+}
+
+function removeOne<T>(array: T[], item: T): T[] {
+  const index = array.indexOf(item)
+  return array.slice(0, index).concat(array.slice(index + 1))
 }
