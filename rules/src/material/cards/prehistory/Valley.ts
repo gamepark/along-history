@@ -1,4 +1,5 @@
 import { Resource } from '../../Resource'
+import { Bonus } from '../Bonus'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
 
@@ -7,6 +8,6 @@ export const Valley: CardInfo = {
   populationCost: 3,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
-  bonus: [],
+  bonus: [Bonus.Population],
   effects: []
 }
