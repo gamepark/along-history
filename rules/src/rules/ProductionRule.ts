@@ -10,12 +10,13 @@ import { DiceSymbol, isPopulationSymbol, isResource } from '../material/DiceSymb
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Resource } from '../material/Resource'
+import { Memory } from './Memory'
 
 export type VersatileProduction = {
   universalResources: number
   multipliers: number
   resourceDie?: Resource
-  bestPopulationDie: number
+  populationToMultiply: number
 }
 
 export type Cost = {
@@ -32,7 +33,7 @@ export class ProductionRule extends PlayerTurnRule {
       resources: this.getResourcesProduction(player),
       universalResources: this.getUniversalResources(player),
       multipliers: this.getMultipliers(player),
-      bestPopulationDie: this.getBestPopulationDie(player),
+      populationToMultiply: this.getPopulationToMultiply(player),
       resourceDie: this.getResourceDie(player)
     }
   }
@@ -55,7 +56,9 @@ export class ProductionRule extends PlayerTurnRule {
   }
 
   getCivilisationCards(player = this.player) {
-    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(player)
+    const cardToPay = this.remind<number>(Memory.CardToPay)
+    const cards = this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(player)
+    return cardToPay ? cards.filter((_, index) => index !== cardToPay) : cards
   }
 
   getCivCardsPopulationProduction(player = this.player) {
@@ -119,18 +122,26 @@ export class ProductionRule extends PlayerTurnRule {
   }
 
   getMultipliers(player = this.player) {
+    const dieToMultiply = this.remind<DiceSymbol | undefined>(Memory.DieToMultiply)
+    const multiplier = this.remind<number>(Memory.Multiplier) ?? 0
+    const multiplierInCombo = dieToMultiply !== undefined ? 0 : multiplier / 2
     return this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(player).getItems()
-      .filter(dice => getDiceSymbol(dice) === DiceSymbol.Multiplier).length
+      .filter(dice => getDiceSymbol(dice) === DiceSymbol.Multiplier).length + multiplierInCombo
   }
 
-  getBestPopulationDie(player = this.player) {
-    return max(this.material(MaterialType.Dice).location(LocationType.PlayerResources)
-      .player(player).id(DiceType.Population).getItems().map(dice => getDiceSymbol(dice))) ?? 0
+  getPopulationToMultiply(player = this.player) {
+    const dieToMultiply = this.remind<DiceSymbol | undefined>(Memory.DieToMultiply)
+    const multiplier = this.remind<number>(Memory.Multiplier) ?? 1
+    const popToMultiplyWithCurrentCombo = dieToMultiply && isPopulationSymbol(dieToMultiply) ? dieToMultiply * multiplier : 0
+    const bestRemainingPopDie = max(this.material(MaterialType.Dice).location(LocationType.PlayerResources)
+      .player(player).id(DiceType.Population).getItems().map(getDiceSymbol)) ?? 0
+    return Math.max(bestRemainingPopDie, popToMultiplyWithCurrentCombo)
   }
 
   getResourceDie(player = this.player): Resource | undefined {
+    const dieToMultiply = this.remind<DiceSymbol>(Memory.DieToMultiply)
     const die = this.material(MaterialType.Dice).location(LocationType.PlayerResources)
       .player(player).id(DiceType.Resource).getItem()
-    return die && getDiceSymbol(die) as Resource & DiceSymbol
+    return isResource(dieToMultiply) ? dieToMultiply : die && getDiceSymbol(die) as Resource & DiceSymbol
   }
 }

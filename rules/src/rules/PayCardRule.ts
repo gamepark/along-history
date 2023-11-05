@@ -116,7 +116,7 @@ export class PayCardRule extends PlayerTurnRule {
     const futureGame = JSON.parse(JSON.stringify(this.game))
     const rules = new AlongHistoryRules(futureGame)
     playMove(rules, move)
-    const remainingCost = { population: rules.remind<number>(Memory.PopulationCost), resources: rules.remind<Resource[]>(Memory.ResourcesCost) }
+    const remainingCost = { population: rules.remind<number>(Memory.PopulationCost) ?? 0, resources: rules.remind<Resource[]>(Memory.ResourcesCost) ?? [] }
     return canPay(remainingCost, new ProductionRule(futureGame).getProduction(this.player))
   }
 
@@ -222,6 +222,7 @@ export class PayCardRule extends PlayerTurnRule {
 }
 
 export function canPay(cost: Cost, production: Production): boolean {
+  console.log(cost, production)
   const { population, resources } = cost
   if (population > 0 && production.population > 0) {
     return canPay({ resources, population: population - production.population }, { ...production, population: 0 })
@@ -236,9 +237,9 @@ export function canPay(cost: Cost, production: Production): boolean {
 }
 
 function canPayWithVersatileProduction({ population, resources }: Cost, production: VersatileProduction): boolean {
-  const { bestPopulationDie, multipliers, universalResources, resourceDie } = production
+  const { populationToMultiply, multipliers, universalResources, resourceDie } = production
   if (resources.length === 0) {
-    return universalResources * 3 + bestPopulationDie * (multipliers === 2 ? 3 : multipliers) >= population
+    return universalResources * 3 + populationToMultiply * (multipliers === 2 ? 3 : multipliers) >= population
   }
   if (multipliers > 0 && resourceDie && resources.includes(resourceDie) && canPayWithVersatileProduction(
     { population, resources: removeOne(resources, resourceDie) }, { ...production, multipliers: multipliers - 1 })) {
