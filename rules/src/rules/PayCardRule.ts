@@ -222,7 +222,6 @@ export class PayCardRule extends PlayerTurnRule {
 }
 
 export function canPay(cost: Cost, production: Production): boolean {
-  console.log(cost, production)
   const { population, resources } = cost
   if (population > 0 && production.population > 0) {
     return canPay({ resources, population: population - production.population }, { ...production, population: 0 })

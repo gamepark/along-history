@@ -39,10 +39,15 @@ export class AcquireCardsRule extends PlayerTurnRule {
     if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.type === LocationType.CivilisationArea) {
       const card = this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front
       const cardInfo = CardsInfo[card]
-      if (!this.isFree(card)) {
+      if (this.isFree(card)) {
+        this.memorize(Memory.CardAcquired, true)
+      } else {
         this.memorize(Memory.CardToPay, move.itemIndex)
         this.memorize(Memory.PopulationCost, this.getPopulationCost(card))
         this.memorize(Memory.ResourcesCost, cardInfo.resourcesCost)
+        if (this.getPopulationToLose() > 0) {
+          this.memorize(Memory.PopulationLost, true)
+        }
         return [this.rules().startRule(RuleId.PayCard)]
       }
     }
@@ -55,13 +60,21 @@ export class AcquireCardsRule extends PlayerTurnRule {
 
   getPopulationCost(card: Card) {
     const cardInfo = CardsInfo[card]
-    let cost = cardInfo.populationCost
+    let cost = cardInfo.populationCost + this.getPopulationToLose()
     for (const effect of cardInfo.effects) {
       if (effect.type === EffectType.Discount && new ConditionRules(this.game).hasCondition(effect.condition)) {
         cost -= effect.population
       }
     }
     return Math.max(0, cost)
+  }
+
+  getPopulationToLose() {
+    if (this.remind(Memory.PopulationLost)) return 0
+    return this.material(MaterialType.Card).location(LocationType.EventArea).player(this.player)
+      .getItems<CardId>().filter(item => CardsInfo[item.id!.front].effects.some(effect =>
+        effect.type === EffectType.LosePopulation && new ConditionRules(this.game).hasCondition(effect.condition, this.player)
+      )).length
   }
 
   onCustomMove(move: CustomMove) {
