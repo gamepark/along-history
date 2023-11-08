@@ -17,6 +17,7 @@ import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
 import { WarsRule } from './rules/WarsRule'
 import { ArrivalOrderZStrategy } from './util/ArrivalOrderZStrategy'
+import { CivilisationAreaStrategy } from './util/CivilisationAreaStrategy'
 
 
 /**
@@ -44,7 +45,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [MaterialType.Card]: {
       [LocationType.Deck]: new PositiveSequenceStrategy(),
       [LocationType.EventArea]: new FillGapStrategy(),
-      [LocationType.CivilisationArea]: new PositiveSequenceStrategy()
+      [LocationType.CivilisationArea]: new CivilisationAreaStrategy()
     },
     [MaterialType.CivilisationToken]: {
       [LocationType.AchievementsBoard]: new ArrivalOrderZStrategy()
