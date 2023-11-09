@@ -13,7 +13,6 @@ import { MaterialType } from './material/MaterialType';
 import { ResultTokens } from './material/ResultTokens';
 import { PlayerColor } from './PlayerColor';
 import { RuleId } from './rules/RuleId';
-import { Card } from './material/Card';
 
 /**
  * This class creates a new Game based on the game options
@@ -111,22 +110,18 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
 	}
   
 	setupDebug() {
-    this.material(MaterialType.Card).id((id)=> id!["front"]===Card.Cannibals).limit(1).moveItem({ type: LocationType.CivilisationArea,  player: this.players[0]});
+		//setup to test decay
+		 /*
+    	this.material(MaterialType.Card).id((id)=> id!["front"]===Card.Cannibals).limit(1).moveItem({ type: LocationType.CivilisationArea,  player: this.players[0]});
 		this.material(MaterialType.Card).id(id=> id!["front"]===Card.Bear).limit(1).moveItem({ type: LocationType.CivilisationArea, player: this.players[0] });
 		this.material(MaterialType.Card).id(id=> id!["front"]===Card.Crocodile).limit(1).moveItem({ type: LocationType.CivilisationArea,  player: this.players[0], x:1 });
 		this.material(MaterialType.Card).id(id=> id!["front"]===Card.Earthquake).limit(1).moveItem({ type: LocationType.CivilisationArea,  player: this.players[0], x:1 });
 		this.material(MaterialType.Card).id(id=> id!["front"]===Card.Fishing).limit(1).moveItem({ type: LocationType.CivilisationArea,  player: this.players[0]});
-		//this.material(MaterialType.Card).id(id=> id!["front"]===Card.Forest).limit(1).moveItem({ type: LocationType.CivilisationArea,  player: this.players[0]});
+		this.material(MaterialType.Card).id(id=> id!["front"]===Card.Forest).limit(1).moveItem({ type: LocationType.CivilisationArea,  player: this.players[0]});
 
-		/*this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(this.game.players[0]).getItems().forEach(c=> console.log("All element added", c.id, 
-		c.location));*/
-		
-		/*this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(this.game.players[0]).getItems().forEach(c=> console.log("after remove fish", c.id, 
-		c.location));*/
-		//this.material(MaterialType.Card).id(id=> id!["front"]===Card.Fishing).location(LocationType.CivilisationArea).player(this.players[0]).deleteItem();
-//this.material(MaterialType.Card).id(id=> id!["front"]===Card.Bear).location(LocationType.CivilisationArea).player(this.players[0]).deleteItem();
-
-
+		this.material(MaterialType.Card).id(id=> id!["front"]===Card.Fishing).location(LocationType.CivilisationArea).player(this.players[0]).deleteItem();
+		this.material(MaterialType.Card).id(id=> id!["front"]===Card.Bear).location(LocationType.CivilisationArea).player(this.players[0]).deleteItem();
+		*/
 	}
 }
 

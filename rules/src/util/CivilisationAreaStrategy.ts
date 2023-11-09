@@ -16,7 +16,6 @@ export class CivilisationAreaStrategy<P extends number = number, M extends numbe
 	 * @param item
 	 */
 	addItem(material: Material<P, M, L>, item: MaterialItem<P, L>): void {
-		console.log('addItems start', item.id, item.location);
 		const x = item.location[this.axis];
 		if (x === undefined) {
 			item.location[this.axis] = new Set(material.getItems().map((item) => item.location.x)).size;
@@ -35,9 +34,6 @@ export class CivilisationAreaStrategy<P extends number = number, M extends numbe
 				}
 			}
 		}
-		console.log('addItem end', item.id, item.location);
-		//increments depth for everything and add the new one at 1
-		//item.location['z'] = material.location((loc) => loc.x === x).length;
 	}
 
 	/**
@@ -55,12 +51,10 @@ export class CivilisationAreaStrategy<P extends number = number, M extends numbe
 
 		const remainingItemsInPile = material.location((loc) => loc.x === x && loc.z !== item.location.z).sort((item) => item.location['z']!);
 		if (remainingItemsInPile.length > 0) {
-			console.log('not alone in its pile');
 			for (const [i, item] of remainingItemsInPile.getItems().entries()) {
 				item.location['z'] = i;
 			}
 		} else {
-			console.log('Alone in its pile');
 			for (const item of material.getItems()) {
 				const itemX = item.location[this.axis];
 				if (itemX !== undefined && itemX > x) {
