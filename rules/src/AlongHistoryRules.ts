@@ -1,10 +1,13 @@
 import { FillGapStrategy, HiddenMaterialRules, hideFront, PositiveSequenceStrategy } from '@gamepark/rules-api'
+import { sumBy } from 'lodash'
+import { CardsInfo } from './material/cards/CardsInfo'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
 import { AchievementsRule } from './rules/AchievementsRule'
 import { AcquireCardsRule } from './rules/AcquireCardsRule'
 import { ActionsRule } from './rules/ActionsRule'
+import { CannibalsFailureRule } from './rules/calamities/CannibalsFailureRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
 import { NewEventsRule } from './rules/NewEventsRule'
 import { PayCardRule } from './rules/PayCardRule'
@@ -18,71 +21,71 @@ import { UseReRollDieRule } from './rules/UseReRollDieRule'
 import { WarsRule } from './rules/WarsRule'
 import { ArrivalOrderZStrategy } from './util/ArrivalOrderZStrategy'
 import { CivilisationAreaStrategy } from './util/CivilisationAreaStrategy'
-import { sumBy } from 'lodash'
-import { CardsInfo } from './material/cards/CardsInfo'
 
 /**
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
 export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, MaterialType, LocationType> {
-    rules = {
-        [RuleId.RollDice]: RollDiceRule,
-        [RuleId.Actions]: ActionsRule,
-        [RuleId.UseDiscardedDie]: UseDiscardedDieRule,
-        [RuleId.UseReRollDie]: UseReRollDieRule,
-        [RuleId.TradeCards]: TradeCardsRule,
-        [RuleId.PayCard]: PayCardRule,
-        [RuleId.AcquireCards]: AcquireCardsRule,
-        [RuleId.Calamities]: CalamitiesRule,
-        [RuleId.Wars]: WarsRule,
-        [RuleId.NewEvents]: NewEventsRule,
-        [RuleId.Achievements]: AchievementsRule,
-        [RuleId.UniversalResource]: UniversalResourceRule,
-        [RuleId.Upkeep]: UpkeepRule
-    }
+  rules = {
+    [RuleId.RollDice]: RollDiceRule,
+    [RuleId.Actions]: ActionsRule,
+    [RuleId.UseDiscardedDie]: UseDiscardedDieRule,
+    [RuleId.UseReRollDie]: UseReRollDieRule,
+    [RuleId.TradeCards]: TradeCardsRule,
+    [RuleId.PayCard]: PayCardRule,
+    [RuleId.AcquireCards]: AcquireCardsRule,
+    [RuleId.Calamities]: CalamitiesRule,
+    [RuleId.Wars]: WarsRule,
+    [RuleId.NewEvents]: NewEventsRule,
+    [RuleId.Achievements]: AchievementsRule,
+    [RuleId.UniversalResource]: UniversalResourceRule,
+    [RuleId.Upkeep]: UpkeepRule,
+    [RuleId.CannibalsFailure]: CannibalsFailureRule
+  }
 
-    locationsStrategies = {
-        [MaterialType.Card]: {
-            [LocationType.Deck]: new PositiveSequenceStrategy(),
-            [LocationType.EventArea]: new FillGapStrategy(),
-            [LocationType.CivilisationArea]: new CivilisationAreaStrategy()
-        },
-        [MaterialType.CivilisationToken]: {
-            [LocationType.AchievementsBoard]: new ArrivalOrderZStrategy()
-        },
-        [MaterialType.Dice]: {
-            [LocationType.DiscardTile]: new FillGapStrategy(),
-            [LocationType.PlayerResources]: new FillGapStrategy()
-        },
-        [MaterialType.ResultToken]: {
-            [LocationType.ResultTokenStock]: new FillGapStrategy(),
-            [LocationType.PlayerResources]: new FillGapStrategy()
-        }
+  locationsStrategies = {
+    [MaterialType.Card]: {
+      [LocationType.Deck]: new PositiveSequenceStrategy(),
+      [LocationType.Discard]: new PositiveSequenceStrategy(),
+      [LocationType.EventArea]: new FillGapStrategy(),
+      [LocationType.CivilisationArea]: new CivilisationAreaStrategy()
+    },
+    [MaterialType.CivilisationToken]: {
+      [LocationType.AchievementsBoard]: new ArrivalOrderZStrategy()
+    },
+    [MaterialType.Dice]: {
+      [LocationType.DiscardTile]: new FillGapStrategy(),
+      [LocationType.PlayerResources]: new FillGapStrategy()
+    },
+    [MaterialType.ResultToken]: {
+      [LocationType.ResultTokenStock]: new FillGapStrategy(),
+      [LocationType.PlayerResources]: new FillGapStrategy()
     }
+  }
 
-    hidingStrategies = {
-        [MaterialType.Card]: {
-            [LocationType.Deck]: hideFront
-        }
+  hidingStrategies = {
+    [MaterialType.Card]: {
+      [LocationType.Deck]: hideFront
     }
+  }
 
-    get isActivePlayerTurn() {
-        return this.material(MaterialType.DiscardTile).getItem()?.location.player === this.game.rule?.player
-    }
+  get isActivePlayerTurn() {
+    return this.material(MaterialType.DiscardTile).getItem()?.location.player === this.game.rule?.player
+  }
 
-    getScore(player: PlayerColor) {
-        return this.getDecayMalus(player)
-    }
+  getScore(player: PlayerColor) {
+    return this.getDecayMalus(player)
+  }
 
-    getDecayMalus(player: PlayerColor) {
-        const decayCards = this.material(MaterialType.Card)
-            .location(LocationType.CivilisationArea)
-            .player(player)
-            .location(({ z }) => z !== 0)
-            .getItems()
-            .map((item) => item.id!.front)
+  getDecayMalus(player: PlayerColor) {
+    const decayCards = this.material(MaterialType.Card)
+      .location(LocationType.CivilisationArea)
+      .player(player)
+      .location(({ z }) => z !== 0)
+      .getItems()
+      .map((item) => item.id!.front)
 
-        return decayCards.length > 1 ? sumBy(decayCards, (card) => CardsInfo[card].bonus.length * -2) : 0
-    }
+    return decayCards.length > 1 ? sumBy(decayCards, (card) => CardsInfo[card].bonus.length * -2) : 0
+  }
 }

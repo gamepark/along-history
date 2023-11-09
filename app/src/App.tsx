@@ -7,10 +7,11 @@ import { useEffect, useState } from 'react'
 import GameDisplay from './GameDisplay'
 import { AchievementsHeader } from './headers/AchievementsHeader'
 import { AcquireCardsHeader } from './headers/AcquireCardsHeader'
+import { ActionsHeader } from './headers/ActionsHeader'
+import { LoseCardHeader } from './headers/LoseCardHeader'
 import { PayCardHeader } from './headers/PayCardHeader'
 import { RollDiceHeader } from './headers/RollDiceHeader'
 import { TradeCardsHeader } from './headers/TradeCardsHeader'
-import { ActionsHeader } from './headers/ActionsHeader'
 import { UseDiscardedDieHeader } from './headers/UseDiscardedDieHeader'
 import { UseReRollDieHeader } from './headers/UseReRollDieHeader'
 
@@ -43,4 +44,5 @@ const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
   [RuleId.PayCard]: PayCardHeader,
   [RuleId.AcquireCards]: AcquireCardsHeader,
   [RuleId.Achievements]: AchievementsHeader,
+  [RuleId.CannibalsFailure]: LoseCardHeader
 }
