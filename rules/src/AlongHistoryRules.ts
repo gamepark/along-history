@@ -18,55 +18,71 @@ import { UseReRollDieRule } from './rules/UseReRollDieRule'
 import { WarsRule } from './rules/WarsRule'
 import { ArrivalOrderZStrategy } from './util/ArrivalOrderZStrategy'
 import { CivilisationAreaStrategy } from './util/CivilisationAreaStrategy'
-
+import { sumBy } from 'lodash'
+import { CardsInfo } from './material/cards/CardsInfo'
 
 /**
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
 export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, MaterialType, LocationType> {
-  rules = {
-    [RuleId.RollDice]: RollDiceRule,
-    [RuleId.Actions]: ActionsRule,
-    [RuleId.UseDiscardedDie]: UseDiscardedDieRule,
-    [RuleId.UseReRollDie]: UseReRollDieRule,
-    [RuleId.TradeCards]: TradeCardsRule,
-    [RuleId.PayCard]: PayCardRule,
-    [RuleId.AcquireCards]: AcquireCardsRule,
-    [RuleId.Calamities]: CalamitiesRule,
-    [RuleId.Wars]: WarsRule,
-    [RuleId.NewEvents]: NewEventsRule,
-    [RuleId.Achievements]: AchievementsRule,
-    [RuleId.UniversalResource]: UniversalResourceRule,
-    [RuleId.Upkeep]: UpkeepRule
-  }
-
-  locationsStrategies = {
-    [MaterialType.Card]: {
-      [LocationType.Deck]: new PositiveSequenceStrategy(),
-      [LocationType.EventArea]: new FillGapStrategy(),
-      [LocationType.CivilisationArea]: new CivilisationAreaStrategy()
-    },
-    [MaterialType.CivilisationToken]: {
-      [LocationType.AchievementsBoard]: new ArrivalOrderZStrategy()
-    },
-    [MaterialType.Dice]: {
-      [LocationType.DiscardTile]: new FillGapStrategy(),
-      [LocationType.PlayerResources]: new FillGapStrategy()
-    },
-    [MaterialType.ResultToken]: {
-      [LocationType.ResultTokenStock]: new FillGapStrategy(),
-      [LocationType.PlayerResources]: new FillGapStrategy()
+    rules = {
+        [RuleId.RollDice]: RollDiceRule,
+        [RuleId.Actions]: ActionsRule,
+        [RuleId.UseDiscardedDie]: UseDiscardedDieRule,
+        [RuleId.UseReRollDie]: UseReRollDieRule,
+        [RuleId.TradeCards]: TradeCardsRule,
+        [RuleId.PayCard]: PayCardRule,
+        [RuleId.AcquireCards]: AcquireCardsRule,
+        [RuleId.Calamities]: CalamitiesRule,
+        [RuleId.Wars]: WarsRule,
+        [RuleId.NewEvents]: NewEventsRule,
+        [RuleId.Achievements]: AchievementsRule,
+        [RuleId.UniversalResource]: UniversalResourceRule,
+        [RuleId.Upkeep]: UpkeepRule
     }
-  }
 
-  hidingStrategies = {
-    [MaterialType.Card]: {
-      [LocationType.Deck]: hideFront
+    locationsStrategies = {
+        [MaterialType.Card]: {
+            [LocationType.Deck]: new PositiveSequenceStrategy(),
+            [LocationType.EventArea]: new FillGapStrategy(),
+            [LocationType.CivilisationArea]: new CivilisationAreaStrategy()
+        },
+        [MaterialType.CivilisationToken]: {
+            [LocationType.AchievementsBoard]: new ArrivalOrderZStrategy()
+        },
+        [MaterialType.Dice]: {
+            [LocationType.DiscardTile]: new FillGapStrategy(),
+            [LocationType.PlayerResources]: new FillGapStrategy()
+        },
+        [MaterialType.ResultToken]: {
+            [LocationType.ResultTokenStock]: new FillGapStrategy(),
+            [LocationType.PlayerResources]: new FillGapStrategy()
+        }
     }
-  }
 
-  get isActivePlayerTurn() {
-    return this.material(MaterialType.DiscardTile).getItem()?.location.player === this.game.rule?.player
-  }
+    hidingStrategies = {
+        [MaterialType.Card]: {
+            [LocationType.Deck]: hideFront
+        }
+    }
+
+    get isActivePlayerTurn() {
+        return this.material(MaterialType.DiscardTile).getItem()?.location.player === this.game.rule?.player
+    }
+
+    getScore(player: PlayerColor) {
+        return this.getDecayMalus(player)
+    }
+
+    getDecayMalus(player: PlayerColor) {
+        const decayCards = this.material(MaterialType.Card)
+            .location(LocationType.CivilisationArea)
+            .player(player)
+            .location(({ z }) => z !== 0)
+            .getItems()
+            .map((item) => item.id!.front)
+
+        return decayCards.length > 1 ? sumBy(decayCards, (card) => CardsInfo[card].bonus.length * -2) : 0
+    }
 }
