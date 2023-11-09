@@ -28,9 +28,13 @@ export class AchievementsRule extends PlayerTurnRule {
     const tokenLocation = token.getItem()!.location as XYCoordinates
     const availableSpots: XYCoordinates[] = []
     for (let x = 0; x < tokenLocation.x; x++) {
-      for (let y in this.achievementsPaths[x]) {
+      for (let yKey in this.achievementsPaths[x]) {
+        const y = parseInt(yKey)
         if (this.achievementsPaths[x][y].some(({ x, y }) => x === tokenLocation.x && y === tokenLocation.y)) {
-          availableSpots.push({ x, y: parseInt(y) })
+          const achievementToken = this.getAchievementTokenAt(x, y)
+          if (!achievementToken.length || this.canAchieve(achievementToken.getItem()!.id)) {
+            availableSpots.push({ x, y })
+          }
         }
       }
     }
@@ -50,16 +54,22 @@ export class AchievementsRule extends PlayerTurnRule {
     const available: XYCoordinates[] = [...paths[civTokenLocation.x][civTokenLocation.y]]
     while (available.length) {
       const { x, y } = available.pop()!
-      const token = this.material(MaterialType.AchievementToken)
-        .location(location => location.type === LocationType.AchievementsBoard && location.x === x && location.y === y)
-      if (token.length) {
-        tokens.push(token.getItem()!)
-      } else {
-        available.push(...paths[x][y].filter(space => !explored[space.x].includes(space.y)))
+      if (!explored[x].includes(y)) {
+        const token = this.getAchievementTokenAt(x, y)
+        if (token.length) {
+          tokens.push(token.getItem()!)
+        } else {
+          available.push(...paths[x][y])
+        }
+        explored[x].push(y)
       }
-      explored[x].push(y)
     }
     return tokens
+  }
+
+  getAchievementTokenAt(x: number, y: number) {
+    return this.material(MaterialType.AchievementToken)
+      .location(location => location.type === LocationType.AchievementsBoard && location.x === x && location.y === y)
   }
 
   canAchieve(achievement: Achievement) {
