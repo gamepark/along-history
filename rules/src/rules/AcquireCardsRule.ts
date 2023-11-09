@@ -18,13 +18,18 @@ import { RuleId } from './RuleId'
 
 export class AcquireCardsRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
-    return this.moveAffordableCardsToCivilisationArea.concat(this.rules().customMove(CustomMoveType.Pass))
+    return this.moveAffordableCardsToCivilisationArea
+      .concat(this.discardEffects)
+      .concat(this.rules().customMove(CustomMoveType.Pass))
+  }
+
+  get cardsInEventArea() {
+    return this.material(MaterialType.Card).location(LocationType.EventArea).player(this.player)
   }
 
   get moveAffordableCardsToCivilisationArea(): MaterialMove[] {
     const production = new ProductionRule(this.game).getProduction(this.player)
-    return this.material(MaterialType.Card).location(LocationType.EventArea).player(this.player)
-      .id<CardId>(id => this.canAfford(id.front, production))
+    return this.cardsInEventArea.id<CardId>(id => this.canAfford(id.front, production))
       .moveItems({ type: LocationType.CivilisationArea, player: this.player })
   }
 
@@ -34,6 +39,9 @@ export class AcquireCardsRule extends PlayerTurnRule {
     return canPay(cost, production)
   }
 
+  get discardEffects() {
+    return this.cardsInEventArea.id<CardId>(id => this.canDiscard(id.front)).moveItems({ type: LocationType.Discard })
+  }
 
   beforeItemMove(move: ItemMove): MaterialMove[] {
     if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.type === LocationType.CivilisationArea) {
@@ -56,6 +64,10 @@ export class AcquireCardsRule extends PlayerTurnRule {
 
   isFree(card: Card) {
     return CardsInfo[card].effects.some(effect => effect.type === EffectType.Free && new ConditionRules(this.game).hasCondition(effect.condition))
+  }
+
+  canDiscard(card: Card) {
+    return CardsInfo[card].effects.some(effect => effect.type === EffectType.Discard && new ConditionRules(this.game).hasCondition(effect.condition))
   }
 
   getPopulationCost(card: Card) {
