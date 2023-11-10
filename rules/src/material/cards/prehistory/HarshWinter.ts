@@ -1,6 +1,7 @@
 import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
+import { nonTransmissible } from '../effects/NonTransmissibleEffect'
 
 export const HarshWinter: CardInfo = {
   type: CardType.Calamity,
@@ -8,5 +9,5 @@ export const HarshWinter: CardInfo = {
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
   bonus: [],
-  effects: []
+  effects: [nonTransmissible]
 }
