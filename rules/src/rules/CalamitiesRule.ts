@@ -1,4 +1,5 @@
 import { isSelectItemType, ItemMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { Card } from '../material/Card'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { CardType } from '../material/cards/CardType'
@@ -12,7 +13,7 @@ export class CalamitiesRule extends PlayerTurnRule {
     const calamities = this.calamities
     if (calamities.length === 1) {
       this.memorize(Memory.Calamity, calamities.getIndex())
-      return [this.rules().startRule(RuleId.CannibalsFailure)]
+      return [this.rules().startRule(getCalamityFailureRule(calamities.getItem<CardId>()!.id!.front))]
     } else if (calamities.length === 0) {
       return [this.rules().startRule(RuleId.Wars)]
     }
@@ -30,10 +31,22 @@ export class CalamitiesRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (isSelectItemType(MaterialType.Card)(move)) {
-      const card = this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)
-      delete card?.selected
-      return [this.rules().startRule(RuleId.CannibalsFailure)]
+      this.memorize(Memory.Calamity, move.itemIndex)
+      const card = this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!
+      delete card.selected
+      return [this.rules().startRule(getCalamityFailureRule(card.id!.front))]
     }
     return []
+  }
+}
+
+const getCalamityFailureRule = (calamity: Card) => {
+  switch (calamity) {
+    case Card.Cannibals:
+      return RuleId.CannibalsFailure
+    case Card.Earthquake:
+      return RuleId.EarthquakeFailure
+    default:
+      throw new Error(`Missing failure rule for calamity ${calamity}`)
   }
 }
