@@ -11,6 +11,7 @@ import { ActionsHeader } from './headers/ActionsHeader'
 import { CalamitiesHeader } from './headers/CalamitiesHeader'
 import { LoseCardHeader } from './headers/LoseCardHeader'
 import { PayCardHeader } from './headers/PayCardHeader'
+import { PrepareArmyHeader } from './headers/PrepareArmyHeader'
 import { RollDiceHeader } from './headers/RollDiceHeader'
 import { TradeCardsHeader } from './headers/TradeCardsHeader'
 import { UseDiscardedDieHeader } from './headers/UseDiscardedDieHeader'
@@ -47,6 +48,7 @@ const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
   [RuleId.AcquireCards]: AcquireCardsHeader,
   [RuleId.Calamities]: CalamitiesHeader,
   [RuleId.Wars]: WarsHeader,
+  [RuleId.PrepareArmy]: PrepareArmyHeader,
   [RuleId.Achievements]: AchievementsHeader,
   [RuleId.LoseCard]: LoseCardHeader,
   [RuleId.LoseBonusCard]: LoseCardHeader,

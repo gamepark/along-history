@@ -41,6 +41,10 @@ export class WarsRule extends PlayerTurnRule {
     if (move.type === CustomMoveType.Pass) {
       this.forget(Memory.Wars)
       return [this.endWars]
+    } else if (move.type === CustomMoveType.ChoosePlayer) {
+      this.memorize(Memory.Attacker, this.player)
+      this.memorize(Memory.Defender, move.data)
+      return [this.rules().startRule(RuleId.PrepareArmy)]
     }
     return []
   }

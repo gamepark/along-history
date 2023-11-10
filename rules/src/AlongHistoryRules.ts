@@ -16,6 +16,7 @@ import { StarvingFailureRule } from './rules/calamities/StarvingFailureRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
 import { NewEventsRule } from './rules/NewEventsRule'
 import { PayCardRule } from './rules/PayCardRule'
+import { PrepareArmyRule } from './rules/PrepareArmyRule'
 import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
 import { TradeCardsRule } from './rules/TradeCardsRule'
@@ -23,6 +24,7 @@ import { UniversalResourceRule } from './rules/UniversalResourceRule'
 import { UpkeepRule } from './rules/UpkeepRule'
 import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
+import { WarOutcomeRule } from './rules/WarOutcomeRule'
 import { WarsRule } from './rules/WarsRule'
 import { ArrivalOrderZStrategy } from './util/ArrivalOrderZStrategy'
 import { CivilisationAreaStrategy } from './util/CivilisationAreaStrategy'
@@ -42,6 +44,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.AcquireCards]: AcquireCardsRule,
     [RuleId.Calamities]: CalamitiesRule,
     [RuleId.Wars]: WarsRule,
+    [RuleId.PrepareArmy]: PrepareArmyRule,
+    [RuleId.WarOutcome]: WarOutcomeRule,
     [RuleId.NewEvents]: NewEventsRule,
     [RuleId.Achievements]: AchievementsRule,
     [RuleId.UniversalResource]: UniversalResourceRule,
