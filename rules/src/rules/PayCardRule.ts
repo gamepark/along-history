@@ -16,7 +16,6 @@ import { UpkeepRule } from './UpkeepRule'
 
 export class PayCardRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
-    // TODO: prevent move if player will not be able to pay the card by doing it
     const moves: MaterialMove[] = []
     const populationCost = this.remind<number>(Memory.PopulationCost)
     const mustSpendDice = this.mustSpendDice
@@ -24,7 +23,6 @@ export class PayCardRule extends PlayerTurnRule {
       moves.push(...this.discardPopulationDice)
       if (!mustSpendDice) {
         moves.push(...this.flipPopulationResultToken)
-        moves.push(...this.flipCardWithPopulationBonus)
       }
     }
     const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
@@ -41,9 +39,7 @@ export class PayCardRule extends PlayerTurnRule {
       if (resourceResultToken.length && resourcesCost.includes(resourceResultToken.getItem()!.id)) {
         moves.push(resourceResultToken.rotateItem(true))
       }
-      if (resourcesCost.length) {
-        moves.push(...this.flipCardWithResourceBonus(resourcesCost))
-      }
+      moves.push(...this.flipCardWithBonus(populationCost > 0, resourcesCost))
       const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
       if (universalResource.length) {
         moves.push(universalResource.moveItem({ type: LocationType.UniversalResourceStock }))
@@ -80,16 +76,11 @@ export class PayCardRule extends PlayerTurnRule {
     return this.playerResultTokens.id(isPopulationSymbol).rotateItems(true)
   }
 
-  get flipCardWithPopulationBonus() {
-    return this.bonusCards
-      .id<CardId>(cardId => CardsInfo[cardId.front].bonus.includes(Bonus.Population))
-      .rotateItems(true)
-  }
-
-  flipCardWithResourceBonus(resources: (Resource | Bonus)[]) {
-    return this.bonusCards
-      .id<CardId>(cardId => intersection(CardsInfo[cardId.front].bonus, resources).length > 0)
-      .rotateItems(true)
+  flipCardWithBonus(population: boolean, resources: (Resource | Bonus)[]) {
+    return this.bonusCards.id<CardId>(cardId =>
+      (population && CardsInfo[cardId.front].bonus.includes(Bonus.Population))
+      || intersection(CardsInfo[cardId.front].bonus, resources).length > 0
+    ).rotateItems(true)
   }
 
   get canUseMultiplier() {
@@ -205,7 +196,10 @@ export class PayCardRule extends PlayerTurnRule {
       this.memorize<number>(Memory.PopulationCost, cost => Math.max(cost - symbol, 0))
     } else if (isResource(symbol)) {
       const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
-      resourcesCost.splice(resourcesCost.indexOf(symbol), 1)
+      const index = resourcesCost.indexOf(symbol)
+      if (index !== -1) {
+        resourcesCost.splice(index, 1)
+      }
     }
   }
 
