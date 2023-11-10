@@ -13,11 +13,20 @@ export class UniversalResourceRule extends PlayerTurnRule {
       moves.push(this.material(MaterialType.UniversalResource).location(LocationType.UniversalResourceStock)
         .moveItem({ type: LocationType.PlayerUniversalResource, player: this.player }, 1))
     }
+    moves.push(...this.endPlayerTurn)
+    return moves
+  }
+
+  get endPlayerTurn() {
     if (this.material(MaterialType.DiscardTile).getItem()?.location.player === this.nextPlayer) {
       return this.endRound
+    } else {
+      return [
+        ...this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player)
+          .moveItems({ type: LocationType.PlayerResources, player: this.nextPlayer }),
+        this.rules().startPlayerTurn(RuleId.Upkeep, this.nextPlayer)
+      ]
     }
-    moves.push(this.rules().startPlayerTurn(RuleId.Upkeep, this.nextPlayer))
-    return moves
   }
 
   get endRound() {
