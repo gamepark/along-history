@@ -46,6 +46,7 @@ const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
   [RuleId.AcquireCards]: AcquireCardsHeader,
   [RuleId.Calamities]: CalamitiesHeader,
   [RuleId.Achievements]: AchievementsHeader,
+  [RuleId.LoseCard]: LoseCardHeader,
   [RuleId.CannibalsFailure]: LoseCardHeader,
   [RuleId.EarthquakeFailure]: LoseCardHeader
 }

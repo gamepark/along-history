@@ -4,6 +4,7 @@ import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
 import { ownCard } from '../effects/conditions/OwnCardsCondition'
 import { discard } from '../effects/DiscardEffect'
+import { populationDiscount } from '../effects/DiscountEffect'
 
 export const Wolves: CardInfo = {
   type: CardType.Calamity,
@@ -11,5 +12,5 @@ export const Wolves: CardInfo = {
   resourcesCost: [Resource.Strength],
   victoryPoints: 1,
   bonus: [],
-  effects: [discard(ownCard(Card.TheFire))]
+  effects: [discard(ownCard(Card.TheFire)), populationDiscount(-2, ownCard(Card.Forest))]
 }

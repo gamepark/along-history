@@ -9,6 +9,7 @@ import { AcquireCardsRule } from './rules/AcquireCardsRule'
 import { ActionsRule } from './rules/ActionsRule'
 import { CannibalsFailureRule } from './rules/calamities/CannibalsFailureRule'
 import { EarthquakeFailureRule } from './rules/calamities/EarthquakeFailureRule'
+import { LoseCardRule } from './rules/calamities/LoseCardRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
 import { NewEventsRule } from './rules/NewEventsRule'
 import { PayCardRule } from './rules/PayCardRule'
@@ -42,8 +43,9 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.Achievements]: AchievementsRule,
     [RuleId.UniversalResource]: UniversalResourceRule,
     [RuleId.Upkeep]: UpkeepRule,
+    [RuleId.LoseCard]: LoseCardRule,
     [RuleId.CannibalsFailure]: CannibalsFailureRule,
-    [RuleId.EarthquakeFailure]: EarthquakeFailureRule
+    [RuleId.EarthquakeFailure]: EarthquakeFailureRule,
   }
 
   locationsStrategies = {
