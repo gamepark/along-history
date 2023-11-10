@@ -5,4 +5,5 @@ export enum RuleId {
   LoseCard = 100,
   CannibalsFailure,
   EarthquakeFailure,
+  HarshWinterFailure,
 }

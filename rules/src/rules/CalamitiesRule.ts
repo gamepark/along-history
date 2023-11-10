@@ -46,6 +46,8 @@ const getCalamityFailureRule = (calamity: Card) => {
       return RuleId.CannibalsFailure
     case Card.Earthquake:
       return RuleId.EarthquakeFailure
+    case Card.HarshWinter:
+      return RuleId.HarshWinterFailure
     case Card.Wolves:
       return RuleId.LoseCard
     default:
