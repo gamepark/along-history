@@ -2,7 +2,7 @@ import { Card } from '../../Card'
 import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
-import { ownOnOfCards } from '../effects/conditions/OwnCardsCondition'
+import { ownOneOfCards } from '../effects/conditions/OwnCardsCondition'
 import { populationDiscount } from '../effects/DiscountEffect'
 
 export const CroMagnon: CardInfo = {
@@ -11,5 +11,5 @@ export const CroMagnon: CardInfo = {
   resourcesCost: [Resource.Culture],
   victoryPoints: 3,
   bonus: [],
-  effects: [populationDiscount(3, ownOnOfCards(Card.HomoErectus, Card.Neanderthal))]
+  effects: [populationDiscount(3, ownOneOfCards(Card.HomoErectus, Card.Neanderthal))]
 }
