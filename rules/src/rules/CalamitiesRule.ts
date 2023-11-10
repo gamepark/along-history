@@ -50,6 +50,8 @@ const getCalamityFailureRule = (calamity: Card) => {
       return RuleId.HarshWinterFailure
     case Card.Starving:
       return RuleId.StarvingFailure
+    case Card.VolcanicEruption:
+      return RuleId.LoseBonusCard
     case Card.Wolves:
       return RuleId.LoseCard
     default:

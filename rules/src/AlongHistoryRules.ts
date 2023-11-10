@@ -10,6 +10,7 @@ import { ActionsRule } from './rules/ActionsRule'
 import { CannibalsFailureRule } from './rules/calamities/CannibalsFailureRule'
 import { EarthquakeFailureRule } from './rules/calamities/EarthquakeFailureRule'
 import { HarshWinterFailureRule } from './rules/calamities/HarshWinterFailureRule'
+import { LoseBonusCardRule } from './rules/calamities/LoseBonusCardRule'
 import { LoseCardRule } from './rules/calamities/LoseCardRule'
 import { StarvingFailureRule } from './rules/calamities/StarvingFailureRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
@@ -46,6 +47,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.UniversalResource]: UniversalResourceRule,
     [RuleId.Upkeep]: UpkeepRule,
     [RuleId.LoseCard]: LoseCardRule,
+    [RuleId.LoseBonusCard]: LoseBonusCardRule,
     [RuleId.CannibalsFailure]: CannibalsFailureRule,
     [RuleId.EarthquakeFailure]: EarthquakeFailureRule,
     [RuleId.HarshWinterFailure]: HarshWinterFailureRule,

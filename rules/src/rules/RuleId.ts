@@ -3,6 +3,7 @@ export enum RuleId {
   Calamities, Wars, NewEvents, Achievements, UniversalResource, Upkeep,
 
   LoseCard = 100,
+  LoseBonusCard,
   CannibalsFailure,
   EarthquakeFailure,
   HarshWinterFailure,
