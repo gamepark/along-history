@@ -15,6 +15,7 @@ import { RollDiceHeader } from './headers/RollDiceHeader'
 import { TradeCardsHeader } from './headers/TradeCardsHeader'
 import { UseDiscardedDieHeader } from './headers/UseDiscardedDieHeader'
 import { UseReRollDieHeader } from './headers/UseReRollDieHeader'
+import { WarsHeader } from './headers/WarsHeader'
 
 export default function App() {
   const game = useGame<MaterialGame>()
@@ -45,6 +46,7 @@ const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
   [RuleId.PayCard]: PayCardHeader,
   [RuleId.AcquireCards]: AcquireCardsHeader,
   [RuleId.Calamities]: CalamitiesHeader,
+  [RuleId.Wars]: WarsHeader,
   [RuleId.Achievements]: AchievementsHeader,
   [RuleId.LoseCard]: LoseCardHeader,
   [RuleId.LoseBonusCard]: LoseCardHeader,

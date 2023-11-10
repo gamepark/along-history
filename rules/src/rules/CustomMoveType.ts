@@ -1,3 +1,3 @@
 export enum CustomMoveType {
-  Reroll, Pass
+  Reroll, Pass, ChoosePlayer
 }
