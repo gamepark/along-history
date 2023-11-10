@@ -8,6 +8,7 @@ import GameDisplay from './GameDisplay'
 import { AchievementsHeader } from './headers/AchievementsHeader'
 import { AcquireCardsHeader } from './headers/AcquireCardsHeader'
 import { ActionsHeader } from './headers/ActionsHeader'
+import { CalamitiesHeader } from './headers/CalamitiesHeader'
 import { LoseCardHeader } from './headers/LoseCardHeader'
 import { PayCardHeader } from './headers/PayCardHeader'
 import { RollDiceHeader } from './headers/RollDiceHeader'
@@ -43,6 +44,7 @@ const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
   [RuleId.TradeCards]: TradeCardsHeader,
   [RuleId.PayCard]: PayCardHeader,
   [RuleId.AcquireCards]: AcquireCardsHeader,
+  [RuleId.Calamities]: CalamitiesHeader,
   [RuleId.Achievements]: AchievementsHeader,
   [RuleId.CannibalsFailure]: LoseCardHeader
 }
