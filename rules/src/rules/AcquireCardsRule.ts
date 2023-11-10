@@ -7,7 +7,8 @@ import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { ConditionRules } from '../material/cards/effects/conditions/ConditionRules'
 import { EffectType } from '../material/cards/effects/EffectType'
-import { DiceType, getDiceSymbol } from '../material/Dices'
+import { diceToDiscardTile, DiceType, getDiceSymbol } from '../material/Dices'
+import { DiceSymbol } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
@@ -15,11 +16,13 @@ import { Memory } from './Memory'
 import { canPay } from './PayCardRule'
 import { Cost, Production, ProductionRule } from './ProductionRule'
 import { RuleId } from './RuleId'
+import { UpkeepRule } from './UpkeepRule'
 
 export class AcquireCardsRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
     return this.moveAffordableCardsToCivilisationArea
       .concat(this.discardEffects)
+      .concat(this.discardGoldenAgeDice)
       .concat(this.rules().customMove(CustomMoveType.Pass))
   }
 
@@ -43,8 +46,14 @@ export class AcquireCardsRule extends PlayerTurnRule {
     return this.cardsInEventArea.id<CardId>(id => this.canDiscard(id.front)).moveItems({ type: LocationType.Discard })
   }
 
+  get discardGoldenAgeDice() {
+    return this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player)
+      .filter(item => getDiceSymbol(item) === DiceSymbol.GoldenAge).moveItems(diceToDiscardTile)
+  }
+
   beforeItemMove(move: ItemMove): MaterialMove[] {
-    if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.type === LocationType.CivilisationArea) {
+    if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.type === LocationType.CivilisationArea
+      && this.material(MaterialType.Card).getItem(move.itemIndex)!.location.type === LocationType.EventArea) {
       const card = this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front
       const cardInfo = CardsInfo[card]
       if (this.isFree(card)) {
@@ -57,6 +66,16 @@ export class AcquireCardsRule extends PlayerTurnRule {
           this.memorize(Memory.PopulationLost, true)
         }
         return [this.rules().startRule(RuleId.PayCard)]
+      }
+    }
+    return []
+  }
+
+  afterItemMove(move: ItemMove) {
+    if (isMoveItem(move) && move.itemType === MaterialType.Dice && move.location.type === LocationType.DiscardTile) {
+      const diceSymbol = getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!)
+      if (diceSymbol === DiceSymbol.GoldenAge) {
+        return new UpkeepRule(this.game).unRotateCards
       }
     }
     return []
