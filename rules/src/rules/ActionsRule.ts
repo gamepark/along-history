@@ -15,6 +15,10 @@ export class ActionsRule extends AcquireCardsRule {
     return this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player).moveItems(diceToDiscardTile)
   }
 
+  get discardGoldenAgeDice() {
+    return [] // Every die can already be discarded to trade, and we do not want twice the same legal move
+  }
+
   get flipResultTokens() {
     return this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player)
       .rotation(undefined).rotateItems(true)
