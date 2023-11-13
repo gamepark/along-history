@@ -91,7 +91,7 @@ export class ProductionRule extends PlayerTurnRule {
   }
 
   getResourcesFromResultTokens(player = this.player): Resource[] {
-    return this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(player).id(isPopulationSymbol)
+    return this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(player).id(isResource)
       .rotation(undefined).getItems().map(token => token.id)
   }
 
