@@ -26,7 +26,7 @@ import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
 import { WarOutcomeRule } from './rules/WarOutcomeRule'
 import { WarsRule } from './rules/WarsRule'
-import { ArrivalOrderZStrategy } from './util/ArrivalOrderZStrategy'
+import { FillGapZOnlyStrategy } from './util/FillGapZOnlyStrategy'
 import { CivilisationAreaStrategy } from './util/CivilisationAreaStrategy'
 
 /**
@@ -66,7 +66,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
       [LocationType.CivilisationArea]: new CivilisationAreaStrategy()
     },
     [MaterialType.CivilisationToken]: {
-      [LocationType.AchievementsBoard]: new ArrivalOrderZStrategy()
+      [LocationType.AchievementsBoard]: new FillGapZOnlyStrategy()
     },
     [MaterialType.Dice]: {
       [LocationType.DiscardTile]: new FillGapStrategy(),
@@ -75,6 +75,9 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [MaterialType.ResultToken]: {
       [LocationType.ResultTokenStock]: new FillGapStrategy(),
       [LocationType.PlayerResources]: new FillGapStrategy()
+    },
+    [MaterialType.AchievementToken]: {
+      [LocationType.PlayerAchievements]: new PositiveSequenceStrategy()
     }
   }
 

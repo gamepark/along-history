@@ -52,10 +52,12 @@ export class PrepareArmyRule extends PlayerTurnRule {
 
   onCustomMove(move: CustomMove) {
     if (move.type === CustomMoveType.Pass) {
-      const moves: MaterialMove[] = this.material(MaterialType.Dice).id(DiceType.Population).rollItems({
+      let x = 5
+      const moves: MaterialMove[] = this.material(MaterialType.Dice).id(DiceType.Population).rollItems(() => ({
         type: LocationType.PlayerResources,
-        player: this.player
-      })
+        player: this.player,
+        x: x++
+      }))
       const defender = this.remind(Memory.Defender)
       if (this.player !== defender) {
         moves.push(this.rules().startPlayerTurn(RuleId.PrepareArmy, defender))

@@ -1,43 +1,23 @@
-import { getRelativePlayerIndex, ItemContext, LineLocator } from '@gamepark/react-game'
-import { Coordinates, MaterialItem } from '@gamepark/rules-api'
-import { boardDescription } from '../material/BoardDescription'
+import { ItemContext, LineLocator } from '@gamepark/react-game'
+import { MaterialItem } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
+import { civilisationAreaDescription } from './CivilisationAreaDescription'
+import { playerLocator } from './PlayerLocator'
 
 class PlayerUniversalResourceLocator extends LineLocator {
-  delta = { y: 3 }
-
-  getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
-    const playerIndex = getRelativePlayerIndex(context, item.location.player)
-    switch (playerIndex) {
-      case 0:
-        return {
-          x: -boardDescription.width / 2 + cardDescription.width * 3 + 5,
-          y: boardDescription.height / 2 + cardDescription.height - 1,
-          z: 0
-        }
-      default:
-        return {
-          x: boardDescription.width / 2 + cardDescription.height + 3,
-          y: boardDescription.height / 2 - 1.5,
-          z: 0
-        }
-    }
+  transformItemLocation(item: MaterialItem, context: ItemContext) {
+    return playerLocator.transformItemInFrontOfPlayer(item, context).concat(this.transformOwnItemLocation(item, context))
   }
 
-  getDelta(item: MaterialItem, context: ItemContext): Partial<Coordinates> {
-    const playerIndex = getRelativePlayerIndex(context, item.location.player)
-    switch (playerIndex) {
-      case 0:
-        return { x: 3 }
-      default:
-        return { y: -3 }
-    }
+  coordinates = {
+    x: civilisationAreaDescription.width - cardDescription.width - 3,
+    y: (civilisationAreaDescription.height - cardDescription.height) / 2,
+    z: 0
   }
 
-  getRotateZ(item: MaterialItem, context: ItemContext): number {
-    const playerIndex = getRelativePlayerIndex(context, item.location.player)
-    return playerIndex === 0 ? 45 : -45
-  }
+  delta = { x: -2 }
+
+  rotateZ = 45
 }
 
 export const playerUniversalResourceLocator = new PlayerUniversalResourceLocator()

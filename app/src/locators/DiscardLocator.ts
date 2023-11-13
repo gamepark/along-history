@@ -1,7 +1,7 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { DeckLocator, LocationDescription } from '@gamepark/react-game'
-import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
+import { deckLocator } from './DeckLocator'
 
 class DiscardLocator extends DeckLocator {
   hidden = false
@@ -16,8 +16,8 @@ class DiscardLocationDescription extends LocationDescription {
   height = cardDescription.height
   borderRadius = cardDescription.borderRadius
   coordinates = {
-    x: -boardDescription.width / 2 + cardDescription.width * 3 / 2 + 1,
-    y: -boardDescription.height / 2 - 5,
+    x: deckLocator.coordinates.x + cardDescription.width + 1,
+    y: deckLocator.coordinates.y,
     z: 10
   }
 }

@@ -4,6 +4,7 @@ import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { ItemLocator } from '@gamepark/react-game'
 import { achievementsBoardLocator } from './AchievementsBoardLocator'
 import { achievementTokenLocator } from './AchievementTokenLocator'
+import { boardTableLocator } from './BoardTableLocator'
 import { civilisationAreaLocator } from './CivilisationAreaLocator'
 import { deckLocator } from './DeckLocator'
 import { discardLocator } from './DiscardLocator'
@@ -17,6 +18,7 @@ import { resultTokenStockLocator } from './ResultTokenStockLocator'
 import { universalResourceStockLocator } from './UniversalResourceStockLocator'
 
 export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, MaterialType, LocationType>>> = {
+  [LocationType.Table]: boardTableLocator,
   [LocationType.Deck]: deckLocator,
   [LocationType.AchievementsBoard]: achievementsBoardLocator,
   [LocationType.DiscardTile]: discardTileLocator,

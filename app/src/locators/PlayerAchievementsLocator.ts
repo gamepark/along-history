@@ -1,38 +1,22 @@
-import { getRelativePlayerIndex, ItemContext, LineLocator } from '@gamepark/react-game'
-import { Coordinates, MaterialItem } from '@gamepark/rules-api'
-import { boardDescription } from '../material/BoardDescription'
+import { ItemContext, LineLocator } from '@gamepark/react-game'
+import { MaterialItem } from '../../../../workshop/packages/rules-api'
+import { achievementTokenDescription } from '../material/AchievementTokenDescription'
 import { cardDescription } from '../material/CardDescription'
+import { civilisationAreaDescription } from './CivilisationAreaDescription'
+import { playerLocator } from './PlayerLocator'
 
 class PlayerAchievementsLocator extends LineLocator {
-  delta = { y: 3 }
-
-  getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
-    const playerIndex = getRelativePlayerIndex(context, item.location.player)
-    switch (playerIndex) {
-      case 0:
-        return {
-          x: -boardDescription.width / 2 + cardDescription.width * 3 + 9,
-          y: boardDescription.height / 2 + cardDescription.height - 1,
-          z: 0
-        }
-      default:
-        return {
-          x: boardDescription.width / 2 + cardDescription.height + 3,
-          y: boardDescription.height / 2 + 5,
-          z: 0
-        }
-    }
+  transformItemLocation(item: MaterialItem, context: ItemContext) {
+    return playerLocator.transformItemInFrontOfPlayer(item, context).concat(this.transformOwnItemLocation(item, context))
   }
 
-  getDelta(item: MaterialItem, context: ItemContext): Partial<Coordinates> {
-    const playerIndex = getRelativePlayerIndex(context, item.location.player)
-    switch (playerIndex) {
-      case 0:
-        return { x: 3 }
-      default:
-        return { y: -3 }
-    }
+  coordinates = {
+    x: achievementTokenDescription.width / 2 + 1,
+    y: (civilisationAreaDescription.height - cardDescription.height) / 2,
+    z: 0.5
   }
+
+  delta = { x: 3 }
 }
 
 export const playerAchievementsLocator = new PlayerAchievementsLocator()
