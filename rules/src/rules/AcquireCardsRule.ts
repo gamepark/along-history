@@ -120,7 +120,7 @@ export class AcquireCardsRule extends PlayerTurnRule {
       if (new AlongHistoryRules(this.game).isActivePlayerTurn) {
         this.memorize(Memory.Wars, this.countWars)
         moves.push(...this.material(MaterialType.Dice).location(LocationType.PlayerResources)
-          .moveItems({ type: LocationType.DiscardTile, parent: 0 }))
+          .moveItems(item => ({ type: LocationType.DiscardTile, parent: 0, rotation: item.location.rotation })))
         const dice = this.material(MaterialType.Dice).id(id => id !== DiceType.Special).getItems()
         const diceSymbolCount = countBy(dice, getDiceSymbol)
         for (const diceSymbol in diceSymbolCount) {
