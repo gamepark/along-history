@@ -1,5 +1,4 @@
 import { MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { maxBy } from 'lodash'
 import { Achievement, getAchievementValue } from '../material/Achievement'
 import { DiceType } from '../material/Dices'
 import { LocationType } from '../material/LocationType'
@@ -30,7 +29,7 @@ export class WarOutcomeRule extends PlayerTurnRule {
 
   getBestTokensWorthMax(player: PlayerColor, value: number) {
     const tokens = this.material(MaterialType.AchievementToken).player(player).id<Achievement>(id => getAchievementValue(id) <= value)
-    const bestValue = maxBy(tokens.getItems<Achievement>(), item => getAchievementValue(item.id!)) ?? 0
+    const bestValue = Math.max(...tokens.getItems<Achievement>().map(item => getAchievementValue(item.id!)))
     return tokens.id<Achievement>(id => getAchievementValue(id) === bestValue)
   }
 

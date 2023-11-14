@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { CustomMoveType } from '@gamepark/along-history/rules/CustomMoveType'
 import { Memory } from '@gamepark/along-history/rules/Memory'
 import { PlayMoveButton, RulesDialog, ThemeButton, useLegalMove, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
-import { isCustomMoveType } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType } from '@gamepark/rules-api'
 import { useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
@@ -49,10 +50,18 @@ const PlayerDeclareWarDialogHeader = () => {
       <PlayMoveButton move={pass}/>
     </Trans>
     <RulesDialog open={warDialogOpen} close={() => setWarDialogOpen(false)}>
-      <h2>{t('war.title')}</h2>
-      {/*TODO: choix du joueur à qui déclarer la guerre*/}
+      <div css={dialogCss}>
+        <h2>{t('war.title')}</h2>
+        {legalMoves.filter(isCustomMoveType(CustomMoveType.ChoosePlayer)).map(move => <DeclareWarButton key={move.data} move={move}/>)}
+      </div>
     </RulesDialog>
   </>
+}
+
+const DeclareWarButton = ({ move }: { move: CustomMove }) => {
+  const { t } = useTranslation()
+  const player = usePlayerName(move.data)
+  return <PlayMoveButton move={move}>{t('war.button', { player })}</PlayMoveButton>
 }
 
 const PlayerPayWarHeader = () => {
@@ -65,3 +74,18 @@ const DefaultWarsHeader = ({ player }: { player: PlayerColor }) => {
   const playerName = usePlayerName(player)
   return <>{t('header.wars', { player: playerName })}</>
 }
+
+const dialogCss = css`
+  max-width: 40em;
+  margin: 1em 2em;
+  font-size: 3em;
+
+  > h2 {
+    margin-right: 2em;
+  }
+
+  > button {
+    display: block;
+    margin: 1em 0;
+  }
+`
