@@ -1,10 +1,7 @@
-import { PlayerColor } from '@gamepark/along-history/PlayerColor'
-import { getRelativePlayerIndex, ItemContext, LineLocator, MaterialContext } from '@gamepark/react-game'
+import { ItemContext, LineLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
-import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
-import { civilisationAreaDescription } from './CivilisationAreaDescription'
 import { getPlayerLocation, Orientation } from './PlayerLocator'
 
 class EventAreaLocator extends LineLocator {
@@ -63,33 +60,8 @@ class EventAreaLocator extends LineLocator {
   }
 
   getDeltaMax(item: MaterialItem, context: ItemContext) {
-    const eventAreaWidth = this.getEventAreaWidth(context, item.location.player!)
-    return { x: eventAreaWidth - cardDescription.width - discardTileDescription.width - 1 }
-  }
-
-  getEventAreaWidth(context: MaterialContext, player: PlayerColor) {
-    const playerIndex = getRelativePlayerIndex(context, player)
-    switch (playerIndex) {
-      case 0:
-        return boardDescription.width
-      case 1:
-      case 4:
-        return civilisationAreaDescription.width - cardDescription.height - 1
-      default:
-        return civilisationAreaDescription.width - civilisationAreaDescription.height - 1
-    }
-  }
-
-  getEventAreaDeltaX(context: MaterialContext, player: PlayerColor) {
-    const playerIndex = getRelativePlayerIndex(context, player)
-    switch (playerIndex) {
-      case 1:
-        return cardDescription.height + 1
-      case 3:
-        return civilisationAreaDescription.height + 1
-      default:
-        return 0
-    }
+    const l = getPlayerLocation(item.location.player!, context)
+    return { x: l.eventArea.width - cardDescription.width - discardTileDescription.width - 1 }
   }
 }
 

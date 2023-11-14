@@ -2,8 +2,7 @@ import { ItemContext, LineLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem, XYCoordinates } from '../../../../workshop/packages/rules-api'
 import { achievementTokenDescription } from '../material/AchievementTokenDescription'
 import { cardDescription } from '../material/CardDescription'
-import { civilisationAreaDescription } from './CivilisationAreaDescription'
-import { getPlayerLocation, Orientation } from './PlayerLocator'
+import { civilisationAreaHeight, getPlayerLocation, Orientation } from './PlayerLocator'
 
 class PlayerAchievementsLocator extends LineLocator {
   hidden = true
@@ -16,7 +15,7 @@ class PlayerAchievementsLocator extends LineLocator {
   getXYCoordinates(item: MaterialItem, context: ItemContext): XYCoordinates {
     const l = getPlayerLocation(item.location.player!, context)
     const deltaX = achievementTokenDescription.width / 2 + 1
-    const deltaY = (civilisationAreaDescription.height - cardDescription.height) / 2
+    const deltaY = (civilisationAreaHeight - cardDescription.height) / 2
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
         return {

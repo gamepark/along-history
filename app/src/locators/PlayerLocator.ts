@@ -44,7 +44,7 @@ const playersLocationAt5Players: PlayerLocation[] = [
       y: boardDescription.height + 1
     },
     civilisationArea: {
-      width: civilisationAreaWidth,
+      width: civilisationAreaWidth * 2 - civilisationAreaHeight * 2 - cardDescription.height * 2 - 3,
       x: 0,
       y: boardDescription.height + cardDescription.height + 2
     }
