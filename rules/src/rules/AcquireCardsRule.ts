@@ -111,7 +111,9 @@ export class AcquireCardsRule extends PlayerTurnRule {
   get countWars() {
     const dice = this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player).id(DiceType.Special).getItems()
     const diceSymbol = countBy(dice, getDiceSymbol)
-    return diceSymbol[DiceSymbol.War] ? diceSymbol[DiceSymbol.War] + diceSymbol[DiceSymbol.Multiplier] : 0
+    const wars = diceSymbol[DiceSymbol.War] ?? 0
+    const multipliers = diceSymbol[DiceSymbol.Multiplier] ?? 0
+    return wars ? wars + multipliers : 0
   }
 
   onCustomMove(move: CustomMove) {
