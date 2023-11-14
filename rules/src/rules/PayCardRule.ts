@@ -64,7 +64,7 @@ export class PayCardRule extends PlayerTurnRule {
 
   get bonusCards() {
     const cardToPay = this.remind<number>(Memory.CardToPay)
-    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(this.player).rotation(undefined)
+    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).location(({ z }) => !z).player(this.player).rotation(undefined)
       .filter((_, index) => index !== cardToPay)
   }
 

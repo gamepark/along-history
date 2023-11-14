@@ -27,7 +27,7 @@ export class PrepareArmyRule extends PlayerTurnRule {
   }
 
   get civilisationCards() {
-    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(this.player)
+    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z).player(this.player)
   }
 
   getPlayerMoves() {

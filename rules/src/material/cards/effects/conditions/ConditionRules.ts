@@ -20,6 +20,7 @@ export class ConditionRules extends PlayerTurnRule {
   }
 
   ownCard(card: Card, player = this.player) {
-    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(player).id<CardId>(id => id.front === card).length > 0
+    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z).player(player)
+      .id<CardId>(id => id.front === card).length > 0
   }
 }
