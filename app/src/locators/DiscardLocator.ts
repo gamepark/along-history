@@ -4,7 +4,6 @@ import { cardDescription } from '../material/CardDescription'
 import { deckLocator } from './DeckLocator'
 
 class DiscardLocator extends DeckLocator {
-  hidden = false
   locationDescription = new DiscardLocationDescription()
   coordinates = { ...this.locationDescription.coordinates, z: 0 }
   delta = { x: -cardDescription.thickness, y: -cardDescription.thickness, z: cardDescription.thickness }

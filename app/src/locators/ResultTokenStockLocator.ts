@@ -1,12 +1,13 @@
 import { GridLocator } from '@gamepark/react-game'
 import { boardDescription } from '../material/BoardDescription'
+import { cardDescription } from '../material/CardDescription'
 import { resultTokenDescription } from '../material/ResultTokenDescription'
 import { boardTableLocator } from './BoardTableLocator'
 
 class ResultTokenStockLocator extends GridLocator {
   coordinates = {
     x: boardTableLocator.position.x + boardDescription.width / 2 + resultTokenDescription.width / 2 + 1,
-    y: 2,
+    y: cardDescription.height + 1.9,
     z: 0.8
   }
   itemsPerLine = 3

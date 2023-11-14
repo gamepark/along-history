@@ -1,26 +1,66 @@
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { getRelativePlayerIndex, ItemContext, LineLocator, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, MaterialItem } from '@gamepark/rules-api'
+import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
 import { civilisationAreaDescription } from './CivilisationAreaDescription'
-import { playerLocator } from './PlayerLocator'
+import { getPlayerLocation, Orientation } from './PlayerLocator'
 
 class EventAreaLocator extends LineLocator {
-  transformItemLocation(item: MaterialItem, context: ItemContext) {
-    return playerLocator.transformItemInFrontOfPlayer(item, context).concat(this.transformOwnItemLocation(item, context))
-  }
-
   getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
+    const { x, y } = this.getXYCoordinates(item, context)
     return {
-      x: cardDescription.width / 2 + this.getEventAreaDeltaX(context, item.location.player!) + (item.selected ? -0.2 : 0),
-      y: -cardDescription.height / 2 - 1 + (item.selected ? -0.5 : 0),
+      x: x + (item.selected ? -0.2 : 0),
+      y: y + (item.selected ? -0.5 : 0),
       z: item.selected ? 20 : 0
     }
   }
 
-  delta = { x: cardDescription.width + 1, z: 0.05 }
+  getXYCoordinates(item: MaterialItem, context: ItemContext): XYCoordinates {
+    const l = getPlayerLocation(item.location.player!, context)
+    switch (l.orientation) {
+      case Orientation.LEFT_RIGHT:
+        return {
+          x: l.eventArea.x + cardDescription.width / 2,
+          y: l.eventArea.y + cardDescription.height / 2
+        }
+      case Orientation.TOP_BOTTOM:
+        return {
+          x: l.eventArea.x - cardDescription.height / 2,
+          y: l.eventArea.y + cardDescription.width / 2
+        }
+      case Orientation.RIGHT_LEFT:
+        return {
+          x: l.eventArea.x - cardDescription.width / 2,
+          y: l.eventArea.y - cardDescription.height / 2
+        }
+      case Orientation.BOTTOM_TOP:
+        return {
+          x: l.eventArea.x + cardDescription.height / 2,
+          y: l.eventArea.y - cardDescription.width / 2
+        }
+    }
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    const l = getPlayerLocation(item.location.player!, context)
+    return l.orientation * 90
+  }
+
+  getDelta(item: MaterialItem, context: ItemContext) {
+    const l = getPlayerLocation(item.location.player!, context)
+    switch (l.orientation) {
+      case Orientation.LEFT_RIGHT:
+        return { x: cardDescription.width + 1, z: 0.05 }
+      case Orientation.TOP_BOTTOM:
+        return { y: cardDescription.width + 1, z: 0.05 }
+      case Orientation.RIGHT_LEFT:
+        return { x: -cardDescription.width - 1, z: 0.05 }
+      case Orientation.BOTTOM_TOP:
+        return { y: -cardDescription.width - 1, z: 0.05 }
+    }
+  }
 
   getDeltaMax(item: MaterialItem, context: ItemContext) {
     const eventAreaWidth = this.getEventAreaWidth(context, item.location.player!)

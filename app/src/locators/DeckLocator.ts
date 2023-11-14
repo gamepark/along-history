@@ -4,9 +4,10 @@ import { cardDescription } from '../material/CardDescription'
 import { boardTableLocator } from './BoardTableLocator'
 
 class AlongHistoryDeckLocator extends DeckLocator {
+  hidden = true
   coordinates = {
     x: boardTableLocator.position.x + boardDescription.width / 2 + cardDescription.width / 2 + 1,
-    y: -boardDescription.height / 2 + cardDescription.height / 2,
+    y: cardDescription.height / 2,
     z: 0
   }
   delta = { x: -cardDescription.thickness, y: -cardDescription.thickness, z: cardDescription.thickness }

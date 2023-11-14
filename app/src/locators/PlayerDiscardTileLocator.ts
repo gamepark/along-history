@@ -1,22 +1,44 @@
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
-import { Coordinates, MaterialItem } from '@gamepark/rules-api'
+import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
+import { cardDescription } from '../material/CardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
-import { eventAreaLocator } from './EventAreaLocator'
-import { playerLocator } from './PlayerLocator'
+import { getPlayerLocation, Orientation } from './PlayerLocator'
 
 class PlayerDiscardTileLocator extends ItemLocator {
-  transformItemLocation(item: MaterialItem, context: ItemContext) {
-    return playerLocator.transformItemInFrontOfPlayer(item, context).concat(this.transformOwnItemLocation(item, context))
+  getPosition(item: MaterialItem, context: ItemContext): Coordinates {
+    const { x, y } = this.getXYCoordinates(item, context)
+    return { x, y, z: 0 }
   }
 
-  getPosition(item: MaterialItem, context: ItemContext): Coordinates {
-    return {
-      x: +eventAreaLocator.getEventAreaDeltaX(context, item.location.player!)
-        + eventAreaLocator.getEventAreaWidth(context, item.location.player!)
-        - discardTileDescription.width / 2,
-      y: -discardTileDescription.height / 2 - 1,
-      z: 0
+  getXYCoordinates(item: MaterialItem, context: ItemContext): XYCoordinates {
+    const l = getPlayerLocation(item.location.player!, context)
+    switch (l.orientation) {
+      case Orientation.LEFT_RIGHT:
+        return {
+          x: l.eventArea.x + l.eventArea.width - discardTileDescription.width / 2,
+          y: l.eventArea.y + cardDescription.height - discardTileDescription.height / 2
+        }
+      case Orientation.TOP_BOTTOM:
+        return {
+          x: l.eventArea.x - cardDescription.height + discardTileDescription.height / 2,
+          y: l.eventArea.y + l.eventArea.width - discardTileDescription.width / 2
+        }
+      case Orientation.RIGHT_LEFT:
+        return {
+          x: l.eventArea.x - l.eventArea.width + discardTileDescription.width / 2,
+          y: l.eventArea.y - cardDescription.height + discardTileDescription.height / 2
+        }
+      case Orientation.BOTTOM_TOP:
+        return {
+          x: l.eventArea.x + cardDescription.height / 2 - discardTileDescription.height / 2,
+          y: l.eventArea.y - l.eventArea.width + discardTileDescription.width / 2
+        }
     }
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    const l = getPlayerLocation(item.location.player!, context)
+    return l.orientation * 90
   }
 }
 

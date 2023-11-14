@@ -1,16 +1,15 @@
 import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
-import { ItemContext, LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Location } from '../../../../workshop/packages/rules-api'
-import { boardDescription } from '../material/BoardDescription'
+import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
-import { playerLocator } from './PlayerLocator'
+import { civilisationAreaHeight, civilisationAreaWidth, getPlayerLocation, Orientation } from './PlayerLocator'
 
 export class CivilisationAreaDescription extends LocationDescription {
   alwaysVisible = true
-  height = 13
-  width = this.height + cardDescription.height * 2 + boardDescription.height + 3
+  height = civilisationAreaHeight
+  width = civilisationAreaWidth
   borderRadius = cardDescription.borderRadius
 
   getLocations({ rules }: MaterialContext) {
@@ -23,14 +22,39 @@ export class CivilisationAreaDescription extends LocationDescription {
     `
   }
 
-  transformOwnLocation(location: Location, context: LocationContext) {
-    return playerLocator.transformItemInFrontOfPlayer({ location }, context as ItemContext).concat(super.transformOwnLocation(location, context))
+  getCoordinates(location: Location, context: LocationContext) {
+    const l = getPlayerLocation(location.player!, context)
+    switch (l.orientation) {
+      case Orientation.LEFT_RIGHT:
+        return {
+          x: l.civilisationArea.x + l.civilisationArea.width / 2,
+          y: l.civilisationArea.y + civilisationAreaHeight / 2,
+          z: 0
+        }
+      case Orientation.TOP_BOTTOM:
+          return {
+            x: l.civilisationArea.x - civilisationAreaHeight / 2,
+            y: l.civilisationArea.y + l.civilisationArea.width / 2,
+          z: 0
+        }
+      case Orientation.RIGHT_LEFT:
+        return {
+          x: l.civilisationArea.x - l.civilisationArea.width / 2,
+          y: l.civilisationArea.y - civilisationAreaHeight / 2,
+          z: 0
+        }
+      case Orientation.BOTTOM_TOP:
+        return {
+          x: l.civilisationArea.x + civilisationAreaHeight / 2,
+          y: l.civilisationArea.y - l.civilisationArea.width / 2,
+          z: 0
+        }
+    }
   }
 
-  coordinates = {
-    x: this.width / 2,
-    y: this.height / 2,
-    z: 0
+  getRotateZ(location: Location, context: LocationContext) {
+    const l = getPlayerLocation(location.player!, context)
+    return l.orientation * 90
   }
 }
 

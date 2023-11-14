@@ -12,7 +12,7 @@ class UniversalResourceStockDescription extends LocationDescription {
   width = 8
   height = 8
   borderRadius = this.width / 2
-  coordinates = { x: 23, y: 5, z: 0.8 }
+  coordinates = { x: 51, y: 14, z: 0.8 }
   location = { type: LocationType.UniversalResourceStock }
 }
 
