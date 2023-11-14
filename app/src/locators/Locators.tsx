@@ -16,6 +16,7 @@ import { playerResourcesLocator } from './PlayerResourcesLocator'
 import { playerUniversalResourceLocator } from './PlayerUniversalResourceLocator'
 import { resultTokenStockLocator } from './ResultTokenStockLocator'
 import { universalResourceStockLocator } from './UniversalResourceStockLocator'
+import { onCardLocator } from './OnCardLocator'
 
 export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, MaterialType, LocationType>>> = {
   [LocationType.Table]: boardTableLocator,
@@ -31,5 +32,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, Mat
   [LocationType.PlayerResources]: playerResourcesLocator,
   [LocationType.CivilisationArea]: civilisationAreaLocator,
   [LocationType.AchievementToken]: achievementTokenLocator,
-  [LocationType.PlayerAchievements]: playerAchievementsLocator
+  [LocationType.PlayerAchievements]: playerAchievementsLocator,
+  [LocationType.OnCard]: onCardLocator
 }

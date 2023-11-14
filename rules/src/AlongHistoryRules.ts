@@ -28,6 +28,7 @@ import { WarOutcomeRule } from './rules/WarOutcomeRule'
 import { WarsRule } from './rules/WarsRule'
 import { FillGapZOnlyStrategy } from './util/FillGapZOnlyStrategy'
 import { CivilisationAreaStrategy } from './util/CivilisationAreaStrategy'
+import { DecayRule } from './rules/DecayRule'
 
 /**
  * This class implements the rules of the board game.
@@ -55,7 +56,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.CannibalsFailure]: CannibalsFailureRule,
     [RuleId.EarthquakeFailure]: EarthquakeFailureRule,
     [RuleId.HarshWinterFailure]: HarshWinterFailureRule,
-    [RuleId.StarvingFailure]: StarvingFailureRule
+    [RuleId.StarvingFailure]: StarvingFailureRule,
+    [RuleId.Decay]: DecayRule
   }
 
   locationsStrategies = {
@@ -103,6 +105,6 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
       .getItems()
       .map((item) => item.id!.front)
 
-    return decayCards.length > 1 ? sumBy(decayCards, (card) => CardsInfo[card].bonus.length * -2) : 0
+    return sumBy(decayCards, (card) => CardsInfo[card].bonus.length * -2)
   }
 }

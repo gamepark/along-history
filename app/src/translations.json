@@ -44,6 +44,9 @@
       "header.war.attacked": "{attacker} is preparing to attack you!",
       "header.war.prepare": "Prepare your army <0/> (bonus: {bonus}) then <1>Roll the dice</1>",
       "header.war.defense": "{defender} is attacked with a force of {strength} and prepares its defense",
+      "header.decay-card": "{player} has to decay a card",
+      "header.decay-card.you": "You have to decay a card, placing it under another one",
+            
       "card.name.1": "Forest",
       "card.name.2": "Hills",
       "card.name.3": "Mountain",
@@ -233,6 +236,9 @@
       "header.war.attacked": "{attacker} se prépare à vous attaquer !",
       "header.war.prepare": "Préparez votre armée <0/> (bonus : {bonus}) puis <1>Lancez les dés</1>",
       "header.war.defense": "{defender} est attaqué avec une force de {strength} et prépare sa défense",
+      "header.decay-card": "{player} doit mettre une carte en décadence",
+      "header.decay-card.you": "Vous devez mettre une carte en décadence, en la placant sous une autre",
+            
       "card.name.1": "Forêt",
       "card.name.2": "Collines",
       "card.name.3": "Montagne",

@@ -16,7 +16,7 @@ export class CivilisationAreaStrategy<P extends number = number, M extends numbe
      * @param item
      */
     addItem(material: Material<P, M, L>, item: MaterialItem<P, L>): void {
-        const x = item.location[this.axis]
+                const x = item.location[this.axis]
         if (x === undefined) {
             item.location[this.axis] = new Set(material.getItems().map((item) => item.location.x)).size
             item.location['z'] = 0
