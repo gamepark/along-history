@@ -1,3 +1,4 @@
+import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
@@ -33,21 +34,18 @@ class CivilisationAreaLocator extends ItemLocator {
   }
 
   getDelta(item: MaterialItem, context: ItemContext): number {
-    const previousColumnsContent: Array<number> = [];
-    [...Array(item.location.x).keys()].forEach((column) => {
-      previousColumnsContent[column] = context.rules
-        .material(MaterialType.Card)
-        .player(item.location.player)
-        .locationId(item.location.id)
-        .location((loc) => loc.type === item.location.type && loc.x === column).length
-    })
-    const shiftDecay = 1
-    const shiftCard = 1
-    const previousShiftsCount = previousColumnsContent.reduce((acc, colCont) => acc + colCont - 1, 0)
-    return cardDescription.width * previousColumnsContent.length + //all cards width total
-      shiftCard * previousColumnsContent.length + //shift between each card, total
-      shiftDecay * previousShiftsCount + //previous piles shifts
-      shiftDecay * item.location.z! //this pile shift
+    const l = getPlayerLocation(item.location.player!, context)
+    const cards = context.rules.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && l.player === item.location.player)
+    const maxX = cards.sort(item => -item.location.x!).getItem()!.location.x!
+    const decayCards = cards.location(l => l.z !== 0)
+    const decayBefore = decayCards.location(l => l.x! < item.location.x!).length
+    const decayDelta = 1
+    let deltaX = cardDescription.width + 1
+    if (maxX > 0) {
+      //const decayXMax = decayCards.location(l => l.x === maxX).length
+      deltaX = Math.min(deltaX, (l.civilisationArea.width - decayCards.length * decayDelta - cardDescription.width) / maxX)
+    }
+    return item.location.x! * deltaX + (decayBefore + item.location.z!) * decayDelta
   }
 
   getXYCoordinates(l: PlayerLocation): XYCoordinates {
@@ -77,7 +75,7 @@ class CivilisationAreaLocator extends ItemLocator {
 
   getRotateZ(item: MaterialItem, context: ItemContext) {
     const l = getPlayerLocation(item.location.player!, context)
-    return l.orientation * 90 + (item.location.rotation ? 90 : 0)
+    return l.orientation * 90 + (item.location.rotation ? 45 : 0)
   }
 }
 

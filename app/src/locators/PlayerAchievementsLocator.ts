@@ -1,5 +1,5 @@
 import { ItemContext, LineLocator } from '@gamepark/react-game'
-import { Coordinates, MaterialItem, XYCoordinates } from '../../../../workshop/packages/rules-api'
+import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { achievementTokenDescription } from '../material/AchievementTokenDescription'
 import { cardDescription } from '../material/CardDescription'
 import { civilisationAreaHeight, getPlayerLocation, Orientation } from './PlayerLocator'
