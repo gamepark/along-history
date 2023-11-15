@@ -54,7 +54,7 @@ export class ProductionRule extends PlayerTurnRule {
 
   getCivilisationCards(player = this.player) {
     const cardToPay = this.remind<number>(Memory.CardToPay)
-    const cards = this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(player)
+    const cards = this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z).player(player)
     return cardToPay ? cards.filter((_, index) => index !== cardToPay) : cards
   }
 
