@@ -21,7 +21,7 @@ class DiscardTileLocator extends GridLocator {
     const playerLocation = getPlayerLocation(discardTileOwner, context)
     switch (playerLocation.orientation) {
       case Orientation.LEFT_RIGHT:
-        return 'rotate3d(1, 1, 0, 15deg)'
+        return 'rotate3d(1, -1, 0, 15deg)'
       case Orientation.TOP_BOTTOM:
         return 'rotate3d(-1, -1, 0, 15deg)'
       case Orientation.RIGHT_LEFT:
