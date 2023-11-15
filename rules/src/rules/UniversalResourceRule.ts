@@ -43,6 +43,7 @@ export class UniversalResourceRule extends PlayerTurnRule {
   }
 
   get ageIsOver() {
-    return false // TODO
+    return this.material(MaterialType.AchievementToken).location(l => l.type === LocationType.AchievementsBoard && l.x === 7).length === 0
+      || this.material(MaterialType.Card).location(LocationType.Deck).length === 0
   }
 }
