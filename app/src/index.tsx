@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { GameOptionsSpec } from '@gamepark/along-history/AlongHistoryOptions'
+import { AlongHistoryOptionsSpec } from '@gamepark/along-history/AlongHistoryOptions'
 import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { AlongHistorySetup } from '@gamepark/along-history/AlongHistorySetup'
 import { GameProvider, MaterialGameAnimations, setupTranslation } from '@gamepark/react-game'
@@ -14,7 +14,7 @@ setupTranslation(translations, { debug: false })
 
 ReactDOM.render(
   <StrictMode>
-    <GameProvider game="along-history" Rules={AlongHistoryRules} optionsSpec={GameOptionsSpec} GameSetup={AlongHistorySetup}
+    <GameProvider game="along-history" Rules={AlongHistoryRules} optionsSpec={AlongHistoryOptionsSpec} GameSetup={AlongHistorySetup}
                   material={Material} locators={Locators} animations={new MaterialGameAnimations()}>
       <App/>
     </GameProvider>
