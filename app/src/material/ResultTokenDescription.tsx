@@ -1,7 +1,7 @@
 import { DiceSymbol } from '@gamepark/along-history/material/DiceSymbol'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { ItemContext, TokenDescription } from '@gamepark/react-game'
-import { isMoveItem, MaterialMove } from '@gamepark/rules-api'
+import { isMoveItem, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import Gold3 from '../images/dices/gold/Gold3.jpg'
 import Gold4 from '../images/dices/gold/Gold4.jpg'
 import Gold5 from '../images/dices/gold/Gold5.jpg'
@@ -22,6 +22,7 @@ import Population1Back from '../images/tokens/resources/Population1Back.jpg'
 import Population2Back from '../images/tokens/resources/Population2Back.jpg'
 import Population3Back from '../images/tokens/resources/Population3Back.jpg'
 import StrengthBack from '../images/tokens/resources/StrengthBack.jpg'
+import { getPlayerRotation } from '../locators/PlayerLocator'
 
 class ResultTokenDescription extends TokenDescription {
   width = 1.6
@@ -51,6 +52,14 @@ class ResultTokenDescription extends TokenDescription {
     [DiceSymbol.Gold4]: Gold4Back,
     [DiceSymbol.Gold5]: Gold5Back,
     [DiceSymbol.Gold6]: Gold6Back
+  }
+
+  isFlipped(item: Partial<MaterialItem>): boolean {
+    return item.location?.rotation
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    return getPlayerRotation(item, context)
   }
 
   rules = () => <></>

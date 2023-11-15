@@ -1,6 +1,6 @@
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
-import { getRelativePlayerIndex, MaterialContext } from '@gamepark/react-game'
-import { XYCoordinates } from '@gamepark/rules-api'
+import { getRelativePlayerIndex, ItemContext, MaterialContext } from '@gamepark/react-game'
+import { MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
 
@@ -30,6 +30,14 @@ export function getPlayerLocation(player: PlayerColor, context: MaterialContext)
     default:
       return playersLocationAt5Players[index]
   }
+}
+
+export function getPlayerRotation(item: MaterialItem, context: ItemContext) {
+  if (item.location.player) {
+    const playerLocation = getPlayerLocation(item.location.player!, context)
+    return playerLocation.orientation * 90
+  }
+  return 0
 }
 
 export const civilisationAreaHeight = 13

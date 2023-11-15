@@ -40,6 +40,7 @@ import VictoryPoints4 from '../images/tokens/achievement/VictoryPoints4.jpg'
 import VictoryPoints8 from '../images/tokens/achievement/VictoryPoints8.jpg'
 import Wonder from '../images/tokens/achievement/Wonder.jpg'
 import Wonders2 from '../images/tokens/achievement/Wonders2.jpg'
+import { getPlayerRotation } from '../locators/PlayerLocator'
 
 class AchievementTokenDescription extends TokenDescription {
   width = 2.45
@@ -93,8 +94,16 @@ class AchievementTokenDescription extends TokenDescription {
     [7]: AchievementValue7
   }
 
-  getLocations(_item: MaterialItem<number, number>, { index }: ItemContext<number, number, number>): Location<number, number>[] {
+  getLocations(_item: MaterialItem, { index }: ItemContext): Location[] {
     return [{ type: LocationType.AchievementToken, parent: index }]
+  }
+
+  isFlipped(item: Partial<MaterialItem>): boolean {
+    return item.location?.player !== undefined
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    return getPlayerRotation(item, context)
   }
 
   rules = () => <></>

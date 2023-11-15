@@ -41,6 +41,7 @@ import Wildcrafting from '../images/cards/prehistory/fr/Wildcrafting.jpg'
 import Wolves from '../images/cards/prehistory/fr/Wolves.jpg'
 import Woodlands from '../images/cards/prehistory/fr/Woodlands.jpg'
 import WoollyRhinoceros from '../images/cards/prehistory/fr/WoollyRhinoceros.jpg'
+import { getPlayerRotation } from '../locators/PlayerLocator'
 
 class AlongHistoryCardDescription extends CardDescription {
   height = 8.89
@@ -100,6 +101,10 @@ class AlongHistoryCardDescription extends CardDescription {
     return item.location.type === LocationType.CivilisationArea && item.location.z === 0 && item.location.player === context.player
       ? [{ type: LocationType.OnCard, parent: context.index }]
       : []
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
   }
 }
 

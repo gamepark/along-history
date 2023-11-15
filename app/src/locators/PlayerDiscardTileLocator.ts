@@ -35,11 +35,6 @@ class PlayerDiscardTileLocator extends ItemLocator {
         }
     }
   }
-
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    const l = getPlayerLocation(item.location.player!, context)
-    return l.orientation * 90
-  }
 }
 
 export const playerDiscardTileLocator = new PlayerDiscardTileLocator()

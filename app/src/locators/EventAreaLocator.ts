@@ -40,11 +40,6 @@ class EventAreaLocator extends LineLocator {
     }
   }
 
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    const l = getPlayerLocation(item.location.player!, context)
-    return l.orientation * 90
-  }
-
   getDelta(item: MaterialItem, context: ItemContext) {
     const l = getPlayerLocation(item.location.player!, context)
     switch (l.orientation) {

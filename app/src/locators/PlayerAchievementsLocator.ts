@@ -53,11 +53,6 @@ class PlayerAchievementsLocator extends LineLocator {
         return { y: -3, z: 0.05 }
     }
   }
-
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    const l = getPlayerLocation(item.location.player!, context)
-    return l.orientation * 90
-  }
 }
 
 export const playerAchievementsLocator = new PlayerAchievementsLocator()

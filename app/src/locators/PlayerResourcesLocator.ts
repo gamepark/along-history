@@ -1,4 +1,3 @@
-import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
@@ -39,33 +38,6 @@ class PlayerResourcesLocator extends ItemLocator {
           z
         }
     }
-  }
-
-  getRotations(item: MaterialItem, context: ItemContext) {
-    if (context.type === MaterialType.Dice) {
-      return [this.getDicePerspective(item, context), ...super.getRotations(item, context)]
-    } else {
-      return super.getRotations(item, context)
-    }
-  }
-
-  getDicePerspective(item: MaterialItem, context: ItemContext) {
-    const playerLocation = getPlayerLocation(item.location.player!, context)
-    switch (playerLocation.orientation) {
-      case Orientation.LEFT_RIGHT:
-        return 'rotate3d(1, -1, 0, 15deg)'
-      case Orientation.TOP_BOTTOM:
-        return 'rotate3d(-1, -1, 0, 15deg)'
-      case Orientation.RIGHT_LEFT:
-        return 'rotate3d(-1, 1, 0, 15deg)'
-      case Orientation.BOTTOM_TOP:
-        return 'rotate3d(1, 1, 0, 15deg)'
-    }
-  }
-
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    const l = getPlayerLocation(item.location.player!, context)
-    return l.orientation * 90
   }
 }
 

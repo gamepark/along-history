@@ -71,11 +71,6 @@ class CivilisationAreaLocator extends ItemLocator {
         }
     }
   }
-
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    const l = getPlayerLocation(item.location.player!, context)
-    return l.orientation * 90 + (item.location.rotation ? 45 : 0)
-  }
 }
 
 export const civilisationAreaLocator = new CivilisationAreaLocator()
