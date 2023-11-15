@@ -9,18 +9,26 @@ export const PlayerPanels: FC<any> = () => {
   return (
     <>
       {players.map((player, index) =>
-        <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index)}/>
+        <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index, players.length)}/>
       )}
     </>
   )
 }
-const panelPosition = (index: number) => css`
+const panelPosition = (index: number, players: number) => css`
   position: absolute;
   right: 1em;
-  top: ${8.5 + index * 16}em;
+  top: ${panelTop(index, players)}em;
   width: 28em;
   height: 14em;
 `
+
+const panelTop = (index: number, players: number) => {
+  if (players === 2) {
+    return index === 0 ? 80 : 13
+  } else {
+    return 8.5 + index * 16
+  }
+}
 
 export const playerColorCode: Record<PlayerColor, string> = {
   [PlayerColor.White]: 'white',
