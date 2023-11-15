@@ -36,13 +36,12 @@ class CivilisationAreaLocator extends ItemLocator {
   getDelta(item: MaterialItem, context: ItemContext): number {
     const l = getPlayerLocation(item.location.player!, context)
     const cards = context.rules.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && l.player === item.location.player)
-    const maxX = cards.sort(item => -item.location.x!).getItem()!.location.x!
+    const maxX = cards.sort(item => -item.location.x!).getItem()?.location.x ?? 0
     const decayCards = cards.location(l => l.z !== 0)
     const decayBefore = decayCards.location(l => l.x! < item.location.x!).length
     const decayDelta = 1
     let deltaX = cardDescription.width + 1
     if (maxX > 0) {
-      //const decayXMax = decayCards.location(l => l.x === maxX).length
       deltaX = Math.min(deltaX, (l.civilisationArea.width - decayCards.length * decayDelta - cardDescription.width) / maxX)
     }
     return item.location.x! * deltaX + (decayBefore + item.location.z!) * decayDelta

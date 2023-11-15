@@ -30,7 +30,7 @@ class PlayerDiscardTileLocator extends ItemLocator {
         }
       case Orientation.BOTTOM_TOP:
         return {
-          x: l.eventArea.x + cardDescription.height / 2 - discardTileDescription.height / 2,
+          x: l.eventArea.x + cardDescription.height - discardTileDescription.height / 2,
           y: l.eventArea.y - l.eventArea.width + discardTileDescription.width / 2
         }
     }

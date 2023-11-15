@@ -1,7 +1,6 @@
 import { CustomMove, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import countBy from 'lodash/countBy'
 import parseInt from 'lodash/parseInt'
-import { AlongHistoryRules } from '../AlongHistoryRules'
 import { Card } from '../material/Card'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
@@ -119,7 +118,8 @@ export class AcquireCardsRule extends PlayerTurnRule {
   onCustomMove(move: CustomMove) {
     const moves: MaterialMove[] = []
     if (move.type === CustomMoveType.Pass) {
-      if (new AlongHistoryRules(this.game).isActivePlayerTurn) {
+      const activePlayer = this.material(MaterialType.DiscardTile).getItem()?.location.player
+      if (this.player === activePlayer) {
         this.memorize(Memory.Wars, this.countWars)
         moves.push(...this.material(MaterialType.Dice).location(LocationType.PlayerResources)
           .moveItems(item => ({ type: LocationType.DiscardTile, parent: 0, rotation: item.location.rotation })))

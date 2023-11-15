@@ -14,6 +14,7 @@ import { LoseBonusCardRule } from './rules/calamities/LoseBonusCardRule'
 import { LoseCardRule } from './rules/calamities/LoseCardRule'
 import { StarvingFailureRule } from './rules/calamities/StarvingFailureRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
+import { DecayRule } from './rules/DecayRule'
 import { NewEventsRule } from './rules/NewEventsRule'
 import { PayCardRule } from './rules/PayCardRule'
 import { PrepareArmyRule } from './rules/PrepareArmyRule'
@@ -26,9 +27,8 @@ import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
 import { WarOutcomeRule } from './rules/WarOutcomeRule'
 import { WarsRule } from './rules/WarsRule'
-import { FillGapZOnlyStrategy } from './util/FillGapZOnlyStrategy'
 import { CivilisationAreaStrategy } from './util/CivilisationAreaStrategy'
-import { DecayRule } from './rules/DecayRule'
+import { FillGapZOnlyStrategy } from './util/FillGapZOnlyStrategy'
 
 /**
  * This class implements the rules of the board game.
@@ -87,10 +87,6 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [MaterialType.Card]: {
       [LocationType.Deck]: hideFront
     }
-  }
-
-  get isActivePlayerTurn() {
-    return this.material(MaterialType.DiscardTile).getItem()?.location.player === this.game.rule?.player
   }
 
   getScore(player: PlayerColor) {
