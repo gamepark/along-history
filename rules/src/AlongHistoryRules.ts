@@ -1,5 +1,7 @@
-import { FillGapStrategy, HiddenMaterialRules, hideFront, PositiveSequenceStrategy } from '@gamepark/rules-api'
+import { CompetitiveScore, FillGapStrategy, HiddenMaterialRules, hideFront, MaterialGame, MaterialMove, PositiveSequenceStrategy } from '@gamepark/rules-api'
 import { sumBy } from 'lodash'
+import { Achievement, getAchievementValue } from './material/Achievement'
+import { CardId } from './material/cards/CardId'
 import { CardsInfo } from './material/cards/CardsInfo'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
@@ -34,7 +36,8 @@ import { FillGapZOnlyStrategy } from './util/FillGapZOnlyStrategy'
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
-export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, MaterialType, LocationType> {
+export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, MaterialType, LocationType>
+  implements CompetitiveScore<MaterialGame<PlayerColor, MaterialType, LocationType>, MaterialMove<PlayerColor, MaterialType, LocationType>, PlayerColor> {
   rules = {
     [RuleId.RollDice]: RollDiceRule,
     [RuleId.Actions]: ActionsRule,
@@ -90,17 +93,30 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
   }
 
   getScore(player: PlayerColor) {
-    return this.getDecayMalus(player)
+    return this.getCivilisationCardsScore(player) - this.getDecayMalus(player) + this.getAchievementsScore(player)
+  }
+
+  getCivilisationCardsScore(player: PlayerColor) {
+    const civilisationCards = this.material(MaterialType.Card)
+      .location(LocationType.CivilisationArea)
+      .player(player)
+      .getItems<CardId>()
+    return sumBy(civilisationCards, item => CardsInfo[item.id!.front].victoryPoints)
   }
 
   getDecayMalus(player: PlayerColor) {
     const decayCards = this.material(MaterialType.Card)
-      .location(LocationType.CivilisationArea)
+      .location(l => l.type === LocationType.CivilisationArea && l.z !== 0)
       .player(player)
-      .location(({ z }) => z !== 0)
-      .getItems()
-      .map((item) => item.id!.front)
+      .getItems<CardId>()
+    return sumBy(decayCards, (card) => CardsInfo[card.id!.front].bonus.length * 2)
+  }
 
-    return sumBy(decayCards, (card) => CardsInfo[card].bonus.length * -2)
+  getAchievementsScore(player: PlayerColor) {
+    const achievements = this.material(MaterialType.AchievementToken)
+      .location(LocationType.PlayerAchievements)
+      .player(player)
+      .getItems<Achievement>()
+    return sumBy(achievements, item => getAchievementValue(item.id!))
   }
 }
