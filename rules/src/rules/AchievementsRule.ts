@@ -178,7 +178,7 @@ export class AchievementsRule extends PlayerTurnRule {
       if (achievementToken.length) {
         moves.push(achievementToken.moveItem({ type: LocationType.PlayerAchievements, player: this.player }))
       }
-      if (this.civilisationCards.length > 1) {
+      if (this.nonDecayCards.length > 1) {
         moves.push(this.rules().startRule(RuleId.Decay))
       } else {
         moves.push(this.rules().startRule(RuleId.UniversalResource))
