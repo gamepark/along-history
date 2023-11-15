@@ -1,4 +1,13 @@
-import { CompetitiveScore, FillGapStrategy, HiddenMaterialRules, hideFront, MaterialGame, MaterialMove, PositiveSequenceStrategy } from '@gamepark/rules-api'
+import {
+  CompetitiveScore,
+  FillGapStrategy,
+  HiddenMaterialRules,
+  hideFront,
+  MaterialGame,
+  MaterialMove,
+  PositiveSequenceStrategy,
+  TimeLimit
+} from '@gamepark/rules-api'
 import { sumBy } from 'lodash'
 import { Achievement, getAchievementValue } from './material/Achievement'
 import { CardId } from './material/cards/CardId'
@@ -37,7 +46,8 @@ import { FillGapZOnlyStrategy } from './util/FillGapZOnlyStrategy'
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
 export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, MaterialType, LocationType>
-  implements CompetitiveScore<MaterialGame<PlayerColor, MaterialType, LocationType>, MaterialMove<PlayerColor, MaterialType, LocationType>, PlayerColor> {
+  implements CompetitiveScore<MaterialGame<PlayerColor, MaterialType, LocationType>, MaterialMove<PlayerColor, MaterialType, LocationType>, PlayerColor>,
+    TimeLimit<MaterialGame<PlayerColor, MaterialType, LocationType>, MaterialMove<PlayerColor, MaterialType, LocationType>, PlayerColor> {
   rules = {
     [RuleId.RollDice]: RollDiceRule,
     [RuleId.Actions]: ActionsRule,
@@ -118,5 +128,16 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
       .player(player)
       .getItems<Achievement>()
     return sumBy(achievements, item => getAchievementValue(item.id!))
+  }
+
+  giveTime(player: PlayerColor): number {
+    if (this.game.rule?.id !== RuleId.Actions) {
+      return 20 // 20 minutes / war / player
+    }
+    if (this.material(MaterialType.DiscardTile).getItem()?.location.player === player) {
+      return 180 // 3 minutes for active player turn
+    } else {
+      return 60 // 1 minute for other players turns
+    }
   }
 }
