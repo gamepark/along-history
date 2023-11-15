@@ -1,5 +1,6 @@
+import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { ItemContext, TokenDescription } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
+import { isMoveItem, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import UniversalResourceBack from '../images/tokens/resources/UniversalResourceBack.jpg'
 import UniversalResourceFront from '../images/tokens/resources/UniversalResourceFront.jpg'
 import { getPlayerRotation } from '../locators/PlayerLocator'
@@ -16,6 +17,10 @@ class UniversalResourceDescription extends TokenDescription {
 
   getRotateZ(item: MaterialItem, context: ItemContext) {
     return getPlayerRotation(item, context) + 45
+  }
+
+  canShortClick(move: MaterialMove, { index }: ItemContext) {
+    return isMoveItem(move) && move.itemType === MaterialType.UniversalResource && index === move.itemIndex
   }
 
   rules = () => <></>
