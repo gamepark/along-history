@@ -87,7 +87,7 @@ export class AchievementsRule extends PlayerTurnRule {
       case Achievement.Bonus1:
         return this.hasBonus()
       case Achievement.Cards3:
-        return this.playerCards.length >= 3
+        return this.civilisationCards.length >= 3
       case Achievement.CardTypes2:
         return this.hasDifferentCardsTypes(2)
       case Achievement.VictoryPoints4:
@@ -101,11 +101,11 @@ export class AchievementsRule extends PlayerTurnRule {
       case Achievement.PopulationBonus2:
         return this.hasPopulationBonus(2)
       case Achievement.Cards4:
-        return this.playerCards.length >= 4
+        return this.civilisationCards.length >= 4
       case Achievement.VictoryPoints8:
         return this.hasCardsVictoryPoints(8)
       case Achievement.Cards5:
-        return this.playerCards.length >= 5
+        return this.civilisationCards.length >= 5
       case Achievement.CardTypes3:
         return this.hasDifferentCardsTypes(3)
       case Achievement.Wonder:
@@ -121,11 +121,11 @@ export class AchievementsRule extends PlayerTurnRule {
       case Achievement.Calamity:
         return this.hasCardType(CardType.Calamity)
       case Achievement.Cards6:
-        return this.playerCards.length >= 6
+        return this.civilisationCards.length >= 6
       case Achievement.Wonders2:
         return this.hasCardType(CardType.Wonder, 2)
       case Achievement.Cards7:
-        return this.playerCards.length >= 7
+        return this.civilisationCards.length >= 7
       case Achievement.Calamities2:
         return this.hasCardType(CardType.Calamity, 2)
       case Achievement.CardTypes4:
@@ -140,27 +140,32 @@ export class AchievementsRule extends PlayerTurnRule {
   }
 
   hasCardType(cardType: CardType, quantity = 1) {
-    return this.playerCards.filter(card => CardsInfo[card].type === cardType).length >= quantity
+    return this.civilisationCards.filter(card => CardsInfo[card].type === cardType).length >= quantity
   }
 
   hasCardsVictoryPoints(quantity: number) {
-    return sumBy(this.playerCards, card => CardsInfo[card].victoryPoints) >= quantity
+    return sumBy(this.civilisationCards, card => CardsInfo[card].victoryPoints) >= quantity
   }
 
   hasBonus(quantity = 1) {
-    return sumBy(this.playerCards, card => CardsInfo[card].bonus.length) >= quantity
+    return sumBy(this.nonDecayCards, card => CardsInfo[card].bonus.length) >= quantity
   }
 
   hasPopulationBonus(quantity = 1) {
-    return sumBy(this.playerCards, card => CardsInfo[card].bonus.filter(bonus => bonus === Bonus.Population).length) >= quantity
+    return sumBy(this.nonDecayCards, card => CardsInfo[card].bonus.filter(bonus => bonus === Bonus.Population).length) >= quantity
   }
 
   hasDifferentCardsTypes(quantity: number) {
-    return new Set(this.playerCards.map(card => CardsInfo[card].type)).size >= quantity
+    return new Set(this.civilisationCards.map(card => CardsInfo[card].type)).size >= quantity
   }
 
-  get playerCards() {
+  get civilisationCards() {
     return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(this.player).getItems<CardId>().map(item => item.id!.front)
+  }
+
+  get nonDecayCards() {
+    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z)
+      .player(this.player).getItems<CardId>().map(item => item.id!.front)
   }
 
   afterItemMove(move: ItemMove) {
@@ -173,7 +178,7 @@ export class AchievementsRule extends PlayerTurnRule {
       if (achievementToken.length) {
         moves.push(achievementToken.moveItem({ type: LocationType.PlayerAchievements, player: this.player }))
       }
-      if (this.playerCards.length > 1) {
+      if (this.civilisationCards.length > 1) {
         moves.push(this.rules().startRule(RuleId.Decay))
       } else {
         moves.push(this.rules().startRule(RuleId.UniversalResource))
