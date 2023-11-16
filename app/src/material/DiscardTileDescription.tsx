@@ -1,6 +1,6 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { BoardDescription, ItemContext } from '@gamepark/react-game'
-import { MaterialItem } from '../../../../workshop/packages/rules-api'
+import { MaterialItem } from '@gamepark/rules-api'
 import DiscardTile from '../images/board/DiscardTile.jpg'
 import { getPlayerRotation } from '../locators/PlayerLocator'
 

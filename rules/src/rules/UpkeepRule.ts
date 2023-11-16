@@ -1,9 +1,9 @@
 import { MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { EndOfTurnRule } from './EndOfTurnRule'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
-import { EndOfTurnRule } from './EndOfTurnRule'
 
 export class UpkeepRule extends PlayerTurnRule {
   onRuleStart() {
@@ -22,7 +22,7 @@ export class UpkeepRule extends PlayerTurnRule {
 
   get unRotateCards(): MaterialMove[] {
     return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(this.player)
-      .rotation(true).rotateItems(undefined)
+      .rotation(true).sort(item => item.location.x!).rotateItems(undefined)
   }
 
   get isActivePlayer() {

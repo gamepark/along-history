@@ -1,5 +1,5 @@
 import { GridLocator, ItemContext } from '@gamepark/react-game'
-import { MaterialItem } from '../../../../workshop/packages/rules-api'
+import { MaterialItem } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
 import { resultTokenDescription } from '../material/ResultTokenDescription'

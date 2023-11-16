@@ -1,5 +1,5 @@
 import { DeckLocator, ItemContext } from '@gamepark/react-game'
-import { MaterialItem, XYCoordinates } from '../../../../workshop/packages/rules-api'
+import { MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
 import { boardTableLocator } from './BoardTableLocator'
