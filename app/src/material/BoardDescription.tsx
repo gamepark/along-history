@@ -5,8 +5,8 @@ import board1 from '../images/board/BoardFront.jpg'
 
 class AlongHistoryBoardDescription extends BoardDescription {
   image = board1 // TODO: game option & dynamic image
-  width = 39.95
-  height = 17.625
+  width = 41.826
+  height = 18.78
 
   staticItem = { location: { type: LocationType.Table } }
   rules = () => <></>
