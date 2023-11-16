@@ -6,11 +6,14 @@ import { AcquireCardsHeader } from './AcquireCardsHeader'
 import { ActionsHeader } from './ActionsHeader'
 import { CalamitiesHeader } from './CalamitiesHeader'
 import { DecayHeader } from './DecayHeader'
+import { EndOfTurnHeader } from './EndOfTurnHeader'
 import { LoseCardHeader } from './LoseCardHeader'
+import { NewEventsHeader } from './NewEventsHeader'
 import { PayCardHeader } from './PayCardHeader'
 import { PrepareArmyHeader } from './PrepareArmyHeader'
 import { RollDiceHeader } from './RollDiceHeader'
 import { TradeCardsHeader } from './TradeCardsHeader'
+import { UpkeepHeader } from './UpkeepHeader'
 import { UseDiscardedDieHeader } from './UseDiscardedDieHeader'
 import { UseReRollDieHeader } from './UseReRollDieHeader'
 import { WarOutcomeHeader } from './WarOutcomeHeader'
@@ -29,11 +32,11 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.PrepareArmy]: PrepareArmyHeader,
   //[RuleId.GeneralReRoll]: TODO,
   [RuleId.WarOutcome]: WarOutcomeHeader,
-  //[RuleId.NewEvents]: TODO,
+  [RuleId.NewEvents]: NewEventsHeader,
   [RuleId.Achievements]: AchievementsHeader,
   [RuleId.Decay]: DecayHeader,
-  //[RuleId.UniversalResource]: TODO,
-  //[RuleId.Upkeep]: TODO,
+  [RuleId.EndOfTurn]: EndOfTurnHeader,
+  [RuleId.Upkeep]: UpkeepHeader,
 
   [RuleId.LoseCard]: LoseCardHeader,
   [RuleId.LoseBonusCard]: LoseCardHeader,

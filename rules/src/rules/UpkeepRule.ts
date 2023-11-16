@@ -3,13 +3,13 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
-import { UniversalResourceRule } from './UniversalResourceRule'
+import { EndOfTurnRule } from './EndOfTurnRule'
 
 export class UpkeepRule extends PlayerTurnRule {
   onRuleStart() {
     if (this.remind(Memory.PassNextTurn, this.player)) {
       this.forget(Memory.PassNextTurn, this.player)
-      return new UniversalResourceRule(this.game).endPlayerTurn
+      return new EndOfTurnRule(this.game).endPlayerTurn
     }
     const moves = this.unRotateCards
     if (this.isActivePlayer) {

@@ -4,7 +4,7 @@ import { MaterialType } from '../material/MaterialType'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
-export class UniversalResourceRule extends PlayerTurnRule {
+export class EndOfTurnRule extends PlayerTurnRule {
   onRuleStart() {
     const moves: MaterialMove[] = []
     if (this.remind(Memory.CardAcquired)) {

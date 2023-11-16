@@ -32,7 +32,7 @@ import { PrepareArmyRule } from './rules/PrepareArmyRule'
 import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
 import { TradeCardsRule } from './rules/TradeCardsRule'
-import { UniversalResourceRule } from './rules/UniversalResourceRule'
+import { EndOfTurnRule } from './rules/EndOfTurnRule'
 import { UpkeepRule } from './rules/UpkeepRule'
 import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
@@ -62,7 +62,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.WarOutcome]: WarOutcomeRule,
     [RuleId.NewEvents]: NewEventsRule,
     [RuleId.Achievements]: AchievementsRule,
-    [RuleId.UniversalResource]: UniversalResourceRule,
+    [RuleId.EndOfTurn]: EndOfTurnRule,
     [RuleId.Upkeep]: UpkeepRule,
     [RuleId.LoseCard]: LoseCardRule,
     [RuleId.LoseBonusCard]: LoseBonusCardRule,

@@ -15,7 +15,7 @@ export class AchievementsRule extends PlayerTurnRule {
     const moves: MaterialMove[] = this.accessibleTokens.filter(token => this.canAchieve(token.id))
       .map(token => this.civilisationToken.moveItem(token.location))
     moves.push(...this.moveBackCivilisationToken)
-    moves.push(this.rules().startRule(RuleId.UniversalResource))
+    moves.push(this.rules().startRule(RuleId.EndOfTurn))
     return moves
   }
 
@@ -181,7 +181,7 @@ export class AchievementsRule extends PlayerTurnRule {
       if (achievementToken.length && this.nonDecayCards.length > 1) {
         moves.push(this.rules().startRule(RuleId.Decay))
       } else {
-        moves.push(this.rules().startRule(RuleId.UniversalResource))
+        moves.push(this.rules().startRule(RuleId.EndOfTurn))
       }
       return moves
     }
