@@ -1,15 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { pointerWithin } from '@dnd-kit/core'
 import { css } from '@emotion/react'
-import { GameTable, useGame } from '@gamepark/react-game'
-import { MaterialGame } from '../../../workshop/packages/rules-api'
+import { GameTable } from '@gamepark/react-game'
 import { civilisationAreaHeight, civilisationAreaWidth, eventAreaWidth2Players } from './locators/PlayerLocator'
 import { boardDescription } from './material/BoardDescription'
 import { cardDescription } from './material/CardDescription'
 import { PlayerPanels } from './panels/PlayerPanels'
 
-export default function GameDisplay() {
-  const players = useGame<MaterialGame>()?.players.length ?? 2
+export default function GameDisplay({ players }: { players: number }) {
   return <>
     <GameTable {...getBounds(players)} css={css`border: 1px solid white`}
                collisionAlgorithm={pointerWithin}

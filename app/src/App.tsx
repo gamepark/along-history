@@ -9,6 +9,7 @@ import { AchievementsHeader } from './headers/AchievementsHeader'
 import { AcquireCardsHeader } from './headers/AcquireCardsHeader'
 import { ActionsHeader } from './headers/ActionsHeader'
 import { CalamitiesHeader } from './headers/CalamitiesHeader'
+import { DecayHeader } from './headers/DecayHeader'
 import { LoseCardHeader } from './headers/LoseCardHeader'
 import { PayCardHeader } from './headers/PayCardHeader'
 import { PrepareArmyHeader } from './headers/PrepareArmyHeader'
@@ -17,7 +18,6 @@ import { TradeCardsHeader } from './headers/TradeCardsHeader'
 import { UseDiscardedDieHeader } from './headers/UseDiscardedDieHeader'
 import { UseReRollDieHeader } from './headers/UseReRollDieHeader'
 import { WarsHeader } from './headers/WarsHeader'
-import { DecayHeader } from './headers/DecayHeader'
 
 export default function App() {
   const game = useGame<MaterialGame>()
@@ -28,7 +28,7 @@ export default function App() {
   const loading = !game || isJustDisplayed
   return (
     <>
-      <GameDisplay/>
+      {game && <GameDisplay players={game.players.length}/>}
       <LoadingScreen display={loading} author="François Bachelart" artist={['Antonio Mainez', 'Julie Gruet']} publisher="Nostromo Éditions"
                      developer="Game Park"/>
       <MaterialHeader rulesStepsHeaders={RulesHeaders} loading={loading}/>
@@ -56,5 +56,5 @@ const RulesHeaders: Partial<Record<RuleId, () => ReactJSXElement>> = {
   [RuleId.CannibalsFailure]: LoseCardHeader,
   [RuleId.EarthquakeFailure]: LoseCardHeader,
   [RuleId.StarvingFailure]: LoseCardHeader,
-  [RuleId.Decay]: DecayHeader,
+  [RuleId.Decay]: DecayHeader
 }
