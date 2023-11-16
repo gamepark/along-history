@@ -1,5 +1,7 @@
+import { LocationType } from '@gamepark/along-history/material/LocationType'
+import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { ItemContext, LineLocator } from '@gamepark/react-game'
-import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
+import { Coordinates, Location, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
 import { getPlayerLocation, Orientation } from './PlayerLocator'
@@ -12,6 +14,11 @@ class EventAreaLocator extends LineLocator {
       y: y + (item.selected ? -0.5 : 0),
       z: item.selected ? 20 : 0
     }
+  }
+
+  countItems(location: Location, { rules }: ItemContext) {
+    const areaXPositions = rules.material(MaterialType.Card).location(l => l.type === LocationType.EventArea && l.player === location.player).getItems().map(item => item.location.x!)
+    return areaXPositions.length > 0 ? Math.max(...areaXPositions) + 1 : 0
   }
 
   getXYCoordinates(item: MaterialItem, context: ItemContext): XYCoordinates {
