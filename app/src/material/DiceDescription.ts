@@ -19,6 +19,7 @@ import Multiplier from '../images/dices/special/Multiplier.jpg'
 import Reroll from '../images/dices/special/Reroll.jpg'
 import War from '../images/dices/special/War.jpg'
 import { getPlayerLocation, Orientation } from '../locators/PlayerLocator'
+import { DiceHelp } from './help/DiceHelp'
 
 class DiceDescription extends CubicDiceDescription {
 
@@ -94,6 +95,8 @@ class DiceDescription extends CubicDiceDescription {
     return super.canShortClick(move, context)
       || isMoveItemType(MaterialType.Dice)(move) && move.itemIndex === context.index && move.location.type === LocationType.DiscardTile
   }
+
+  rules = DiceHelp
 }
 
 export const diceDescription = new DiceDescription()
