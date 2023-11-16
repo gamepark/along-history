@@ -16,7 +16,7 @@ export class LoseCardRule extends CalamityFailureRule {
   }
 
   getCardsToLose() {
-    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(this.player)
+    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z).player(this.player)
   }
 
   beforeItemMove(move: ItemMove): MaterialMove[] {
