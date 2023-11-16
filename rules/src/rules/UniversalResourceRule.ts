@@ -13,6 +13,8 @@ export class UniversalResourceRule extends PlayerTurnRule {
       moves.push(this.material(MaterialType.UniversalResource).location(LocationType.UniversalResourceStock)
         .moveItem({ type: LocationType.PlayerUniversalResource, player: this.player }, 1))
     }
+    moves.push(...this.material(MaterialType.Dice).location(LocationType.PlayerResources)
+      .moveItems(item => ({ type: LocationType.DiscardTile, parent: 0, rotation: item.location.rotation })))
     moves.push(...this.endPlayerTurn)
     return moves
   }

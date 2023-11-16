@@ -1,6 +1,5 @@
 import { MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { Achievement, getAchievementValue } from '../material/Achievement'
-import { DiceType } from '../material/Dices'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { PlayerColor } from '../PlayerColor'
@@ -20,9 +19,6 @@ export class WarOutcomeRule extends PlayerTurnRule {
         moves.push(tokens.moveItem({ type: LocationType.PlayerAchievements, player: attacker }))
       }
     }
-    moves.push(...this.material(MaterialType.Dice).id(DiceType.Population).moveItems(item => (
-      { type: LocationType.DiscardTile, parent: 0, rotation: item.location.rotation }
-    )))
     moves.push(this.rules().startPlayerTurn(RuleId.Wars, attacker))
     return moves
   }

@@ -52,7 +52,7 @@ export class PrepareArmyRule extends PlayerTurnRule {
 
   onCustomMove(move: CustomMove) {
     if (move.type === CustomMoveType.Pass) {
-      let x = 5
+      let x = 4
       const moves: MaterialMove[] = this.material(MaterialType.Dice).id(DiceType.Population).rollItems(() => ({
         type: LocationType.PlayerResources,
         player: this.player,
