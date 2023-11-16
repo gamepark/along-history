@@ -1,17 +1,39 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
-import { LineLocator, LocationDescription } from '@gamepark/react-game'
+import { ItemContext, LineLocator, LocationContext, LocationDescription } from '@gamepark/react-game'
+import { Location, MaterialItem } from '../../../../workshop/packages/rules-api'
+import { cardDescription } from '../material/CardDescription'
 
 class UniversalResourceStockLocator extends LineLocator {
   locationDescription = new UniversalResourceStockDescription()
-  coordinates = this.locationDescription.coordinates
+
+  getCoordinates(_item: MaterialItem, context: ItemContext) {
+    return { ...this.locationDescription.getCoordinates(_item.location, context), z: 0 }
+  }
+
   delta = { x: -0.1, y: -0.1, z: 0.1 }
 }
 
 class UniversalResourceStockDescription extends LocationDescription {
-  width = 8
-  height = 8
+  width = 6
+  height = 6
   borderRadius = this.width / 2
-  coordinates = { x: 51, y: 14, z: 0.8 }
+
+  getCoordinates(_location: Location, { rules: { players } }: LocationContext) {
+    if (players.length === 3) {
+      return {
+        x: cardDescription.width * 3 + 8,
+        y: -cardDescription.height / 2 - 1,
+        z: 5
+      }
+    } else {
+      return {
+        x: 51,
+        y: 14,
+        z: 5
+      }
+    }
+  }
+
   location = { type: LocationType.UniversalResourceStock }
 }
 

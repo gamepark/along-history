@@ -113,7 +113,47 @@ const playersLocationAt5Players: PlayerLocation[] = [
 
 const playersLocationAt4Players: PlayerLocation[] = playersLocationAt5Players
 
-const playersLocationAt3Players: PlayerLocation[] = playersLocationAt5Players
+const playersLocationAt3Players: PlayerLocation[] = [
+  {
+    orientation: Orientation.LEFT_RIGHT,
+    eventArea: {
+      width: boardDescription.width,
+      x: 0,
+      y: boardDescription.height + 1
+    },
+    civilisationArea: {
+      width: boardDescription.width + cardDescription.height * 2 + 2,
+      x: - cardDescription.height - 1,
+      y: boardDescription.height + cardDescription.height + 2
+    }
+  },
+  {
+    orientation: Orientation.TOP_BOTTOM,
+    eventArea: {
+      width: civilisationAreaWidth - civilisationAreaHeight - 1,
+      x: -1,
+      y: -cardDescription.height - 1
+    },
+    civilisationArea: {
+      width: civilisationAreaWidth,
+      x: -cardDescription.height - 2,
+      y: -cardDescription.height - 1
+    }
+  },
+  {
+    orientation: Orientation.BOTTOM_TOP,
+    eventArea: {
+      width: civilisationAreaWidth - civilisationAreaHeight - 1,
+      x: boardDescription.width + 1,
+      y: boardDescription.height + cardDescription.height + 1
+    },
+    civilisationArea: {
+      width: civilisationAreaWidth,
+      x: boardDescription.width + cardDescription.height + 2,
+      y: boardDescription.height + cardDescription.height + civilisationAreaHeight + 2
+    }
+  }
+]
 
 export const eventAreaWidth2Players = cardDescription.width * 4 + 3
 export const civilisationAreaWidth2Players = eventAreaWidth2Players + boardDescription.width + 1

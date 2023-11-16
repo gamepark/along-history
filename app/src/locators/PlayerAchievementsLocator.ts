@@ -5,8 +5,6 @@ import { cardDescription } from '../material/CardDescription'
 import { civilisationAreaHeight, getPlayerLocation, Orientation } from './PlayerLocator'
 
 class PlayerAchievementsLocator extends LineLocator {
-  hidden = true
-
   getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
     const { x, y } = this.getXYCoordinates(item, context)
     return { x: x, y: y, z: 0.5 }
