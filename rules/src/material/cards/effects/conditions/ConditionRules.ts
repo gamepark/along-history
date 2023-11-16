@@ -1,5 +1,4 @@
 import { PlayerTurnRule } from '@gamepark/rules-api'
-import { Card } from '../../../Card'
 import { LocationType } from '../../../LocationType'
 import { MaterialType } from '../../../MaterialType'
 import { CardId } from '../../CardId'
@@ -15,12 +14,11 @@ export class ConditionRules extends PlayerTurnRule {
       case ConditionType.And:
         return condition.conditions.every(condition => this.hasCondition(condition, player))
       case ConditionType.OwnCards:
-        return condition.cards.filter(card => this.ownCard(card, player)).length >= condition.quantity
+        return this.getActiveCards(player).id<CardId>(id => condition.cards.includes(id.front)).length >= condition.quantity
     }
   }
 
-  ownCard(card: Card, player = this.player) {
+  getActiveCards(player = this.player) {
     return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z).player(player)
-      .id<CardId>(id => id.front === card).length > 0
   }
 }
