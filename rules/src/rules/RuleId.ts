@@ -1,6 +1,6 @@
 export enum RuleId {
 
-  RollDice, Actions, UseDiscardedDie, UseReRollDie, TradeCards, PayCard, AcquireCards, Calamities,
+  RollDice, Actions, UseDiscardedDie, UseReRollDie, TradeCards, PayCard, UseGoldenAgeDie, Calamities,
   Wars, PrepareArmy, GeneralReRoll, WarOutcome,
   NewEvents, Achievements, Decay, EndOfTurn, Upkeep,
 

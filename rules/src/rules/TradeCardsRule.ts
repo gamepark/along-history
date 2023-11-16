@@ -39,7 +39,7 @@ export class TradeCardsRule extends PlayerTurnRule {
     return this.transmissibleCards.player(this.player).selectItems()
   }
 
-  afterItemMove(move: ItemMove) {
+  afterItemMove(move: ItemMove): MaterialMove[] {
     if (isSelectItem(move) && move.itemType === MaterialType.Card) {
       const opponentCard = this.opponentCardSelected
       const playerCard = this.playerCardSelected

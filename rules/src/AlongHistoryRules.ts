@@ -16,7 +16,6 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
 import { AchievementsRule } from './rules/AchievementsRule'
-import { AcquireCardsRule } from './rules/AcquireCardsRule'
 import { ActionsRule } from './rules/ActionsRule'
 import { CannibalsFailureRule } from './rules/calamities/CannibalsFailureRule'
 import { EarthquakeFailureRule } from './rules/calamities/EarthquakeFailureRule'
@@ -26,15 +25,16 @@ import { LoseCardRule } from './rules/calamities/LoseCardRule'
 import { StarvingFailureRule } from './rules/calamities/StarvingFailureRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
 import { DecayRule } from './rules/DecayRule'
+import { EndOfTurnRule } from './rules/EndOfTurnRule'
 import { NewEventsRule } from './rules/NewEventsRule'
 import { PayCardRule } from './rules/PayCardRule'
 import { PrepareArmyRule } from './rules/PrepareArmyRule'
 import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
 import { TradeCardsRule } from './rules/TradeCardsRule'
-import { EndOfTurnRule } from './rules/EndOfTurnRule'
 import { UpkeepRule } from './rules/UpkeepRule'
 import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
+import { UseGoldenAgeDieRule } from './rules/UseGoldenAgeDieRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
 import { WarOutcomeRule } from './rules/WarOutcomeRule'
 import { WarsRule } from './rules/WarsRule'
@@ -53,9 +53,9 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.Actions]: ActionsRule,
     [RuleId.UseDiscardedDie]: UseDiscardedDieRule,
     [RuleId.UseReRollDie]: UseReRollDieRule,
+    [RuleId.UseGoldenAgeDie]: UseGoldenAgeDieRule,
     [RuleId.TradeCards]: TradeCardsRule,
     [RuleId.PayCard]: PayCardRule,
-    [RuleId.AcquireCards]: AcquireCardsRule,
     [RuleId.Calamities]: CalamitiesRule,
     [RuleId.Wars]: WarsRule,
     [RuleId.PrepareArmy]: PrepareArmyRule,

@@ -1,4 +1,4 @@
-import { isRoll, ItemMove } from '@gamepark/rules-api'
+import { isRoll, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { RuleId } from './RuleId'
@@ -13,7 +13,7 @@ export class UseDiscardedDieRule extends TradeCardsRule {
     return this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player).rollItems()
   }
 
-  afterItemMove(move: ItemMove) {
+  afterItemMove(move: ItemMove): MaterialMove[] {
     if (isRoll(move)) {
       return [this.rules().startRule(RuleId.Actions)]
     }

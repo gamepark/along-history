@@ -147,7 +147,7 @@ export class PayCardRule extends PlayerTurnRule {
       }
     }
     if (this.costPaid) {
-      return [this.rules().startRule(RuleId.AcquireCards)]
+      return [this.rules().startRule(RuleId.Actions)]
     }
     return []
   }

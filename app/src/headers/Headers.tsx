@@ -2,11 +2,11 @@
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { ComponentType } from 'react'
 import { AchievementsHeader } from './AchievementsHeader'
-import { AcquireCardsHeader } from './AcquireCardsHeader'
 import { ActionsHeader } from './ActionsHeader'
 import { CalamitiesHeader } from './CalamitiesHeader'
 import { DecayHeader } from './DecayHeader'
 import { EndOfTurnHeader } from './EndOfTurnHeader'
+import { GoldenAgeHeader } from './GoldenAgeHeader'
 import { LoseCardHeader } from './LoseCardHeader'
 import { NewEventsHeader } from './NewEventsHeader'
 import { PayCardHeader } from './PayCardHeader'
@@ -26,7 +26,7 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.UseReRollDie]: UseReRollDieHeader,
   [RuleId.TradeCards]: TradeCardsHeader,
   [RuleId.PayCard]: PayCardHeader,
-  [RuleId.AcquireCards]: AcquireCardsHeader,
+  [RuleId.UseGoldenAgeDie]: GoldenAgeHeader,
   [RuleId.Calamities]: CalamitiesHeader,
   [RuleId.Wars]: WarsHeader,
   [RuleId.PrepareArmy]: PrepareArmyHeader,
