@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { MaterialHelpProps, PlayMoveButton, useLegalMove } from '@gamepark/react-game'
 import { isRollItemType } from '@gamepark/rules-api'

@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { Age } from '@gamepark/along-history/material/Age'
 import { Card } from '@gamepark/along-history/material/Card'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
@@ -42,6 +43,7 @@ import Wolves from '../images/cards/prehistory/fr/Wolves.jpg'
 import Woodlands from '../images/cards/prehistory/fr/Woodlands.jpg'
 import WoollyRhinoceros from '../images/cards/prehistory/fr/WoollyRhinoceros.jpg'
 import { getPlayerRotation } from '../locators/PlayerLocator'
+import { CardHelp } from './help/CardHelp'
 
 class AlongHistoryCardDescription extends CardDescription {
   height = 8.89
@@ -89,7 +91,7 @@ class AlongHistoryCardDescription extends CardDescription {
     [Age.Prehistory]: Prehistory
   }
 
-  rules = () => <></>
+  help = CardHelp
 
   canShortClick(move: MaterialMove, context: ItemContext) {
     return super.canShortClick(move, context) ||
