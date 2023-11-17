@@ -1,9 +1,9 @@
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { MaterialRulesProps, PlayMoveButton, useLegalMove } from '@gamepark/react-game'
+import { MaterialHelpProps, PlayMoveButton, useLegalMove } from '@gamepark/react-game'
 import { isRollItemType } from '@gamepark/rules-api'
 import { useTranslation } from 'react-i18next'
 
-export const DiceHelp = ({ itemIndex, closeDialog }: MaterialRulesProps) => {
+export const DiceHelp = ({ itemIndex, closeDialog }: MaterialHelpProps) => {
   const { t } = useTranslation()
   const chooseCard = useLegalMove(move => isRollItemType(MaterialType.Dice)(move) && move.itemIndex === itemIndex)
   return <>

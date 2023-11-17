@@ -96,7 +96,7 @@ class DiceDescription extends CubicDiceDescription {
       || isMoveItemType(MaterialType.Dice)(move) && move.itemIndex === context.index && move.location.type === LocationType.DiscardTile
   }
 
-  rules = DiceHelp
+  help = DiceHelp
 }
 
 export const diceDescription = new DiceDescription()
