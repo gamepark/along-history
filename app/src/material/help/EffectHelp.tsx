@@ -29,7 +29,18 @@ export const ConditionHelp = ({ condition }: { condition: Condition }) => {
 export const OwnCardCondition = ({ condition }: { condition: OwnCardsCondition }) => {
   const { t } = useTranslation()
   if (condition.cards.length === 1 && condition.quantity === 1) {
-    return <span><Trans defaults="condition.own-card" values={{ card: t(`card.name.${condition.cards[0]}`) }}><em/></Trans></span>
+    return <span><Trans defaults="condition.own.card" values={{ card: t(`card.name.${condition.cards[0]}`) }}><em/></Trans></span>
+  } else if (condition.cards.length === 2 && condition.quantity === 1) {
+    return <span><Trans defaults="condition.own.1of2" values={{
+      card1: t(`card.name.${condition.cards[0]}`),
+      card2: t(`card.name.${condition.cards[1]}`)
+    }}><em/></Trans></span>
+  } else if (condition.cards.length === 3 && condition.quantity === 2) {
+    return <span><Trans defaults="condition.own.2of3" values={{
+      card1: t(`card.name.${condition.cards[0]}`),
+      card2: t(`card.name.${condition.cards[1]}`),
+      card3: t(`card.name.${condition.cards[2]}`)
+    }}><em/></Trans></span>
   }
-  return <span></span> // TODO
+  return <span>???</span>
 }
