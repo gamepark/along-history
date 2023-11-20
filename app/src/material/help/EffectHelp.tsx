@@ -1,34 +1,56 @@
 /** @jsxImportSource @emotion/react */
+import { Card } from '@gamepark/along-history/material/Card'
 import { Condition } from '@gamepark/along-history/material/cards/effects/conditions/Condition'
 import { ConditionType } from '@gamepark/along-history/material/cards/effects/conditions/ConditionType'
 import { OwnCardsCondition } from '@gamepark/along-history/material/cards/effects/conditions/OwnCardsCondition'
 import { Effect } from '@gamepark/along-history/material/cards/effects/Effect'
 import { EffectType } from '@gamepark/along-history/material/cards/effects/EffectType'
+import { LosePopulationEffect } from '@gamepark/along-history/material/cards/effects/LosePopulationEffect'
 import { Picture } from '@gamepark/react-game'
 import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
-import { alignIcon, round } from './CardHelp'
+import { round } from './CardHelp'
 
-export const EffectHelp = ({ effect }: { effect: Effect }) => {
+export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => {
   switch (effect.type) {
     case EffectType.Discount:
       if (effect.population > 0) {
-        return <p css={alignIcon}><Trans defaults="effect.discount" values={{ population: effect.population }}>
+        return <Trans defaults="effect.discount" values={{ population: effect.population }}>
           <Picture src={populationIcon} css={round}/>
           <ConditionHelp condition={effect.condition}/>
-        </Trans></p>
+        </Trans>
       } else {
-        return <p css={alignIcon}><Trans defaults="effect.overcost" values={{ population: effect.population }}>
+        return <Trans defaults="effect.overcost" values={{ population: effect.population }}>
           <Picture src={populationIcon} css={round}/>
           <ConditionHelp condition={effect.condition}/>
-        </Trans></p>
+        </Trans>
       }
     case EffectType.Free:
-      return <p><Trans defaults="effect.free"><ConditionHelp condition={effect.condition}/></Trans></p>
+      return <Trans defaults="effect.free"><ConditionHelp condition={effect.condition}/></Trans>
+    case EffectType.LosePopulation:
+      return <LosePopulationHelp effect={effect} card={card}/>
+    case EffectType.Discard:
+      return <Trans defaults="effect.discard"><ConditionHelp condition={effect.condition}/></Trans>
     case EffectType.NonTransmissible:
-      return <p><Trans defaults="effect.non-transmissible"><strong/></Trans></p>
-    default:
-      return <p></p> // TODO
+      return <Trans defaults="effect.non-transmissible"><strong/></Trans>
+    case EffectType.WarBonus:
+      return <Trans defaults="effect.war-bonus">
+        <Picture src={populationIcon} css={round}/>
+      </Trans>
+  }
+}
+
+export const LosePopulationHelp = ({ effect, card }: { effect: LosePopulationEffect, card: Card }) => {
+  const { t } = useTranslation()
+  if (effect.condition) {
+    return <Trans defaults="effect.lose-pop-if" values={{ card: t(`card.name.${card}`) }}>
+      <Picture src={populationIcon} css={round}/>
+      <ConditionHelp condition={effect.condition}/>
+    </Trans>
+  } else {
+    return <Trans defaults="effect.lose-pop">
+      <Picture src={populationIcon} css={round}/>
+    </Trans>
   }
 }
 

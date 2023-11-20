@@ -26,7 +26,7 @@ export const CardHelp = ({ item }: MaterialHelpProps) => {
         <>{info.resourcesCost.map((resource, index) => <Picture key={index} src={bonusIcon[resource]} css={round}/>)}</>
       </Trans></p>
 
-      {info.effects.map((effect, index) => <EffectHelp key={index} effect={effect}/>)}
+      {info.effects.map((effect, index) => <p key={index} css={alignIcon}><EffectHelp effect={effect} card={card}/></p>)}
 
       {info.bonus.length > 0 && <p css={alignIcon}>
         <Trans defaults="card.bonus">
@@ -45,10 +45,6 @@ const bonusIcon: Record<Bonus, string> = {
 }
 
 export const alignIcon = css`
-  > * {
-    vertical-align: middle;
-  }
-
   picture, img {
     vertical-align: middle;
     height: 1.5em;
