@@ -4,10 +4,25 @@ import { ConditionType } from '@gamepark/along-history/material/cards/effects/co
 import { OwnCardsCondition } from '@gamepark/along-history/material/cards/effects/conditions/OwnCardsCondition'
 import { Effect } from '@gamepark/along-history/material/cards/effects/Effect'
 import { EffectType } from '@gamepark/along-history/material/cards/effects/EffectType'
+import { Picture } from '@gamepark/react-game'
 import { Trans, useTranslation } from 'react-i18next'
+import populationIcon from '../../images/dices/population/Population1.jpg'
+import { alignIcon, round } from './CardHelp'
 
 export const EffectHelp = ({ effect }: { effect: Effect }) => {
   switch (effect.type) {
+    case EffectType.Discount:
+      if (effect.population > 0) {
+        return <p css={alignIcon}><Trans defaults="effect.discount" values={{ population: effect.population }}>
+          <Picture src={populationIcon} css={round}/>
+          <ConditionHelp condition={effect.condition}/>
+        </Trans></p>
+      } else {
+        return <p css={alignIcon}><Trans defaults="effect.overcost" values={{ population: effect.population }}>
+          <Picture src={populationIcon} css={round}/>
+          <ConditionHelp condition={effect.condition}/>
+        </Trans></p>
+      }
     case EffectType.Free:
       return <p><Trans defaults="effect.free"><ConditionHelp condition={effect.condition}/></Trans></p>
     case EffectType.NonTransmissible:
@@ -22,7 +37,7 @@ export const ConditionHelp = ({ condition }: { condition: Condition }) => {
     case ConditionType.OwnCards:
       return <OwnCardCondition condition={condition}/>
     default:
-      return <span></span> // TODO
+      return <></>
   }
 }
 
