@@ -3,7 +3,7 @@ import { AlongHistoryOptions } from './AlongHistoryOptions'
 import { AlongHistoryRules } from './AlongHistoryRules'
 import { Achievement, achievements, getAchievementValue } from './material/Achievement'
 import { AchievementBoardLocations } from './material/AchievementBoard'
-import { Age, AgesCards } from './material/Age'
+import { Age, AgesCardsListing } from './material/Age'
 import { CardId } from './material/cards/CardId'
 import { CardsInfo } from './material/cards/CardsInfo'
 import { CardType } from './material/cards/CardType'
@@ -30,7 +30,7 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
   }
 
   setupDeck() {
-    this.material(MaterialType.Card).createItems(listingToList(AgesCards[Age.Prehistory]).map(card => (
+    this.material(MaterialType.Card).createItems(listingToList(AgesCardsListing[Age.Prehistory]).map(card => (
       { id: { front: card, back: Age.Prehistory }, location: { type: LocationType.Deck } }
     )))
     this.material(MaterialType.Card).shuffle()

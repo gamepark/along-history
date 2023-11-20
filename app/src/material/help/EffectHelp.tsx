@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { Card, getCardAge } from '@gamepark/along-history/material/Card'
+import { getCardAge } from '@gamepark/along-history/material/Age'
+import { Card } from '@gamepark/along-history/material/Card'
 import { Condition } from '@gamepark/along-history/material/cards/effects/conditions/Condition'
 import { ConditionType } from '@gamepark/along-history/material/cards/effects/conditions/ConditionType'
 import { OwnCardsCondition } from '@gamepark/along-history/material/cards/effects/conditions/OwnCardsCondition'

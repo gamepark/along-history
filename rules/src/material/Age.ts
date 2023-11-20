@@ -1,4 +1,4 @@
-import { Card } from './Card'
+import { Card, cards } from './Card'
 
 export enum Age {
   Prehistory = 1,
@@ -6,7 +6,7 @@ export enum Age {
   MiddleAges
 }
 
-export const AgesCards: Record<Age, Partial<Record<Card, number>>> = {
+export const AgesCardsListing: Record<Age, Partial<Record<Card, number>>> = {
   [Age.Prehistory]: {
     [Card.Forest]: 2,
     [Card.Hills]: 2,
@@ -48,3 +48,15 @@ export const AgesCards: Record<Age, Partial<Record<Card, number>>> = {
   [Age.Antiquity]: {},
   [Age.MiddleAges]: {}
 }
+
+export const prehistoryCards = cards.filter(card => card < 100)
+export const antiquityCards = cards.filter(card => card >= 100 && card < 200)
+export const middleAgesCards = cards.filter(card => card >= 200)
+
+export const AgesCards: Record<Age, Card[]> = {
+  [Age.Prehistory]: prehistoryCards,
+  [Age.Antiquity]: antiquityCards,
+  [Age.MiddleAges]: middleAgesCards
+}
+
+export const getCardAge = (card: Card): Age => Math.ceil(card / 100)

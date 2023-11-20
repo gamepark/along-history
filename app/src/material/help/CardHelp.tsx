@@ -10,6 +10,7 @@ import cultureIcon from '../../images/dices/resources/Culture.jpg'
 import ingenuityIcon from '../../images/dices/resources/Ingenuity.jpg'
 import strengthIcon from '../../images/dices/resources/Strength.jpg'
 import { EffectHelp } from './EffectHelp'
+import { LinkHelp } from './LinkHelp'
 
 export const CardHelp = ({ item }: MaterialHelpProps) => {
   const { t } = useTranslation()
@@ -33,6 +34,8 @@ export const CardHelp = ({ item }: MaterialHelpProps) => {
           <>{info.bonus.map((bonus, index) => <Picture key={index} src={bonusIcon[bonus]}/>)}</>
         </Trans>
       </p>}
+
+      <LinkHelp card={card}/>
     </>}
   </>
 }

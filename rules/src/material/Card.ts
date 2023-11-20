@@ -1,4 +1,4 @@
-import { Age } from './Age'
+import { isEnumValue } from '@gamepark/rules-api'
 
 export enum Card {
   Forest = 1,
@@ -39,4 +39,4 @@ export enum Card {
   VolcanicEruption
 }
 
-export const getCardAge = (card: Card): Age => Math.ceil(card / 100)
+export const cards = Object.values(Card).filter(isEnumValue)
