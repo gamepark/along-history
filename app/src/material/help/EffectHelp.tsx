@@ -72,7 +72,7 @@ export const OwnCardCondition = ({ condition }: { condition: OwnCardsCondition }
   if (condition.cards.length === 1 && condition.quantity === 1) {
     const card = condition.cards[0]
     return <span><Trans defaults="condition.own.card" values={{ card: t(`card.name.${card}`) }}>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card, back: getCardAge(card) } })}/>
+      <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card, back: getCardAge(card) } })}/>
     </Trans></span>
   } else if (condition.cards.length === 2 && condition.quantity === 1) {
     const card1 = condition.cards[0]
@@ -81,8 +81,8 @@ export const OwnCardCondition = ({ condition }: { condition: OwnCardsCondition }
       card1: t(`card.name.${card1}`),
       card2: t(`card.name.${card2}`)
     }}>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card1, back: getCardAge(card1) } })}/>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card2, back: getCardAge(card2) } })}/>
+      <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card1, back: getCardAge(card1) } })}/>
+      <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card2, back: getCardAge(card2) } })}/>
     </Trans></span>
   } else if (condition.cards.length === 3 && condition.quantity === 2) {
     const card1 = condition.cards[0]
@@ -93,15 +93,15 @@ export const OwnCardCondition = ({ condition }: { condition: OwnCardsCondition }
       card2: t(`card.name.${card2}`),
       card3: t(`card.name.${card3}`)
     }}>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card1, back: getCardAge(card1) } })}/>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card2, back: getCardAge(card2) } })}/>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card3, back: getCardAge(card3) } })}/>
+      <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card1, back: getCardAge(card1) } })}/>
+      <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card2, back: getCardAge(card2) } })}/>
+      <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card3, back: getCardAge(card3) } })}/>
     </Trans></span>
   }
   return <span>???</span>
 }
 
-const cardLinkButton = [linkButtonCss, css`
+export const rulesLinkButton = [linkButtonCss, css`
   color: inherit;
   font-style: italic;
 `]

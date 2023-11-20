@@ -2,6 +2,7 @@ import { AchievementBoardLocations } from '@gamepark/along-history/material/Achi
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { BoardDescription } from '@gamepark/react-game'
 import board1 from '../images/board/BoardFront.jpg'
+import { BoardHelp } from './help/BoardHelp'
 
 class AlongHistoryBoardDescription extends BoardDescription {
   image = board1 // TODO: game option & dynamic image
@@ -9,7 +10,7 @@ class AlongHistoryBoardDescription extends BoardDescription {
   height = 18.78
 
   staticItem = { location: { type: LocationType.Table } }
-  rules = () => <></>
+  help = BoardHelp
 
   locations = AchievementBoardLocations.flatMap((columns, x) => columns.map(y => ({ type: LocationType.AchievementsBoard, x, y })))
 }
