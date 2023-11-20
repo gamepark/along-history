@@ -1,3 +1,5 @@
+import { Age } from './Age'
+
 export enum Card {
   Forest = 1,
   Hills,
@@ -36,3 +38,5 @@ export enum Card {
   Starving,
   VolcanicEruption
 }
+
+export const getCardAge = (card: Card): Age => Math.ceil(card / 100)
