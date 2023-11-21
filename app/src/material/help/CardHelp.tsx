@@ -9,6 +9,7 @@ import populationIcon from '../../images/dices/population/Population1.jpg'
 import cultureIcon from '../../images/dices/resources/Culture.jpg'
 import ingenuityIcon from '../../images/dices/resources/Ingenuity.jpg'
 import strengthIcon from '../../images/dices/resources/Strength.jpg'
+import { CardLocationHelp } from './CardLocationHelp'
 import { EffectHelp } from './EffectHelp'
 import { LinkHelp } from './LinkHelp'
 
@@ -18,6 +19,7 @@ export const CardHelp = ({ item }: MaterialHelpProps) => {
   const info = card && CardsInfo[card]
   return <>
     <h2>{card ? t(`card.name.${card}`) : t(`card.age.${item.id.back}`)}</h2>
+    {item.location && <CardLocationHelp location={item.location}/>}
     {info && <>
       <p>{t(`card.type.${info.type}`)}</p>
       <p>{t(`card.points`, { points: info.victoryPoints })}</p>

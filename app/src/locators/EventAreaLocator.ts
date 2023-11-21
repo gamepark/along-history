@@ -1,12 +1,21 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { ItemContext, LineLocator } from '@gamepark/react-game'
+import { ItemContext, LineLocator, LocationDescription } from '@gamepark/react-game'
 import { Coordinates, Location, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
+import { EventAreaHelp } from './help/EventAreaHelp'
 import { getPlayerLocation, Orientation } from './PlayerLocator'
 
+class EventAreaDescription extends LocationDescription {
+  height = cardDescription.height
+  width = cardDescription.width * 3 + 2
+  help = EventAreaHelp
+}
+
 class EventAreaLocator extends LineLocator {
+  locationDescription = new EventAreaDescription()
+
   getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
     const { x, y } = this.getXYCoordinates(item, context)
     return {
