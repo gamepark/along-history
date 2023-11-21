@@ -137,7 +137,7 @@ export class ActionsRule extends PlayerTurnRule {
         for (const diceSymbol in diceSymbolCount) {
           moves.push(...this.material(MaterialType.ResultToken).location(LocationType.ResultTokenStock)
             .id(parseInt(diceSymbol)).limit(diceSymbolCount[diceSymbol])
-            .moveItems({ type: LocationType.PlayerResources, player: this.nextPlayer }))
+            .selectItems())
         }
         moves.push(this.rules().startRule(RuleId.Calamities))
       } else {

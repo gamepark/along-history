@@ -5,17 +5,17 @@ import { cardDescription } from '../material/CardDescription'
 import { resultTokenDescription } from '../material/ResultTokenDescription'
 
 class ResultTokenStockLocator extends GridLocator {
-  getCoordinates(_item: MaterialItem, { rules: { players } }: ItemContext) {
+  getCoordinates(item: MaterialItem, { rules: { players } }: ItemContext) {
     if (players.length === 3) {
       return {
-        x: cardDescription.width * 2 + resultTokenDescription.width / 2 + 2,
-        y: -cardDescription.height + resultTokenDescription.width / 2 - 1,
+        x: cardDescription.width * 2 + resultTokenDescription.width / 2 + 2 - (item.selected ? 0.2 : 0),
+        y: -cardDescription.height + resultTokenDescription.width / 2 - 1 - (item.selected ? 0.2 : 0),
         z: 0.8
       }
     } else {
       return {
-        x: boardDescription.width + resultTokenDescription.width / 2 + 1,
-        y: cardDescription.height + 1.9,
+        x: boardDescription.width + resultTokenDescription.width / 2 + 1 - (item.selected ? 0.2 : 0),
+        y: cardDescription.height + 1.9 - (item.selected ? 0.2 : 0),
         z: 0.8
       }
     }

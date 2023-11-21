@@ -24,7 +24,7 @@ export class EndOfTurnRule extends PlayerTurnRule {
       return this.endRound
     } else {
       return [
-        ...this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player)
+        ...this.material(MaterialType.ResultToken).selected(true)
           .moveItems({ type: LocationType.PlayerResources, player: this.nextPlayer }),
         this.rules().startPlayerTurn(RuleId.Upkeep, this.nextPlayer)
       ]
@@ -32,8 +32,11 @@ export class EndOfTurnRule extends PlayerTurnRule {
   }
 
   get endRound() {
-    const moves: MaterialMove[] = this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player)
-      .moveItems({ type: LocationType.ResultTokenStock })
+    const selectedResultToken = this.material(MaterialType.ResultToken).selected(true)
+    const moves: MaterialMove[] = selectedResultToken.moveItems({ type: LocationType.ResultTokenStock })
+    for (const item of selectedResultToken.getItems()) {
+      delete item.selected
+    }
     if (this.ageIsOver) {
       moves.push(this.rules().endGame())
     } else {
