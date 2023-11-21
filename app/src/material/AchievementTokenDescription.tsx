@@ -41,6 +41,7 @@ import VictoryPoints8 from '../images/tokens/achievement/VictoryPoints8.jpg'
 import Wonder from '../images/tokens/achievement/Wonder.jpg'
 import Wonders2 from '../images/tokens/achievement/Wonders2.jpg'
 import { getPlayerRotation } from '../locators/PlayerLocator'
+import { AchievementTokenHelp } from './help/AchievementTokenHelp'
 
 class AchievementTokenDescription extends TokenDescription {
   width = 2.45
@@ -106,7 +107,7 @@ class AchievementTokenDescription extends TokenDescription {
     return getPlayerRotation(item, context)
   }
 
-  rules = () => <></>
+  help = AchievementTokenHelp
 }
 
 export const achievementTokenDescription = new AchievementTokenDescription()
