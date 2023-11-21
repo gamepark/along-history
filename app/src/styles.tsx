@@ -11,6 +11,7 @@ export const alignIcon = css`
     vertical-align: middle;
     height: 1.5em;
     margin-right: 0.1em;
+    margin-bottom: 0.1em;
   }
 `
 
