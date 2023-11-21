@@ -4,6 +4,7 @@ import { AlongHistoryRules } from '../AlongHistoryRules'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
+import { CardType } from '../material/cards/CardType'
 import { diceToDiscardTile, DiceType, getDiceSymbol } from '../material/Dices'
 import { DiceSymbol, isPopulationSymbol, isResource } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
@@ -204,6 +205,13 @@ export class PayCardRule extends PlayerTurnRule {
   }
 
   onRuleEnd() {
+    const moves: MaterialMove[] = []
+    const card = this.material(MaterialType.Card).getItem<CardId>(this.remind<number>(Memory.CardToPay))!.id!.front
+    if (CardsInfo[card].type === CardType.Wonder
+      && this.material(MaterialType.UniversalResource).player(this.player).getQuantity() < 2) {
+      moves.push(this.material(MaterialType.UniversalResource).location(LocationType.UniversalResourceStock)
+        .moveItem({ type: LocationType.PlayerUniversalResource, player: this.player }, 1))
+    }
     this.forget(Memory.CardToPay)
     this.forget(Memory.PopulationCost)
     this.forget(Memory.ResourcesCost)
@@ -211,7 +219,7 @@ export class PayCardRule extends PlayerTurnRule {
     this.forget(Memory.DieToMultiply)
     this.forget(Memory.Multiplier)
     this.memorize(Memory.CardAcquired, true)
-    return []
+    return moves
   }
 }
 
