@@ -4,6 +4,7 @@ import { isMoveItem, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import UniversalResourceBack from '../images/tokens/resources/UniversalResourceBack.jpg'
 import UniversalResourceFront from '../images/tokens/resources/UniversalResourceFront.jpg'
 import { getPlayerRotation } from '../locators/PlayerLocator'
+import { UniversalResourceHelp } from './help/UniversalResourceHelp'
 
 class UniversalResourceDescription extends TokenDescription {
   width = 2.45
@@ -23,7 +24,7 @@ class UniversalResourceDescription extends TokenDescription {
     return isMoveItem(move) && move.itemType === MaterialType.UniversalResource && index === move.itemIndex
   }
 
-  rules = () => <></>
+  help = UniversalResourceHelp
 }
 
 export const universalResourceDescription = new UniversalResourceDescription()

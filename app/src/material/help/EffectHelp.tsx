@@ -13,20 +13,19 @@ import { Picture, PlayMoveButton } from '@gamepark/react-game'
 import { displayMaterialHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
-import { rulesLinkButton } from '../../styles'
-import { round } from './CardHelp'
+import { roundCss, rulesLinkButton } from '../../styles'
 
 export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => {
   switch (effect.type) {
     case EffectType.Discount:
       if (effect.population > 0) {
         return <Trans defaults="effect.discount" values={{ population: effect.population }}>
-          <Picture src={populationIcon} css={round}/>
+          <Picture src={populationIcon} css={roundCss}/>
           <ConditionHelp condition={effect.condition}/>
         </Trans>
       } else {
         return <Trans defaults="effect.overcost" values={{ population: effect.population }}>
-          <Picture src={populationIcon} css={round}/>
+          <Picture src={populationIcon} css={roundCss}/>
           <ConditionHelp condition={effect.condition}/>
         </Trans>
       }
@@ -40,7 +39,7 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <Trans defaults="effect.non-transmissible"><strong/></Trans>
     case EffectType.WarBonus:
       return <Trans defaults="effect.war-bonus">
-        <Picture src={populationIcon} css={round}/>
+        <Picture src={populationIcon} css={roundCss}/>
       </Trans>
   }
 }
@@ -49,12 +48,12 @@ export const LosePopulationHelp = ({ effect, card }: { effect: LosePopulationEff
   const { t } = useTranslation()
   if (effect.condition) {
     return <Trans defaults="effect.lose-pop-if" values={{ card: t(`card.name.${card}`) }}>
-      <Picture src={populationIcon} css={round}/>
+      <Picture src={populationIcon} css={roundCss}/>
       <ConditionHelp condition={effect.condition}/>
     </Trans>
   } else {
     return <Trans defaults="effect.lose-pop">
-      <Picture src={populationIcon} css={round}/>
+      <Picture src={populationIcon} css={roundCss}/>
     </Trans>
   }
 }
