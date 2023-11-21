@@ -23,6 +23,7 @@ import Population2Back from '../images/tokens/resources/Population2Back.jpg'
 import Population3Back from '../images/tokens/resources/Population3Back.jpg'
 import StrengthBack from '../images/tokens/resources/StrengthBack.jpg'
 import { getPlayerRotation } from '../locators/PlayerLocator'
+import { ResultTokenHelp } from './help/ResultTokenHelp'
 
 class ResultTokenDescription extends TokenDescription {
   width = 1.6
@@ -62,7 +63,7 @@ class ResultTokenDescription extends TokenDescription {
     return getPlayerRotation(item, context)
   }
 
-  rules = () => <></>
+  help = ResultTokenHelp
 
   canShortClick(move: MaterialMove, { index }: ItemContext) {
     return isMoveItem(move) && move.itemType === MaterialType.ResultToken && index === move.itemIndex
