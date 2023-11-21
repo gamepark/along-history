@@ -14,6 +14,7 @@ class OnCardLocationDescription extends LocationDescription {
   width = cardDescription.width
   height = cardDescription.height
   borderRadius = cardDescription.borderRadius
+  alwaysVisible = false
 
   couldDrop(move: MaterialMove, location: Location, context: ItemContext) {
     if (isMoveItem(move) && move.itemType === MaterialType.Card
