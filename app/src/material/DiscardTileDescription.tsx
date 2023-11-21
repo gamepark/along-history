@@ -3,6 +3,7 @@ import { BoardDescription, ItemContext } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import DiscardTile from '../images/board/DiscardTile.jpg'
 import { getPlayerRotation } from '../locators/PlayerLocator'
+import { DiscardTileHelp } from './help/DiscardTileHelp'
 
 class DiscardTileDescription extends BoardDescription {
   image = DiscardTile
@@ -15,7 +16,7 @@ class DiscardTileDescription extends BoardDescription {
     return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
   }
 
-  rules = () => <></>
+  help = DiscardTileHelp
 }
 
 export const discardTileDescription = new DiscardTileDescription()
