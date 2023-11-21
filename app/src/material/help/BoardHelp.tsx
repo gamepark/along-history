@@ -7,7 +7,7 @@ import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { PlayMoveButton, usePlayerId, useRules } from '@gamepark/react-game'
 import { displayLocationHelp, displayMaterialHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
-import { rulesLinkButton } from './EffectHelp'
+import { rulesLinkButton } from '../../styles'
 
 export const BoardHelp = () => {
   const { t } = useTranslation()

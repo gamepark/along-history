@@ -4,7 +4,8 @@ import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { LocationHelpProps, PlayMoveButton } from '@gamepark/react-game'
 import { displayLocationHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
-import { rulesLinkButton } from '../../material/help/EffectHelp'
+
+import { rulesLinkButton } from '../../styles'
 
 export const EventAreaHelp = ({ location }: LocationHelpProps) => {
   const { t } = useTranslation()

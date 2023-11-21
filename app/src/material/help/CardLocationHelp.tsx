@@ -4,7 +4,7 @@ import { PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game
 import { displayLocationHelp, Location } from '@gamepark/rules-api'
 import { Trans } from 'react-i18next'
 import { DeckHelp } from '../../locators/help/DeckHelp'
-import { rulesLinkButton } from './EffectHelp'
+import { rulesLinkButton } from '../../styles'
 
 export const CardLocationHelp = ({ location }: { location: Location }) => {
   const playerId = usePlayerId()

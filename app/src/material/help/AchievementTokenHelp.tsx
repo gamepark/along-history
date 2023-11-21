@@ -5,7 +5,7 @@ import { MaterialHelpProps, PlayMoveButton, usePlayerId, usePlayerName } from '@
 import { displayLocationHelp } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { rulesLinkButton } from './EffectHelp'
+import { rulesLinkButton } from '../../styles'
 
 export const AchievementTokenHelp = ({ item }: MaterialHelpProps) => {
   const { t } = useTranslation()

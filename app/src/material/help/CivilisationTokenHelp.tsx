@@ -4,7 +4,7 @@ import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialHelpProps, PlayMoveButton, usePlayerName } from '@gamepark/react-game'
 import { displayLocationHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
-import { rulesLinkButton } from './EffectHelp'
+import { rulesLinkButton } from '../../styles'
 
 export const CivilisationTokenHelp = ({ item }: MaterialHelpProps) => {
   const { t } = useTranslation()
