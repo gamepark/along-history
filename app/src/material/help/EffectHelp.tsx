@@ -1,6 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
-import { getCardAge } from '@gamepark/along-history/material/Age'
 import { Card } from '@gamepark/along-history/material/Card'
 import { Condition } from '@gamepark/along-history/material/cards/effects/conditions/Condition'
 import { ConditionType } from '@gamepark/along-history/material/cards/effects/conditions/ConditionType'
@@ -8,12 +6,11 @@ import { OwnCardsCondition } from '@gamepark/along-history/material/cards/effect
 import { Effect } from '@gamepark/along-history/material/cards/effects/Effect'
 import { EffectType } from '@gamepark/along-history/material/cards/effects/EffectType'
 import { LosePopulationEffect } from '@gamepark/along-history/material/cards/effects/LosePopulationEffect'
-import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { Picture, PlayMoveButton } from '@gamepark/react-game'
-import { displayMaterialHelp } from '@gamepark/rules-api'
+import { Picture } from '@gamepark/react-game'
 import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
-import { roundCss, rulesLinkButton } from '../../styles'
+import { roundCss } from '../../styles'
+import { DisplayCardHelpButton } from './LinkHelp'
 
 export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => {
   switch (effect.type) {
@@ -72,35 +69,23 @@ export const OwnCardCondition = ({ condition }: { condition: OwnCardsCondition }
   if (condition.cards.length === 1 && condition.quantity === 1) {
     const card = condition.cards[0]
     return <span><Trans defaults="condition.own.card" values={{ card: t(`card.name.${card}`) }}>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card, back: getCardAge(card) } })}/>
+      <DisplayCardHelpButton card={card}/>
     </Trans></span>
   } else if (condition.cards.length === 2 && condition.quantity === 1) {
-    const card1 = condition.cards[0]
-    const card2 = condition.cards[1]
     return <span><Trans defaults="condition.own.1of2" values={{
-      card1: t(`card.name.${card1}`),
-      card2: t(`card.name.${card2}`)
+      card1: t(`card.name.${condition.cards[0]}`),
+      card2: t(`card.name.${condition.cards[1]}`)
     }}>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card1, back: getCardAge(card1) } })}/>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card2, back: getCardAge(card2) } })}/>
+      {condition.cards.map(card => <DisplayCardHelpButton key={card} card={card}/>)}
     </Trans></span>
   } else if (condition.cards.length === 3 && condition.quantity === 2) {
-    const card1 = condition.cards[0]
-    const card2 = condition.cards[1]
-    const card3 = condition.cards[2]
     return <span><Trans defaults="condition.own.2of3" values={{
-      card1: t(`card.name.${card1}`),
-      card2: t(`card.name.${card2}`),
-      card3: t(`card.name.${card3}`)
+      card1: t(`card.name.${condition.cards[0]}`),
+      card2: t(`card.name.${condition.cards[1]}`),
+      card3: t(`card.name.${condition.cards[2]}`)
     }}>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card1, back: getCardAge(card1) } })}/>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card2, back: getCardAge(card2) } })}/>
-      <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card3, back: getCardAge(card3) } })}/>
+      {condition.cards.map(card => <DisplayCardHelpButton key={card} card={card}/>)}
     </Trans></span>
   }
   return <span>???</span>
 }
-
-const cardLinkButton = [rulesLinkButton, css`
-  font-style: italic;
-`]

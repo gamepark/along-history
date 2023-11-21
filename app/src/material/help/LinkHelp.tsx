@@ -6,10 +6,11 @@ import { CardsInfo } from '@gamepark/along-history/material/cards/CardsInfo'
 import { ConditionType } from '@gamepark/along-history/material/cards/effects/conditions/ConditionType'
 import { isEffectWithCondition } from '@gamepark/along-history/material/cards/effects/Effect'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { linkButtonCss, PlayMoveButton } from '@gamepark/react-game'
+import { PlayMoveButton } from '@gamepark/react-game'
 import { displayMaterialHelp } from '@gamepark/rules-api'
-import { useMemo } from 'react'
+import { FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { rulesLinkButton } from '../../styles'
 
 export const LinkHelp = ({ card }: { card: Card }) => {
   const { t } = useTranslation()
@@ -23,16 +24,20 @@ export const LinkHelp = ({ card }: { card: Card }) => {
     <p>{t('card.links')}</p>
     <ul>
       {links.map(linkedCard => <li key={linkedCard}>
-        <PlayMoveButton css={cardLinkButton}
-                        move={displayMaterialHelp(MaterialType.Card, { id: { front: linkedCard, back: getCardAge(linkedCard) } })}>
+        <DisplayCardHelpButton card={linkedCard}>
           {t(`card.name.${linkedCard}`)}
-        </PlayMoveButton>
+        </DisplayCardHelpButton>
       </li>)}
     </ul>
   </>
 }
 
-const cardLinkButton = [linkButtonCss, css`
-  color: inherit;
+export const DisplayCardHelpButton: FC<{ card: Card }> = ({ card, children }) => {
+  return <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card, back: getCardAge(card) } })} local>
+    {children}
+  </PlayMoveButton>
+}
+
+const cardLinkButton = [rulesLinkButton, css`
   font-style: italic;
 `]
