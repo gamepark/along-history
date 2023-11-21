@@ -17,8 +17,8 @@ export const BoardHelp = () => {
     <h2>{t('board.title')}</h2>
     <p css={css`white-space: break-spaces`}>
       <Trans defaults="achievements.rules">
-        <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.CivilisationToken, { id: player })}/>
-        <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1 })}/>
+        <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.CivilisationToken, { id: player })} local/>
+        <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1 })} local/>
       </Trans>
     </p>
   </>

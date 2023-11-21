@@ -4,11 +4,13 @@ import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
+import { CivilisationAreaHelp } from './help/CivilisationAreaHelp'
 import { civilisationAreaHeight, getPlayerLocation, Orientation } from './PlayerLocator'
 
 export class CivilisationAreaDescription extends LocationDescription {
   alwaysVisible = true
   borderRadius = cardDescription.borderRadius
+  help = CivilisationAreaHelp
 
   getLocations({ rules }: MaterialContext) {
     return rules.players.map(player => ({ type: LocationType.CivilisationArea, player }))
