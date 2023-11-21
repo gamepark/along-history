@@ -5,6 +5,7 @@ import Green from '../images/tokens/civilisation/Green.png'
 import Red from '../images/tokens/civilisation/Red.png'
 import White from '../images/tokens/civilisation/White.png'
 import Yellow from '../images/tokens/civilisation/Yellow.png'
+import { CivilisationTokenHelp } from './help/CivilisationTokenHelp'
 
 class CivilisationTokenDescription extends TokenDescription {
   ratio = 1 / 1.4
@@ -19,7 +20,7 @@ class CivilisationTokenDescription extends TokenDescription {
     [PlayerColor.Red]: Red
   }
 
-  rules = () => <></>
+  help = CivilisationTokenHelp
 }
 
 export const civilisationTokenDescription = new CivilisationTokenDescription()
