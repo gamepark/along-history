@@ -1,6 +1,7 @@
-import { MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { CustomMoveType } from './CustomMoveType'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
@@ -15,8 +16,18 @@ export class EndOfTurnRule extends PlayerTurnRule {
     }
     moves.push(...this.material(MaterialType.Dice).location(LocationType.PlayerResources)
       .moveItems(item => ({ type: LocationType.DiscardTile, parent: 0, rotation: item.location.rotation })))
-    moves.push(...this.endPlayerTurn)
     return moves
+  }
+
+  getPlayerMoves() {
+    return [this.rules().customMove(CustomMoveType.Pass)]
+  }
+
+  onCustomMove(move: CustomMove) {
+    if (move.type === CustomMoveType.Pass) {
+      return this.endPlayerTurn
+    }
+    return []
   }
 
   get endPlayerTurn() {
