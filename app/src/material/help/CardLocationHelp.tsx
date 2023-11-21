@@ -12,6 +12,10 @@ export const CardLocationHelp = ({ location }: { location: Location }) => {
   switch (location.type) {
     case LocationType.Deck:
       return <DeckHelp/>
+    case LocationType.Discard:
+      return <p><Trans defaults="card.discard">
+        <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp(location)} local/>
+      </Trans></p>
     case LocationType.EventArea:
       return <p><Trans defaults={location.player === playerId ? 'card.event-area.you' : 'card.event-area'} values={{ player }}>
         <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp(location)} local/>

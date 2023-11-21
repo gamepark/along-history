@@ -3,6 +3,7 @@ import { DeckLocator, ItemContext, LocationContext, LocationDescription } from '
 import { Location, MaterialItem } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { getDeckCoordinates } from './DeckLocator'
+import { DiscardHelp } from './help/DiscardHelp'
 
 class DiscardLocator extends DeckLocator {
   locationDescription = new DiscardLocationDescription()
@@ -19,6 +20,7 @@ class DiscardLocationDescription extends LocationDescription {
   width = cardDescription.width
   height = cardDescription.height
   borderRadius = cardDescription.borderRadius
+  help = DiscardHelp
 
   getCoordinates(_location: Location, { rules: { players } }: LocationContext) {
     const deckCoordinates = getDeckCoordinates(players.length)
