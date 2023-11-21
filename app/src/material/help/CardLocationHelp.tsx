@@ -1,13 +1,17 @@
+/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
 import { displayLocationHelp, Location } from '@gamepark/rules-api'
 import { Trans } from 'react-i18next'
+import { DeckHelp } from '../../locators/help/DeckHelp'
 import { rulesLinkButton } from './EffectHelp'
 
 export const CardLocationHelp = ({ location }: { location: Location }) => {
   const playerId = usePlayerId()
   const player = usePlayerName(location.player)
   switch (location.type) {
+    case LocationType.Deck:
+      return <DeckHelp/>
     case LocationType.EventArea:
       return <p><Trans defaults={location.player === playerId ? 'card.event-area.you' : 'card.event-area'} values={{ player }}>
         <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp(location)} local/>
