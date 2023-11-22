@@ -31,9 +31,9 @@ export class TutorialSetup extends AlongHistorySetup {
 
   start() {
     const player = this.players[0]
-    this.material(MaterialType.Dice).index(0).moveItem({ type: LocationType.PlayerResources, player, rotation: 2 })
+    this.material(MaterialType.Dice).index(0).moveItem({ type: LocationType.PlayerResources, player, rotation: 3 })
     this.material(MaterialType.Dice).index(1).moveItem({ type: LocationType.PlayerResources, player, rotation: 0 })
-    this.material(MaterialType.Dice).index(2).moveItem({ type: LocationType.PlayerResources, player, rotation: 3 })
+    this.material(MaterialType.Dice).index(2).moveItem({ type: LocationType.PlayerResources, player, rotation: 4 })
     this.material(MaterialType.Dice).index(3).moveItem({ type: LocationType.PlayerResources, player, rotation: 2 })
     this.material(MaterialType.Dice).index(4).moveItem({ type: LocationType.PlayerResources, player, rotation: 2 })
     this.material(MaterialType.Dice).index(5).moveItem({ type: LocationType.PlayerResources, player, rotation: 5 })
