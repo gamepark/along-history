@@ -22,7 +22,7 @@ export const DiceHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
   const rollDice = useLegalMove(move => isRollItemType(MaterialType.Dice)(move) && move.itemIndex === itemIndex)
   return <>
     <h2>{t(`dice.type.${item.id}`)}</h2>
-    {rollDice && <PlayMoveButton move={rollDice} onPlay={closeDialog}>{t('die.reroll')}</PlayMoveButton>}
+    {rollDice && <p><PlayMoveButton move={rollDice} onPlay={closeDialog}>{t('die.reroll')}</PlayMoveButton></p>}
     <p css={[breakSpaces, alignIcon]}>
       <Trans defaults={`dice.type.${item.id}.rules`}>
         <strong/>

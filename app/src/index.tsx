@@ -11,13 +11,14 @@ import background from './images/background/avalon.jpg'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import translations from './translations.json'
+import { Tutorial } from './tutorial/Tutorial'
 
 setupTranslation(translations, { debug: false })
 
 ReactDOM.render(
   <StrictMode>
     <GameProvider game="along-history" Rules={AlongHistoryRules} optionsSpec={AlongHistoryOptionsSpec} GameSetup={AlongHistorySetup}
-                  material={Material} locators={Locators} animations={new AlongHistoryAnimations()}
+                  material={Material} locators={Locators} animations={new AlongHistoryAnimations()} tutorial={new Tutorial()}
                   theme={{
                     root: {
                       background: {

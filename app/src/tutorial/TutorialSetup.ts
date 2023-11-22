@@ -1,0 +1,42 @@
+import { AlongHistorySetup } from '@gamepark/along-history/AlongHistorySetup'
+import { Card } from '@gamepark/along-history/material/Card'
+import { CardId } from '@gamepark/along-history/material/cards/CardId'
+import { LocationType } from '@gamepark/along-history/material/LocationType'
+import { MaterialType } from '@gamepark/along-history/material/MaterialType'
+import { RuleId } from '@gamepark/along-history/rules/RuleId'
+
+export class TutorialSetup extends AlongHistorySetup {
+  setupEventAreas() {
+    this.getCard(Card.Forest).moveItem({ type: LocationType.EventArea, player: this.players[0] })
+    this.getCard(Card.Swamp).moveItem({ type: LocationType.EventArea, player: this.players[0] })
+    this.getCard(Card.Tiger).moveItem({ type: LocationType.EventArea, player: this.players[0] })
+
+    this.getCard(Card.River).moveItem({ type: LocationType.EventArea, player: this.players[1] })
+    this.getCard(Card.Hunting).moveItem({ type: LocationType.EventArea, player: this.players[1] })
+    this.getCard(Card.HomoErectus).moveItem({ type: LocationType.EventArea, player: this.players[1] })
+
+    this.getCard(Card.Wildcrafting).moveItem({ type: LocationType.EventArea, player: this.players[2] })
+    this.getCard(Card.Valley).moveItem({ type: LocationType.EventArea, player: this.players[2] })
+    this.getCard(Card.Mammoth).moveItem({ type: LocationType.EventArea, player: this.players[2] })
+
+    this.material(MaterialType.Card).location(LocationType.Deck).shuffle()
+    this.getCard(Card.Megaliths).moveItem({ type: LocationType.Deck })
+    this.getCard(Card.Hills).moveItem({ type: LocationType.Deck })
+    this.getCard(Card.Australopithecus).moveItem({ type: LocationType.Deck })
+  }
+
+  getCard(card: Card) {
+    return this.material(MaterialType.Card).location(LocationType.Deck).id<CardId>(id => id.front === card)
+  }
+
+  start() {
+    const player = this.players[0]
+    this.material(MaterialType.Dice).index(0).moveItem({ type: LocationType.PlayerResources, player, rotation: 2 })
+    this.material(MaterialType.Dice).index(1).moveItem({ type: LocationType.PlayerResources, player, rotation: 0 })
+    this.material(MaterialType.Dice).index(2).moveItem({ type: LocationType.PlayerResources, player, rotation: 3 })
+    this.material(MaterialType.Dice).index(3).moveItem({ type: LocationType.PlayerResources, player, rotation: 2 })
+    this.material(MaterialType.Dice).index(4).moveItem({ type: LocationType.PlayerResources, player, rotation: 2 })
+    this.material(MaterialType.Dice).index(5).moveItem({ type: LocationType.PlayerResources, player, rotation: 5 })
+    this.startPlayerTurn(RuleId.Actions, player)
+  }
+}
