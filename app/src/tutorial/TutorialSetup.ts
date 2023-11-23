@@ -1,4 +1,5 @@
 import { AlongHistorySetup } from '@gamepark/along-history/AlongHistorySetup'
+import { Achievement, achievements } from '@gamepark/along-history/material/Achievement'
 import { Card } from '@gamepark/along-history/material/Card'
 import { CardId } from '@gamepark/along-history/material/cards/CardId'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
@@ -16,13 +17,32 @@ export class TutorialSetup extends AlongHistorySetup {
     this.getCard(Card.HomoErectus).moveItem({ type: LocationType.EventArea, player: this.players[1] })
 
     this.getCard(Card.Wildcrafting).moveItem({ type: LocationType.EventArea, player: this.players[2] })
-    this.getCard(Card.Valley).moveItem({ type: LocationType.EventArea, player: this.players[2] })
+    this.getCard(Card.Fishing).moveItem({ type: LocationType.EventArea, player: this.players[2] })
     this.getCard(Card.Mammoth).moveItem({ type: LocationType.EventArea, player: this.players[2] })
 
     this.material(MaterialType.Card).location(LocationType.Deck).shuffle()
+    this.getCard(Card.Wolves).moveItem({ type: LocationType.Deck })
+    this.getCard(Card.Mountain).moveItem({ type: LocationType.Deck })
+    this.getCard(Card.FuneralRites).moveItem({ type: LocationType.Deck })
     this.getCard(Card.Megaliths).moveItem({ type: LocationType.Deck })
     this.getCard(Card.Hills).moveItem({ type: LocationType.Deck })
     this.getCard(Card.Australopithecus).moveItem({ type: LocationType.Deck })
+  }
+
+  get achievements() {
+    return achievements.filter(achievement =>
+      achievement !== Achievement.Gold15 && achievement !== Achievement.Figure && achievement !== Achievement.PopulationBonus
+    )
+  }
+
+  setupAchievementTokens() {
+    super.setupAchievementTokens()
+    const victoryPoints4 = this.material(MaterialType.AchievementToken).id(Achievement.VictoryPoints4).getItem()!
+    if (victoryPoints4.location.y !== 0) {
+      const achievementToSwap = this.material(MaterialType.AchievementToken).location(l => l.x === 2 && l.y === 0).getItem()!
+      achievementToSwap.location.y = victoryPoints4.location.y
+      victoryPoints4.location.y = 0
+    }
   }
 
   getCard(card: Card) {

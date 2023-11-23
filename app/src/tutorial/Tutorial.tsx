@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { Achievement } from '@gamepark/along-history/material/Achievement'
+import { Achievement, getAchievementValue } from '@gamepark/along-history/material/Achievement'
 import { Card } from '@gamepark/along-history/material/Card'
 import { CardId } from '@gamepark/along-history/material/cards/CardId'
 import { DiceType, ResourceDice } from '@gamepark/along-history/material/Dices'
@@ -21,12 +21,15 @@ import {
   isRoll,
   isRollItemType,
   isSelectItemType,
+  isStartRule,
   MaterialGame,
   MaterialMove,
   MaterialMoveRandomized
 } from '@gamepark/rules-api'
 import { Trans } from 'react-i18next'
 import Population1 from '../images/dices/population/Population1.jpg'
+import Population3 from '../images/dices/population/Population3.jpg'
+import Culture from '../images/dices/resources/Culture.jpg'
 import Ingenuity from '../images/dices/resources/Ingenuity.jpg'
 import Strength from '../images/dices/resources/Strength.jpg'
 import { boardDescription } from '../material/BoardDescription'
@@ -304,7 +307,7 @@ export class Tutorial extends MaterialTutorial {
         this.location(LocationType.CivilisationArea).player(game.players[0])
       ],
       move: {
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.CivilisationToken)(move)
+        filter: isMoveItemType(MaterialType.CivilisationToken)
       }
     },
     {
@@ -331,15 +334,15 @@ export class Tutorial extends MaterialTutorial {
     {
       move: {
         player: PlayerColor.Blue,
-        filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move) &&
-          this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Tiger
+        filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
+          && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Tiger
       }
     },
     {
       move: {
         player: PlayerColor.Blue,
-        filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move) &&
-          this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Hunting
+        filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
+          && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Hunting
       }
     },
     {
@@ -355,37 +358,37 @@ export class Tutorial extends MaterialTutorial {
     {
       move: {
         player: PlayerColor.Blue,
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.ResultToken)(move)
+        filter: isMoveItemType(MaterialType.ResultToken)
       }
     },
     {
       move: {
         player: PlayerColor.Blue,
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.ResultToken)(move)
+        filter: isMoveItemType(MaterialType.ResultToken)
       }
     },
     {
       move: {
         player: PlayerColor.Blue,
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.ResultToken)(move)
+        filter: isMoveItemType(MaterialType.ResultToken)
       }
     },
     {
       move: {
         player: PlayerColor.Blue,
-        filter: (move: MaterialMove) => isCustomMoveType(CustomMoveType.Pass)(move)
+        filter: isCustomMoveType(CustomMoveType.Pass)
       }
     },
     {
       move: {
         player: PlayerColor.Blue,
-        filter: (move: MaterialMove) => isCustomMoveType(CustomMoveType.Pass)(move)
+        filter: isCustomMoveType(CustomMoveType.Pass)
       }
     },
     {
       move: {
         player: PlayerColor.Blue,
-        filter: (move: MaterialMove) => isMoveItemType(MaterialType.CivilisationToken)(move)
+        filter: isMoveItemType(MaterialType.CivilisationToken)
       }
     },
     {
@@ -394,7 +397,7 @@ export class Tutorial extends MaterialTutorial {
     {
       move: {
         player: PlayerColor.Blue,
-        filter: (move: MaterialMove) => isCustomMoveType(CustomMoveType.Pass)(move)
+        filter: isCustomMoveType(CustomMoveType.Pass)
       }
     },
     {
@@ -404,49 +407,412 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move) && move.location.type === LocationType.CivilisationArea &&
+          this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Fishing
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.ResultToken)(move)
+          && this.material(game, MaterialType.ResultToken).getItem<DiceSymbol>(move.itemIndex)?.id === DiceSymbol.Population2
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.ResultToken)(move)
+          && this.material(game, MaterialType.ResultToken).getItem<DiceSymbol>(move.itemIndex)?.id === DiceSymbol.Population2
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isMoveItemType(MaterialType.ResultToken)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isCustomMoveType(CustomMoveType.Pass)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isCustomMoveType(CustomMoveType.Pass)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isMoveItemType(MaterialType.CivilisationToken)
+      }
+    },
+    {
       popup: { text: () => <Trans defaults="tuto.round1.player3.2"><strong/><em/></Trans> }
     },
     {
       popup: { text: () => <Trans defaults="tuto.round1.over"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round2.player2"><strong/><em/></Trans> }
+      move: {
+        player: PlayerColor.Red,
+        filter: isCustomMoveType(CustomMoveType.Pass),
+        randomize: (move: MaterialMoveRandomized) => {
+          if (isRoll(move)) {
+            switch (move.itemIndex) {
+              case 0:
+                move.location.rotation = 5
+                break
+              case 1:
+                move.location.rotation = 4
+                break
+              case 2:
+                move.location.rotation = 1
+                break
+              case 3:
+                move.location.rotation = 5
+                break
+            }
+          }
+        }
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Blue,
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move) && move.location.type === LocationType.CivilisationArea &&
+          this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.HomoErectus
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Blue,
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && move.itemIndex <= 3
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Blue,
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && move.itemIndex <= 3
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Blue,
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && move.itemIndex <= 3
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Blue,
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && move.itemIndex <= 3
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Blue,
+        filter: isCustomMoveType(CustomMoveType.Pass)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Blue,
+        filter: isCustomMoveType(CustomMoveType.Pass)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Blue,
+        filter: isStartRule
+      }
+    },
+    {
+      popup: { text: () => <Trans defaults="tuto.round2.player1"><strong/><em/></Trans> }
+    },
+    {
+      move: {
+        player: PlayerColor.Blue,
+        filter: isCustomMoveType(CustomMoveType.Pass)
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.round2.player2"><strong/><em/></Trans>,
+        position: { x: -20, y: 0 }
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.ResultToken)(move)
+          && this.material(game, MaterialType.ResultToken).getItem<DiceSymbol>(move.itemIndex)?.id === DiceSymbol.Population1
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
+          && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Mammoth
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
+          && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.FuneralRites
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move) && move.location.type === LocationType.CivilisationArea
+          && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.FuneralRites
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isMoveItemType(MaterialType.ResultToken)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isMoveItemType(MaterialType.ResultToken)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isMoveItemType(MaterialType.ResultToken)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isCustomMoveType(CustomMoveType.Pass)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isCustomMoveType(CustomMoveType.Pass)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isStartRule
+      }
+    },
+    {
+      popup: { text: () => <Trans defaults="tuto.round2.player2.over"><strong/><em/></Trans> }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isCustomMoveType(CustomMoveType.Pass)
+      }
     },
     {
       popup: { text: () => <Trans defaults="tuto.round2.you"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.trade2"><strong/><em/></Trans> }
+      popup: {
+        text: () => <Trans defaults="tuto.trade2">
+          <strong/><em/>
+          <Picture src={Population1} css={[inlineIcon, rounded]}/>
+        </Trans>,
+        position: { x: 0, y: 32 }
+      },
+      focus: (game: MaterialGame) => [
+        this.location(LocationType.CivilisationArea).player(game.players[0]),
+        this.material(game, MaterialType.ResultToken).player(PlayerColor.Green).id(DiceSymbol.Population1),
+        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Wildcrafting)
+      ],
+      move: {
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.ResultToken)(move)
+          && this.material(game, MaterialType.ResultToken).getItem<DiceSymbol>(move.itemIndex)?.id === DiceSymbol.Population1
+      }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.wildcrafting"><strong/><em/></Trans> }
+      focus: (game: MaterialGame) => [
+        this.location(LocationType.CivilisationArea).player(game.players[0]),
+        this.material(game, MaterialType.ResultToken).player(PlayerColor.Green).id(DiceSymbol.Population1),
+        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Wildcrafting)
+      ],
+      move: {
+        filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
+          && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Tiger
+      }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.bonus.forest"><strong/><em/></Trans> }
+      focus: (game: MaterialGame) => [
+        this.location(LocationType.CivilisationArea).player(game.players[0]),
+        this.material(game, MaterialType.ResultToken).player(PlayerColor.Green).id(DiceSymbol.Population1),
+        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Wildcrafting)
+      ],
+      move: {
+        filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
+          && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Wildcrafting
+      }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.wildcrafting.pay"><strong/><em/></Trans> }
+      popup: {
+        text: () => <Trans defaults="tuto.wildcrafting"><strong/><em/></Trans>,
+        position: { x: 40, y: -10 }
+      },
+      focus: (game: MaterialGame) => [
+        this.location(LocationType.CivilisationArea).player(game.players[0]),
+        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Wildcrafting)
+      ],
+      move: {
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move)
+          && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Wildcrafting
+      }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.bonus.wildcrafting"><strong/><em/></Trans> }
+      popup: {
+        text: () => <Trans defaults="tuto.bonus.forest"><strong/><em/></Trans>,
+        position: { x: 0, y: -20 }
+      },
+      focus: (game: MaterialGame) => [
+        this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Forest)
+      ],
+      move: {
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move)
+          && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Forest
+      }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round2.actions.over"><strong/><em/></Trans> }
+      popup: {
+        text: () => <Trans defaults="tuto.wildcrafting.pay">
+          <strong/><em/>
+          <Picture src={Population3} css={[inlineIcon, rounded]}/>
+        </Trans>
+      },
+      focus: (game: MaterialGame) => [
+        this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Wildcrafting),
+        this.material(game, MaterialType.ResultToken).location(LocationType.PlayerResources).id(DiceSymbol.Population3)
+      ],
+      move: {
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.ResultToken)(move) &&
+          this.material(game, move.itemType).getItem(move.itemIndex)?.id === DiceSymbol.Population3
+      }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.universal"><strong/><em/></Trans> }
+      popup: {
+        text: () => <Trans defaults="tuto.bonus.wildcrafting">
+          <strong/><em/>
+          <Picture src={Population1} css={[inlineIcon, rounded]}/>
+        </Trans>,
+        position: { x: 0, y: -20 }
+      },
+      focus: (game: MaterialGame) => [
+        this.location(LocationType.CivilisationArea).player(game.players[0]),
+        this.material(game, MaterialType.Card).player(PlayerColor.Green).id<CardId>(id =>
+          id.front === Card.Wildcrafting || id.front === Card.Australopithecus
+        )
+      ],
+      move: {
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move)
+          && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Australopithecus
+      }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.war2.pass"><strong/><em/></Trans> }
+      focus: (game: MaterialGame) => [
+        this.location(LocationType.CivilisationArea).player(game.players[0]),
+        this.material(game, MaterialType.Card).player(PlayerColor.Green).id<CardId>(id =>
+          id.front === Card.Wildcrafting || id.front === Card.Australopithecus
+        ),
+        this.material(game, MaterialType.ResultToken).location(LocationType.PlayerResources)
+      ],
+      move: {
+        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+      }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.success2"><strong/><em/></Trans> }
+      focus: (game: MaterialGame) => [
+        this.location(LocationType.CivilisationArea).player(game.players[0]),
+        this.material(game, MaterialType.Card).player(PlayerColor.Green).id<CardId>(id =>
+          id.front === Card.Wildcrafting || id.front === Card.Australopithecus
+        ),
+        this.material(game, MaterialType.ResultToken).location(LocationType.PlayerResources)
+      ],
+      move: {
+        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+      }
+    },
+    {
+      focus: (game: MaterialGame) => [
+        this.location(LocationType.CivilisationArea).player(game.players[0]),
+        this.material(game, MaterialType.Card).player(PlayerColor.Green).id<CardId>(id =>
+          id.front === Card.Wildcrafting || id.front === Card.Australopithecus
+        ),
+        this.material(game, MaterialType.ResultToken).location(LocationType.PlayerResources)
+      ],
+      move: {
+        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+      }
+    },
+    {
+      popup: { text: () => <Trans defaults="tuto.round2.actions.over"><strong/><em/></Trans> },
+      move: { filter: isCustomMoveType(CustomMoveType.Pass) }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.universal">
+          <strong/><em/>
+          <Picture src={Strength} css={[inlineIcon, rounded]}/>
+          <Picture src={Ingenuity} css={[inlineIcon, rounded]}/>
+          <Picture src={Culture} css={[inlineIcon, rounded]}/>
+          <Picture src={Population3} css={[inlineIcon, rounded]}/>
+        </Trans>,
+        position: { x: -15, y: -28 }
+      },
+      focus: (game: MaterialGame) => this.material(game, MaterialType.UniversalResource).player(PlayerColor.Green)
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.war2.pass"><strong/><em/></Trans>,
+        position: { x: -15, y: -20 }
+      },
+      move: { filter: isCustomMoveType(CustomMoveType.Pass) }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.success2"><strong/><em/></Trans>,
+        position: { x: -18, y: 15 }
+      },
+      focus: (game: MaterialGame) => [
+        { type: MaterialType.Board, item: boardDescription.staticItem },
+        this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard).id<Achievement>(achievement =>
+          getAchievementValue(achievement) === 2 && new AchievementsRule(game).canAchieve(achievement)
+        ),
+        this.material(game, MaterialType.CivilisationToken),
+        this.location(LocationType.CivilisationArea).player(game.players[0])
+      ],
+      move: {
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.CivilisationToken)(move) && move.location.x === 2
+      }
     },
     {
       popup: { text: () => <Trans defaults="tuto.decay.1"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.decay.2"><strong/><em/></Trans> }
+      popup: { text: () => <Trans defaults="tuto.decay.2"><strong/><em/></Trans> },
+      focus: (game: MaterialGame) => [
+        this.location(LocationType.CivilisationArea).player(game.players[0]),
+        this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).player(PlayerColor.Green)
+      ],
+      move: {
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move)
+          && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Australopithecus
+      }
     },
     {
       popup: { text: () => <Trans defaults="tuto.decay.3"><strong/><em/></Trans> }
@@ -458,7 +824,8 @@ export class Tutorial extends MaterialTutorial {
       popup: { text: () => <Trans defaults="tuto.decay.5"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round2.pass"><strong/><em/></Trans> }
+      popup: { text: () => <Trans defaults="tuto.round2.pass"><strong/><em/></Trans> },
+      move: { filter: isCustomMoveType(CustomMoveType.Pass) }
     },
     {
       popup: { text: () => <Trans defaults="tuto.war.1"><strong/><em/></Trans> }

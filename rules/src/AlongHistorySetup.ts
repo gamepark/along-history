@@ -56,7 +56,7 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
   }
 
   setupAchievementTokens() {
-    this.material(MaterialType.AchievementToken).createItems(achievements.filter(achievement => achievement !== Achievement.Gold15).map(achievement => (
+    this.material(MaterialType.AchievementToken).createItems(this.achievements.map(achievement => (
       { id: achievement, location: { type: LocationType.Table } }
     )))
     this.material(MaterialType.AchievementToken).shuffle()
@@ -67,6 +67,10 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
       }
     }
     this.material(MaterialType.AchievementToken).location(LocationType.Table).deleteItems()
+  }
+
+  get achievements() {
+    return achievements.filter(achievement => achievement !== Achievement.Gold15)
   }
 
   setupEventAreas() {
