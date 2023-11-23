@@ -1,15 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
-import { CardType, cardTypes } from '@gamepark/along-history/material/cards/CardType'
+import { cardTypes } from '@gamepark/along-history/material/cards/CardType'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { Picture, PlayerPanel, usePlayers, useRules } from '@gamepark/react-game'
-import CalamityIcon from '../images/icons/CalamityIcon.png'
-import FigureIcon from '../images/icons/FigureIcon.png'
-import LandIcon from '../images/icons/LandIcon.png'
-import ProgressIcon from '../images/icons/ProgressIcon.png'
 import VictoryPointIcon from '../images/icons/VictoryPointIcon.png'
-import WonderIcon from '../images/icons/WonderIcon.png'
+import { cardTypeIcons } from '../material/help/CardHelp'
 
 export const PlayerPanels = () => {
   const players = usePlayers<PlayerColor>({ sortFromMe: true })
@@ -72,14 +68,6 @@ const vpCounter = css`
     font-weight: bold;
   }
 `
-
-const cardTypeIcons: Record<CardType, string> = {
-  [CardType.Land]: LandIcon,
-  [CardType.Progress]: ProgressIcon,
-  [CardType.Figure]: FigureIcon,
-  [CardType.Wonder]: WonderIcon,
-  [CardType.Calamity]: CalamityIcon
-}
 
 const cardTypesList = css`
   position: absolute;
