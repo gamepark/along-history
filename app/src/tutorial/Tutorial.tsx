@@ -32,6 +32,7 @@ import Population3 from '../images/dices/population/Population3.jpg'
 import Culture from '../images/dices/resources/Culture.jpg'
 import Ingenuity from '../images/dices/resources/Ingenuity.jpg'
 import Strength from '../images/dices/resources/Strength.jpg'
+import War from '../images/dices/special/War.jpg'
 import { boardDescription } from '../material/BoardDescription'
 import { TutorialSetup } from './TutorialSetup'
 
@@ -130,7 +131,9 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.reroll"><strong/><em/></Trans>,
+        text: () => <Trans defaults="tuto.reroll"><strong/><em/>
+          <Picture src={Ingenuity} css={[inlineIcon, rounded]}/>
+        </Trans>,
         position: { x: -10, y: 25 }
       },
       focus: (game: MaterialGame) => this.material(game, MaterialType.Dice).location(l => l.x === 3 || l.x === 5),
@@ -825,10 +828,95 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: { text: () => <Trans defaults="tuto.round2.pass"><strong/><em/></Trans> },
-      move: { filter: isCustomMoveType(CustomMoveType.Pass) }
+      move: {
+        filter: isCustomMoveType(CustomMoveType.Pass),
+        randomize: (move: MaterialMoveRandomized) => {
+          if (isRoll(move)) {
+            switch (move.itemIndex) {
+              case 0:
+                move.location.rotation = 1
+                break
+              case 1:
+                move.location.rotation = 1
+                break
+              case 2:
+                move.location.rotation = 0
+                break
+              case 3:
+                move.location.rotation = 2
+                break
+              case 4:
+                move.location.rotation = 2
+                break
+              case 5:
+                move.location.rotation = 3
+                break
+            }
+          }
+        }
+      }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.war.1"><strong/><em/></Trans> }
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move) && move.location.type === LocationType.CivilisationArea &&
+          this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Tiger
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isCustomMoveType(CustomMoveType.Pass)
+      }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: (move: MaterialMove) => isCustomMoveType(CustomMoveType.ChoosePlayer)(move) && move.data === PlayerColor.Green
+      }
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.war.1"><strong/><em/>
+          <Picture src={War} css={[inlineIcon, rounded]}/>
+        </Trans>
+      }
     },
     {
       popup: { text: () => <Trans defaults="tuto.war.2"><strong/><em/></Trans> }
@@ -840,28 +928,102 @@ export class Tutorial extends MaterialTutorial {
       popup: { text: () => <Trans defaults="tuto.war.4"><strong/><em/></Trans> }
     },
     {
+      move: {
+        player: PlayerColor.Red,
+        filter: isCustomMoveType(CustomMoveType.Pass),
+        randomize: (move: MaterialMoveRandomized) => {
+          if (isRoll(move)) {
+            switch (move.itemIndex) {
+              case 0:
+                move.location.rotation = 4
+                break
+              case 1:
+                move.location.rotation = 5
+                break
+              case 2:
+                move.location.rotation = 0
+                break
+            }
+          }
+        }
+      }
+    },
+    {
       popup: { text: () => <Trans defaults="tuto.war.5"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.war.6"><strong/><em/></Trans> }
+      popup: { text: () => <Trans defaults="tuto.war.6"><strong/><em/></Trans> },
+      move: {
+        filter: isCustomMoveType(CustomMoveType.Pass),
+        randomize: (move: MaterialMoveRandomized) => {
+          if (isRoll(move)) {
+            switch (move.itemIndex) {
+              case 0:
+                move.location.rotation = 4
+                break
+              case 1:
+                move.location.rotation = 3
+                break
+              case 2:
+                move.location.rotation = 0
+                break
+            }
+          }
+        }
+      }
     },
     {
       popup: { text: () => <Trans defaults="tuto.war.7"><strong/><em/></Trans> }
     },
     {
+      move: {
+        player: PlayerColor.Red,
+        filter: isCustomMoveType(CustomMoveType.Pass)
+      }
+    },
+    {
       popup: { text: () => <Trans defaults="tuto.war.8"><strong/><em/></Trans> }
+    },
+    {
+      move: {
+        player: PlayerColor.Red,
+        filter: isStartRule
+      }
+    },
+    {
+      move: { player: PlayerColor.Red }
     },
     {
       popup: { text: () => <Trans defaults="tuto.turn3"><strong/><em/></Trans> }
     },
     {
+      popup: {
+        text: () => <Trans defaults="tuto.calamity"><strong/><em/></Trans>,
+        position: { x: 48, y: 0 }
+      },
+      focus: (game: MaterialGame) =>
+        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Wolves)
+    },
+    {
       popup: { text: () => <Trans defaults="tuto.universal.gain1"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.universal.gain2"><strong/><em/></Trans> }
+      popup: {
+        text: () => <Trans defaults="tuto.universal.gain2"><strong/><em/></Trans>,
+        position: { x: -20, y: 0 }
+      }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.age-end"><strong/><em/></Trans> }
+      popup: {
+        text: () => <Trans defaults="tuto.age-end"><strong/><em/></Trans>,
+        position: { x: -15, y: 22 }
+      },
+      focus: (game: MaterialGame) => [
+        { type: MaterialType.Board, item: boardDescription.staticItem },
+        this.material(game, MaterialType.AchievementToken).id<Achievement>(id => getAchievementValue(id) === 7),
+        this.material(game, MaterialType.CivilisationToken),
+        this.location(LocationType.CivilisationArea).player(game.players[0])
+      ]
     },
     {
       popup: { text: () => <Trans defaults="tuto.good-luck"><strong/><em/></Trans> }
