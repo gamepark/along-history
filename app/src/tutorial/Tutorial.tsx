@@ -28,6 +28,7 @@ import {
 } from '@gamepark/rules-api'
 import { Trans } from 'react-i18next'
 import Population1 from '../images/dices/population/Population1.jpg'
+import Population2 from '../images/dices/population/Population2.jpg'
 import Population3 from '../images/dices/population/Population3.jpg'
 import Culture from '../images/dices/resources/Culture.jpg'
 import Ingenuity from '../images/dices/resources/Ingenuity.jpg'
@@ -220,7 +221,10 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.special-dice"><strong/><em/></Trans>,
+        text: () => <Trans defaults="tuto.special-dice">
+          <strong/><em/>
+          <Picture src={Population2} css={[inlineIcon, rounded]}/>
+        </Trans>,
         position: { x: -20, y: -20 }
       },
       focus: (game: MaterialGame) => this.material(game, MaterialType.Dice).id(DiceType.Special)
@@ -271,11 +275,11 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: { text: () => <Trans defaults="tuto.action1.pass"><strong/><em/></Trans> },
-      move: {}
+      move: { filter: isCustomMoveType(CustomMoveType.Pass) }
     },
     {
       popup: { text: () => <Trans defaults="tuto.war1.pass"><strong/><em/></Trans> },
-      move: {}
+      move: { filter: isCustomMoveType(CustomMoveType.Pass) }
     },
     {
       popup: {
@@ -866,37 +870,37 @@ export class Tutorial extends MaterialTutorial {
     {
       move: {
         player: PlayerColor.Red,
-        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && move.itemIndex === 3
       }
     },
     {
       move: {
         player: PlayerColor.Red,
-        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+        filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && move.itemIndex < 3
       }
     },
     {
       move: {
         player: PlayerColor.Red,
-        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+        filter: isMoveItemType(MaterialType.Dice)
       }
     },
     {
       move: {
         player: PlayerColor.Red,
-        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+        filter: isMoveItemType(MaterialType.Dice)
       }
     },
     {
       move: {
         player: PlayerColor.Red,
-        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+        filter: isMoveItemType(MaterialType.Dice)
       }
     },
     {
       move: {
         player: PlayerColor.Red,
-        filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
+        filter: isMoveItemType(MaterialType.Card)
       }
     },
     {

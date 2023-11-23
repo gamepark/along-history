@@ -451,7 +451,7 @@
       "tuto.reroll-success": "Vous avez obtenu le <2/> qui vous manquait pour acquérir la <1>Forêt</1> !",
       "tuto.trade1": "Avant d'acquérir la forêt, débarrassons nous de ce dangereux <1>Tigre</1> qui nous fait perdre 1 point de population...\nDéfaussez le dé <2/> pour échangez le <1>Tigre</1> avec la carte <1>Chasse</1> de NostroBoss (qui risque de ne pas apprécier le cadeau...)",
       "tuto.forest": "À présent, déplacez la <1>Forêt</1> dans votre <0>Zone de Civilisation</0> pour l'acquérir.",
-      "tuto.special-dice": "Les dés rouges représentent des <0>actions spéciales</0>.\nCette face permet de <0>multiplier le résultat d'un autre dé</0>. Il va vous permettre de multiplier le résultat d'un dé vert pour obtenir la population manquante !\nÀ tout moment, vous pourrez cliquer sur un dé pour en savoir plus.",
+      "tuto.special-dice": "Les dés rouges représentent des <0>actions spéciales</0>.\nCette face permet de <0>multiplier le résultat d'un autre dé</0>.\nVous allez l'utiliser pour multiplier un dé <2/> pour obtenir la population manquante.\n<1>À tout moment, cliquez sur un dé pour en savoir plus.</1>",
       "tuto.forest.pay": "Maintenant, <0>défaussez tous vos dés restants</0> pour payer le coût de la <1>Forêt</1>.",
       "tuto.action1.pass": "Vous n'avez plus de dés, cliquez sur <0>Passer</0> dans l'en-tête pour terminer votre phase d'actions.",
       "tuto.war1.pass": "Après la phase d'action, il est possible de déclarer la guerre à un autre joueur, mais c'est un peu tôt pour ça. Cliquez sur <0>Passer</0> dans l'en-tête.",
