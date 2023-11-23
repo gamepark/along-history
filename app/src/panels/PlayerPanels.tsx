@@ -1,10 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
 import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { PlayerPanel, usePlayers, useRules } from '@gamepark/react-game'
-import { PlayerPanelCounter } from './PlayerPanelCounter'
+import VictoryPointIcon from '../images/icons/VictoryPointIcon.png'
 
 export const PlayerPanels = () => {
   const players = usePlayers<PlayerColor>({ sortFromMe: true })
@@ -13,12 +12,8 @@ export const PlayerPanels = () => {
     <>
       {players.map((player, index) =>
         <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index, players.length)}>
-          <div css={indicators}>
-            <PlayerPanelCounter
-              width={3}
-              icon={faStar}
-              value={rules?.getScore(player.id)!}/>
-          </div>
+          <div css={vpCounter}><span>{rules?.getScore(player.id)!}</span></div>
+
         </PlayerPanel>
       )}
     </>
@@ -48,12 +43,21 @@ export const playerColorCode: Record<PlayerColor, string> = {
   [PlayerColor.Red]: 'red'
 }
 
-const indicators = css`
-  width: 100%;
-  padding: 1em;
-  display: flex;
-  flex-direction: row;
+const vpCounter = css`
   position: absolute;
-  top: 6em;
-  flex-wrap: wrap;
+  top: 8em;
+  left: 1em;
+  background-image: url("${VictoryPointIcon}");
+  background-size: cover;
+  width: 6em;
+  height: 5.46em;
+
+  > span {
+    font-size: 3em;
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+  }
 `
