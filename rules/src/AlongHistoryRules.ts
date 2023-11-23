@@ -12,6 +12,7 @@ import { sumBy } from 'lodash'
 import { Achievement, getAchievementValue } from './material/Achievement'
 import { CardId } from './material/cards/CardId'
 import { CardsInfo } from './material/cards/CardsInfo'
+import { CardType } from './material/cards/CardType'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
@@ -139,5 +140,10 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     } else {
       return 60 // 1 minute for other players turns
     }
+  }
+
+  countCardType(player: PlayerColor, type: CardType) {
+    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(player)
+      .id<CardId>(id => CardsInfo[id.front].type === type).length
   }
 }
