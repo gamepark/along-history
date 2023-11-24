@@ -303,7 +303,7 @@
       "header.pay.pop.you": "Vous devez payer {population} <0/>",
       "header.pay.resources": "{player} doit payer <1/>",
       "header.pay.resources.you": "Vous devez payer <1/>",
-      "header.golden-age": "{player} peut <0>redresser ses cartes</0>, relancer un dé ou échanger",
+      "header.golden-age": "{player} peut redresser ses cartes, relancer un dé ou échanger",
       "header.golden-age.you": "Vous pouvez <0>redresser vos cartes</0>, relancer un dé ou échanger",
       "header.calamities": "{player} doit résoudre ses calamités",
       "header.calamities.you": "Vous devez choisir une calamité à subir en premier",

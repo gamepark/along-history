@@ -15,7 +15,7 @@ export const CalamityHeader = () => {
   const player = usePlayerId()
   const calamity = rules.material(MaterialType.Card).index(rules.remind(Memory.Calamity)).getItem<CardId>()?.id?.front
   const card = t(`card.name.${calamity}`)
-  const calamityType = calamity === Card.HarshWinter ? 'skip-turn' : 'lost-card'
+  const calamityType = calamity === Card.HarshWinter ? 'skip-turn' : 'lose-card'
 
   if (player === activePlayer) {
     return <>{t(`header.${calamityType}.you`, { card })}</>
