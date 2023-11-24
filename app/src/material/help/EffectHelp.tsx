@@ -21,7 +21,7 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
           <ConditionHelp condition={effect.condition}/>
         </Trans>
       } else {
-        return <Trans defaults="effect.overcost" values={{ population: effect.population }}>
+        return <Trans defaults="effect.overcost" values={{ population: -effect.population }}>
           <Picture src={populationIcon} css={roundCss}/>
           <ConditionHelp condition={effect.condition}/>
         </Trans>
@@ -45,11 +45,13 @@ export const LosePopulationHelp = ({ effect, card }: { effect: LosePopulationEff
   const { t } = useTranslation()
   if (effect.condition) {
     return <Trans defaults="effect.lose-pop-if" values={{ card: t(`card.name.${card}`) }}>
+      <em/>
       <Picture src={populationIcon} css={roundCss}/>
       <ConditionHelp condition={effect.condition}/>
     </Trans>
   } else {
-    return <Trans defaults="effect.lose-pop">
+    return <Trans defaults="effect.lose-pop" values={{ card: t(`card.name.${card}`) }}>
+      <em/>
       <Picture src={populationIcon} css={roundCss}/>
     </Trans>
   }

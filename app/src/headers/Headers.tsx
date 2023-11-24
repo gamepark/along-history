@@ -4,10 +4,10 @@ import { ComponentType } from 'react'
 import { AchievementsHeader } from './AchievementsHeader'
 import { ActionsHeader } from './ActionsHeader'
 import { CalamitiesHeader } from './CalamitiesHeader'
+import { CalamityHeader } from './CalamityHeader'
 import { DecayHeader } from './DecayHeader'
 import { EndOfTurnHeader } from './EndOfTurnHeader'
 import { GoldenAgeHeader } from './GoldenAgeHeader'
-import { LoseCardHeader } from './LoseCardHeader'
 import { NewEventsHeader } from './NewEventsHeader'
 import { PayCardHeader } from './PayCardHeader'
 import { PrepareArmyHeader } from './PrepareArmyHeader'
@@ -38,9 +38,10 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.EndOfTurn]: EndOfTurnHeader,
   [RuleId.Upkeep]: UpkeepHeader,
 
-  [RuleId.LoseCard]: LoseCardHeader,
-  [RuleId.LoseBonusCard]: LoseCardHeader,
-  [RuleId.CannibalsFailure]: LoseCardHeader,
-  [RuleId.EarthquakeFailure]: LoseCardHeader,
-  [RuleId.StarvingFailure]: LoseCardHeader
+  [RuleId.LoseCard]: CalamityHeader,
+  [RuleId.LoseBonusCard]: CalamityHeader,
+  [RuleId.CannibalsFailure]: CalamityHeader,
+  [RuleId.EarthquakeFailure]: CalamityHeader,
+  [RuleId.HarshWinterFailure]: CalamityHeader,
+  [RuleId.StarvingFailure]: CalamityHeader
 }

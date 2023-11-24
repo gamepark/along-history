@@ -123,8 +123,8 @@ export class Tutorial extends MaterialTutorial {
       popup: {
         text: () => <Trans defaults="tuto.card-cost">
           <strong/><em/>
-          <Picture src={Strength} css={[inlineIcon, rounded]}/>
           <Picture src={Population1} css={[inlineIcon, rounded]}/>
+          <Picture src={Strength} css={[inlineIcon, rounded]}/>
         </Trans>,
         position: { x: 45, y: 0 }
       },
