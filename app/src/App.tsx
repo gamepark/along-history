@@ -15,8 +15,8 @@ export default function App() {
   return (
     <>
       {game && <GameDisplay players={game.players.length}/>}
-      <LoadingScreen display={loading} author="François Bachelart" artist={['Antonio Mainez', 'Julie Gruet']} publisher="Nostromo Éditions"
-                     developer="Game Park"/>
+      <LoadingScreen display={loading} author="François Bachelart" artist="Antonio Mainez" graphicDesigner="Julie Gruet"
+                     publisher="Nostromo Éditions" developer="Game Park"/>
       <MaterialHeader rulesStepsHeaders={Headers} loading={loading}/>
       <Menu/>
       <FailuresDialog/>
