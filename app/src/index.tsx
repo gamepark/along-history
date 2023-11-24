@@ -7,7 +7,7 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import { AlongHistoryAnimations } from './animations/AlongHistoryAnimations'
 import App from './App'
-import background from './images/background/avalon.jpg'
+import PrehistoryBackground from './images/background/PrehistoryBackground.jpg'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import translations from './translations.json'
@@ -22,7 +22,7 @@ ReactDOM.render(
                   theme={{
                     root: {
                       background: {
-                        image: background,
+                        image: PrehistoryBackground,
                         overlay: 'rgba(0, 0, 0, 0.8)'
                       }
                     },
