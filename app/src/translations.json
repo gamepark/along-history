@@ -80,7 +80,7 @@
       "effect.war-bonus": "War: add +1 <0/> to your total.",
       "condition.own.card": "you own <0>{card}</0>",
       "condition.own.1of2": "you own <0>{card1}</0> or <0>{card2}</0>",
-      "condition.own.2of3": "you own 2 cards from <0>{card1}</0>, <0>{card2}</0> and <0>{card3}</0>",
+      "condition.own.2of3": "you own 2 cards from <0>{card1}</0>, <1>{card2}</1> and <2>{card3}</2>",
       "card.links": "This card is linked with:",
       "card.event-area": "This card is in the <0>Events area</0> of {player}.",
       "card.event-area.you": "This card is in your <0>Events area</0>.",

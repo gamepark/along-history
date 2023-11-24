@@ -18,7 +18,8 @@ export const CivilisationAreaHelp = ({ location }: LocationHelpProps) => {
     <h2>{location.player === playerId ? t('civ-area.you') : t('civ-area', { player })}</h2>
     <p css={breakSpaces}>
       <Trans defaults="civ-area.rules">
-        <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1 })} local/>
+        <PlayMoveButton css={rulesLinkButton}
+                        move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1, player: location.player })} local/>
       </Trans>
     </p>
   </>
