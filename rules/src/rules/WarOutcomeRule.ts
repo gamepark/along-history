@@ -30,9 +30,6 @@ export class WarOutcomeRule extends PlayerTurnRule {
   }
 
   onRuleEnd() {
-    this.forget(Memory.Attacker)
-    this.forget(Memory.Defender)
-    this.forget(Memory.Strength)
     this.memorize(Memory.Wars, wars => wars - 1)
     return []
   }

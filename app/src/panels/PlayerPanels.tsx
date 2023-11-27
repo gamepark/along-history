@@ -3,13 +3,17 @@ import { css } from '@emotion/react'
 import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { cardTypes } from '@gamepark/along-history/material/cards/CardType'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
+import { Memory } from '@gamepark/along-history/rules/Memory'
 import { Picture, PlayerPanel, usePlayers, useRules } from '@gamepark/react-game'
 import VictoryPointIcon from '../images/icons/VictoryPointIcon.png'
+import WarIconRed from '../images/icons/WarIconRed.png'
 import { cardTypeIcons } from '../material/help/CardHelp'
 
 export const PlayerPanels = () => {
   const players = usePlayers<PlayerColor>({ sortFromMe: true })
   const rules = useRules<AlongHistoryRules>()
+  const attacker = rules?.remind<PlayerColor>(Memory.Attacker)
+  const defender = rules?.remind<PlayerColor>(Memory.Defender)
   return (
     <>
       {players.map((player, index) =>
@@ -21,6 +25,9 @@ export const PlayerPanels = () => {
               return quantity > 0 ? <li key={type}><Picture src={cardTypeIcons[type]} css={typeIcon}/>{quantity}</li> : null
             })}
           </ol>
+          {(player.id === attacker || player.id === defender) &&
+            <div css={warIcon}><span>{rules?.remind(Memory.Strength, player.id)}</span></div>
+          }
         </PlayerPanel>
       )}
     </>
@@ -89,4 +96,24 @@ const cardTypesList = css`
 const typeIcon = css`
   height: 1.2em;
   vertical-align: bottom;
+`
+
+const warIcon = css`
+  position: absolute;
+  top: 3.6em;
+  left: -6.4em;
+  height: 9em;
+  width: 9em;
+  background-image: url("${WarIconRed}");
+  background-size: cover;
+
+  > span {
+    color: white;
+    font-size: 3em;
+    position: absolute;
+    left: 52%;
+    top: 52%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+  }
 `

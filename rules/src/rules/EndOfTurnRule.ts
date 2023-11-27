@@ -31,6 +31,9 @@ export class EndOfTurnRule extends PlayerTurnRule {
   }
 
   get endPlayerTurn() {
+    this.forget(Memory.Attacker)
+    this.forget(Memory.Defender)
+    this.forget(Memory.Strength)
     if (this.material(MaterialType.DiscardTile).getItem()?.location.player === this.nextPlayer) {
       return this.endRound
     } else {
