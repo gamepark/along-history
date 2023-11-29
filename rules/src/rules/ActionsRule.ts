@@ -28,12 +28,15 @@ export class ActionsRule extends PlayerTurnRule {
   }
 
   get discardDice(): MaterialMove[] {
-    return this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player).moveItems(diceToDiscardTile)
+    const dice = this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player)
+    if (dice.length === 1 && getDiceSymbol(dice.getItem()!) !== DiceSymbol.GoldenAge && this.cardsInEventArea.length === 0) return []
+    return dice.moveItems(diceToDiscardTile)
   }
 
   get flipResultTokens() {
-    return this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player)
-      .rotation(undefined).rotateItems(true)
+    return this.cardsInEventArea.length > 0 ?
+      this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player).rotation(undefined).rotateItems(true)
+      : []
   }
 
   get moveAffordableCardsToCivilisationArea(): MaterialMove[] {
