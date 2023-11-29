@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { Picture } from '@gamepark/react-game'
+import { RuleId } from '@gamepark/along-history/rules/RuleId'
+import { Picture, PlayMoveButton } from '@gamepark/react-game'
+import { displayRulesHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import population3Icon from '../../images/dices/population/Population3.jpg'
 import cultureIcon from '../../images/dices/resources/Culture.jpg'
 import ingenuityIcon from '../../images/dices/resources/Ingenuity.jpg'
 import strengthIcon from '../../images/dices/resources/Strength.jpg'
-import { alignIcon, breakSpaces } from '../../styles'
+import { alignIcon, breakSpaces, rulesLinkButton } from '../../styles'
 
 export const UniversalResourceHelp = () => {
   const { t } = useTranslation()
@@ -19,6 +21,7 @@ export const UniversalResourceHelp = () => {
         <Picture src={cultureIcon} css={radius}/>
         <Picture src={strengthIcon} css={radius}/>
         <strong/>
+        <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
       </Trans>
     </p>
   </>

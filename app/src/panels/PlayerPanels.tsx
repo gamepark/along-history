@@ -4,7 +4,9 @@ import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { cardTypes } from '@gamepark/along-history/material/cards/CardType'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { Memory } from '@gamepark/along-history/rules/Memory'
-import { Picture, PlayerPanel, usePlayers, useRules } from '@gamepark/react-game'
+import { RuleId } from '@gamepark/along-history/rules/RuleId'
+import { Picture, PlayerPanel, usePlay, usePlayers, useRules } from '@gamepark/react-game'
+import { displayRulesHelp } from '@gamepark/rules-api'
 import VictoryPointIcon from '../images/icons/VictoryPointIcon.png'
 import WarIconRed from '../images/icons/WarIconRed.png'
 import { cardTypeIcons } from '../material/help/CardHelp'
@@ -14,6 +16,7 @@ export const PlayerPanels = () => {
   const rules = useRules<AlongHistoryRules>()
   const attacker = rules?.remind<PlayerColor>(Memory.Attacker)
   const defender = rules?.remind<PlayerColor>(Memory.Defender)
+  const play = usePlay()
   return (
     <>
       {players.map((player, index) =>
@@ -26,7 +29,9 @@ export const PlayerPanels = () => {
             })}
           </ol>
           {(player.id === attacker || player.id === defender) &&
-            <div css={warIcon}><span>{rules?.remind(Memory.Strength, player.id)}</span></div>
+            <div css={warIcon} onClick={() => play(displayRulesHelp(RuleId.Wars), { local: true })}>
+              <span>{rules?.remind(Memory.Strength, player.id)}</span>
+            </div>
           }
         </PlayerPanel>
       )}
@@ -106,6 +111,7 @@ const warIcon = css`
   width: 9em;
   background-image: url("${WarIconRed}");
   background-size: cover;
+  cursor: help;
 
   > span {
     color: white;

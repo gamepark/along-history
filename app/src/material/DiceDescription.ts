@@ -93,7 +93,7 @@ class DiceDescription extends CubicDiceDescription {
 
   canShortClick(move: MaterialMove, context: ItemContext) {
     return super.canShortClick(move, context)
-      || isMoveItemType(MaterialType.Dice)(move) && move.itemIndex === context.index && move.location.type === LocationType.DiscardTile
+      || (isMoveItemType(MaterialType.Dice)(move) && move.itemIndex === context.index && move.location.type === LocationType.DiscardTile)
   }
 
   help = DiceHelp

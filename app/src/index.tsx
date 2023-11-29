@@ -7,6 +7,7 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import { AlongHistoryAnimations } from './animations/AlongHistoryAnimations'
 import App from './App'
+import { RulesHelp } from './dialogs/RulesHelp'
 import PrehistoryBackground from './images/background/PrehistoryBackground.jpg'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
@@ -19,6 +20,7 @@ ReactDOM.render(
   <StrictMode>
     <GameProvider game="along-history" Rules={AlongHistoryRules} optionsSpec={AlongHistoryOptionsSpec} GameSetup={AlongHistorySetup}
                   material={Material} locators={Locators} animations={new AlongHistoryAnimations()} tutorial={new Tutorial()}
+                  rulesHelp={RulesHelp}
                   theme={{
                     root: {
                       background: {

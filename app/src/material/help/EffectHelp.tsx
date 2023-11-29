@@ -6,10 +6,12 @@ import { OwnCardsCondition } from '@gamepark/along-history/material/cards/effect
 import { Effect } from '@gamepark/along-history/material/cards/effects/Effect'
 import { EffectType } from '@gamepark/along-history/material/cards/effects/EffectType'
 import { LosePopulationEffect } from '@gamepark/along-history/material/cards/effects/LosePopulationEffect'
-import { Picture } from '@gamepark/react-game'
+import { RuleId } from '@gamepark/along-history/rules/RuleId'
+import { Picture, PlayMoveButton } from '@gamepark/react-game'
+import { displayRulesHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
-import { roundCss } from '../../styles'
+import { roundCss, rulesLinkButton } from '../../styles'
 import { DisplayCardHelpButton } from './LinkHelp'
 
 export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => {
@@ -36,6 +38,7 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <Trans defaults="effect.non-transmissible"><strong/></Trans>
     case EffectType.WarBonus:
       return <Trans defaults="effect.war-bonus">
+        <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
         <Picture src={populationIcon} css={roundCss}/>
       </Trans>
   }

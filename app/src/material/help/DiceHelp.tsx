@@ -2,8 +2,9 @@
 import { css } from '@emotion/react'
 import { DiceType } from '@gamepark/along-history/material/Dices'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
+import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMove } from '@gamepark/react-game'
-import { isRollItemType } from '@gamepark/rules-api'
+import { displayRulesHelp, isRollItemType } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import Population1 from '../../images/dices/population/Population1.jpg'
 import Population2 from '../../images/dices/population/Population2.jpg'
@@ -15,7 +16,7 @@ import GoldenAge from '../../images/dices/special/GoldenAge.jpg'
 import Multiplier from '../../images/dices/special/Multiplier.jpg'
 import Reroll from '../../images/dices/special/Reroll.jpg'
 import War from '../../images/dices/special/War.jpg'
-import { alignIcon, breakSpaces } from '../../styles'
+import { alignIcon, breakSpaces, rulesLinkButton } from '../../styles'
 
 export const DiceHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) => {
   const { t } = useTranslation()
@@ -40,6 +41,7 @@ export const DiceHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
       </Trans></p>
       <p css={[breakSpaces, alignIcon]}><Trans defaults="die.war.rule">
         <Picture src={War} css={rounded}/>
+        <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
       </Trans></p>
       <p css={[breakSpaces, alignIcon]}><Trans defaults="die.golden-age.rule">
         <Picture src={GoldenAge} css={rounded}/>

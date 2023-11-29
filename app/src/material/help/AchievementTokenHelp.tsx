@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { Achievement, getAchievementValue } from '@gamepark/along-history/material/Achievement'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
+import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { MaterialHelpProps, PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
-import { displayLocationHelp } from '@gamepark/rules-api'
+import { displayLocationHelp, displayRulesHelp } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { rulesLinkButton } from '../../styles'
@@ -23,7 +24,11 @@ export const AchievementTokenHelp = ({ item }: MaterialHelpProps) => {
       </p>
     }
     {item.location?.type === LocationType.PlayerAchievements &&
-      <p>{item.location.player === playerId ? t('achievement.steal.you') : t('achievement.steal', { player })}</p>
+      <p>
+        <Trans defaults={item.location.player === playerId ? 'achievement.steal.you' : 'achievement.steal'} values={{ player }}>
+          <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
+        </Trans>
+      </p>
     }
   </>
 }

@@ -3,8 +3,9 @@ import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
+import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { PlayMoveButton, usePlayerId, useRules } from '@gamepark/react-game'
-import { displayLocationHelp, displayMaterialHelp } from '@gamepark/rules-api'
+import { displayLocationHelp, displayMaterialHelp, displayRulesHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import { breakSpaces, rulesLinkButton } from '../../styles'
 
@@ -18,6 +19,7 @@ export const BoardHelp = () => {
       <Trans defaults="achievements.rules">
         <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.CivilisationToken, { id: player })} local/>
         <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1 })} local/>
+        <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
       </Trans>
     </p>
   </>
