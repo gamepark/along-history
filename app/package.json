@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/along-history-app",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "description": "The user interface of Along History adaptation for Game Park",
   "author": "Romain Fromi <romain@game-park.com> (https://game-park.com/)",
