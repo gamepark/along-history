@@ -19,7 +19,7 @@ export class WarsRule extends PlayerTurnRule {
   }
 
   get universalResources() {
-    return new ProductionRule(this.game).getUniversalResources(this.player)
+    return new ProductionRule(this.game, this.material).getUniversalResources(this.player)
   }
 
   getPlayerMoves() {

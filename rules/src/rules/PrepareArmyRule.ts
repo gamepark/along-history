@@ -19,9 +19,10 @@ export class PrepareArmyRule extends PlayerTurnRule {
   }
 
   get warBonus() {
+    const conditionRules = new ConditionRules(this.game, this.material)
     return sumBy(this.civilisationCards.getItems<CardId>(), item =>
       sumBy(CardsInfo[item.id!.front].effects, effect =>
-        effect.type === EffectType.WarBonus && new ConditionRules(this.game).hasCondition(effect.condition) ? 1 : 0
+        effect.type === EffectType.WarBonus && conditionRules.hasCondition(effect.condition) ? 1 : 0
       )
     )
   }

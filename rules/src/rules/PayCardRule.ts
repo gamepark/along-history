@@ -109,7 +109,7 @@ export class PayCardRule extends PlayerTurnRule {
     const rules = new AlongHistoryRules(futureGame)
     playMove(rules, move)
     const remainingCost = { population: rules.remind<number>(Memory.PopulationCost) ?? 0, resources: rules.remind<Resource[]>(Memory.ResourcesCost) ?? [] }
-    return canPay(remainingCost, new ProductionRule(futureGame).getProduction(this.player))
+    return canPay(remainingCost, new ProductionRule(futureGame, this.material).getProduction(this.player))
   }
 
   get costPaid() {
@@ -120,7 +120,7 @@ export class PayCardRule extends PlayerTurnRule {
     if (isMoveItem(move) && move.itemType === MaterialType.Dice && move.location.type === LocationType.DiscardTile) {
       const diceSymbol = getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!)
       if (diceSymbol === DiceSymbol.GoldenAge) {
-        return new UpkeepRule(this.game).unRotateCards
+        return new UpkeepRule(this.game, this.material).unRotateCards
       } else {
         this.payDice(diceSymbol)
       }
@@ -136,7 +136,7 @@ export class PayCardRule extends PlayerTurnRule {
         }
       } else if (isMoveItem(move) && move.itemType === MaterialType.UniversalResource && move.location.type === LocationType.UniversalResourceStock) {
         const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
-        const resourcesProduction = new ProductionRule(this.game).getResourcesProduction()
+        const resourcesProduction = new ProductionRule(this.game, this.material).getResourcesProduction()
         const nonProducedResourceIndex = resourcesCost.findIndex(resource => !resourcesProduction.includes(resource))
         if (nonProducedResourceIndex !== -1) {
           resourcesCost.splice(nonProducedResourceIndex, 1)

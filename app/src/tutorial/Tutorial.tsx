@@ -308,7 +308,7 @@ export class Tutorial extends MaterialTutorial {
       focus: (game: MaterialGame) => [
         { type: MaterialType.Board, item: boardDescription.staticItem },
         this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard).id<Achievement>(achievement =>
-          new AchievementsRule(game).canAchieve(achievement)
+          new AchievementsRule(game, type => this.material(game, type)).canAchieve(achievement)
         ),
         this.material(game, MaterialType.CivilisationToken),
         this.location(LocationType.CivilisationArea).player(game.players[0])
@@ -798,7 +798,7 @@ export class Tutorial extends MaterialTutorial {
       focus: (game: MaterialGame) => [
         { type: MaterialType.Board, item: boardDescription.staticItem },
         this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard).id<Achievement>(achievement =>
-          getAchievementValue(achievement) === 2 && new AchievementsRule(game).canAchieve(achievement)
+          getAchievementValue(achievement) === 2 && new AchievementsRule(game, type => this.material(game, type)).canAchieve(achievement)
         ),
         this.material(game, MaterialType.CivilisationToken),
         this.location(LocationType.CivilisationArea).player(game.players[0])

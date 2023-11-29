@@ -7,14 +7,14 @@ import { UseDiscardedDieRule } from './UseDiscardedDieRule'
 
 export class UseGoldenAgeDieRule extends UseDiscardedDieRule {
   getPlayerMoves(): MaterialMove[] {
-    return super.getPlayerMoves().concat(new UpkeepRule(this.game).unRotateCards)
+    return super.getPlayerMoves().concat(new UpkeepRule(this.game, this.material).unRotateCards)
   }
 
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.Card)(move) && move.location.type === LocationType.CivilisationArea) {
       return [
         this.rules().startRule(RuleId.Actions),
-        ...new UpkeepRule(this.game).unRotateCards
+        ...new UpkeepRule(this.game, this.material).unRotateCards
       ]
     } else {
       return super.afterItemMove(move)
