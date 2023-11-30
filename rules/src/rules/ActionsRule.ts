@@ -40,7 +40,7 @@ export class ActionsRule extends PlayerTurnRule {
   }
 
   get moveAffordableCardsToCivilisationArea(): MaterialMove[] {
-    const production = new ProductionRule(this.game, this.material).getProduction(this.player)
+    const production = new ProductionRule(this.game).getProduction(this.player)
     return this.cardsInEventArea.id<CardId>(id => this.canAfford(id.front, production))
       .moveItems({ type: LocationType.CivilisationArea, player: this.player })
   }
@@ -59,7 +59,7 @@ export class ActionsRule extends PlayerTurnRule {
     const cardInfo = CardsInfo[card]
     let cost = cardInfo.populationCost + this.getPopulationToLose()
     for (const effect of cardInfo.effects) {
-      if (effect.type === EffectType.Discount && new ConditionRules(this.game, this.material).hasCondition(effect.condition)) {
+      if (effect.type === EffectType.Discount && new ConditionRules(this.game).hasCondition(effect.condition)) {
         cost -= effect.population
       }
     }
@@ -68,7 +68,7 @@ export class ActionsRule extends PlayerTurnRule {
 
   getPopulationToLose() {
     if (this.remind(Memory.PopulationLost)) return 0
-    const conditionRules = new ConditionRules(this.game, this.material)
+    const conditionRules = new ConditionRules(this.game)
     return this.material(MaterialType.Card).location(LocationType.EventArea).player(this.player)
       .getItems<CardId>().filter(item => CardsInfo[item.id!.front].effects.some(effect =>
         effect.type === EffectType.LosePopulation && conditionRules.hasCondition(effect.condition, this.player)
@@ -80,7 +80,7 @@ export class ActionsRule extends PlayerTurnRule {
   }
 
   canDiscard(card: Card) {
-    const conditionRules = new ConditionRules(this.game, this.material)
+    const conditionRules = new ConditionRules(this.game)
     return CardsInfo[card].effects.some(effect => effect.type === EffectType.Discard && conditionRules.hasCondition(effect.condition))
   }
 
@@ -105,7 +105,7 @@ export class ActionsRule extends PlayerTurnRule {
   }
 
   isFree(card: Card) {
-    const conditionRules = new ConditionRules(this.game, this.material)
+    const conditionRules = new ConditionRules(this.game)
     return CardsInfo[card].effects.some(effect => effect.type === EffectType.Free && conditionRules.hasCondition(effect.condition))
   }
 

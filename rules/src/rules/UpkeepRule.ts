@@ -9,7 +9,7 @@ export class UpkeepRule extends PlayerTurnRule {
   onRuleStart() {
     if (this.remind(Memory.PassNextTurn, this.player)) {
       this.forget(Memory.PassNextTurn, this.player)
-      return new EndOfTurnRule(this.game, this.material).endPlayerTurn
+      return new EndOfTurnRule(this.game).endPlayerTurn
     }
     const moves = this.unRotateCards
     if (this.isActivePlayer) {
