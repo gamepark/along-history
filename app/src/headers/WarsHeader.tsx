@@ -4,10 +4,22 @@ import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { CustomMoveType } from '@gamepark/along-history/rules/CustomMoveType'
 import { Memory } from '@gamepark/along-history/rules/Memory'
-import { PlayMoveButton, RulesDialog, ThemeButton, useLegalMove, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import {
+  Avatar,
+  buttonCss,
+  PlayMoveButton,
+  RulesDialog,
+  ThemeButton,
+  useLegalMove,
+  useLegalMoves,
+  usePlayerId,
+  usePlayerName,
+  useRules
+} from '@gamepark/react-game'
 import { CustomMove, isCustomMoveType } from '@gamepark/rules-api'
 import { useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
+import { playerColorCode } from '../panels/PlayerPanels'
 
 export const WarsHeader = () => {
   const rules = useRules<AlongHistoryRules>()!
@@ -59,9 +71,12 @@ const PlayerDeclareWarDialogHeader = () => {
 }
 
 const DeclareWarButton = ({ move }: { move: CustomMove }) => {
-  const { t } = useTranslation()
   const player = usePlayerName(move.data)
-  return <PlayMoveButton move={move}>{t('war.button', { player })}</PlayMoveButton>
+  return <PlayMoveButton move={move} css={buttonCss(move.data === PlayerColor.White ? 'black' : playerColorCode[move.data], '', '')}>
+    <Trans defaults="war.button" values={{ player }}>
+      <Avatar playerId={move.data} css={avatarCss}/>
+    </Trans>
+  </PlayMoveButton>
 }
 
 const PlayerPayWarHeader = () => {
@@ -88,4 +103,15 @@ const dialogCss = css`
     display: block;
     margin: 1em 0;
   }
+`
+
+const avatarCss = css`
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+  top: 0.2em;
+  margin: 0 0.2em;
+  box-shadow: none;
+  transform: scale(1.4);
 `
