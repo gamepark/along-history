@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { DiceType } from '@gamepark/along-history/material/Dices'
+import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
-import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMove } from '@gamepark/react-game'
-import { displayRulesHelp, isRollItemType } from '@gamepark/rules-api'
+import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMoves } from '@gamepark/react-game'
+import { displayRulesHelp, isMoveItemType, isRollItemType, isSelectItemType, MaterialMove } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import Population1 from '../../images/dices/population/Population1.jpg'
 import Population2 from '../../images/dices/population/Population2.jpg'
@@ -20,10 +21,16 @@ import { alignIcon, breakSpaces, rulesLinkButton } from '../../styles'
 
 export const DiceHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) => {
   const { t } = useTranslation()
-  const rollDice = useLegalMove(move => isRollItemType(MaterialType.Dice)(move) && move.itemIndex === itemIndex)
+  const legalMoves = useLegalMoves<MaterialMove>()
+  const rollDie = legalMoves.find(move => isRollItemType(MaterialType.Dice)(move) && move.itemIndex === itemIndex)
+  const discardDie = legalMoves.find(move => isMoveItemType(MaterialType.Dice)(move)
+    && move.itemIndex === itemIndex && move.location.type === LocationType.DiscardTile)
+  const selectDie = legalMoves.find(move => isSelectItemType(MaterialType.Dice)(move) && move.itemIndex === itemIndex)
   return <>
     <h2>{t(`dice.type.${item.id}`)}</h2>
-    {rollDice && <p><PlayMoveButton move={rollDice} onPlay={closeDialog}>{t('die.reroll')}</PlayMoveButton></p>}
+    {rollDie && <p><PlayMoveButton move={rollDie} onPlay={closeDialog}>{t('die.reroll')}</PlayMoveButton></p>}
+    {discardDie && <p><PlayMoveButton move={discardDie} onPlay={closeDialog}>{t('die.discard')}</PlayMoveButton></p>}
+    {selectDie && <p><PlayMoveButton move={selectDie} onPlay={closeDialog}>{t('die.select')}</PlayMoveButton></p>}
     <p css={[breakSpaces, alignIcon]}>
       <Trans defaults={`dice.type.${item.id}.rules`}>
         <strong/>

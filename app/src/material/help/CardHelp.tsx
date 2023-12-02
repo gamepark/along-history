@@ -3,7 +3,9 @@ import { Card } from '@gamepark/along-history/material/Card'
 import { Bonus } from '@gamepark/along-history/material/cards/Bonus'
 import { CardsInfo } from '@gamepark/along-history/material/cards/CardsInfo'
 import { CardType } from '@gamepark/along-history/material/cards/CardType'
-import { MaterialHelpProps, Picture } from '@gamepark/react-game'
+import { MaterialType } from '@gamepark/along-history/material/MaterialType'
+import { MaterialHelpProps, Picture, PlayMoveButton } from '@gamepark/react-game'
+import { displayMaterialHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
 import cultureIcon from '../../images/dices/resources/Culture.jpg'
@@ -28,6 +30,16 @@ export const CardHelp = ({ item }: MaterialHelpProps) => {
     {item.location && <CardLocationHelp location={item.location}/>}
     {info && <>
       <p css={alignIcon}><Picture src={cardTypeIcons[info.type]} css={roundCss}/>{t(`card.type.${info.type}`)}</p>
+
+      {info.type === CardType.Wonder &&
+        <p css={alignIcon}>
+          <Trans defaults="wonders.bonus">
+            <Picture src={cardTypeIcons[CardType.Wonder]} css={roundCss}/>
+            <PlayMoveButton move={displayMaterialHelp(MaterialType.UniversalResource)} local/>
+          </Trans>
+        </p>
+      }
+
       <p>{t(`card.points`, { points: info.victoryPoints })}</p>
 
       <p css={alignIcon}><Trans defaults="card.cost" values={{ population: info.populationCost }}>
