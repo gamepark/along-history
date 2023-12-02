@@ -3,6 +3,7 @@ import { ItemContext, ItemLocator, LocationDescription, MaterialContext } from '
 import { Coordinates, Location, MaterialItem, MaterialMove, MaterialRules } from '@gamepark/rules-api'
 import { shallowEqual } from 'react-redux'
 import { achievementTokenDescription } from '../material/AchievementTokenDescription'
+import { AchievementBoardLocationHelp } from './help/AchievementBoardLocationHelp'
 
 class AchievementsBoardLocator extends ItemLocator {
   parentItemType = MaterialType.Board
@@ -33,6 +34,8 @@ class AchievementsBoardLocator extends ItemLocator {
 
 class AchievementBoardLocationDescription extends LocationDescription {
   borderRadius = 5
+
+  help = AchievementBoardLocationHelp
 
   getSize(location: Location) {
     const size = location.x === 0 ? 3.5 : achievementTokenDescription.width

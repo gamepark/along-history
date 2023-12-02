@@ -1,19 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import { Achievement, getAchievementValue } from '@gamepark/along-history/material/Achievement'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
+import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
-import { MaterialHelpProps, PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
-import { displayLocationHelp, displayRulesHelp } from '@gamepark/rules-api'
+import { MaterialHelpProps, PlayMoveButton, useLegalMove, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { displayLocationHelp, displayRulesHelp, isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
+import { shallowEqual } from 'react-redux'
 import { rulesLinkButton } from '../../styles'
 
-export const AchievementTokenHelp = ({ item }: MaterialHelpProps) => {
+export const AchievementTokenHelp = ({ item, closeDialog }: MaterialHelpProps) => {
   const { t } = useTranslation()
   const playerId = usePlayerId()
   const player = usePlayerName(item.location?.player)
+  const take = useLegalMove<MaterialMove>(move => isMoveItemType(MaterialType.CivilisationToken)(move) && shallowEqual(move.location, item.location))
   return <>
     <h2>{t('achievement.token')}</h2>
+    {take && <p><PlayMoveButton move={take} onPlay={closeDialog}>{t('achievement.take')}</PlayMoveButton></p>}
     <p>{t('achievement.value', { value: getAchievementValue(item.id) })}</p>
     {item.location?.type === LocationType.AchievementsBoard &&
       <p>
