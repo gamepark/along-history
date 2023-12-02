@@ -1,11 +1,14 @@
 /** @jsxImportSource @emotion/react */
+import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { Card } from '@gamepark/along-history/material/Card'
 import { Bonus } from '@gamepark/along-history/material/cards/Bonus'
+import { CardId } from '@gamepark/along-history/material/cards/CardId'
 import { CardsInfo } from '@gamepark/along-history/material/cards/CardsInfo'
 import { CardType } from '@gamepark/along-history/material/cards/CardType'
+import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { MaterialHelpProps, Picture, PlayMoveButton } from '@gamepark/react-game'
-import { displayMaterialHelp } from '@gamepark/rules-api'
+import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMoves, useRules } from '@gamepark/react-game'
+import { displayMaterialHelp, isMoveItemType, isSelectItemType, MaterialMove } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
 import cultureIcon from '../../images/dices/resources/Culture.jpg'
@@ -21,12 +24,32 @@ import { CardLocationHelp } from './CardLocationHelp'
 import { EffectHelp } from './EffectHelp'
 import { LinkHelp } from './LinkHelp'
 
-export const CardHelp = ({ item }: MaterialHelpProps) => {
+export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) => {
   const { t } = useTranslation()
+  const rules = useRules<AlongHistoryRules>()!
   const card: Card | undefined = item.id.front
   const info = card && CardsInfo[card]
+  const legalMoves = useLegalMoves<MaterialMove>()
+  const selectCard = legalMoves.find(move => isSelectItemType(MaterialType.Card)(move) && move.itemIndex === itemIndex)
+  const cardMoves = legalMoves.filter(isMoveItemType(MaterialType.Card)).filter(move => move.itemIndex === itemIndex)
+  const acquireCard = cardMoves.find(move => move.location.type === LocationType.CivilisationArea && move.location.x === undefined)
+  const discardCard = legalMoves.find(move => isMoveItemType(MaterialType.Card)(move) && move.itemIndex === itemIndex
+    && move.location.type === LocationType.Discard)
+  const decayMoves = cardMoves.filter(move => move.location.type === LocationType.CivilisationArea && move.location.x !== undefined)
   return <>
     <h2>{card ? t(`card.name.${card}`) : t(`card.age.${item.id.back}`)}</h2>
+    {selectCard && <p><PlayMoveButton move={selectCard} onPlay={closeDialog}>{t('card.trade')}</PlayMoveButton></p>}
+    {acquireCard && <p><PlayMoveButton move={acquireCard} onPlay={closeDialog}>{t('card.acquire')}</PlayMoveButton></p>}
+    {discardCard && <p><PlayMoveButton move={discardCard} onPlay={closeDialog}>{t('card.discard')}</PlayMoveButton></p>}
+    {decayMoves.map(move =>
+      <p key={move.location.x}><PlayMoveButton move={move} onPlay={closeDialog}>
+        {t('card.decay', {
+          card: t(`card.name.${rules.material(MaterialType.Card).location(l =>
+            l.type === move.location.type && l.player === move.location.player && l.x === move.location.x && l.z === 0
+          ).getItem<CardId>()?.id?.front}`)
+        })}
+      </PlayMoveButton></p>
+    )}
     {item.location && <CardLocationHelp location={item.location}/>}
     {info && <>
       <p css={alignIcon}><Picture src={cardTypeIcons[info.type]} css={roundCss}/>{t(`card.type.${info.type}`)}</p>

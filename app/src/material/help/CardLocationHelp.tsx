@@ -13,7 +13,7 @@ export const CardLocationHelp = ({ location }: { location: Location }) => {
     case LocationType.Deck:
       return <DeckHelp/>
     case LocationType.Discard:
-      return <p><Trans defaults="card.discard">
+      return <p><Trans defaults="card.discard-pile">
         <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp(location)} local/>
       </Trans></p>
     case LocationType.EventArea:
@@ -22,7 +22,7 @@ export const CardLocationHelp = ({ location }: { location: Location }) => {
       </Trans></p>
     case LocationType.CivilisationArea:
       if (location.z) {
-        return <p><Trans defaults={location.player === playerId ? 'card.decay.you' : 'card.decay'} values={{ player }}>
+        return <p><Trans defaults={location.player === playerId ? 'card.decayed.you' : 'card.decayed'} values={{ player }}>
           <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp(location)} local/>
           <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, player: location.player })} local/>
         </Trans></p>
