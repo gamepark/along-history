@@ -35,11 +35,13 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
   const acquireCard = cardMoves.find(move => move.location.type === LocationType.CivilisationArea && move.location.x === undefined)
   const discardCard = legalMoves.find(move => isMoveItemType(MaterialType.Card)(move) && move.itemIndex === itemIndex
     && move.location.type === LocationType.Discard)
-  const decayMoves = cardMoves.filter(move => move.location.type === LocationType.CivilisationArea && move.location.x !== undefined)
+  const decayMoves = cardMoves.filter(move => move.location.type === LocationType.CivilisationArea && move.location.x !== undefined && move.location.z === 1)
+  const tilt = cardMoves.find(move => move.location.type === LocationType.CivilisationArea && move.location.rotation)
   return <>
     <h2>{card ? t(`card.name.${card}`) : t(`card.age.${item.id.back}`)}</h2>
     {selectCard && <p><PlayMoveButton move={selectCard} onPlay={closeDialog}>{t('card.trade')}</PlayMoveButton></p>}
     {acquireCard && <p><PlayMoveButton move={acquireCard} onPlay={closeDialog}>{t('card.acquire')}</PlayMoveButton></p>}
+    {tilt && <p><PlayMoveButton move={tilt} onPlay={closeDialog}>{t('card.tilt')}</PlayMoveButton></p>}
     {discardCard && <p><PlayMoveButton move={discardCard} onPlay={closeDialog}>{t('card.discard')}</PlayMoveButton></p>}
     {decayMoves.map(move =>
       <p key={move.location.x}><PlayMoveButton move={move} onPlay={closeDialog}>
