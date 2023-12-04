@@ -6,5 +6,9 @@ export const ResultTokens: Partial<Record<DiceSymbol, number>> = {
   [DiceSymbol.Population3]: 3,
   [DiceSymbol.Culture]: 1,
   [DiceSymbol.Ingenuity]: 1,
-  [DiceSymbol.Strength]: 1
+  [DiceSymbol.Strength]: 1,
+  [DiceSymbol.Gold3]: 1,
+  [DiceSymbol.Gold4]: 1,
+  [DiceSymbol.Gold5]: 1,
+  [DiceSymbol.Gold6]: 1,
 }

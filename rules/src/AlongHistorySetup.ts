@@ -1,5 +1,5 @@
 import { listingToList, MaterialGameSetup } from '@gamepark/rules-api'
-import { AlongHistoryOptions } from './AlongHistoryOptions'
+import { AgesOption, AlongHistoryOptions } from './AlongHistoryOptions'
 import { AlongHistoryRules } from './AlongHistoryRules'
 import { Achievement, achievements, getAchievementValue } from './material/Achievement'
 import { AchievementBoardLocations } from './material/AchievementBoard'
@@ -8,6 +8,7 @@ import { CardId } from './material/cards/CardId'
 import { CardsInfo } from './material/cards/CardsInfo'
 import { CardType } from './material/cards/CardType'
 import { DiceCount, DiceType } from './material/Dices'
+import { isGold } from './material/DiceSymbol'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { ResultTokens } from './material/ResultTokens'
@@ -23,17 +24,21 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
 
   setupMaterial(options: AlongHistoryOptions) {
     this.memorize(Memory.Board, options.board)
-    this.setupDeck()
+    const agesBounds = AgesBounds[options.ages ?? AgesOption.Prehistory]
+    this.memorize(Memory.FirstAge, agesBounds[0])
+    this.memorize(Memory.CurrentAge, agesBounds[0])
+    this.memorize(Memory.LastAge, agesBounds[1])
+    this.setupDeck(agesBounds[0])
     this.setupCivilisationTokens()
-    this.setupResourceItems()
-    this.setupAchievementTokens()
+    this.setupResourceItems(agesBounds[0])
+    this.setupAchievementTokens(agesBounds[0])
     this.setupEventAreas()
     this.setupDiscardTile()
   }
 
-  setupDeck() {
-    this.material(MaterialType.Card).createItems(listingToList(AgesCardsListing[Age.Prehistory]).map(card => (
-      { id: { front: card, back: Age.Prehistory }, location: { type: LocationType.Deck } }
+  setupDeck(age: Age) {
+    this.material(MaterialType.Card).createItems(listingToList(AgesCardsListing[age]).map(card => (
+      { id: { front: card, back: age }, location: { type: LocationType.Deck } }
     )))
     this.material(MaterialType.Card).shuffle()
   }
@@ -44,11 +49,27 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     )))
   }
 
-  setupResourceItems() {
-    this.material(MaterialType.Dice).createItems(listingToList(DiceCount).filter(dice => dice !== DiceType.Gold).map(dice => (
+  getAgeDice(age: Age) {
+    if (age === Age.Prehistory) {
+      return listingToList(DiceCount).filter(dice => dice !== DiceType.Gold)
+    } else {
+      return listingToList(DiceCount)
+    }
+  }
+
+  getAgeResultTokens(age: Age) {
+    if (age === Age.Prehistory) {
+      return listingToList(ResultTokens).filter(token => isGold(token))
+    } else {
+      return listingToList(ResultTokens)
+    }
+  }
+
+  setupResourceItems(age: Age) {
+    this.material(MaterialType.Dice).createItems(this.getAgeDice(age).map(dice => (
       { id: dice, location: { type: LocationType.DiscardTile, parent: 0 } }
     )))
-    this.material(MaterialType.ResultToken).createItems(listingToList(ResultTokens).map(id => (
+    this.material(MaterialType.ResultToken).createItems(this.getAgeResultTokens(age).map(id => (
       { id, location: { type: LocationType.ResultTokenStock } }
     )))
     this.material(MaterialType.UniversalResource).createItem({ location: { type: LocationType.UniversalResourceStock }, quantity: this.players.length })
@@ -57,8 +78,8 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     }
   }
 
-  setupAchievementTokens() {
-    this.material(MaterialType.AchievementToken).createItems(this.achievements.map(achievement => (
+  setupAchievementTokens(age: Age) {
+    this.material(MaterialType.AchievementToken).createItems(this.getAchievements(age).map(achievement => (
       { id: achievement, location: { type: LocationType.Table } }
     )))
     this.material(MaterialType.AchievementToken).shuffle()
@@ -71,8 +92,12 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
     this.material(MaterialType.AchievementToken).location(LocationType.Table).deleteItems()
   }
 
-  get achievements() {
-    return achievements.filter(achievement => achievement !== Achievement.Gold15)
+  getAchievements(age: Age) {
+    if (age === Age.Prehistory) {
+      return achievements.filter(achievement => achievement !== Achievement.Gold15)
+    } else {
+      return achievements
+    }
   }
 
   setupEventAreas() {
@@ -112,4 +137,13 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
 function isWonderOrCalamity(cardId: CardId) {
   const type = CardsInfo[cardId.front].type
   return type === CardType.Wonder || type === CardType.Calamity
+}
+
+const AgesBounds: Record<AgesOption, [Age, Age]> = {
+  [AgesOption.Prehistory]: [Age.Prehistory, Age.Prehistory],
+  [AgesOption.Antiquity]: [Age.Antiquity, Age.Antiquity],
+  [AgesOption.MiddleAges]: [Age.MiddleAges, Age.MiddleAges],
+  [AgesOption.PrehistoryToAntiquity]: [Age.Prehistory, Age.Antiquity],
+  [AgesOption.AntiquityToMiddleAges]: [Age.Antiquity, Age.MiddleAges],
+  [AgesOption.PrehistoryToMiddleAges]: [Age.MiddleAges, Age.MiddleAges]
 }
