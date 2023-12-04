@@ -12,6 +12,7 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { ResultTokens } from './material/ResultTokens'
 import { PlayerColor } from './PlayerColor'
+import { Memory } from './rules/Memory'
 import { RuleId } from './rules/RuleId'
 
 /**
@@ -20,7 +21,8 @@ import { RuleId } from './rules/RuleId'
 export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialType, LocationType, AlongHistoryOptions> {
   Rules = AlongHistoryRules
 
-  setupMaterial(_options: AlongHistoryOptions) {
+  setupMaterial(options: AlongHistoryOptions) {
+    this.memorize(Memory.Board, options.board)
     this.setupDeck()
     this.setupCivilisationTokens()
     this.setupResourceItems()

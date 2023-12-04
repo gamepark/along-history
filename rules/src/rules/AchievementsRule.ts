@@ -1,13 +1,14 @@
 import { isMoveItem, ItemMove, MaterialItem, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
 import { parseInt, sumBy } from 'lodash'
 import { Achievement } from '../material/Achievement'
-import { AchievementBoardLocations, AchievementsFrontPaths } from '../material/AchievementBoard'
+import { AchievementBoard, AchievementBoardLocations, AchievementBoardsPath } from '../material/AchievementBoard'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { CardType } from '../material/cards/CardType'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
 export class AchievementsRule extends PlayerTurnRule {
@@ -42,7 +43,7 @@ export class AchievementsRule extends PlayerTurnRule {
   }
 
   get achievementsPaths() {
-    return AchievementsFrontPaths
+    return AchievementBoardsPath[this.remind<AchievementBoard | undefined>(Memory.Board) ?? AchievementBoard.Front]
   }
 
   get accessibleTokens() {

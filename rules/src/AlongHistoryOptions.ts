@@ -1,5 +1,6 @@
 import { OptionsSpec } from '@gamepark/rules-api'
 import { TFunction } from 'i18next'
+import { AchievementBoard } from './material/AchievementBoard'
 import { PlayerColor, playerColors } from './PlayerColor'
 
 /**
@@ -13,6 +14,7 @@ type PlayerOptions = { id: PlayerColor }
  */
 export type AlongHistoryOptions = {
   players: PlayerOptions[]
+  board?: AchievementBoard
 }
 
 /**
@@ -26,6 +28,11 @@ export const AlongHistoryOptionsSpec: OptionsSpec<AlongHistoryOptions> = {
       values: playerColors,
       valueSpec: color => ({ label: t => getPlayerName(color, t) })
     }
+  },
+  board: {
+    label: (t: TFunction) => t('board.option'),
+    values: [AchievementBoard.Front, AchievementBoard.Back],
+    valueSpec: board => ({ label: t => t(`board.${board}`), help: t => t(`board.${board}.help`) })
   }
 }
 
