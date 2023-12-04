@@ -5,6 +5,15 @@ import { cardDescription } from '../material/CardDescription'
 import { resultTokenDescription } from '../material/ResultTokenDescription'
 
 class ResultTokenStockLocator extends GridLocator {
+  getItemIndex(item: MaterialItem) {
+    const x = item.location.x!
+    if (x < 12) {
+      return x + Math.floor(x / 3)
+    } else {
+      return x - (15 - x) * 3
+    }
+  }
+
   getCoordinates(item: MaterialItem, { rules: { players } }: ItemContext) {
     if (players.length === 3) {
       return {
@@ -21,7 +30,7 @@ class ResultTokenStockLocator extends GridLocator {
     }
   }
 
-  itemsPerLine = 3
+  itemsPerLine = 4
   itemsGap = { x: 2 }
   linesGap = { y: 2 }
 }

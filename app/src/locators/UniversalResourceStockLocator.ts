@@ -27,8 +27,8 @@ class UniversalResourceStockDescription extends LocationDescription {
       }
     } else {
       return {
-        x: 51,
-        y: 14,
+        x: 54,
+        y: 11.7,
         z: 5
       }
     }
