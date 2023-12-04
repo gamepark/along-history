@@ -10,7 +10,7 @@ class UniversalResourceStockLocator extends LineLocator {
     return { ...this.locationDescription.getCoordinates(_item.location, context), z: 0 }
   }
 
-  delta = { x: -0.1, y: -0.1, z: 0.1 }
+  delta = { x: -0.1, y: -0.5, z: 0.1 }
 }
 
 class UniversalResourceStockDescription extends LocationDescription {

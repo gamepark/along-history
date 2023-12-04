@@ -1,5 +1,6 @@
+import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { ItemContext, TokenDescription } from '@gamepark/react-game'
+import { ItemContext, MaterialContext, TokenDescription } from '@gamepark/react-game'
 import { isMoveItem, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import UniversalResourceBack from '../images/tokens/resources/UniversalResourceBack.jpg'
 import UniversalResourceFront from '../images/tokens/resources/UniversalResourceFront.jpg'
@@ -12,8 +13,14 @@ class UniversalResourceDescription extends TokenDescription {
   image = UniversalResourceFront
   backImage = UniversalResourceBack
 
-  isFlipped() {
-    return false
+  randomFlipCache: Map<number, { location?: LocationType, flipped: boolean }> = new Map()
+
+  isFlipped(item: Partial<MaterialItem>, context: MaterialContext) {
+    const index = ((context as ItemContext).index ?? 0) * 10 + ((context as ItemContext).displayIndex ?? 0)
+    if (this.randomFlipCache.get(index)?.location !== item.location?.type) {
+      this.randomFlipCache.set(index, { location: item.location?.type, flipped: Math.random() < 0.5 })
+    }
+    return this.randomFlipCache.get(index)?.flipped === true
   }
 
   getRotateZ(item: MaterialItem, context: ItemContext) {
