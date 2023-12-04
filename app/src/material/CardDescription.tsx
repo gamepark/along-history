@@ -5,7 +5,55 @@ import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
 import { isMoveItem, Location, MaterialItem, MaterialMove } from '@gamepark/rules-api'
-import Prehistory from '../images/cards/prehistory/back.jpg'
+import AntiquityBack from '../images/cards/antiquity/AntiquityBack.jpg'
+import Agriculture from '../images/cards/antiquity/fr/Agriculture.jpg'
+import AlexanderTheGreat from '../images/cards/antiquity/fr/AlexanderTheGreat.jpg'
+import AlluvialPlain from '../images/cards/antiquity/fr/AlluvialPlain.jpg'
+import Architecture from '../images/cards/antiquity/fr/Architecture.jpg'
+import Aristotle from '../images/cards/antiquity/fr/Aristotle.jpg'
+import Astronomy from '../images/cards/antiquity/fr/Astronomy.jpg'
+import Attila from '../images/cards/antiquity/fr/Attila.jpg'
+import BarbarianInvasions from '../images/cards/antiquity/fr/BarbarianInvasions.jpg'
+import Bocage from '../images/cards/antiquity/fr/Bocage.jpg'
+import CivilWar from '../images/cards/antiquity/fr/CivilWar.jpg'
+import Cleopatra from '../images/cards/antiquity/fr/Cleopatra.jpg'
+import Coast from '../images/cards/antiquity/fr/Coast.jpg'
+import ColossusOfRhodes from '../images/cards/antiquity/fr/ColossusOfRhodes.jpg'
+import Desert from '../images/cards/antiquity/fr/Desert.jpg'
+import Domestication from '../images/cards/antiquity/fr/Domestication.jpg'
+import Epidemic from '../images/cards/antiquity/fr/Epidemic.jpg'
+import FertilePlain from '../images/cards/antiquity/fr/FertilePlain.jpg'
+import Flood from '../images/cards/antiquity/fr/Flood.jpg'
+import GreatPyramidOfGiza from '../images/cards/antiquity/fr/GreatPyramidOfGiza.jpg'
+import GreatWallOfChina from '../images/cards/antiquity/fr/GreatWallOfChina.jpg'
+import HangingGardensOfBabylon from '../images/cards/antiquity/fr/HangingGardensOfBabylon.jpg'
+import Hannibal from '../images/cards/antiquity/fr/Hannibal.jpg'
+import Hippocrates from '../images/cards/antiquity/fr/Hippocrates.jpg'
+import HorsebackRiding from '../images/cards/antiquity/fr/HorsebackRiding.jpg'
+import IronWorking from '../images/cards/antiquity/fr/IronWorking.jpg'
+import JuliusCaesar from '../images/cards/antiquity/fr/JuliusCaesar.jpg'
+import LighthouseOfAlexandria from '../images/cards/antiquity/fr/LighthouseOfAlexandria.jpg'
+import MacedonianPhalanx from '../images/cards/antiquity/fr/MacedonianPhalanx.jpg'
+import Mathematics from '../images/cards/antiquity/fr/Mathematics.jpg'
+import MausoleumOfHalicarnassus from '../images/cards/antiquity/fr/MausoleumOfHalicarnassus.jpg'
+import Medicine from '../images/cards/antiquity/fr/Medicine.jpg'
+import NebuchadnezzarII from '../images/cards/antiquity/fr/NebuchadnezzarII.jpg'
+import Pericles from '../images/cards/antiquity/fr/Pericles.jpg'
+import Philosophy from '../images/cards/antiquity/fr/Philosophy.jpg'
+import Piracy from '../images/cards/antiquity/fr/Piracy.jpg'
+import Pompei from '../images/cards/antiquity/fr/Pompei.jpg'
+import Pythagoras from '../images/cards/antiquity/fr/Pythagoras.jpg'
+import RomanLegions from '../images/cards/antiquity/fr/RomanLegions.jpg'
+import Sailing from '../images/cards/antiquity/fr/Sailing.jpg'
+import SpartacusUprising from '../images/cards/antiquity/fr/SpartacusUprising.jpg'
+import Starving2 from '../images/cards/antiquity/fr/Starving2.jpg'
+import StatueOfZeus from '../images/cards/antiquity/fr/StatueOfZeus.jpg'
+import Steppes from '../images/cards/antiquity/fr/Steppes.jpg'
+import SunTzu from '../images/cards/antiquity/fr/SunTzu.jpg'
+import TheWheel from '../images/cards/antiquity/fr/TheWheel.jpg'
+import VolcanicEruption2 from '../images/cards/antiquity/fr/VolcanicEruption2.jpg'
+import WildIsland from '../images/cards/antiquity/fr/WildIsland.jpg'
+import Writing from '../images/cards/antiquity/fr/Writing.jpg'
 import Australopithecus from '../images/cards/prehistory/fr/Australopithecus.jpg'
 import Bear from '../images/cards/prehistory/fr/Bear.jpg'
 import Cannibals from '../images/cards/prehistory/fr/Cannibals.jpg'
@@ -42,6 +90,7 @@ import Wildcrafting from '../images/cards/prehistory/fr/Wildcrafting.jpg'
 import Wolves from '../images/cards/prehistory/fr/Wolves.jpg'
 import Woodlands from '../images/cards/prehistory/fr/Woodlands.jpg'
 import WoollyRhinoceros from '../images/cards/prehistory/fr/WoollyRhinoceros.jpg'
+import PrehistoryBack from '../images/cards/prehistory/PrehistoryBack.jpg'
 import { getPlayerRotation } from '../locators/PlayerLocator'
 import { CardHelp } from './help/CardHelp'
 
@@ -84,11 +133,61 @@ class AlongHistoryCardDescription extends CardDescription {
     [Card.Earthquake]: Earthquake,
     [Card.HarshWinter]: HarshWinter,
     [Card.Starving]: Starving,
-    [Card.VolcanicEruption]: VolcanicEruption
+    [Card.VolcanicEruption]: VolcanicEruption,
+
+    [Card.Agriculture]: Agriculture,
+    [Card.AlexanderTheGreat]: AlexanderTheGreat,
+    [Card.AlluvialPlain]: AlluvialPlain,
+    [Card.Architecture]: Architecture,
+    [Card.Aristotle]: Aristotle,
+    [Card.Astronomy]: Astronomy,
+    [Card.Attila]: Attila,
+    [Card.BarbarianInvasions]: BarbarianInvasions,
+    [Card.Bocage]: Bocage,
+    [Card.CivilWar]: CivilWar,
+    [Card.Cleopatra]: Cleopatra,
+    [Card.Coast]: Coast,
+    [Card.ColossusOfRhodes]: ColossusOfRhodes,
+    [Card.Desert]: Desert,
+    [Card.Domestication]: Domestication,
+    [Card.Epidemic]: Epidemic,
+    [Card.FertilePlain]: FertilePlain,
+    [Card.Flood]: Flood,
+    [Card.GreatPyramidOfGiza]: GreatPyramidOfGiza,
+    [Card.GreatWallOfChina]: GreatWallOfChina,
+    [Card.HangingGardensOfBabylon]: HangingGardensOfBabylon,
+    [Card.Hannibal]: Hannibal,
+    [Card.Hippocrates]: Hippocrates,
+    [Card.HorsebackRiding]: HorsebackRiding,
+    [Card.IronWorking]: IronWorking,
+    [Card.JuliusCaesar]: JuliusCaesar,
+    [Card.LighthouseOfAlexandria]: LighthouseOfAlexandria,
+    [Card.MacedonianPhalanx]: MacedonianPhalanx,
+    [Card.Mathematics]: Mathematics,
+    [Card.MausoleumOfHalicarnassus]: MausoleumOfHalicarnassus,
+    [Card.Medicine]: Medicine,
+    [Card.NebuchadnezzarII]: NebuchadnezzarII,
+    [Card.Pericles]: Pericles,
+    [Card.Philosophy]: Philosophy,
+    [Card.Piracy]: Piracy,
+    [Card.Pompei]: Pompei,
+    [Card.Pythagoras]: Pythagoras,
+    [Card.RomanLegions]: RomanLegions,
+    [Card.Sailing]: Sailing,
+    [Card.SpartacusUprising]: SpartacusUprising,
+    [Card.Starving2]: Starving2,
+    [Card.StatueOfZeus]: StatueOfZeus,
+    [Card.Steppes]: Steppes,
+    [Card.SunTzu]: SunTzu,
+    [Card.TheWheel]: TheWheel,
+    [Card.VolcanicEruption2]: VolcanicEruption2,
+    [Card.WildIsland]: WildIsland,
+    [Card.Writing]: Writing
   }
 
   backImages = {
-    [Age.Prehistory]: Prehistory
+    [Age.Prehistory]: PrehistoryBack,
+    [Age.Antiquity]: AntiquityBack
   }
 
   help = CardHelp

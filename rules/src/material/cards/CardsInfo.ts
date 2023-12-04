@@ -1,4 +1,52 @@
 import { Card } from '../Card'
+import { Agriculture } from './antiquity/Agriculture'
+import { AlexanderTheGreat } from './antiquity/AlexanderTheGreat'
+import { AlluvialPlain } from './antiquity/AlluvialPlain'
+import { Architecture } from './antiquity/Architecture'
+import { Aristotle } from './antiquity/Aristotle'
+import { Astronomy } from './antiquity/Astronomy'
+import { Attila } from './antiquity/Attila'
+import { BarbarianInvasions } from './antiquity/BarbarianInvasions'
+import { Bocage } from './antiquity/Bocage'
+import { CivilWar } from './antiquity/CivilWar'
+import { Cleopatra } from './antiquity/Cleopatra'
+import { Coast } from './antiquity/Coast'
+import { ColossusOfRhodes } from './antiquity/ColossusOfRhodes'
+import { Desert } from './antiquity/Desert'
+import { Domestication } from './antiquity/Domestication'
+import { Epidemic } from './antiquity/Epidemic'
+import { FertilePlain } from './antiquity/FertilePlain'
+import { Flood } from './antiquity/Flood'
+import { GreatPyramidOfGiza } from './antiquity/GreatPyramidOfGiza'
+import { GreatWallOfChina } from './antiquity/GreatWallOfChina'
+import { HangingGardensOfBabylon } from './antiquity/HangingGardensOfBabylon'
+import { Hannibal } from './antiquity/Hannibal'
+import { Hippocrates } from './antiquity/Hippocrates'
+import { HorsebackRiding } from './antiquity/HorsebackRiding'
+import { IronWorking } from './antiquity/IronWorking'
+import { JuliusCaesar } from './antiquity/JuliusCaesar'
+import { LighthouseOfAlexandria } from './antiquity/LighthouseOfAlexandria'
+import { MacedonianPhalanx } from './antiquity/MacedonianPhalanx'
+import { Mathematics } from './antiquity/Mathematics'
+import { MausoleumOfHalicarnassus } from './antiquity/MausoleumOfHalicarnassus'
+import { Medicine } from './antiquity/Medicine'
+import { NebuchadnezzarII } from './antiquity/NebuchadnezzarII'
+import { Pericles } from './antiquity/Pericles'
+import { Philosophy } from './antiquity/Philosophy'
+import { Piracy } from './antiquity/Piracy'
+import { Pompei } from './antiquity/Pompei'
+import { Pythagoras } from './antiquity/Pythagoras'
+import { RomanLegions } from './antiquity/RomanLegions'
+import { Sailing } from './antiquity/Sailing'
+import { SpartacusUprising } from './antiquity/SpartacusUprising'
+import { Starving2 } from './antiquity/Starving2'
+import { StatueOfZeus } from './antiquity/StatueOfZeus'
+import { Steppes } from './antiquity/Steppes'
+import { SunTzu } from './antiquity/SunTzu'
+import { TheWheel } from './antiquity/TheWheel'
+import { VolcanicEruption2 } from './antiquity/VolcanicEruption2'
+import { WildIsland } from './antiquity/WildIsland'
+import { Writing } from './antiquity/Writing'
 import { CardInfo } from './CardInfo'
 import { Australopithecus } from './prehistory/Australopithecus'
 import { Bear } from './prehistory/Bear'
@@ -73,5 +121,54 @@ export const CardsInfo: Record<Card, CardInfo> = {
   [Card.Earthquake]: Earthquake,
   [Card.HarshWinter]: HarshWinter,
   [Card.Starving]: Starving,
-  [Card.VolcanicEruption]: VolcanicEruption
+  [Card.VolcanicEruption]: VolcanicEruption,
+
+  [Card.Agriculture]: Agriculture,
+  [Card.AlexanderTheGreat]: AlexanderTheGreat,
+  [Card.AlluvialPlain]: AlluvialPlain,
+  [Card.Architecture]: Architecture,
+  [Card.Aristotle]: Aristotle,
+  [Card.Astronomy]: Astronomy,
+  [Card.Attila]: Attila,
+  [Card.BarbarianInvasions]: BarbarianInvasions,
+  [Card.Bocage]: Bocage,
+  [Card.CivilWar]: CivilWar,
+  [Card.Cleopatra]: Cleopatra,
+  [Card.Coast]: Coast,
+  [Card.ColossusOfRhodes]: ColossusOfRhodes,
+  [Card.Desert]: Desert,
+  [Card.Domestication]: Domestication,
+  [Card.Epidemic]: Epidemic,
+  [Card.FertilePlain]: FertilePlain,
+  [Card.Flood]: Flood,
+  [Card.GreatPyramidOfGiza]: GreatPyramidOfGiza,
+  [Card.GreatWallOfChina]: GreatWallOfChina,
+  [Card.HangingGardensOfBabylon]: HangingGardensOfBabylon,
+  [Card.Hannibal]: Hannibal,
+  [Card.Hippocrates]: Hippocrates,
+  [Card.HorsebackRiding]: HorsebackRiding,
+  [Card.IronWorking]: IronWorking,
+  [Card.JuliusCaesar]: JuliusCaesar,
+  [Card.LighthouseOfAlexandria]: LighthouseOfAlexandria,
+  [Card.MacedonianPhalanx]: MacedonianPhalanx,
+  [Card.Mathematics]: Mathematics,
+  [Card.MausoleumOfHalicarnassus]: MausoleumOfHalicarnassus,
+  [Card.Medicine]: Medicine,
+  [Card.NebuchadnezzarII]: NebuchadnezzarII,
+  [Card.Pericles]: Pericles,
+  [Card.Philosophy]: Philosophy,
+  [Card.Piracy]: Piracy,
+  [Card.Pompei]: Pompei,
+  [Card.Pythagoras]: Pythagoras,
+  [Card.RomanLegions]: RomanLegions,
+  [Card.Sailing]: Sailing,
+  [Card.SpartacusUprising]: SpartacusUprising,
+  [Card.Starving2]: Starving2,
+  [Card.StatueOfZeus]: StatueOfZeus,
+  [Card.Steppes]: Steppes,
+  [Card.SunTzu]: SunTzu,
+  [Card.TheWheel]: TheWheel,
+  [Card.VolcanicEruption2]: VolcanicEruption2,
+  [Card.WildIsland]: WildIsland,
+  [Card.Writing]: Writing
 }

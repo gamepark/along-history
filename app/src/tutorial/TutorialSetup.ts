@@ -1,5 +1,6 @@
 import { AlongHistorySetup } from '@gamepark/along-history/AlongHistorySetup'
 import { Achievement, achievements } from '@gamepark/along-history/material/Achievement'
+import { Age } from '@gamepark/along-history/material/Age'
 import { Card } from '@gamepark/along-history/material/Card'
 import { CardId } from '@gamepark/along-history/material/cards/CardId'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
@@ -36,7 +37,7 @@ export class TutorialSetup extends AlongHistorySetup {
   }
 
   setupAchievementTokens() {
-    super.setupAchievementTokens()
+    super.setupAchievementTokens(Age.Prehistory)
     const victoryPoints4 = this.material(MaterialType.AchievementToken).id(Achievement.VictoryPoints4).getItem()!
     if (victoryPoints4.location.y !== 0) {
       const achievementToSwap = this.material(MaterialType.AchievementToken).location(l => l.x === 2 && l.y === 0).getItem()!
