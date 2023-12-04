@@ -40,7 +40,7 @@ export class CalamitiesRule extends PlayerTurnRule {
   }
 }
 
-const getCalamityFailureRule = (calamity: Card) => {
+export const getCalamityFailureRule = (calamity: Card) => {
   switch (calamity) {
     case Card.Cannibals:
       return RuleId.CannibalsFailure

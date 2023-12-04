@@ -7,6 +7,7 @@ import { CardsInfo } from '@gamepark/along-history/material/cards/CardsInfo'
 import { CardType } from '@gamepark/along-history/material/cards/CardType'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
+import { getCalamityFailureRule } from '@gamepark/along-history/rules/CalamitiesRule'
 import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMoves, useRules } from '@gamepark/react-game'
 import { displayMaterialHelp, isMoveItemType, isSelectItemType, MaterialMove } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
@@ -20,6 +21,7 @@ import LandIcon from '../../images/icons/LandIcon.png'
 import ProgressIcon from '../../images/icons/ProgressIcon.png'
 import WonderIcon from '../../images/icons/WonderIcon.png'
 import { alignIcon, roundCss } from '../../styles'
+import { CalamityFailureHelp } from './CalamityFailtureHelp'
 import { CardLocationHelp } from './CardLocationHelp'
 import { EffectHelp } from './EffectHelp'
 import { LinkHelp } from './LinkHelp'
@@ -73,6 +75,11 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
       </Trans></p>
 
       {info.effects.map((effect, index) => <p key={index} css={alignIcon}><EffectHelp effect={effect} card={card}/></p>)}
+
+      {info.type === CardType.Calamity && <>
+        <p>{t('calamity.failure')}</p>
+        <ul><CalamityFailureHelp ruleId={getCalamityFailureRule(card)}/></ul>
+      </>}
 
       {info.bonus.length > 0 && <p css={alignIcon}>
         <Trans defaults="card.bonus">
