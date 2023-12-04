@@ -19,7 +19,6 @@ import {
 import { CustomMove, isCustomMoveType } from '@gamepark/rules-api'
 import { useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { playerColorCode } from '../panels/PlayerPanels'
 
 export const WarsHeader = () => {
   const rules = useRules<AlongHistoryRules>()!
@@ -72,7 +71,7 @@ const PlayerDeclareWarDialogHeader = () => {
 
 const DeclareWarButton = ({ move }: { move: CustomMove }) => {
   const player = usePlayerName(move.data)
-  return <PlayMoveButton move={move} css={buttonCss(move.data === PlayerColor.White ? 'black' : playerColorCode[move.data], '', '')}>
+  return <PlayMoveButton move={move} css={buttonCss(playerButtonColor[move.data], '', '')}>
     <Trans defaults="war.button" values={{ player }}>
       <Avatar playerId={move.data} css={avatarCss}/>
     </Trans>
@@ -115,3 +114,11 @@ const avatarCss = css`
   box-shadow: none;
   transform: scale(1.4);
 `
+
+const playerButtonColor: Record<PlayerColor, string> = {
+  [PlayerColor.White]: 'black',
+  [PlayerColor.Yellow]: 'darkgoldenrod',
+  [PlayerColor.Blue]: 'blue',
+  [PlayerColor.Green]: 'green',
+  [PlayerColor.Red]: 'red'
+}
