@@ -20,6 +20,7 @@ import FigureIcon from '../../images/icons/FigureIcon.png'
 import LandIcon from '../../images/icons/LandIcon.png'
 import ProgressIcon from '../../images/icons/ProgressIcon.png'
 import WonderIcon from '../../images/icons/WonderIcon.png'
+import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
 import { alignIcon, roundCss } from '../../styles'
 import { CalamityFailureHelp } from './CalamityFailtureHelp'
 import { CardLocationHelp } from './CardLocationHelp'
@@ -69,9 +70,11 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
 
       <p>{t(`card.points`, { points: info.victoryPoints })}</p>
 
-      <p css={alignIcon}><Trans defaults="card.cost" values={{ population: info.populationCost }}>
+      <p css={alignIcon}><Trans defaults={info.goldCost ? 'card.cost.gold' : 'card.cost'}
+                                values={{ population: info.populationCost, gold: info.goldCost }}>
         <Picture src={populationIcon} css={roundCss}/>
         <>{info.resourcesCost.map((resource, index) => <Picture key={index} src={bonusIcon[resource]} css={roundCss}/>)}</>
+        <Picture src={Coin5Head} css={roundCss}/>
       </Trans></p>
 
       {info.effects.map((effect, index) => <p key={index} css={alignIcon}><EffectHelp effect={effect} card={card}/></p>)}

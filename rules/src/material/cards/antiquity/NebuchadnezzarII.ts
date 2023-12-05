@@ -7,6 +7,7 @@ export const NebuchadnezzarII: CardInfo = {
   type: CardType.Figure,
   populationCost: 5,
   resourcesCost: [Resource.Culture],
+  goldCost: 12,
   victoryPoints: 2,
   bonus: [Bonus.Ingenuity],
   effects: []

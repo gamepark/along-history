@@ -7,6 +7,7 @@ export const AlexanderTheGreat: CardInfo = {
   type: CardType.Figure,
   populationCost: 6,
   resourcesCost: [Resource.Culture],
+  goldCost: 12,
   victoryPoints: 2,
   bonus: [Bonus.Population, Bonus.Strength],
   effects: []

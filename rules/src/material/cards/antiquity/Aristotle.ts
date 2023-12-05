@@ -7,6 +7,7 @@ export const Aristotle: CardInfo = {
   type: CardType.Figure,
   populationCost: 5,
   resourcesCost: [Resource.Culture],
+  goldCost: 10,
   victoryPoints: 1,
   bonus: [Bonus.Culture],
   effects: []

@@ -7,6 +7,7 @@ export const JuliusCaesar: CardInfo = {
   type: CardType.Figure,
   populationCost: 5,
   resourcesCost: [Resource.Culture],
+  goldCost: 14,
   victoryPoints: 2,
   bonus: [Bonus.Population, Bonus.Strength],
   effects: []

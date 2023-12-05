@@ -9,6 +9,7 @@ export const HangingGardensOfBabylon: CardInfo = {
   type: CardType.Wonder,
   populationCost: 7,
   resourcesCost: [Resource.Ingenuity],
+  goldCost: 12,
   victoryPoints: 3,
   bonus: [],
   effects: [free(ownCard(Card.NebuchadnezzarII))]

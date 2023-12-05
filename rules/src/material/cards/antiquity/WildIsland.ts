@@ -7,6 +7,7 @@ export const WildIsland: CardInfo = {
   type: CardType.Land,
   populationCost: 6,
   resourcesCost: [Resource.Strength],
+  goldCost: 6,
   victoryPoints: 1,
   bonus: [Bonus.Population],
   effects: []

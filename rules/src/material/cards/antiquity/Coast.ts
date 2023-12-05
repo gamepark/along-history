@@ -7,6 +7,7 @@ export const Coast: CardInfo = {
   type: CardType.Land,
   populationCost: 3,
   resourcesCost: [Resource.Strength],
+  goldCost: 6,
   victoryPoints: 1,
   bonus: [Bonus.Population],
   effects: []
