@@ -9,22 +9,27 @@ import Population from '../images/dices/population/Population1.jpg'
 import Culture from '../images/dices/resources/Culture.jpg'
 import Ingenuity from '../images/dices/resources/Ingenuity.jpg'
 import Strength from '../images/dices/resources/Strength.jpg'
+import Gold from '../images/tokens/coins/Coin5Head.png'
 
 export const PayCardHeader = () => {
   const rules = useRules<AlongHistoryRules>()!
   const population = rules.remind<number>(Memory.PopulationCost)
   const resources = rules.remind<Resource[]>(Memory.ResourcesCost)
+  const gold = rules.remind<Resource[]>(Memory.GoldCost)
   const playerName = usePlayerName(rules.game.rule?.player)
   const player = usePlayerId()
 
   let key = 'header.pay'
-  if (!resources.length) key += '.pop'
+  if (resources.length && population && gold) key += '.choice'
+  else if (gold) key += '.gold'
+  else if (!resources.length) key += '.pop'
   else if (!population) key += '.resources'
   if (player === rules.game.rule?.player) key += '.you'
 
-  return <Trans defaults={key} values={{ population, player: playerName }}>
+  return <Trans defaults={key} values={{ population, gold, player: playerName }}>
     <Picture src={Population} css={iconCss}/>
     <>{resources.map((resource, index) => <Picture key={index} src={ResourceImages[resource]} css={iconCss}/>)}</>
+    <Picture src={Gold} css={iconCss}/>
   </Trans>
 }
 

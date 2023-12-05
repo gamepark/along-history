@@ -4,7 +4,7 @@ import sumBy from 'lodash/sumBy'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { DiceType, getDiceSymbol } from '../material/Dices'
-import { DiceSymbol, isPopulationSymbol, isResource } from '../material/DiceSymbol'
+import { DiceSymbol, goldAmount, isGold, isPopulationSymbol, isResource } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Resource } from '../material/Resource'
@@ -14,25 +14,50 @@ export type VersatileProduction = {
   universalResources: number
   multipliers: number
   resourceDie?: Resource
+  goldToMultiply: number
   populationToMultiply: number
 }
 
-export type Cost = {
+export type Cost = BuildCost | BuyCost | ChoiceCost
+
+export type BuildCost = {
   population: number
   resources: Resource[]
 }
 
-export type Production = Cost & VersatileProduction
+export function isBuildCost(cost: Cost): cost is BuildCost {
+  return typeof (cost as any).population === 'number' && Array.isArray((cost as any).resources)
+}
+
+export type BuyCost = {
+  gold: number
+}
+
+export function isBuyCost(cost: Cost): cost is BuyCost {
+  return typeof (cost as any).gold === 'number'
+}
+
+export type ChoiceCost = {
+  choices: Cost[]
+}
+
+export function isChoiceCost(cost: Cost): cost is ChoiceCost {
+  return Array.isArray((cost as any).choices)
+}
+
+export type Production = BuildCost & BuyCost & VersatileProduction
 
 export class ProductionRule extends PlayerTurnRule {
   getProduction(player = this.player): Production {
     return {
       population: this.getPopulationProduction(player),
       resources: this.getResourcesProduction(player),
+      gold: this.getAvailableGold(player),
       universalResources: this.getUniversalResources(player),
       multipliers: this.getMultipliers(player),
       populationToMultiply: this.getPopulationToMultiply(player),
-      resourceDie: this.getResourceDie(player)
+      resourceDie: this.getResourceDie(player),
+      goldToMultiply: this.getGoldToMultiply(player)
     }
   }
 
@@ -107,6 +132,40 @@ export class ProductionRule extends PlayerTurnRule {
     return goldenAges === 1 ? resources : resources.concat(resources)
   }
 
+  getAvailableGold(player = this.player): number {
+    return this.material(MaterialType.Coin).player(player).getQuantity() + (this.getGoldProduction(player) ?? 0)
+  }
+
+  getGoldProduction(player = this.player): number {
+    // TODO: from past in multi ages
+    return this.getGoldDieProduction(player) + this.getGoldResultTokenProduction(player)
+      + this.getCivCardsGoldProduction(player) + this.getGoldenAgesGoldProduction(player)
+  }
+
+  getGoldDieProduction(player = this.player) {
+    const remainingGoldDie = this.material(MaterialType.Dice).location(LocationType.PlayerResources)
+      .player(player).id(DiceType.Gold).getItem()
+    return remainingGoldDie ? goldAmount(getDiceSymbol(remainingGoldDie)) : 0
+  }
+
+  getGoldResultTokenProduction(player = this.player) {
+    const goldResultToken = this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(player).id(isGold)
+      .rotation(undefined).getItem()
+    return goldResultToken ? goldAmount(goldResultToken.id) : 0
+  }
+
+  getCivCardsGoldProduction(_player = this.player) {
+    return 0 /*sumBy(this.getCivilisationCards(player).rotation(undefined).getItems<CardId>(),
+      card => CardsInfo[card.id!.front].bonus.filter(isGoldBonus).length)*/ // TODO
+  }
+
+  getGoldenAgesGoldProduction(player = this.player) {
+    const goldenAges = this.getGoldenAges(player)
+    if (goldenAges === 0) return 0
+    return 0 /*goldenAges * sumBy(this.getCivilisationCards(player).getItems<CardId>(),
+      card => CardsInfo[card.id!.front].bonus.filter(isGoldBonus).length)*/ // TODO
+  }
+
   getUniversalResources(player = this.player) {
     return this.material(MaterialType.UniversalResource).player(player).getQuantity()
   }
@@ -133,5 +192,15 @@ export class ProductionRule extends PlayerTurnRule {
     const die = this.material(MaterialType.Dice).location(LocationType.PlayerResources)
       .player(player).id(DiceType.Resource).getItem()
     return isResource(dieToMultiply) ? dieToMultiply : die && getDiceSymbol(die) as Resource & DiceSymbol
+  }
+
+  getGoldToMultiply(player = this.player): number {
+    const dieToMultiply = this.remind<DiceSymbol | undefined>(Memory.DieToMultiply)
+    if (dieToMultiply && isGold(dieToMultiply)) {
+      const multiplier = this.remind<number>(Memory.Multiplier) ?? 1
+      return goldAmount(dieToMultiply) * multiplier
+    } else {
+      return this.getGoldDieProduction(player)
+    }
   }
 }

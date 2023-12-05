@@ -3,6 +3,7 @@ import countBy from 'lodash/countBy'
 import parseInt from 'lodash/parseInt'
 import { Card } from '../material/Card'
 import { CardId } from '../material/cards/CardId'
+import { CardInfo } from '../material/cards/CardInfo'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { ConditionRules } from '../material/cards/effects/conditions/ConditionRules'
 import { EffectType } from '../material/cards/effects/EffectType'
@@ -13,7 +14,7 @@ import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
 import { Memory } from './Memory'
 import { canPay, PayCardRule } from './PayCardRule'
-import { Cost, Production, ProductionRule } from './ProductionRule'
+import { BuildCost, Cost, Production, ProductionRule } from './ProductionRule'
 import { RuleId } from './RuleId'
 
 export class ActionsRule extends PlayerTurnRule {
@@ -51,12 +52,14 @@ export class ActionsRule extends PlayerTurnRule {
 
   canAfford(card: Card, production: Production) {
     if (this.isFree(card)) return true
-    const cost: Cost = { population: this.getPopulationCost(card), resources: CardsInfo[card].resourcesCost }
+    const cardInfo = CardsInfo[card]
+    const goldCost = this.getGoldCost(cardInfo)
+    const buildCost: BuildCost = { population: this.getPopulationCost(cardInfo), resources: CardsInfo[card].resourcesCost }
+    const cost: Cost = goldCost ? { choices: [buildCost, { gold: goldCost }] } : buildCost
     return canPay(cost, production)
   }
 
-  getPopulationCost(card: Card) {
-    const cardInfo = CardsInfo[card]
+  getPopulationCost(cardInfo: CardInfo) {
     let cost = cardInfo.populationCost + this.getPopulationToLose()
     for (const effect of cardInfo.effects) {
       if (effect.type === EffectType.Discount && new ConditionRules(this.game).hasCondition(effect.condition)) {
@@ -64,6 +67,10 @@ export class ActionsRule extends PlayerTurnRule {
       }
     }
     return Math.max(0, cost)
+  }
+
+  getGoldCost(cardInfo: CardInfo) {
+    return cardInfo.goldCost
   }
 
   getPopulationToLose() {
@@ -93,8 +100,9 @@ export class ActionsRule extends PlayerTurnRule {
         return new PayCardRule(this.game).onCardAcquired(card)
       } else {
         this.memorize(Memory.CardToPay, move.itemIndex)
-        this.memorize(Memory.PopulationCost, this.getPopulationCost(card))
+        this.memorize(Memory.PopulationCost, this.getPopulationCost(cardInfo))
         this.memorize(Memory.ResourcesCost, cardInfo.resourcesCost)
+        this.memorize(Memory.GoldCost, this.getGoldCost(cardInfo))
         if (this.getPopulationToLose() > 0) {
           this.memorize(Memory.PopulationLost, true)
         }

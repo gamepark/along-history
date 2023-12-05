@@ -21,6 +21,6 @@ export enum DiceSymbol {
 export const isPopulationSymbol = (symbol: DiceSymbol | Resource | Bonus): boolean => symbol <= 3
 export const isResource = (symbol: DiceSymbol | Resource | Bonus): symbol is DiceSymbol & Bonus & Resource => symbol >= 4 && symbol <= 6
 
-export const isGold = (symbol: DiceSymbol): boolean => symbol > 10
+export const isGold = (symbol: DiceSymbol | Resource | Bonus): symbol is (DiceSymbol | Bonus) => symbol > 10
 
-export const goldAmount = (symbol: DiceSymbol) => symbol - 8
+export const goldAmount = (symbol: DiceSymbol | Bonus) => symbol - 8

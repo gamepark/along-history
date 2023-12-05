@@ -1,4 +1,4 @@
-import { isMoveItem, ItemMove, MaterialMove, PlayerTurnRule, playMove } from '@gamepark/rules-api'
+import { isDeleteItemType, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule, playMove } from '@gamepark/rules-api'
 import { intersection } from 'lodash'
 import { AlongHistoryRules } from '../AlongHistoryRules'
 import { Card } from '../material/Card'
@@ -7,44 +7,65 @@ import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { CardType } from '../material/cards/CardType'
 import { diceToDiscardTile, DiceType, getDiceSymbol } from '../material/Dices'
-import { DiceSymbol, isPopulationSymbol, isResource } from '../material/DiceSymbol'
+import { DiceSymbol, goldAmount, isGold, isPopulationSymbol, isResource } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Resource } from '../material/Resource'
 import { Memory } from './Memory'
-import { Cost, Production, ProductionRule, VersatileProduction } from './ProductionRule'
+import { BuildCost, Cost, isBuyCost, isChoiceCost, Production, ProductionRule, VersatileProduction } from './ProductionRule'
 import { RuleId } from './RuleId'
 import { UpkeepRule } from './UpkeepRule'
 
 export class PayCardRule extends PlayerTurnRule {
+  onRuleStart() {
+    const production = new ProductionRule(this.game).getProduction()
+    const goldCost = this.remind<number | undefined>(Memory.GoldCost)
+    if (goldCost && !canPayGold(goldCost, production)) {
+      this.forget(Memory.GoldCost)
+    }
+    if (!canPay({ population: this.remind(Memory.PopulationCost), resources: this.remind(Memory.ResourcesCost) }, production)) {
+      this.forget(Memory.PopulationCost)
+      this.memorize(Memory.ResourcesCost, [])
+    }
+    return []
+  }
+
   getPlayerMoves(): MaterialMove[] {
     const moves: MaterialMove[] = []
-    const populationCost = this.remind<number>(Memory.PopulationCost)
+    const goldCost = this.remind<number | undefined>(Memory.GoldCost)
+    if (goldCost !== undefined) {
+      moves.push(...this.payGold)
+    }
+    const populationCost = this.remind<number | undefined>(Memory.PopulationCost)
     const mustSpendDice = this.mustSpendDice
-    if (populationCost > 0) {
+    if (populationCost) {
       moves.push(...this.discardPopulationDice)
       if (!mustSpendDice) {
         moves.push(...this.flipPopulationResultToken)
       }
     }
     const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
-    const resourceDie = this.playerDice.id(DiceType.Resource)
-    const resourceDieItem = resourceDie.getItem()
-    if (resourceDieItem) {
-      const dieResource = getDiceSymbol(resourceDieItem)
-      if (isResource(dieResource) && resourcesCost.includes(dieResource)) {
-        moves.push(resourceDie.moveItem(diceToDiscardTile))
+    if (resourcesCost) {
+      const resourceDie = this.playerDice.id(DiceType.Resource)
+      const resourceDieItem = resourceDie.getItem()
+      if (resourceDieItem) {
+        const dieResource = getDiceSymbol(resourceDieItem)
+        if (isResource(dieResource) && resourcesCost.includes(dieResource)) {
+          moves.push(resourceDie.moveItem(diceToDiscardTile))
+        }
       }
     }
     if (!mustSpendDice) {
       const resourceResultToken = this.playerResultTokens.id(isResource)
-      if (resourceResultToken.length && resourcesCost.includes(resourceResultToken.getItem()!.id)) {
+      if (resourcesCost && resourceResultToken.length && resourcesCost.includes(resourceResultToken.getItem()!.id)) {
         moves.push(resourceResultToken.rotateItem(true))
       }
-      moves.push(...this.flipCardWithBonus(populationCost > 0, resourcesCost))
-      const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
-      if (universalResource.length) {
-        moves.push(universalResource.moveItem({ type: LocationType.UniversalResourceStock }))
+      moves.push(...this.flipCardWithBonus(!!populationCost, resourcesCost ?? []))
+      if (populationCost || resourcesCost.length) {
+        const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
+        if (universalResource.length) {
+          moves.push(universalResource.moveItem({ type: LocationType.UniversalResourceStock }))
+        }
       }
       if (this.hasRotatedCards) {
         moves.push(...this.discardGoldenAgeDice)
@@ -70,6 +91,20 @@ export class PayCardRule extends PlayerTurnRule {
       .filter((_, index) => index !== cardToPay)
   }
 
+  get payGold() {
+    const moves: MaterialMove[] = [
+      ...this.playerDice.id(DiceType.Gold).moveItems(diceToDiscardTile),
+      ...this.playerResultTokens.id(isGold).rotateItems(true)
+    ]
+    const coins = this.material(MaterialType.Coin).player(this.player)
+    const quantity = coins.getQuantity()
+    if (quantity) {
+      const goldCost = this.remind<number>(Memory.GoldCost)
+      moves.push(coins.deleteItem(Math.max(goldCost, quantity)))
+    }
+    return moves
+  }
+
   get discardPopulationDice() {
     return this.playerDice.id(DiceType.Population).moveItems(diceToDiscardTile)
   }
@@ -78,7 +113,7 @@ export class PayCardRule extends PlayerTurnRule {
     return this.playerResultTokens.id(isPopulationSymbol).rotateItems(true)
   }
 
-  flipCardWithBonus(population: boolean, resources: (Resource | Bonus)[]) {
+  flipCardWithBonus(population: boolean, resources: (Resource | Bonus)[]) { // TODO gold bonuses
     return this.bonusCards.id<CardId>(cardId =>
       (population && CardsInfo[cardId.front].bonus.includes(Bonus.Population))
       || intersection(CardsInfo[cardId.front].bonus, resources).length > 0
@@ -109,12 +144,20 @@ export class PayCardRule extends PlayerTurnRule {
     const futureGame = JSON.parse(JSON.stringify(this.game))
     const rules = new AlongHistoryRules(futureGame)
     playMove(rules, move)
-    const remainingCost = { population: rules.remind<number>(Memory.PopulationCost) ?? 0, resources: rules.remind<Resource[]>(Memory.ResourcesCost) ?? [] }
-    return canPay(remainingCost, new ProductionRule(futureGame).getProduction(this.player))
+    const production = new ProductionRule(futureGame).getProduction(this.player)
+    const goldCost = rules.remind<number | undefined>(Memory.GoldCost)
+    if (goldCost !== undefined && canPayGold(goldCost, production)) return true
+    const remainingCost = {
+      population: rules.remind<number | undefined>(Memory.PopulationCost) ?? 0,
+      resources: rules.remind<Resource[]>(Memory.ResourcesCost) ?? []
+    }
+    return canPay(remainingCost, production)
   }
 
   get costPaid() {
-    return this.remind<number>(Memory.PopulationCost) === 0 && this.remind<Resource[]>(Memory.ResourcesCost).length === 0
+    const goldCost = this.remind<number | undefined>(Memory.GoldCost)
+    return (goldCost !== undefined && goldCost <= 0)
+      || (this.remind<number>(Memory.PopulationCost) === 0 && this.remind<Resource[]>(Memory.ResourcesCost).length === 0)
   }
 
   afterItemMove(move: ItemMove) {
@@ -146,6 +189,8 @@ export class PayCardRule extends PlayerTurnRule {
         } else {
           resourcesCost.pop()
         }
+      } else if (isDeleteItemType(MaterialType.Coin)(move)) {
+        this.onPayGold(move.quantity ?? 1)
       }
     }
     if (this.costPaid) {
@@ -186,6 +231,7 @@ export class PayCardRule extends PlayerTurnRule {
     const dieToMultiply = this.remind(Memory.DieToMultiply)
     if (dieToMultiply) {
       if ((isPopulationSymbol(dieToMultiply) && this.remind<number>(Memory.PopulationCost) === 0)
+        || (isGold(dieToMultiply) && this.remind<number>(Memory.GoldCost) <= 0)
         || (isResource(dieToMultiply) && !this.remind<Resource[]>(Memory.ResourcesCost).includes(dieToMultiply))) {
         this.forget(Memory.DieToMultiply)
         this.forget(Memory.Multiplier)
@@ -194,15 +240,26 @@ export class PayCardRule extends PlayerTurnRule {
   }
 
   pay(symbol: DiceSymbol | Resource | Bonus) {
-    if (isPopulationSymbol(symbol)) {
-      this.memorize<number>(Memory.PopulationCost, cost => Math.max(cost - symbol, 0))
-    } else if (isResource(symbol)) {
-      const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
-      const index = resourcesCost.indexOf(symbol)
-      if (index !== -1) {
-        resourcesCost.splice(index, 1)
+    if (isGold(symbol)) {
+      this.onPayGold(goldAmount(symbol))
+    } else {
+      this.forget(Memory.GoldCost)
+      if (isPopulationSymbol(symbol)) {
+        this.memorize<number>(Memory.PopulationCost, cost => Math.max(cost - symbol, 0))
+      } else if (isResource(symbol)) {
+        const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
+        const index = resourcesCost.indexOf(symbol)
+        if (index !== -1) {
+          resourcesCost.splice(index, 1)
+        }
       }
     }
+  }
+
+  onPayGold(gold: number) {
+    this.memorize<number>(Memory.GoldCost, cost => cost - gold)
+    this.forget(Memory.PopulationCost)
+    this.memorize(Memory.ResourcesCost, [])
   }
 
   onCardAcquired(card: Card) {
@@ -220,6 +277,10 @@ export class PayCardRule extends PlayerTurnRule {
   onRuleEnd() {
     const card = this.material(MaterialType.Card).getItem<CardId>(this.remind<number>(Memory.CardToPay))!.id!.front
     const moves: MaterialMove[] = this.onCardAcquired(card)
+    const gold = this.remind<number | undefined>(Memory.GoldCost)
+    if (gold && gold < 0) {
+      moves.push(this.material(MaterialType.Coin).createItem({ quantity: -gold, location: { type: LocationType.PlayerCoins, player: this.player } }))
+    }
     this.forget(Memory.CardToPay)
     this.forget(Memory.PopulationCost)
     this.forget(Memory.ResourcesCost)
@@ -231,6 +292,11 @@ export class PayCardRule extends PlayerTurnRule {
 }
 
 export function canPay(cost: Cost, production: Production): boolean {
+  if (isChoiceCost(cost)) {
+    return cost.choices.some(choice => canPay(choice, production))
+  } else if (isBuyCost(cost)) {
+    return canPayGold(cost.gold, production)
+  }
   const { population, resources } = cost
   if (population > 0 && production.population > 0) {
     return canPay({ resources, population: population - production.population }, { ...production, population: 0 })
@@ -244,7 +310,12 @@ export function canPay(cost: Cost, production: Production): boolean {
   return canPayWithVersatileProduction(cost, production)
 }
 
-function canPayWithVersatileProduction({ population, resources }: Cost, production: VersatileProduction): boolean {
+function canPayGold(cost: number, production: Production): boolean {
+  const { gold, goldToMultiply, multipliers } = production
+  return gold + goldToMultiply * (multipliers === 2 ? 3 : multipliers) >= cost
+}
+
+function canPayWithVersatileProduction({ population, resources }: BuildCost, production: VersatileProduction): boolean {
   const { populationToMultiply, multipliers, universalResources, resourceDie } = production
   if (resources.length === 0) {
     return universalResources * 3 + populationToMultiply * (multipliers === 2 ? 3 : multipliers) >= population
