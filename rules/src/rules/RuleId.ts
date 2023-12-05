@@ -4,6 +4,8 @@ export enum RuleId {
   Wars, PrepareArmy, GeneralReRoll, WarOutcome,
   NewEvents, Achievements, Decay, EndOfTurn, Upkeep,
 
+  UseGoldDie = 30,
+
   LoseCard = 100,
   LoseBonusCard,
   CannibalsFailure,

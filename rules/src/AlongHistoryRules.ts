@@ -35,6 +35,7 @@ import { RuleId } from './rules/RuleId'
 import { TradeCardsRule } from './rules/TradeCardsRule'
 import { UpkeepRule } from './rules/UpkeepRule'
 import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
+import { UseGoldDieRule } from './rules/UseGoldDieRule'
 import { UseGoldenAgeDieRule } from './rules/UseGoldenAgeDieRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
 import { WarOutcomeRule } from './rules/WarOutcomeRule'
@@ -65,6 +66,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.Achievements]: AchievementsRule,
     [RuleId.EndOfTurn]: EndOfTurnRule,
     [RuleId.Upkeep]: UpkeepRule,
+    [RuleId.UseGoldDie]: UseGoldDieRule,
     [RuleId.LoseCard]: LoseCardRule,
     [RuleId.LoseBonusCard]: LoseBonusCardRule,
     [RuleId.CannibalsFailure]: CannibalsFailureRule,

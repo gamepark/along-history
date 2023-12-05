@@ -22,3 +22,5 @@ export const isPopulationSymbol = (symbol: DiceSymbol | Resource | Bonus): boole
 export const isResource = (symbol: DiceSymbol | Resource | Bonus): symbol is DiceSymbol & Bonus & Resource => symbol >= 4 && symbol <= 6
 
 export const isGold = (symbol: DiceSymbol): boolean => symbol > 10
+
+export const goldAmount = (symbol: DiceSymbol) => symbol - 8

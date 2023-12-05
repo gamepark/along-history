@@ -7,7 +7,7 @@ import { CardsInfo } from '../material/cards/CardsInfo'
 import { ConditionRules } from '../material/cards/effects/conditions/ConditionRules'
 import { EffectType } from '../material/cards/effects/EffectType'
 import { diceToDiscardTile, DiceType, getDiceSymbol } from '../material/Dices'
-import { DiceSymbol } from '../material/DiceSymbol'
+import { DiceSymbol, isGold } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
@@ -116,6 +116,8 @@ export class ActionsRule extends PlayerTurnRule {
         return [this.rules().startRule(RuleId.UseReRollDie)]
       } else if (diceSymbol === DiceSymbol.GoldenAge && this.hasRotatedCard()) {
         return [this.rules().startRule(RuleId.UseGoldenAgeDie)]
+      } else if (isGold(diceSymbol)) {
+        return [this.rules().startRule(RuleId.UseGoldDie)]
       } else {
         return [this.rules().startRule(RuleId.UseDiscardedDie)]
       }

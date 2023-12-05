@@ -15,6 +15,7 @@ import { RollDiceHeader } from './RollDiceHeader'
 import { TradeCardsHeader } from './TradeCardsHeader'
 import { UpkeepHeader } from './UpkeepHeader'
 import { UseDiscardedDieHeader } from './UseDiscardedDieHeader'
+import { UseGoldDieHeader } from './UseGoldDieHeader'
 import { UseReRollDieHeader } from './UseReRollDieHeader'
 import { WarOutcomeHeader } from './WarOutcomeHeader'
 import { WarsHeader } from './WarsHeader'
@@ -37,6 +38,8 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.Decay]: DecayHeader,
   [RuleId.EndOfTurn]: EndOfTurnHeader,
   [RuleId.Upkeep]: UpkeepHeader,
+
+  [RuleId.UseGoldDie]: UseGoldDieHeader,
 
   [RuleId.LoseCard]: CalamityHeader,
   [RuleId.LoseBonusCard]: CalamityHeader,

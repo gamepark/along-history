@@ -2,6 +2,7 @@ import { DiceType, GoldDice, PopulationDice, ResourceDice, SpecialDice } from '@
 import { DiceSymbol } from '@gamepark/along-history/material/DiceSymbol'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
+import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { CubicDiceDescription, ItemContext } from '@gamepark/react-game'
 import { isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import Gold3 from '../images/dices/gold/Gold3.jpg'
@@ -92,6 +93,7 @@ class DiceDescription extends CubicDiceDescription {
   }
 
   canShortClick(move: MaterialMove, context: ItemContext) {
+    if (context.rules.game.rule?.id === RuleId.UseGoldDie) return false
     return super.canShortClick(move, context)
       || (isMoveItemType(MaterialType.Dice)(move) && move.itemIndex === context.index && move.location.type === LocationType.DiscardTile)
   }
