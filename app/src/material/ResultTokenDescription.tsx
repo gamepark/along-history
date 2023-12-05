@@ -2,10 +2,6 @@ import { DiceSymbol } from '@gamepark/along-history/material/DiceSymbol'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { ItemContext, TokenDescription } from '@gamepark/react-game'
 import { isMoveItem, MaterialItem, MaterialMove } from '@gamepark/rules-api'
-import Gold3 from '../images/dices/gold/Gold3.jpg'
-import Gold4 from '../images/dices/gold/Gold4.jpg'
-import Gold5 from '../images/dices/gold/Gold5.jpg'
-import Gold6 from '../images/dices/gold/Gold6.jpg'
 import Population1 from '../images/dices/population/Population1.jpg'
 import Population2 from '../images/dices/population/Population2.jpg'
 import Population3 from '../images/dices/population/Population3.jpg'
@@ -14,9 +10,13 @@ import Ingenuity from '../images/dices/resources/Ingenuity.jpg'
 import Strength from '../images/dices/resources/Strength.jpg'
 import CultureBack from '../images/tokens/resources/CultureBack.jpg'
 import Gold3Back from '../images/tokens/resources/Gold3Back.jpg'
+import Gold3Front from '../images/tokens/resources/Gold3Front.jpg'
 import Gold4Back from '../images/tokens/resources/Gold4Back.jpg'
+import Gold4Front from '../images/tokens/resources/Gold4Front.jpg'
 import Gold5Back from '../images/tokens/resources/Gold5Back.jpg'
+import Gold5Front from '../images/tokens/resources/Gold5Front.jpg'
 import Gold6Back from '../images/tokens/resources/Gold6Back.jpg'
+import Gold6Front from '../images/tokens/resources/Gold6Front.jpg'
 import IngenuityBack from '../images/tokens/resources/IngenuityBack.jpg'
 import Population1Back from '../images/tokens/resources/Population1Back.jpg'
 import Population2Back from '../images/tokens/resources/Population2Back.jpg'
@@ -36,10 +36,10 @@ class ResultTokenDescription extends TokenDescription {
     [DiceSymbol.Culture]: Culture,
     [DiceSymbol.Ingenuity]: Ingenuity,
     [DiceSymbol.Strength]: Strength,
-    [DiceSymbol.Gold3]: Gold3,
-    [DiceSymbol.Gold4]: Gold4,
-    [DiceSymbol.Gold5]: Gold5,
-    [DiceSymbol.Gold6]: Gold6
+    [DiceSymbol.Gold3]: Gold3Front,
+    [DiceSymbol.Gold4]: Gold4Front,
+    [DiceSymbol.Gold5]: Gold5Front,
+    [DiceSymbol.Gold6]: Gold6Front
   }
 
   backImages = {
