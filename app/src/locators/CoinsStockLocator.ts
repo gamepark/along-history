@@ -1,29 +1,29 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
-import { ItemContext, LineLocator, LocationContext, LocationDescription } from '@gamepark/react-game'
-import { Location, MaterialItem } from '@gamepark/rules-api'
+import { ItemContext, LocationContext, LocationDescription, PileLocator } from '@gamepark/react-game'
+import { Location, MaterialItem } from '../../../../workshop/packages/rules-api'
 import { resultTokenStockLocator } from './ResultTokenStockLocator'
 
-class UniversalResourceStockLocator extends LineLocator {
-  locationDescription = new UniversalResourceStockDescription()
+class CoinStockLocator extends PileLocator {
+  locationDescription = new CoinsStockDescription()
 
   getCoordinates(_item: MaterialItem, context: ItemContext) {
     return { ...this.locationDescription.getCoordinates(_item.location, context), z: 0 }
   }
 
-  delta = { x: -0.1, y: -0.1, z: 0.1 }
+  radius = 2
 }
 
-class UniversalResourceStockDescription extends LocationDescription {
+class CoinsStockDescription extends LocationDescription {
   width = 6
   height = 6
   borderRadius = this.width / 2
 
   getCoordinates(_location: Location, { rules: { players } }: LocationContext) {
     const { x, y } = resultTokenStockLocator.getBaseCoordinates(players.length)
-    return { x: x + 9, y: y + 1, z: 5 }
+    return { x: x + 11, y: y + 5, z: 5 }
   }
 
   location = { type: LocationType.UniversalResourceStock }
 }
 
-export const universalResourceStockLocator = new UniversalResourceStockLocator()
+export const coinsStockLocator = new CoinStockLocator()

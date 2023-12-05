@@ -15,17 +15,24 @@ class ResultTokenStockLocator extends GridLocator {
   }
 
   getCoordinates(item: MaterialItem, { rules: { players } }: ItemContext) {
-    if (players.length === 3) {
+    const { x, y } = this.getBaseCoordinates(players.length)
+    return {
+      x: x - (item.selected ? 0.2 : 0),
+      y: y - (item.selected ? 0.2 : 0),
+      z: 0.1
+    }
+  }
+
+  getBaseCoordinates(players: number) {
+    if (players === 3) {
       return {
-        x: cardDescription.width * 2 + resultTokenDescription.width / 2 + 2 - (item.selected ? 0.2 : 0),
-        y: -cardDescription.height + resultTokenDescription.width / 2 - 1 - (item.selected ? 0.2 : 0),
-        z: 0.8
+        x: cardDescription.width * 2 + resultTokenDescription.width / 2 + 2,
+        y: -cardDescription.height + resultTokenDescription.width / 2 - 1
       }
     } else {
       return {
-        x: boardDescription.width + resultTokenDescription.width / 2 + 1 - (item.selected ? 0.2 : 0),
-        y: cardDescription.height + 1.9 - (item.selected ? 0.2 : 0),
-        z: 0.8
+        x: boardDescription.width + resultTokenDescription.width / 2 + 1,
+        y: cardDescription.height + 1.9
       }
     }
   }

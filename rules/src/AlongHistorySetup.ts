@@ -59,7 +59,7 @@ export class AlongHistorySetup extends MaterialGameSetup<PlayerColor, MaterialTy
 
   getAgeResultTokens(age: Age) {
     if (age === Age.Prehistory) {
-      return listingToList(ResultTokens).filter(token => isGold(token))
+      return listingToList(ResultTokens).filter(token => !isGold(token))
     } else {
       return listingToList(ResultTokens)
     }

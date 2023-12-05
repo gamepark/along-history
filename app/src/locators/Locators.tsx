@@ -6,17 +6,18 @@ import { achievementsBoardLocator } from './AchievementsBoardLocator'
 import { achievementTokenLocator } from './AchievementTokenLocator'
 import { boardTableLocator } from './BoardTableLocator'
 import { civilisationAreaLocator } from './CivilisationAreaLocator'
+import { coinsStockLocator } from './CoinsStockLocator'
 import { deckLocator } from './DeckLocator'
 import { discardLocator } from './DiscardLocator'
 import { discardTileLocator } from './DiscardTileLocator'
 import { eventAreaLocator } from './EventAreaLocator'
+import { onCardLocator } from './OnCardLocator'
 import { playerAchievementsLocator } from './PlayerAchievementsLocator'
 import { playerDiscardTileLocator } from './PlayerDiscardTileLocator'
 import { playerResourcesLocator } from './PlayerResourcesLocator'
 import { playerUniversalResourceLocator } from './PlayerUniversalResourceLocator'
 import { resultTokenStockLocator } from './ResultTokenStockLocator'
 import { universalResourceStockLocator } from './UniversalResourceStockLocator'
-import { onCardLocator } from './OnCardLocator'
 
 export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, MaterialType, LocationType>>> = {
   [LocationType.Table]: boardTableLocator,
@@ -33,5 +34,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, Mat
   [LocationType.CivilisationArea]: civilisationAreaLocator,
   [LocationType.AchievementToken]: achievementTokenLocator,
   [LocationType.PlayerAchievements]: playerAchievementsLocator,
-  [LocationType.OnCard]: onCardLocator
+  [LocationType.OnCard]: onCardLocator,
+  [LocationType.CoinsStock]: coinsStockLocator
 }
