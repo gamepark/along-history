@@ -13,6 +13,7 @@ import { discardTileLocator } from './DiscardTileLocator'
 import { eventAreaLocator } from './EventAreaLocator'
 import { onCardLocator } from './OnCardLocator'
 import { playerAchievementsLocator } from './PlayerAchievementsLocator'
+import { playerCoinsLocator } from './PlayerCoinsLocator'
 import { playerDiscardTileLocator } from './PlayerDiscardTileLocator'
 import { playerResourcesLocator } from './PlayerResourcesLocator'
 import { playerUniversalResourceLocator } from './PlayerUniversalResourceLocator'
@@ -35,5 +36,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerColor, Mat
   [LocationType.AchievementToken]: achievementTokenLocator,
   [LocationType.PlayerAchievements]: playerAchievementsLocator,
   [LocationType.OnCard]: onCardLocator,
+  [LocationType.PlayerCoins]: playerCoinsLocator,
   [LocationType.CoinsStock]: coinsStockLocator
 }

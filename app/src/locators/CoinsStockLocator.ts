@@ -1,13 +1,13 @@
-import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { ItemContext, LocationContext, LocationDescription, PileLocator } from '@gamepark/react-game'
 import { Location, MaterialItem } from '../../../../workshop/packages/rules-api'
+import { coinDescription } from '../material/CoinDescription'
 import { resultTokenStockLocator } from './ResultTokenStockLocator'
 
 class CoinStockLocator extends PileLocator {
   locationDescription = new CoinsStockDescription()
 
-  getCoordinates(_item: MaterialItem, context: ItemContext) {
-    return { ...this.locationDescription.getCoordinates(_item.location, context), z: 0 }
+  getCoordinates(item: MaterialItem, context: ItemContext) {
+    return { ...this.locationDescription.getCoordinates(item.location, context), z: 0 }
   }
 
   radius = 2
@@ -23,7 +23,7 @@ class CoinsStockDescription extends LocationDescription {
     return { x: x + 11, y: y + 5, z: 5 }
   }
 
-  location = { type: LocationType.UniversalResourceStock }
+  location = coinDescription.stockLocation
 }
 
 export const coinsStockLocator = new CoinStockLocator()

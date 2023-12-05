@@ -22,6 +22,8 @@ class CoinDescription extends TokenDescription {
   width = 2 // TODO Or: 2.5
   borderRadius = 1.25
 
+  stockLocation = { type: LocationType.CoinsStock }
+
   protected getFrontId() {
     return 1 // TODO Or: 5
   }
@@ -32,7 +34,7 @@ class CoinDescription extends TokenDescription {
 
   getStaticItems({ rules }: MaterialContext) {
     const currentAge = rules.remind<Age | undefined>(Memory.CurrentAge) ?? Age.Prehistory
-    return currentAge === Age.Prehistory ? [] : [{ location: { type: LocationType.CoinsStock }, quantity: 19 }]
+    return currentAge === Age.Prehistory ? [] : [{ quantity: 19, location: this.stockLocation }]
   }
 
   //help = BoardHelp // TODO
