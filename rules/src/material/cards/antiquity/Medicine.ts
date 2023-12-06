@@ -9,7 +9,7 @@ import { free } from '../effects/FreeEffect'
 export const Medicine: CardInfo = {
   type: CardType.Progress,
   populationCost: 6,
-  resourcesCost: [Resource.Culture],
+  resourcesCost: [Resource.Ingenuity],
   victoryPoints: 2,
   bonus: [Bonus.Population],
   effects: [free(ownCard(Card.Hippocrates))]

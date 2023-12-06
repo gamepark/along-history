@@ -71,6 +71,11 @@ export class ActionsRule extends PlayerTurnRule {
   }
 
   getGoldCost(cardInfo: CardInfo) {
+    for (const effect of cardInfo.effects) {
+      if (effect.type === EffectType.GoldCost && new ConditionRules(this.game).hasCondition(effect.condition)) {
+        return effect.cost
+      }
+    }
     return cardInfo.goldCost
   }
 

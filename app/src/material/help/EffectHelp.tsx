@@ -46,6 +46,11 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <Trans defaults="effect.earn-gold" values={{ gold: effect.amount }}>
         <Picture src={Coin5Head} css={roundCss}/>
       </Trans>
+    case EffectType.GoldCost:
+      return <Trans defaults="effect.gold-cost" values={{ gold: effect.cost }}>
+        <Picture src={Coin5Head} css={roundCss}/>
+        <ConditionHelp condition={effect.condition}/>
+      </Trans>
   }
 }
 

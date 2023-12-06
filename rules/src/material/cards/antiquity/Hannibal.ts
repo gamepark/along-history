@@ -1,7 +1,10 @@
+import { Card } from '../../Card'
 import { Resource } from '../../Resource'
 import { Bonus } from '../Bonus'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
+import { goldCost } from '../effects/GoldCostEffect'
+import { ownCard } from '../effects/conditions/OwnCardsCondition'
 
 export const Hannibal: CardInfo = {
   type: CardType.Figure,
@@ -10,5 +13,5 @@ export const Hannibal: CardInfo = {
   goldCost: 14,
   victoryPoints: 2,
   bonus: [Bonus.Population, Bonus.Strength],
-  effects: []
+  effects: [goldCost(5, ownCard(Card.IronWorking))]
 }
