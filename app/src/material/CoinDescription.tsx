@@ -10,13 +10,13 @@ import Coin5Tail from '../images/tokens/coins/Coin5Tail.png'
 
 class CoinDescription extends TokenDescription {
   images = {
-    [1]: Coin1Head,
-    [5]: Coin5Head
+    1: Coin1Head,
+    5: Coin5Head
   }
 
   backImages = {
-    [1]: Coin1Tail,
-    [5]: Coin5Tail
+    1: Coin1Tail,
+    5: Coin5Tail
   }
 
   width = 2 // TODO Or: 2.5

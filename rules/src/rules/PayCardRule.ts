@@ -6,6 +6,7 @@ import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { CardType } from '../material/cards/CardType'
+import { EffectType } from '../material/cards/effects/EffectType'
 import { diceToDiscardTile, DiceType, getDiceSymbol } from '../material/Dices'
 import { DiceSymbol, goldAmount, isGold, isPopulationSymbol, isResource } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
@@ -269,6 +270,13 @@ export class PayCardRule extends PlayerTurnRule {
       && this.material(MaterialType.UniversalResource).player(this.player).getQuantity() < 2) {
       moves.push(this.material(MaterialType.UniversalResource).location(LocationType.UniversalResourceStock)
         .moveItem({ type: LocationType.PlayerUniversalResource, player: this.player }, 1))
+    }
+    for (const effect of cardInfo.effects) {
+      if (effect.type === EffectType.EarnGold) {
+        moves.push(this.material(MaterialType.Coin).createItem(
+          { quantity: effect.amount, location: { type: LocationType.PlayerCoins, player: this.player } }
+        ))
+      }
     }
     this.memorize(Memory.CardAcquired, true)
     return moves

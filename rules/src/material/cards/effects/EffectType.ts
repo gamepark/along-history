@@ -4,5 +4,6 @@ export enum EffectType {
   LosePopulation,
   Discard,
   NonTransmissible,
-  WarBonus
+  WarBonus,
+  EarnGold
 }

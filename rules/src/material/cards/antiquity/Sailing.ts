@@ -3,6 +3,7 @@ import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
 import { ownOneOfCards } from '../effects/conditions/OwnCardsCondition'
+import { earnGold } from '../effects/EarnGoldEffect'
 import { free } from '../effects/FreeEffect'
 
 export const Sailing: CardInfo = {
@@ -11,5 +12,5 @@ export const Sailing: CardInfo = {
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 2,
   bonus: [],
-  effects: [free(ownOneOfCards(Card.Astronomy, Card.LighthouseOfAlexandria))]
+  effects: [earnGold(2), free(ownOneOfCards(Card.Astronomy, Card.LighthouseOfAlexandria))]
 }

@@ -11,6 +11,7 @@ import { Picture, PlayMoveButton } from '@gamepark/react-game'
 import { displayRulesHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
+import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
 import { roundCss, rulesLinkButton } from '../../styles'
 import { DisplayCardHelpButton } from './LinkHelp'
 
@@ -40,6 +41,10 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <Trans defaults="effect.war-bonus">
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
         <Picture src={populationIcon} css={roundCss}/>
+      </Trans>
+    case EffectType.EarnGold:
+      return <Trans defaults="effect.earn-gold" values={{ gold: effect.amount }}>
+        <Picture src={Coin5Head} css={roundCss}/>
       </Trans>
   }
 }
