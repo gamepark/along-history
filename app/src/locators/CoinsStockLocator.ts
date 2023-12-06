@@ -1,5 +1,5 @@
 import { ItemContext, LocationContext, LocationDescription, PileLocator } from '@gamepark/react-game'
-import { Location, MaterialItem } from '../../../../workshop/packages/rules-api'
+import { Location, MaterialItem } from '@gamepark/rules-api'
 import { coinDescription } from '../material/CoinDescription'
 import { resultTokenStockLocator } from './ResultTokenStockLocator'
 

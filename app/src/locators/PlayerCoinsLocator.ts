@@ -1,6 +1,6 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { ItemContext, LocationContext, LocationDescription, MaterialContext, PileLocator } from '@gamepark/react-game'
-import { Location, MaterialItem } from '../../../../workshop/packages/rules-api'
+import { Location, MaterialItem } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { civilisationAreaHeight, getPlayerLocation, Orientation } from './PlayerLocator'
 
