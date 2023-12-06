@@ -12,7 +12,7 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
 import { Memory } from './Memory'
-import { canPay } from './PayCardRule'
+import { canPay, PayCardRule } from './PayCardRule'
 import { Cost, Production, ProductionRule } from './ProductionRule'
 import { RuleId } from './RuleId'
 
@@ -90,7 +90,7 @@ export class ActionsRule extends PlayerTurnRule {
       const card = this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front
       const cardInfo = CardsInfo[card]
       if (this.isFree(card)) {
-        this.memorize(Memory.CardAcquired, true)
+        return new PayCardRule(this.game).onCardAcquired(card)
       } else {
         this.memorize(Memory.CardToPay, move.itemIndex)
         this.memorize(Memory.PopulationCost, this.getPopulationCost(card))

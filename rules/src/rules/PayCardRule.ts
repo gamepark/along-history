@@ -1,6 +1,7 @@
 import { isMoveItem, ItemMove, MaterialMove, PlayerTurnRule, playMove } from '@gamepark/rules-api'
 import { intersection } from 'lodash'
 import { AlongHistoryRules } from '../AlongHistoryRules'
+import { Card } from '../material/Card'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
@@ -204,21 +205,27 @@ export class PayCardRule extends PlayerTurnRule {
     }
   }
 
-  onRuleEnd() {
+  onCardAcquired(card: Card) {
     const moves: MaterialMove[] = []
-    const card = this.material(MaterialType.Card).getItem<CardId>(this.remind<number>(Memory.CardToPay))!.id!.front
-    if (CardsInfo[card].type === CardType.Wonder
+    const cardInfo = CardsInfo[card]
+    if (cardInfo.type === CardType.Wonder
       && this.material(MaterialType.UniversalResource).player(this.player).getQuantity() < 2) {
       moves.push(this.material(MaterialType.UniversalResource).location(LocationType.UniversalResourceStock)
         .moveItem({ type: LocationType.PlayerUniversalResource, player: this.player }, 1))
     }
+    this.memorize(Memory.CardAcquired, true)
+    return moves
+  }
+
+  onRuleEnd() {
+    const card = this.material(MaterialType.Card).getItem<CardId>(this.remind<number>(Memory.CardToPay))!.id!.front
+    const moves: MaterialMove[] = this.onCardAcquired(card)
     this.forget(Memory.CardToPay)
     this.forget(Memory.PopulationCost)
     this.forget(Memory.ResourcesCost)
     this.forget(Memory.GoldCost)
     this.forget(Memory.DieToMultiply)
     this.forget(Memory.Multiplier)
-    this.memorize(Memory.CardAcquired, true)
     return moves
   }
 }
