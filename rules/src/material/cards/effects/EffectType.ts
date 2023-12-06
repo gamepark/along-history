@@ -6,5 +6,6 @@ export enum EffectType {
   NonTransmissible,
   WarBonus,
   EarnGold,
-  GoldCost
+  GoldCost,
+  CardTypeDiscount
 }

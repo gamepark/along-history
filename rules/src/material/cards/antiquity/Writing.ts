@@ -1,6 +1,7 @@
 import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
+import { cardTypeDiscount } from '../effects/CardTypeDiscountEffect'
 
 export const Writing: CardInfo = {
   type: CardType.Progress,
@@ -8,5 +9,5 @@ export const Writing: CardInfo = {
   resourcesCost: [Resource.Culture],
   victoryPoints: 2,
   bonus: [],
-  effects: []
+  effects: [cardTypeDiscount(CardType.Progress, 2)]
 }

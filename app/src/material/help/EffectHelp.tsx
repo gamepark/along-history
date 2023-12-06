@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Card } from '@gamepark/along-history/material/Card'
+import { CardTypeDiscountEffect } from '@gamepark/along-history/material/cards/effects/CardTypeDiscountEffect'
 import { Condition } from '@gamepark/along-history/material/cards/effects/conditions/Condition'
 import { ConditionType } from '@gamepark/along-history/material/cards/effects/conditions/ConditionType'
 import { OwnCardsCondition } from '@gamepark/along-history/material/cards/effects/conditions/OwnCardsCondition'
@@ -13,6 +14,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
 import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
 import { roundCss, rulesLinkButton } from '../../styles'
+import { cardTypeIcons } from './CardHelp'
 import { DisplayCardHelpButton } from './LinkHelp'
 
 export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => {
@@ -51,6 +53,8 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
         <Picture src={Coin5Head} css={roundCss}/>
         <ConditionHelp condition={effect.condition}/>
       </Trans>
+    case EffectType.CardTypeDiscount:
+      return <CardTypeDiscountHelp effect={effect}/>
   }
 }
 
@@ -68,6 +72,14 @@ export const LosePopulationHelp = ({ effect, card }: { effect: LosePopulationEff
       <Picture src={populationIcon} css={roundCss}/>
     </Trans>
   }
+}
+
+export const CardTypeDiscountHelp = ({ effect }: { effect: CardTypeDiscountEffect }) => {
+  const { t } = useTranslation()
+  return <Trans defaults="effect.card-type-discount" values={{ type: t(`card.type.${effect.cardType}`), discount: effect.discount }}>
+    <Picture src={cardTypeIcons[effect.cardType]} css={roundCss}/>
+    <Picture src={populationIcon} css={roundCss}/>
+  </Trans>
 }
 
 export const ConditionHelp = ({ condition }: { condition: Condition }) => {

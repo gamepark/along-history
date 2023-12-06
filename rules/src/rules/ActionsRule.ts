@@ -67,6 +67,13 @@ export class ActionsRule extends PlayerTurnRule {
         cost -= effect.population
       }
     }
+    for (const card of this.activeCards.getItems<CardId>()) {
+      for (const effect of CardsInfo[card.id!.front].effects) {
+        if (effect.type === EffectType.CardTypeDiscount && cardInfo.type === effect.cardType) {
+          cost -= effect.discount
+        }
+      }
+    }
     return Math.max(0, cost)
   }
 
@@ -92,9 +99,12 @@ export class ActionsRule extends PlayerTurnRule {
     return this.cardsInEventArea.id<CardId>(id => this.canDiscard(id.front)).moveItems({ type: LocationType.Discard })
   }
 
+  get activeCards() {
+    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z).player(this.player)
+  }
+
   get tiltGoldBonusCards() {
-    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).location(({ z }) => !z).player(this.player).rotation(undefined)
-      .id<CardId>(id => id.front && CardsInfo[id.front].bonus.some(isGold)).rotateItems(true)
+    return this.activeCards.rotation(undefined).id<CardId>(id => id.front && CardsInfo[id.front].bonus.some(isGold)).rotateItems(true)
   }
 
   canDiscard(card: Card) {
