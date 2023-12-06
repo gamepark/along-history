@@ -39,14 +39,14 @@ class CoinDescription extends TokenDescription {
 
   //help = BoardHelp // TODO
 
-  randomFlipCache: Map<number, { location?: LocationType, flipped: boolean }> = new Map()
+  randomFlipCache: Map<number, boolean> = new Map()
 
   isFlipped(item: Partial<MaterialItem>, context: MaterialContext) {
-    const index = ((context as ItemContext).index ?? 0) * 100 + ((context as ItemContext).displayIndex ?? 0)
-    if (this.randomFlipCache.get(index)?.location !== item.location?.type) {
-      this.randomFlipCache.set(index, { location: item.location?.type, flipped: Math.random() < 0.5 })
+    const cacheKey = (item.location?.type === LocationType.CoinsStock ? 0 : item.location?.player!) * 100 + ((context as ItemContext).displayIndex ?? 0)
+    if (!this.randomFlipCache.has(cacheKey)) {
+      this.randomFlipCache.set(cacheKey, Math.random() < 0.5)
     }
-    return this.randomFlipCache.get(index)?.flipped === true
+    return this.randomFlipCache.get(cacheKey)!
   }
 }
 
