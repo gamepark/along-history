@@ -12,7 +12,7 @@ export enum DiceSymbol {
   Multiplier,
   ReRoll,
   War,
-  Gold3,
+  Gold3 = 13,
   Gold4,
   Gold5,
   Gold6,
@@ -23,4 +23,4 @@ export const isResource = (symbol: DiceSymbol | Resource | Bonus): symbol is Dic
 
 export const isGold = (symbol: DiceSymbol | Resource | Bonus): symbol is (DiceSymbol | Bonus) => symbol > 10
 
-export const goldAmount = (symbol: DiceSymbol | Bonus) => symbol - 8
+export const goldAmount = (symbol: DiceSymbol | Bonus) => symbol - 10

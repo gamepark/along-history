@@ -61,7 +61,7 @@ export class PayCardRule extends PlayerTurnRule {
       if (resourcesCost && resourceResultToken.length && resourcesCost.includes(resourceResultToken.getItem()!.id)) {
         moves.push(resourceResultToken.rotateItem(true))
       }
-      moves.push(...this.flipCardWithBonus(!!populationCost, resourcesCost ?? []))
+      moves.push(...this.flipCardWithBonus(!!populationCost, resourcesCost ?? [], !!goldCost))
       if (populationCost || resourcesCost.length) {
         const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
         if (universalResource.length) {
@@ -101,7 +101,7 @@ export class PayCardRule extends PlayerTurnRule {
     const quantity = coins.getQuantity()
     if (quantity) {
       const goldCost = this.remind<number>(Memory.GoldCost)
-      moves.push(coins.deleteItem(Math.max(goldCost, quantity)))
+      moves.push(coins.deleteItem(Math.min(goldCost, quantity)))
     }
     return moves
   }
@@ -114,10 +114,11 @@ export class PayCardRule extends PlayerTurnRule {
     return this.playerResultTokens.id(isPopulationSymbol).rotateItems(true)
   }
 
-  flipCardWithBonus(population: boolean, resources: (Resource | Bonus)[]) { // TODO gold bonuses
+  flipCardWithBonus(population: boolean, resources: (Resource | Bonus)[], gold: boolean) {
     return this.bonusCards.id<CardId>(cardId =>
       (population && CardsInfo[cardId.front].bonus.includes(Bonus.Population))
       || intersection(CardsInfo[cardId.front].bonus, resources).length > 0
+      || (gold && CardsInfo[cardId.front].bonus.some(isGold))
     ).rotateItems(true)
   }
 

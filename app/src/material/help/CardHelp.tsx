@@ -5,6 +5,7 @@ import { Bonus } from '@gamepark/along-history/material/cards/Bonus'
 import { CardId } from '@gamepark/along-history/material/cards/CardId'
 import { CardsInfo } from '@gamepark/along-history/material/cards/CardsInfo'
 import { CardType } from '@gamepark/along-history/material/cards/CardType'
+import { goldAmount, isGold } from '@gamepark/along-history/material/DiceSymbol'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { getCalamityFailureRule } from '@gamepark/along-history/rules/CalamitiesRule'
@@ -86,7 +87,13 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
 
       {info.bonus.length > 0 && <p css={alignIcon}>
         <Trans defaults="card.bonus">
-          <>{info.bonus.map((bonus, index) => <Picture key={index} src={bonusIcon[bonus]}/>)}</>
+          <>{info.bonus.map((bonus, index) => {
+            if (isGold(bonus)) {
+              return <span key={index}>{goldAmount(bonus)} <Picture key={index} src={Coin5Head}/></span>
+            } else {
+              return <Picture key={index} src={bonusIcon[bonus]}/>
+            }
+          })}</>
         </Trans>
       </p>}
 

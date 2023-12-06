@@ -1,4 +1,5 @@
 import { PlayerTurnRule } from '@gamepark/rules-api'
+import { sum } from 'lodash'
 import max from 'lodash/max'
 import sumBy from 'lodash/sumBy'
 import { CardId } from '../material/cards/CardId'
@@ -23,10 +24,6 @@ export type Cost = BuildCost | BuyCost | ChoiceCost
 export type BuildCost = {
   population: number
   resources: Resource[]
-}
-
-export function isBuildCost(cost: Cost): cost is BuildCost {
-  return typeof (cost as any).population === 'number' && Array.isArray((cost as any).resources)
 }
 
 export type BuyCost = {
@@ -154,16 +151,16 @@ export class ProductionRule extends PlayerTurnRule {
     return goldResultToken ? goldAmount(goldResultToken.id) : 0
   }
 
-  getCivCardsGoldProduction(_player = this.player) {
-    return 0 /*sumBy(this.getCivilisationCards(player).rotation(undefined).getItems<CardId>(),
-      card => CardsInfo[card.id!.front].bonus.filter(isGoldBonus).length)*/ // TODO
+  getCivCardsGoldProduction(player = this.player) {
+    return sumBy(this.getCivilisationCards(player).rotation(undefined).getItems<CardId>(),
+      card => sum(CardsInfo[card.id!.front].bonus.filter(isGold).map(goldAmount)))
   }
 
   getGoldenAgesGoldProduction(player = this.player) {
     const goldenAges = this.getGoldenAges(player)
     if (goldenAges === 0) return 0
-    return 0 /*goldenAges * sumBy(this.getCivilisationCards(player).getItems<CardId>(),
-      card => CardsInfo[card.id!.front].bonus.filter(isGoldBonus).length)*/ // TODO
+    return goldenAges * sumBy(this.getCivilisationCards(player).getItems<CardId>(),
+      card => sum(CardsInfo[card.id!.front].bonus.filter(isGold).map(goldAmount)))
   }
 
   getUniversalResources(player = this.player) {

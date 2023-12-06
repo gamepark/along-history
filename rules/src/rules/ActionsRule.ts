@@ -8,7 +8,7 @@ import { CardsInfo } from '../material/cards/CardsInfo'
 import { ConditionRules } from '../material/cards/effects/conditions/ConditionRules'
 import { EffectType } from '../material/cards/effects/EffectType'
 import { diceToDiscardTile, DiceType, getDiceSymbol } from '../material/Dices'
-import { DiceSymbol, isGold } from '../material/DiceSymbol'
+import { DiceSymbol, goldAmount, isGold } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
@@ -24,6 +24,7 @@ export class ActionsRule extends PlayerTurnRule {
       ...this.flipResultTokens,
       ...this.moveAffordableCardsToCivilisationArea,
       ...this.discardEffects,
+      ...this.tiltGoldBonusCards,
       this.rules().customMove(CustomMoveType.Pass)
     ]
   }
@@ -86,6 +87,11 @@ export class ActionsRule extends PlayerTurnRule {
     return this.cardsInEventArea.id<CardId>(id => this.canDiscard(id.front)).moveItems({ type: LocationType.Discard })
   }
 
+  get tiltGoldBonusCards() {
+    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).location(({ z }) => !z).player(this.player).rotation(undefined)
+      .id<CardId>(id => id.front && CardsInfo[id.front].bonus.some(isGold)).rotateItems(true)
+  }
+
   canDiscard(card: Card) {
     const conditionRules = new ConditionRules(this.game)
     return CardsInfo[card].effects.some(effect => effect.type === EffectType.Discard && conditionRules.hasCondition(effect.condition))
@@ -131,6 +137,13 @@ export class ActionsRule extends PlayerTurnRule {
       }
     } else if (isMoveItem(move) && move.itemType === MaterialType.ResultToken && move.location.rotation) {
       return [this.rules().startRule(RuleId.TradeCards)]
+    } else if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.rotation) {
+      const goldBonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus.find(isGold)
+      if (goldBonus) {
+        return [this.material(MaterialType.Coin).createItem(
+          { quantity: goldAmount(goldBonus), location: { type: LocationType.PlayerCoins, player: this.player } }
+        )]
+      }
     }
     return []
   }

@@ -5,5 +5,6 @@ export enum Bonus {
   Population = DiceSymbol.Population1,
   Culture = Resource.Culture,
   Ingenuity = Resource.Ingenuity,
-  Strength = Resource.Strength
+  Strength = Resource.Strength,
+  Gold2 = 12
 }
