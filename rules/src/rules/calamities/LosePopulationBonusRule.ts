@@ -3,7 +3,7 @@ import { CardId } from '../../material/cards/CardId'
 import { CardsInfo } from '../../material/cards/CardsInfo'
 import { LoseCardRule } from './LoseCardRule'
 
-export class CannibalsFailureRule extends LoseCardRule {
+export class LosePopulationBonusRule extends LoseCardRule {
   getCardsToLose() {
     const cards = super.getCardsToLose()
     const popBonusCards = cards.id<CardId>(id => CardsInfo[id.front].bonus.includes(Bonus.Population))

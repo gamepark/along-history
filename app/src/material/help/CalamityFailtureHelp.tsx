@@ -28,7 +28,7 @@ const LoseCardPriority = ({ ruleId }: { ruleId: RuleId }) => {
   switch (ruleId) {
     case RuleId.LoseBonusCard:
       return <Trans defaults="calamity.lose-bonus"><strong/></Trans>
-    case RuleId.CannibalsFailure:
+    case RuleId.LosePopulationBonus:
       return <Trans defaults="calamity.lose-pop-bonus"><strong/></Trans>
     case RuleId.StarvingFailure:
       return <Trans defaults="calamity.lose-pop-or-bonus"><strong/></Trans>

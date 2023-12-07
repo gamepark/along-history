@@ -18,7 +18,7 @@ import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
 import { AchievementsRule } from './rules/AchievementsRule'
 import { ActionsRule } from './rules/ActionsRule'
-import { CannibalsFailureRule } from './rules/calamities/CannibalsFailureRule'
+import { LosePopulationBonusRule } from './rules/calamities/LosePopulationBonusRule'
 import { CivilWarFailureRule } from './rules/calamities/CivilWarFailureRule'
 import { EarthquakeFailureRule } from './rules/calamities/EarthquakeFailureRule'
 import { HarshWinterFailureRule } from './rules/calamities/HarshWinterFailureRule'
@@ -74,7 +74,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.UseGoldDie]: UseGoldDieRule,
     [RuleId.LoseCard]: LoseCardRule,
     [RuleId.LoseBonusCard]: LoseBonusCardRule,
-    [RuleId.CannibalsFailure]: CannibalsFailureRule,
+    [RuleId.LosePopulationBonus]: LosePopulationBonusRule,
     [RuleId.EarthquakeFailure]: EarthquakeFailureRule,
     [RuleId.HarshWinterFailure]: HarshWinterFailureRule,
     [RuleId.StarvingFailure]: StarvingFailureRule,

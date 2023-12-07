@@ -8,7 +8,7 @@ export enum RuleId {
 
   LoseCard = 100,
   LoseBonusCard,
-  CannibalsFailure,
+  LosePopulationBonus,
   EarthquakeFailure,
   HarshWinterFailure,
   StarvingFailure,
