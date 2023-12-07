@@ -82,7 +82,7 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
 
       {info.type === CardType.Calamity && <>
         <p>{t('calamity.failure')}</p>
-        <ul><CalamityFailureHelp ruleId={getCalamityFailureRule(card)}/></ul>
+        <ul css={alignIcon}><CalamityFailureHelp ruleId={getCalamityFailureRule(card)}/></ul>
       </>}
 
       {info.bonus.length > 0 && <p css={alignIcon}>

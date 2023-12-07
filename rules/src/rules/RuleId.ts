@@ -11,5 +11,6 @@ export enum RuleId {
   CannibalsFailure,
   EarthquakeFailure,
   HarshWinterFailure,
-  StarvingFailure
+  StarvingFailure,
+  CivilWarFailure,
 }

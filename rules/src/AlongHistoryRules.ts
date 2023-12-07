@@ -19,6 +19,7 @@ import { PlayerColor } from './PlayerColor'
 import { AchievementsRule } from './rules/AchievementsRule'
 import { ActionsRule } from './rules/ActionsRule'
 import { CannibalsFailureRule } from './rules/calamities/CannibalsFailureRule'
+import { CivilWarFailureRule } from './rules/calamities/CivilWarFailureRule'
 import { EarthquakeFailureRule } from './rules/calamities/EarthquakeFailureRule'
 import { HarshWinterFailureRule } from './rules/calamities/HarshWinterFailureRule'
 import { LoseBonusCardRule } from './rules/calamities/LoseBonusCardRule'
@@ -66,6 +67,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.WarOutcome]: WarOutcomeRule,
     [RuleId.NewEvents]: NewEventsRule,
     [RuleId.Achievements]: AchievementsRule,
+    [RuleId.Decay]: DecayRule,
     [RuleId.EndOfTurn]: EndOfTurnRule,
     [RuleId.Upkeep]: UpkeepRule,
     [RuleId.UseGoldDie]: UseGoldDieRule,
@@ -75,7 +77,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.EarthquakeFailure]: EarthquakeFailureRule,
     [RuleId.HarshWinterFailure]: HarshWinterFailureRule,
     [RuleId.StarvingFailure]: StarvingFailureRule,
-    [RuleId.Decay]: DecayRule
+    [RuleId.CivilWarFailure]: CivilWarFailureRule
   }
 
   locationsStrategies = {
