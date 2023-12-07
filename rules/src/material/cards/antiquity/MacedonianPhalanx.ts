@@ -1,6 +1,9 @@
+import { Card } from '../../Card'
 import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
+import { ownCard } from '../effects/conditions/OwnCardsCondition'
+import { warBonus } from '../effects/WarBonusEffect'
 
 export const MacedonianPhalanx: CardInfo = {
   type: CardType.Progress,
@@ -8,5 +11,5 @@ export const MacedonianPhalanx: CardInfo = {
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
   bonus: [],
-  effects: []
+  effects: [warBonus(), warBonus(ownCard(Card.AlexanderTheGreat))]
 }
