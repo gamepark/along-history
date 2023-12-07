@@ -24,6 +24,7 @@ import { EarthquakeFailureRule } from './rules/calamities/EarthquakeFailureRule'
 import { HarshWinterFailureRule } from './rules/calamities/HarshWinterFailureRule'
 import { LoseBonusCardRule } from './rules/calamities/LoseBonusCardRule'
 import { LoseCardRule } from './rules/calamities/LoseCardRule'
+import { LoseFigureRule } from './rules/calamities/LoseFigure'
 import { StarvingFailureRule } from './rules/calamities/StarvingFailureRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
 import { DecayRule } from './rules/DecayRule'
@@ -77,7 +78,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.EarthquakeFailure]: EarthquakeFailureRule,
     [RuleId.HarshWinterFailure]: HarshWinterFailureRule,
     [RuleId.StarvingFailure]: StarvingFailureRule,
-    [RuleId.CivilWarFailure]: CivilWarFailureRule
+    [RuleId.CivilWarFailure]: CivilWarFailureRule,
+    [RuleId.LoseFigure]: LoseFigureRule
   }
 
   locationsStrategies = {
