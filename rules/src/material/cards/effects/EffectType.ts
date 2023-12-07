@@ -7,5 +7,6 @@ export enum EffectType {
   WarBonus,
   EarnGold,
   GoldCost,
-  CardTypeDiscount
+  CardTypeDiscount,
+  General
 }

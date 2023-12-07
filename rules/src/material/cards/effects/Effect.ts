@@ -5,13 +5,14 @@ import { DiscountEffect } from './DiscountEffect'
 import { EarnGoldEffect } from './EarnGoldEffect'
 import { EffectType } from './EffectType'
 import { FreeEffect } from './FreeEffect'
+import { GeneralEffect } from './GeneralEffect'
 import { GoldCostEffect } from './GoldCostEffect'
 import { LosePopulationEffect } from './LosePopulationEffect'
 import { NonTransmissibleEffect } from './NonTransmissibleEffect'
 import { WarBonusEffect } from './WarBonusEffect'
 
 export type Effect = DiscountEffect | FreeEffect | LosePopulationEffect | DiscardEffect | NonTransmissibleEffect | WarBonusEffect
-  | EarnGoldEffect | GoldCostEffect | CardTypeDiscountEffect
+  | EarnGoldEffect | GoldCostEffect | CardTypeDiscountEffect | GeneralEffect
 
 export function isEffectWithCondition(effect: Effect): effect is Effect & { condition: Condition } {
   switch (effect.type) {

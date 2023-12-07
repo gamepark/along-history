@@ -1,11 +1,11 @@
-import { CustomMove, isMoveItem, isRoll, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import sumBy from 'lodash/sumBy'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { ConditionRules } from '../material/cards/effects/conditions/ConditionRules'
 import { EffectType } from '../material/cards/effects/EffectType'
-import { DiceType, getDiceSymbol } from '../material/Dices'
+import { DiceType } from '../material/Dices'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
@@ -47,27 +47,22 @@ export class PrepareArmyRule extends PlayerTurnRule {
       const bonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus
         .filter(bonus => bonus === Bonus.Population).length
       this.memorize(Memory.Strength, strength => strength + bonus, this.player)
-    } else if (isRoll(move) && move.itemType === MaterialType.Dice) {
-      const bonus = getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!)
-      this.memorize(Memory.Strength, strength => strength + bonus, this.player)
     }
     return []
+  }
+
+  get generals() {
+    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && l.player === this.player && !l.z)
+      .id<CardId>(id => id && CardsInfo[id.front].effects.some(effect => effect.type === EffectType.General)).length
   }
 
   onCustomMove(move: CustomMove) {
     if (move.type === CustomMoveType.Pass) {
       let x = 4
-      const moves: MaterialMove[] = this.material(MaterialType.Dice).id(DiceType.Population).rollItems(() => ({
-        type: LocationType.PlayerResources,
-        player: this.player,
-        x: x++
-      }))
-      const defender = this.remind(Memory.Defender)
-      if (this.player !== defender) {
-        moves.push(this.rules().startPlayerTurn(RuleId.PrepareArmy, defender))
-      } else {
-        moves.push(this.rules().startRule(RuleId.WarOutcome))
-      }
+      const moves: MaterialMove[] = this.material(MaterialType.Dice).id(DiceType.Population)
+        .rollItems(() => ({ type: LocationType.PlayerResources, player: this.player, x: x++ }))
+      this.memorize(Memory.GeneralsLeft, this.generals)
+      moves.push(this.rules().startRule(RuleId.GeneralReRoll))
       return moves
     }
     return []

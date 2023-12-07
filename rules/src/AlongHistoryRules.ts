@@ -27,6 +27,7 @@ import { StarvingFailureRule } from './rules/calamities/StarvingFailureRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
 import { DecayRule } from './rules/DecayRule'
 import { EndOfTurnRule } from './rules/EndOfTurnRule'
+import { GeneralReRollRule } from './rules/GeneralReRollRule'
 import { NewEventsRule } from './rules/NewEventsRule'
 import { PayCardRule } from './rules/PayCardRule'
 import { PrepareArmyRule } from './rules/PrepareArmyRule'
@@ -61,6 +62,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.Calamities]: CalamitiesRule,
     [RuleId.Wars]: WarsRule,
     [RuleId.PrepareArmy]: PrepareArmyRule,
+    [RuleId.GeneralReRoll]: GeneralReRollRule,
     [RuleId.WarOutcome]: WarOutcomeRule,
     [RuleId.NewEvents]: NewEventsRule,
     [RuleId.Achievements]: AchievementsRule,

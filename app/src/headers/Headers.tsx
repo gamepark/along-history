@@ -7,6 +7,7 @@ import { CalamitiesHeader } from './CalamitiesHeader'
 import { CalamityHeader } from './CalamityHeader'
 import { DecayHeader } from './DecayHeader'
 import { EndOfTurnHeader } from './EndOfTurnHeader'
+import { GeneralReRollHeader } from './GeneralReRollHeader'
 import { GoldenAgeHeader } from './GoldenAgeHeader'
 import { NewEventsHeader } from './NewEventsHeader'
 import { PayCardHeader } from './PayCardHeader'
@@ -31,7 +32,7 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.Calamities]: CalamitiesHeader,
   [RuleId.Wars]: WarsHeader,
   [RuleId.PrepareArmy]: PrepareArmyHeader,
-  //[RuleId.GeneralReRoll]: TODO,
+  [RuleId.GeneralReRoll]: GeneralReRollHeader,
   [RuleId.WarOutcome]: WarOutcomeHeader,
   [RuleId.NewEvents]: NewEventsHeader,
   [RuleId.Achievements]: AchievementsHeader,

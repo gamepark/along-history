@@ -55,6 +55,11 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       </Trans>
     case EffectType.CardTypeDiscount:
       return <CardTypeDiscountHelp effect={effect}/>
+    case EffectType.General:
+      return <Trans defaults="effect.general">
+        <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
+        <strong/>
+      </Trans>
   }
 }
 
