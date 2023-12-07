@@ -9,7 +9,8 @@ class DiscardTileLocator extends ItemLocator {
   parentItemType = MaterialType.DiscardTile
 
   getPositionOnParent(location: Location, { rules }: MaterialContext) {
-    const x = location.x ?? 0
+    const x = location.x
+    if (x === undefined) return { x: 50, y: 50 }
     if (rules.remind(Memory.CurrentAge) == Age.Prehistory) {
       return { x: 30 + 40 * (x % 2), y: 20 + Math.floor(x / 2) * 30 }
     } else {
