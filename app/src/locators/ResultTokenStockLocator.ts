@@ -14,11 +14,11 @@ class ResultTokenStockLocator extends GridLocator {
     }
   }
 
-  getCoordinates(item: MaterialItem, { rules: { players } }: ItemContext) {
+  getCoordinates(_item: MaterialItem, { rules: { players } }: ItemContext) {
     const { x, y } = this.getBaseCoordinates(players.length)
     return {
-      x: x - (item.selected ? 0.2 : 0),
-      y: y - (item.selected ? 0.2 : 0),
+      x: x,
+      y: y,
       z: 0.1
     }
   }
