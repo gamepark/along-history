@@ -11,7 +11,7 @@ export class LoseCardRule extends CalamityFailureRule {
     return []
   }
 
-  getPlayerMoves() {
+  getPlayerMoves(): MaterialMove[] {
     return this.getCardsToLose().moveItems({ type: LocationType.Discard })
   }
 

@@ -18,13 +18,14 @@ import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
 import { AchievementsRule } from './rules/AchievementsRule'
 import { ActionsRule } from './rules/ActionsRule'
-import { LosePopulationBonusRule } from './rules/calamities/LosePopulationBonusRule'
 import { CivilWarFailureRule } from './rules/calamities/CivilWarFailureRule'
 import { EarthquakeFailureRule } from './rules/calamities/EarthquakeFailureRule'
 import { HarshWinterFailureRule } from './rules/calamities/HarshWinterFailureRule'
 import { LoseBonusCardRule } from './rules/calamities/LoseBonusCardRule'
 import { LoseCardRule } from './rules/calamities/LoseCardRule'
 import { LoseFigureRule } from './rules/calamities/LoseFigure'
+import { LosePopulationBonusRule } from './rules/calamities/LosePopulationBonusRule'
+import { PiracyFailureRule } from './rules/calamities/PiracyFailureRule'
 import { SpartacusUprisingFailure } from './rules/calamities/SpartacusUprisingFailureRule'
 import { StarvingFailureRule } from './rules/calamities/StarvingFailureRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
@@ -81,7 +82,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.StarvingFailure]: StarvingFailureRule,
     [RuleId.CivilWarFailure]: CivilWarFailureRule,
     [RuleId.LoseFigure]: LoseFigureRule,
-    [RuleId.SpartacusUprisingFailure]: SpartacusUprisingFailure
+    [RuleId.SpartacusUprisingFailure]: SpartacusUprisingFailure,
+    [RuleId.PiracyFailure]: PiracyFailureRule
   }
 
   locationsStrategies = {

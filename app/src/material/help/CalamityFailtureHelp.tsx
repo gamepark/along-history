@@ -30,6 +30,14 @@ export const CalamityFailureHelp = ({ ruleId }: { ruleId: RuleId }) => {
           <LoseCardPriority ruleId={ruleId}/>
         </li>
       </>
+    case RuleId.PiracyFailure:
+      return <li>
+        <Trans defaults="calamity.piracy">
+          <Picture src={Coin5Head} css={roundCss}/>
+          <strong/>
+          <em/>
+        </Trans>
+      </li>
     default:
       return <li>
         <Trans defaults="calamity.lose-card"><strong/></Trans>

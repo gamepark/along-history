@@ -11,6 +11,7 @@ import { GeneralReRollHeader } from './GeneralReRollHeader'
 import { GoldenAgeHeader } from './GoldenAgeHeader'
 import { NewEventsHeader } from './NewEventsHeader'
 import { PayCardHeader } from './PayCardHeader'
+import { PiracyHeader } from './PiracyHeader'
 import { PrepareArmyHeader } from './PrepareArmyHeader'
 import { RollDiceHeader } from './RollDiceHeader'
 import { TradeCardsHeader } from './TradeCardsHeader'
@@ -50,5 +51,6 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.StarvingFailure]: CalamityHeader,
   [RuleId.CivilWarFailure]: CalamityHeader,
   [RuleId.LoseFigure]: CalamityHeader,
-  [RuleId.SpartacusUprisingFailure]: CalamityHeader
+  [RuleId.SpartacusUprisingFailure]: CalamityHeader,
+  [RuleId.PiracyFailure]: PiracyHeader
 }

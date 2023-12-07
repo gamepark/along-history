@@ -1,11 +1,11 @@
-import { PlayerTurnRule } from '@gamepark/rules-api'
+import { MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { Memory } from '../Memory'
 import { RuleId } from '../RuleId'
 
 export class CalamityFailureRule extends PlayerTurnRule {
-  getEndRuleMoves() {
+  getEndRuleMoves(): MaterialMove[] {
     return [this.discardCalamity, this.endRule]
   }
 
@@ -17,7 +17,7 @@ export class CalamityFailureRule extends PlayerTurnRule {
     return this.rules().startRule(RuleId.Calamities)
   }
 
-  onRuleEnd() {
+  onRuleEnd(): MaterialMove[] {
     this.forget(Memory.Calamity)
     return []
   }
