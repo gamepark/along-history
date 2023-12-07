@@ -8,5 +8,6 @@ export enum EffectType {
   EarnGold,
   GoldCost,
   CardTypeDiscount,
-  General
+  General,
+  Destroy
 }

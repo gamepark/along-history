@@ -277,6 +277,9 @@ export class PayCardRule extends PlayerTurnRule {
         moves.push(this.material(MaterialType.Coin).createItem(
           { quantity: effect.amount, location: { type: LocationType.PlayerCoins, player: this.player } }
         ))
+      } else if (effect.type === EffectType.Destroy) {
+        moves.push(...this.material(MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id?.front === effect.card)
+          .moveItems({ type: LocationType.Discard }))
       }
     }
     this.memorize(Memory.CardAcquired, true)

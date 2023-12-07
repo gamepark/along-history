@@ -53,6 +53,7 @@ export const getCalamityFailureRule = (calamity: Card) => {
     case Card.Starving:
       return RuleId.StarvingFailure
     case Card.VolcanicEruption:
+    case Card.VolcanicEruption2:
       return RuleId.LoseBonusCard
     case Card.Wolves:
       return RuleId.LoseCard

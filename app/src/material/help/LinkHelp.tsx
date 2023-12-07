@@ -5,6 +5,7 @@ import { Card } from '@gamepark/along-history/material/Card'
 import { CardsInfo } from '@gamepark/along-history/material/cards/CardsInfo'
 import { ConditionType } from '@gamepark/along-history/material/cards/effects/conditions/ConditionType'
 import { isEffectWithCondition } from '@gamepark/along-history/material/cards/effects/Effect'
+import { EffectType } from '@gamepark/along-history/material/cards/effects/EffectType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { PlayMoveButton } from '@gamepark/react-game'
 import { displayMaterialHelp } from '@gamepark/rules-api'
@@ -16,7 +17,8 @@ export const LinkHelp = ({ card }: { card: Card }) => {
   const { t } = useTranslation()
   const links = useMemo(() => AgesCards[getCardAge(card)].filter(otherCard =>
     CardsInfo[otherCard].effects.some(effect =>
-      isEffectWithCondition(effect) && effect.condition.type === ConditionType.OwnCards && effect.condition.cards.includes(card)
+      (isEffectWithCondition(effect) && effect.condition.type === ConditionType.OwnCards && effect.condition.cards.includes(card))
+      || (effect.type === EffectType.Destroy && effect.card === card)
     )
   ), [card])
   if (!links.length) return null

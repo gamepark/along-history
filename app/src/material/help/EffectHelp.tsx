@@ -4,6 +4,7 @@ import { CardTypeDiscountEffect } from '@gamepark/along-history/material/cards/e
 import { Condition } from '@gamepark/along-history/material/cards/effects/conditions/Condition'
 import { ConditionType } from '@gamepark/along-history/material/cards/effects/conditions/ConditionType'
 import { OwnCardsCondition } from '@gamepark/along-history/material/cards/effects/conditions/OwnCardsCondition'
+import { DestroyEffect } from '@gamepark/along-history/material/cards/effects/DestroyEffect'
 import { Effect } from '@gamepark/along-history/material/cards/effects/Effect'
 import { EffectType } from '@gamepark/along-history/material/cards/effects/EffectType'
 import { LosePopulationEffect } from '@gamepark/along-history/material/cards/effects/LosePopulationEffect'
@@ -60,6 +61,8 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
         <strong/>
       </Trans>
+    case EffectType.Destroy:
+      return <DestroyCardHelp effect={effect}/>
   }
 }
 
@@ -79,11 +82,20 @@ export const LosePopulationHelp = ({ effect, card }: { effect: LosePopulationEff
   }
 }
 
+
 export const CardTypeDiscountHelp = ({ effect }: { effect: CardTypeDiscountEffect }) => {
   const { t } = useTranslation()
   return <Trans defaults="effect.card-type-discount" values={{ type: t(`card.type.${effect.cardType}`), discount: effect.discount }}>
     <Picture src={cardTypeIcons[effect.cardType]} css={roundCss}/>
     <Picture src={populationIcon} css={roundCss}/>
+  </Trans>
+}
+
+export const DestroyCardHelp = ({ effect }: { effect: DestroyEffect }) => {
+  const { t } = useTranslation()
+  return <Trans defaults="effect.destroy" values={{ card: t(`card.name.${effect.card}`) }}>
+    <em/>
+    <DisplayCardHelpButton card={effect.card}/>
   </Trans>
 }
 
