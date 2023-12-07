@@ -4,7 +4,7 @@ import { MaterialType } from '../../material/MaterialType'
 import { CalamityFailureRule } from './CalamityFailureRule'
 
 export class LoseCardRule extends CalamityFailureRule {
-  onRuleStart() {
+  onRuleStart(): MaterialMove[] {
     if (this.getCardsToLose().length === 0) {
       return this.getEndRuleMoves()
     }

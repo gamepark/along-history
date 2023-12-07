@@ -3,6 +3,8 @@ import { CardType } from '@gamepark/along-history/material/cards/CardType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { Picture } from '@gamepark/react-game'
 import { Trans } from 'react-i18next'
+import VictoryPointIcon from '../../images/icons/VictoryPointIcon.png'
+import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
 import { roundCss } from '../../styles'
 import { cardTypeIcons } from './CardHelp'
 
@@ -15,6 +17,19 @@ export const CalamityFailureHelp = ({ ruleId }: { ruleId: RuleId }) => {
       </>
     case RuleId.HarshWinterFailure:
       return <li><strong><Trans defaults="calamity.pass-turn"/></strong></li>
+    case RuleId.SpartacusUprisingFailure:
+      return <>
+        <li>
+          <Trans defaults="calamity.lose-half-gold">
+            <Picture src={Coin5Head} css={roundCss}/>
+          </Trans>
+        </li>
+        <li>
+          <Trans defaults="calamity.lose-card"><strong/></Trans>
+          <br/>
+          <LoseCardPriority ruleId={ruleId}/>
+        </li>
+      </>
     default:
       return <li>
         <Trans defaults="calamity.lose-card"><strong/></Trans>
@@ -41,6 +56,10 @@ const LoseCardPriority = ({ ruleId }: { ruleId: RuleId }) => {
     case RuleId.LoseFigure:
       return <Trans defaults="calamity.lose-figure">
         <Picture src={cardTypeIcons[CardType.Figure]} css={roundCss}/>
+      </Trans>
+    case RuleId.SpartacusUprisingFailure:
+      return <Trans defaults="calamity.lose-most-vp">
+        <Picture src={VictoryPointIcon} css={roundCss}/>
       </Trans>
     default:
       return null

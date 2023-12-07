@@ -13,5 +13,6 @@ export enum RuleId {
   HarshWinterFailure,
   StarvingFailure,
   CivilWarFailure,
-  LoseFigure
+  LoseFigure,
+  SpartacusUprisingFailure
 }
