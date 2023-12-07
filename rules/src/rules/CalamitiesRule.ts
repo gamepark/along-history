@@ -43,6 +43,8 @@ export class CalamitiesRule extends PlayerTurnRule {
 export const getCalamityFailureRule = (calamity: Card) => {
   switch (calamity) {
     case Card.Cannibals:
+    case Card.Flood:
+    case Card.Starving2:
       return RuleId.LosePopulationBonus
     case Card.Earthquake:
       return RuleId.EarthquakeFailure
@@ -58,8 +60,6 @@ export const getCalamityFailureRule = (calamity: Card) => {
       return RuleId.CivilWarFailure
     case Card.Epidemic:
       return RuleId.LoseFigure
-    case Card.Flood:
-      return RuleId.LosePopulationBonus
     default:
       throw new Error(`Missing failure rule for calamity ${calamity}`)
   }
