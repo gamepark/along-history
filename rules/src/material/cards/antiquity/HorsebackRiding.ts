@@ -13,5 +13,5 @@ export const HorsebackRiding: CardInfo = {
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 2,
   bonus: [],
-  effects: [earnGold(2), free(ownCard(Card.Steppes)), warBonus()]
+  effects: [earnGold(2), free(ownCard(Card.Steppes)), warBonus(1)]
 }

@@ -19,11 +19,14 @@ export class PrepareArmyRule extends PlayerTurnRule {
   }
 
   get warBonus() {
+    const isAttacker = this.remind(Memory.Attacker) === this.player
     const conditionRules = new ConditionRules(this.game)
     return sumBy(this.civilisationCards.getItems<CardId>(), item =>
-      sumBy(CardsInfo[item.id!.front].effects, effect =>
-        effect.type === EffectType.WarBonus && conditionRules.hasCondition(effect.condition) ? 1 : 0
-      )
+      sumBy(CardsInfo[item.id!.front].effects, effect => {
+        if (effect.type !== EffectType.WarBonus || !conditionRules.hasCondition(effect.condition)) return 0
+        if ((effect.attackOnly && !isAttacker) || (effect.defenseOnly && isAttacker)) return 0
+        return effect.bonus
+      })
     )
   }
 

@@ -11,5 +11,5 @@ export const MacedonianPhalanx: CardInfo = {
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
   bonus: [],
-  effects: [warBonus(), warBonus(ownCard(Card.AlexanderTheGreat))]
+  effects: [warBonus(1), warBonus(1, ownCard(Card.AlexanderTheGreat))]
 }

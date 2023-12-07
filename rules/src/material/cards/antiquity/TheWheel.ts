@@ -10,5 +10,5 @@ export const TheWheel: CardInfo = {
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
   bonus: [],
-  effects: [earnGold(2), warBonus()]
+  effects: [earnGold(2), warBonus(1)]
 }

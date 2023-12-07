@@ -12,5 +12,5 @@ export const RomanLegions: CardInfo = {
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 1,
   bonus: [Bonus.Culture],
-  effects: [warBonus(), warBonus(ownCard(Card.JuliusCaesar))]
+  effects: [warBonus(1), warBonus(1, ownCard(Card.JuliusCaesar))]
 }

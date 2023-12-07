@@ -10,5 +10,5 @@ export const Weapons: CardInfo = {
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 2,
   bonus: [Bonus.Population, Bonus.Strength],
-  effects: [warBonus()]
+  effects: [warBonus(1)]
 }
