@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { Card } from '@gamepark/along-history/material/Card'
 import { Bonus } from '@gamepark/along-history/material/cards/Bonus'
@@ -9,9 +10,10 @@ import { goldAmount, isGold } from '@gamepark/along-history/material/DiceSymbol'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { getCalamityFailureRule } from '@gamepark/along-history/rules/CalamitiesRule'
-import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMoves, useRules } from '@gamepark/react-game'
-import { displayMaterialHelp, isMoveItemType, isSelectItemType, MaterialMove } from '@gamepark/rules-api'
+import { buttonCss, MaterialHelpProps, Picture, PlayMoveButton, PlayMoveButtonProps, useLegalMoves, usePlayerName, useRules } from '@gamepark/react-game'
+import { displayMaterialHelp, isMoveItemType, isSelectItemType, MaterialMove, MoveItem } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
+import { playerButtonColor } from '../../headers/WarsHeader'
 import populationIcon from '../../images/dices/population/Population1.jpg'
 import cultureIcon from '../../images/dices/resources/Culture.jpg'
 import ingenuityIcon from '../../images/dices/resources/Ingenuity.jpg'
@@ -40,6 +42,7 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
   const discardCard = legalMoves.find(move => isMoveItemType(MaterialType.Card)(move) && move.itemIndex === itemIndex
     && move.location.type === LocationType.Discard)
   const decayMoves = cardMoves.filter(move => move.location.type === LocationType.CivilisationArea && move.location.x !== undefined && move.location.z === 1)
+  const giveMoves = cardMoves.filter(move => move.location.type === LocationType.EventArea)
   const tilt = cardMoves.find(move => move.location.type === LocationType.CivilisationArea && move.location.rotation)
   return <>
     <h2>{card ? t(`card.name.${card}`) : t(`card.age.${item.id.back}`)}</h2>
@@ -56,6 +59,9 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
         })}
       </PlayMoveButton></p>
     )}
+    {giveMoves.length > 0 &&
+      <p>{giveMoves.map(move => <GiveToPlayerButton key={move.location.player} move={move} onPlay={closeDialog}/>)}</p>
+    }
     {item.location && <CardLocationHelp location={item.location}/>}
     {info && <>
       <p css={alignIcon}><Picture src={cardTypeIcons[info.type]} css={roundCss}/>{t(`card.type.${info.type}`)}</p>
@@ -102,6 +108,14 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
   </>
 }
 
+const GiveToPlayerButton = ({ move, ...props }: { move: MoveItem } & PlayMoveButtonProps) => {
+  const { t } = useTranslation()
+  const player = usePlayerName(move.location.player)
+  return <PlayMoveButton move={move} css={[inlineButtonMargin, buttonCss(playerButtonColor[move.location.player], '', '')]} {...props}>
+    {t('card.give', { player })}
+  </PlayMoveButton>
+}
+
 const bonusIcon: Record<Bonus, string> = {
   [Bonus.Population]: populationIcon,
   [Bonus.Culture]: cultureIcon,
@@ -116,3 +130,8 @@ export const cardTypeIcons: Record<CardType, string> = {
   [CardType.Wonder]: WonderIcon,
   [CardType.Calamity]: CalamityIcon
 }
+
+const inlineButtonMargin = css`
+  margin-top: 0.5em;
+  margin-left: 0.5em;
+`

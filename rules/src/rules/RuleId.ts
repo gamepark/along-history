@@ -15,5 +15,7 @@ export enum RuleId {
   CivilWarFailure,
   LoseFigure,
   SpartacusUprisingFailure,
-  PiracyFailure
+  PiracyFailure,
+  BarbarianInvasionsFailure,
+  TransmitCalamity
 }

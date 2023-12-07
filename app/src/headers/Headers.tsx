@@ -15,6 +15,7 @@ import { PiracyHeader } from './PiracyHeader'
 import { PrepareArmyHeader } from './PrepareArmyHeader'
 import { RollDiceHeader } from './RollDiceHeader'
 import { TradeCardsHeader } from './TradeCardsHeader'
+import { TransmitCalamityHeader } from './TransmitCalamityHeader'
 import { UpkeepHeader } from './UpkeepHeader'
 import { UseDiscardedDieHeader } from './UseDiscardedDieHeader'
 import { UseGoldDieHeader } from './UseGoldDieHeader'
@@ -52,5 +53,7 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.CivilWarFailure]: CalamityHeader,
   [RuleId.LoseFigure]: CalamityHeader,
   [RuleId.SpartacusUprisingFailure]: CalamityHeader,
-  [RuleId.PiracyFailure]: PiracyHeader
+  [RuleId.PiracyFailure]: PiracyHeader,
+  [RuleId.BarbarianInvasionsFailure]: CalamityHeader,
+  [RuleId.TransmitCalamity]: TransmitCalamityHeader
 }

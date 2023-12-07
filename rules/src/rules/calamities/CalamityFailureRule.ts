@@ -9,8 +9,12 @@ export class CalamityFailureRule extends PlayerTurnRule {
     return [this.discardCalamity, this.endRule]
   }
 
+  get calamity() {
+    return this.material(MaterialType.Card).index(this.remind(Memory.Calamity))
+  }
+
   get discardCalamity() {
-    return this.material(MaterialType.Card).index(this.remind(Memory.Calamity)).moveItem({ type: LocationType.Discard })
+    return this.calamity.moveItem({ type: LocationType.Discard })
   }
 
   get endRule() {

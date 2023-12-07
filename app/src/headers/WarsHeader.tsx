@@ -115,7 +115,7 @@ const avatarCss = css`
   transform: scale(1.4);
 `
 
-const playerButtonColor: Record<PlayerColor, string> = {
+export const playerButtonColor: Record<PlayerColor, string> = {
   [PlayerColor.White]: 'black',
   [PlayerColor.Yellow]: 'darkgoldenrod',
   [PlayerColor.Blue]: 'blue',

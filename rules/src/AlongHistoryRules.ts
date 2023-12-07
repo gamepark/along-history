@@ -18,6 +18,7 @@ import { MaterialType } from './material/MaterialType'
 import { PlayerColor } from './PlayerColor'
 import { AchievementsRule } from './rules/AchievementsRule'
 import { ActionsRule } from './rules/ActionsRule'
+import { BarbarianInvasionsFailureRule } from './rules/calamities/BarbarianInvasionsFailureRule'
 import { CivilWarFailureRule } from './rules/calamities/CivilWarFailureRule'
 import { EarthquakeFailureRule } from './rules/calamities/EarthquakeFailureRule'
 import { HarshWinterFailureRule } from './rules/calamities/HarshWinterFailureRule'
@@ -28,6 +29,7 @@ import { LosePopulationBonusRule } from './rules/calamities/LosePopulationBonusR
 import { PiracyFailureRule } from './rules/calamities/PiracyFailureRule'
 import { SpartacusUprisingFailure } from './rules/calamities/SpartacusUprisingFailureRule'
 import { StarvingFailureRule } from './rules/calamities/StarvingFailureRule'
+import { TransmitCalamityRule } from './rules/calamities/TransmitCalamityRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
 import { DecayRule } from './rules/DecayRule'
 import { EndOfTurnRule } from './rules/EndOfTurnRule'
@@ -83,7 +85,9 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.CivilWarFailure]: CivilWarFailureRule,
     [RuleId.LoseFigure]: LoseFigureRule,
     [RuleId.SpartacusUprisingFailure]: SpartacusUprisingFailure,
-    [RuleId.PiracyFailure]: PiracyFailureRule
+    [RuleId.PiracyFailure]: PiracyFailureRule,
+    [RuleId.BarbarianInvasionsFailure]: BarbarianInvasionsFailureRule,
+    [RuleId.TransmitCalamity]: TransmitCalamityRule
   }
 
   locationsStrategies = {
