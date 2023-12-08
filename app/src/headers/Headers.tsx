@@ -20,6 +20,7 @@ import { TransmitCalamityHeader } from './TransmitCalamityHeader'
 import { UpkeepHeader } from './UpkeepHeader'
 import { UseDiscardedDieHeader } from './UseDiscardedDieHeader'
 import { UseGoldDieHeader } from './UseGoldDieHeader'
+import { UseGoldResultTokenHeader } from './UseGoldResultTokenHeader'
 import { UseReRollDieHeader } from './UseReRollDieHeader'
 import { WarOutcomeHeader } from './WarOutcomeHeader'
 import { WarsHeader } from './WarsHeader'
@@ -44,6 +45,7 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.Upkeep]: UpkeepHeader,
 
   [RuleId.UseGoldDie]: UseGoldDieHeader,
+  [RuleId.UseGoldResultToken]: UseGoldResultTokenHeader,
 
   [RuleId.LoseCard]: CalamityHeader,
   [RuleId.LoseBonusCard]: CalamityHeader,

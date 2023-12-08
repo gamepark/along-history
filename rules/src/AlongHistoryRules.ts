@@ -44,6 +44,7 @@ import { UpkeepRule } from './rules/UpkeepRule'
 import { UseDiscardedDieRule } from './rules/UseDiscardedDieRule'
 import { UseGoldDieRule } from './rules/UseGoldDieRule'
 import { UseGoldenAgeDieRule } from './rules/UseGoldenAgeDieRule'
+import { UseGoldResultTokenRule } from './rules/UseGoldResultTokenRule'
 import { UseReRollDieRule } from './rules/UseReRollDieRule'
 import { WarOutcomeRule } from './rules/WarOutcomeRule'
 import { WarsRule } from './rules/WarsRule'
@@ -76,6 +77,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.EndOfTurn]: EndOfTurnRule,
     [RuleId.Upkeep]: UpkeepRule,
     [RuleId.UseGoldDie]: UseGoldDieRule,
+    [RuleId.UseGoldResultToken]: UseGoldResultTokenRule,
     [RuleId.LoseCard]: LoseCardRule,
     [RuleId.LoseBonusCard]: LoseBonusCardRule,
     [RuleId.LosePopulationBonus]: LosePopulationBonusRule,

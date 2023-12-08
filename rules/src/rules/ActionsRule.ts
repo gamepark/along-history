@@ -165,7 +165,11 @@ export class ActionsRule extends PlayerTurnRule {
         return [this.rules().startRule(RuleId.UseDiscardedDie)]
       }
     } else if (isMoveItem(move) && move.itemType === MaterialType.ResultToken && move.location.rotation) {
-      return [this.rules().startRule(RuleId.TradeCards)]
+      if (isGold(this.material(MaterialType.ResultToken).getItem<DiceSymbol>(move.itemIndex)!.id!)) {
+        return [this.rules().startRule(RuleId.UseGoldResultToken)]
+      } else {
+        return [this.rules().startRule(RuleId.TradeCards)]
+      }
     } else if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.rotation) {
       const goldBonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus.find(isGold)
       if (goldBonus) {
