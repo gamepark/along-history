@@ -170,6 +170,7 @@
       "dice.type.1": "Population die",
       "dice.type.2": "Resource die",
       "dice.type.3": "Special die",
+      "dice.type.4": "Coin die",
       "dice.type.1.rules": "The three green dice (Population) can earn <0>between 1 and 3 Population points</0>.\n<1/> : three sides.\n<2/> : two sides.\n<3/> : one side.",
       "dice.type.2.rules": "The blue die earns <0>a resource</0>:\n<1/> Ingenuity: two sides.\n<2/> Strength: two sides.\n<3/> Culture: two sides.",
       "dice.type.3.rules": "The two special red dice are exclusive to the active player.",
@@ -177,6 +178,12 @@
       "die.multiplier.rule": "<0/> Multiplier (1 side): you can double the value of the result of another of your Population, Resource, Currency dice, the War or x2 result of the other red die. Example: x2 x2 associated with 4 Gold = 16 Gold",
       "die.war.rule": "<0/> War (1 side): you can <1>declare War</1> on another player at the end of your turn.",
       "die.golden-age.rule": "<0/> \"Golden Age\" (2 sides): straightens all tilted cards in your civilization zone. This means you can benefit from your bonuses several times during your turn.",
+      "dice.type.4.rules": "The black die (Money) earns the amount shown in gold coins.",
+      "coin.gold": "The Gold",
+      "coin.player": "{player} has {gold} <0/>.",
+      "coin.you": "You have {gold} <0/>.",
+      "coin.spend": "Spend {gold} <0/>",
+      "coin.rules": "Silver coins are worth 1 and gold coins are worth 5.\n\nGold coins are kept in your play area until they are spent or lost. Gold is retained when moving from one Age to another.\n\nSome cards display an alternative Gold cost, in addition to the other costs. These cards can either be acquired normally with Population and Resources, or be purchased with Gold the player's choice. You can choose to spend gold at any time during your turn to buy a card from your Event Area that has a Gold cost and transfer it to your Civilization Area.",
       "war.rules.title": "Wars",
       "war.rules.1": "After your actions, you have the option of declaring one or more wars on your opponents.\nWhen you declare war, <0>it means you try to steal an Accomplishment token</0> from the other player.\nThe defender cannot steal an Accomplishment token from the attacker.",
       "war.rules.2": "In Along History, <0>there are two ways to declare war</0> on another player: using a \"Universal Resources\" token, or the <2/> (War) symbol on the red die. Both effects are similar.\nA die <3/> can multiply a die <4/>. You can declare war twice on the same player.",
@@ -436,7 +443,8 @@
       "time.wait.total": "Total down time",
       "time.wait.max": "Maximum down time",
       "time.awaited": "Made others wait (average)",
-      "tuto.over": "Congratulations, you've completed the tutorial!\r\nReady to play with other players?"
+      "tuto.over": "Congratulations, you've completed the tutorial!\r\nReady to play with other players?",
+      "quantity.tooltip": "Quantity: {n}"
     }
   },
   "fr": {
@@ -610,6 +618,7 @@
       "dice.type.1": "Dé Population",
       "dice.type.2": "Dé Ressource",
       "dice.type.3": "Dé Spécial",
+      "dice.type.4": "Dé Monnaie",
       "dice.type.1.rules": "Les trois dés verts (Population) peuvent faire gagner <0>entre 1 et 3 points de Population</0>.\n<1/> : trois faces.\n<2/> : deux faces.\n<3/> : une face.",
       "dice.type.2.rules": "Le dé bleu fait gagner <0>une ressource</0> :\n<1/> Ingéniosité : deux faces.\n<2/> Force : deux faces.\n<3/> Culture : deux faces.",
       "dice.type.3.rules": "Les deux dés rouges spéciaux sont réservés au joueur actif.",
@@ -617,6 +626,12 @@
       "die.multiplier.rule": "<0/> Multiplicateur (1 face) : vous pouvez doubler la valeur du résultat d’un autre de vos dés de Population, de Ressources, de Monnaie, le résultat Guerre ou x2 de l’autre dé rouge. Exemple : x2 x2 associé à 4 Or = 16 Or",
       "die.war.rule": "<0/> Guerre (1 face) : vous pouvez <1>déclarer la Guerre</1> à autre joueur à la fin de votre tour",
       "die.golden-age.rule": "<0/> « Âge d’Or » (2 faces) : permet de redresser toutes les cartes inclinées dans votre zone de civilisation. Vous pouvez ainsi bénéficier de vos bonus plusieurs fois pendant votre tour.",
+      "dice.type.4.rules": "Le dé noir (Monnaie) permet de gagner en pièces d'Or le montant affiché.",
+      "coin.gold": "L'Or",
+      "coin.player": "{player} a {gold} <0/>.",
+      "coin.you": "Vous avez {gold} <0/>.",
+      "coin.spend": "Payer {gold} <0/>",
+      "coin.rules": "les pièces couleur Argent valent 1 et les pièces couleur Or valent 5.\n\nLes pièces d’Or sont conservées dans votre aire de jeu jusqu’à ce qu’elles soient dépensées ou perdues. L’Or est conservé lors du passage d’un Âge à un autre.\n\nCertaines cartes affichent un coût en Or alternatif, en plus des autres coûts. Ces cartes peuvent, soit être acquises normalement avec de la Population et  les Ressources, soit être achetées avec de l’Or, au choix du joueur. Vous pouvez choisir de dépenser de l’Or à tout moment pendant votre tour pour  acheter une carte de votre Zone d’Événements qui possède un coût en Or et la transférer vers votre Zone de Civilisation.",
       "war.rules.title": "Les Guerres",
       "war.rules.1": "Après vos actions, vous avez la possibilité de déclarer une ou plusieurs guerre à vos adversaires.\nDéclarer la guerre, <0>c'est essayer de voler un pion Accomplissement</0> à l'autre joueur.\nLe défenseur ne peut pas voler de pion Accomplissement à l'attaquant.",
       "war.rules.2": "Dans Along History, <0>il existe deux moyens de déclarer la guerre</0> à un autre joueur : l’utilisation d’un pion « Ressources Universelles », ou le symbole <2/> (Guerre) du dé rouge. Les deux effets sont similaires.\nUn dé <3/> permet de multiplier un dé <4/>. Vous pouvez déclarer la guerre 2 fois au même joueur.",
@@ -876,7 +891,8 @@
       "time.wait.total": "Temps d’attente total",
       "time.wait.max": "Temps d’attente maximum",
       "time.awaited": "A fait attendre les autres (moyenne)",
-      "tuto.over": "Félicitations, vous avez terminé le tutoriel !\nPrêt à jouer avec d’autres joueurs ?"
+      "tuto.over": "Félicitations, vous avez terminé le tutoriel !\nPrêt à jouer avec d’autres joueurs ?",
+      "quantity.tooltip": "Quantité : {n}"
     }
   },
   "de": {
