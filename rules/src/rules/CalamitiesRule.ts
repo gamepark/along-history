@@ -44,15 +44,15 @@ export const getCalamityFailureRule = (calamity: Card) => {
   switch (calamity) {
     case Card.Cannibals:
     case Card.Flood:
-    case Card.Starving2:
+    case Card.Famine2:
       return RuleId.LosePopulationBonus
     case Card.Earthquake:
       return RuleId.EarthquakeFailure
     case Card.HarshWinter:
       return RuleId.HarshWinterFailure
-    case Card.Starving:
-      return RuleId.StarvingFailure
-    case Card.VolcanicEruption:
+    case Card.Famine1:
+      return RuleId.Famine1Failure
+    case Card.VolcanicEruption1:
     case Card.VolcanicEruption2:
       return RuleId.LoseBonusCard
     case Card.Wolves:

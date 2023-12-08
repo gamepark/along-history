@@ -6,7 +6,7 @@ import { ownTwoOfCards } from '../effects/conditions/OwnCardsCondition'
 import { free } from '../effects/FreeEffect'
 import { nonTransmissible } from '../effects/NonTransmissibleEffect'
 
-export const Starving: CardInfo = {
+export const Famine1: CardInfo = {
   type: CardType.Calamity,
   populationCost: 6,
   resourcesCost: [Resource.Ingenuity],

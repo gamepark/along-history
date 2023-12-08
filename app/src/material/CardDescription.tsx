@@ -22,6 +22,7 @@ import ColossusOfRhodes from '../images/cards/antiquity/fr/ColossusOfRhodes.jpg'
 import Desert from '../images/cards/antiquity/fr/Desert.jpg'
 import Domestication from '../images/cards/antiquity/fr/Domestication.jpg'
 import Epidemic from '../images/cards/antiquity/fr/Epidemic.jpg'
+import Famine2 from '../images/cards/antiquity/fr/Famine2.jpg'
 import FertilePlain from '../images/cards/antiquity/fr/FertilePlain.jpg'
 import Flood from '../images/cards/antiquity/fr/Flood.jpg'
 import GreatPyramidOfGiza from '../images/cards/antiquity/fr/GreatPyramidOfGiza.jpg'
@@ -46,7 +47,6 @@ import Pythagoras from '../images/cards/antiquity/fr/Pythagoras.jpg'
 import RomanLegions from '../images/cards/antiquity/fr/RomanLegions.jpg'
 import Sailing from '../images/cards/antiquity/fr/Sailing.jpg'
 import SpartacusUprising from '../images/cards/antiquity/fr/SpartacusUprising.jpg'
-import Starving2 from '../images/cards/antiquity/fr/Starving2.jpg'
 import StatueOfZeus from '../images/cards/antiquity/fr/StatueOfZeus.jpg'
 import Steppes from '../images/cards/antiquity/fr/Steppes.jpg'
 import SunTzu from '../images/cards/antiquity/fr/SunTzu.jpg'
@@ -60,6 +60,7 @@ import Cannibals from '../images/cards/prehistory/fr/Cannibals.jpg'
 import Crocodile from '../images/cards/prehistory/fr/Crocodile.jpg'
 import CroMagnon from '../images/cards/prehistory/fr/CroMagnon.jpg'
 import Earthquake from '../images/cards/prehistory/fr/Earthquake.jpg'
+import Famine1 from '../images/cards/prehistory/fr/Famine1.jpg'
 import Fishing from '../images/cards/prehistory/fr/Fishing.jpg'
 import Forest from '../images/cards/prehistory/fr/Forest.jpg'
 import FuneralRites from '../images/cards/prehistory/fr/FuneralRites.jpg'
@@ -77,14 +78,13 @@ import Neanderthal from '../images/cards/prehistory/fr/Neanderthal.jpg'
 import Peninsula from '../images/cards/prehistory/fr/Peninsula.jpg'
 import River from '../images/cards/prehistory/fr/River.jpg'
 import Sedentism from '../images/cards/prehistory/fr/Sedentism.jpg'
-import Starving from '../images/cards/prehistory/fr/Starving.jpg'
 import Stonehenge from '../images/cards/prehistory/fr/Stonehenge.jpg'
 import Swamp from '../images/cards/prehistory/fr/Swamp.jpg'
 import TheFire from '../images/cards/prehistory/fr/TheFire.jpg'
 import Tiger from '../images/cards/prehistory/fr/Tiger.jpg'
 import Tools from '../images/cards/prehistory/fr/Tools.jpg'
 import Valley from '../images/cards/prehistory/fr/Valley.jpg'
-import VolcanicEruption from '../images/cards/prehistory/fr/VolcanicEruption.jpg'
+import VolcanicEruption1 from '../images/cards/prehistory/fr/VolcanicEruption1.jpg'
 import Weapons from '../images/cards/prehistory/fr/Weapons.jpg'
 import Wildcrafting from '../images/cards/prehistory/fr/Wildcrafting.jpg'
 import Wolves from '../images/cards/prehistory/fr/Wolves.jpg'
@@ -132,8 +132,8 @@ class AlongHistoryCardDescription extends CardDescription {
     [Card.Wolves]: Wolves,
     [Card.Earthquake]: Earthquake,
     [Card.HarshWinter]: HarshWinter,
-    [Card.Starving]: Starving,
-    [Card.VolcanicEruption]: VolcanicEruption,
+    [Card.Famine1]: Famine1,
+    [Card.VolcanicEruption1]: VolcanicEruption1,
 
     [Card.Agriculture]: Agriculture,
     [Card.AlexanderTheGreat]: AlexanderTheGreat,
@@ -175,7 +175,7 @@ class AlongHistoryCardDescription extends CardDescription {
     [Card.RomanLegions]: RomanLegions,
     [Card.Sailing]: Sailing,
     [Card.SpartacusUprising]: SpartacusUprising,
-    [Card.Starving2]: Starving2,
+    [Card.Famine2]: Famine2,
     [Card.StatueOfZeus]: StatueOfZeus,
     [Card.Steppes]: Steppes,
     [Card.SunTzu]: SunTzu,

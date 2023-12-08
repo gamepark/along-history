@@ -11,7 +11,7 @@ export enum RuleId {
   LosePopulationBonus,
   EarthquakeFailure,
   HarshWinterFailure,
-  StarvingFailure,
+  Famine1Failure,
   CivilWarFailure,
   LoseFigure,
   SpartacusUprisingFailure,

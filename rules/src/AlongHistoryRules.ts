@@ -21,6 +21,7 @@ import { ActionsRule } from './rules/ActionsRule'
 import { BarbarianInvasionsFailureRule } from './rules/calamities/BarbarianInvasionsFailureRule'
 import { CivilWarFailureRule } from './rules/calamities/CivilWarFailureRule'
 import { EarthquakeFailureRule } from './rules/calamities/EarthquakeFailureRule'
+import { Famine1FailureRule } from './rules/calamities/Famine1FailureRule'
 import { HarshWinterFailureRule } from './rules/calamities/HarshWinterFailureRule'
 import { LoseBonusCardRule } from './rules/calamities/LoseBonusCardRule'
 import { LoseCardRule } from './rules/calamities/LoseCardRule'
@@ -28,7 +29,6 @@ import { LoseFigureRule } from './rules/calamities/LoseFigure'
 import { LosePopulationBonusRule } from './rules/calamities/LosePopulationBonusRule'
 import { PiracyFailureRule } from './rules/calamities/PiracyFailureRule'
 import { SpartacusUprisingFailure } from './rules/calamities/SpartacusUprisingFailureRule'
-import { StarvingFailureRule } from './rules/calamities/StarvingFailureRule'
 import { TransmitCalamityRule } from './rules/calamities/TransmitCalamityRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
 import { DecayRule } from './rules/DecayRule'
@@ -81,7 +81,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.LosePopulationBonus]: LosePopulationBonusRule,
     [RuleId.EarthquakeFailure]: EarthquakeFailureRule,
     [RuleId.HarshWinterFailure]: HarshWinterFailureRule,
-    [RuleId.StarvingFailure]: StarvingFailureRule,
+    [RuleId.Famine1Failure]: Famine1FailureRule,
     [RuleId.CivilWarFailure]: CivilWarFailureRule,
     [RuleId.LoseFigure]: LoseFigureRule,
     [RuleId.SpartacusUprisingFailure]: SpartacusUprisingFailure,

@@ -42,8 +42,8 @@ export const AgesCardsListing: Record<Age, Partial<Record<Card, number>>> = {
     [Card.Wolves]: 1,
     [Card.Earthquake]: 1,
     [Card.HarshWinter]: 1,
-    [Card.Starving]: 1,
-    [Card.VolcanicEruption]: 1
+    [Card.Famine1]: 1,
+    [Card.VolcanicEruption1]: 1
   },
   [Age.Antiquity]: {
     [Card.Agriculture]: 1,
@@ -86,7 +86,7 @@ export const AgesCardsListing: Record<Age, Partial<Record<Card, number>>> = {
     [Card.RomanLegions]: 1,
     [Card.Sailing]: 1,
     [Card.SpartacusUprising]: 1,
-    [Card.Starving2]: 1,
+    [Card.Famine2]: 1,
     [Card.StatueOfZeus]: 1,
     [Card.Steppes]: 1,
     [Card.SunTzu]: 1,

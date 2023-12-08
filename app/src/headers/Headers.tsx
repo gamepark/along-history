@@ -50,7 +50,7 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.LosePopulationBonus]: CalamityHeader,
   [RuleId.EarthquakeFailure]: CalamityHeader,
   [RuleId.HarshWinterFailure]: HarshWinterHeader,
-  [RuleId.StarvingFailure]: CalamityHeader,
+  [RuleId.Famine1Failure]: CalamityHeader,
   [RuleId.CivilWarFailure]: CalamityHeader,
   [RuleId.LoseFigure]: CalamityHeader,
   [RuleId.SpartacusUprisingFailure]: CalamityHeader,

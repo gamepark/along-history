@@ -15,6 +15,7 @@ import { ColossusOfRhodes } from './antiquity/ColossusOfRhodes'
 import { Desert } from './antiquity/Desert'
 import { Domestication } from './antiquity/Domestication'
 import { Epidemic } from './antiquity/Epidemic'
+import { Famine2 } from './antiquity/Famine2'
 import { FertilePlain } from './antiquity/FertilePlain'
 import { Flood } from './antiquity/Flood'
 import { GreatPyramidOfGiza } from './antiquity/GreatPyramidOfGiza'
@@ -39,7 +40,6 @@ import { Pythagoras } from './antiquity/Pythagoras'
 import { RomanLegions } from './antiquity/RomanLegions'
 import { Sailing } from './antiquity/Sailing'
 import { SpartacusUprising } from './antiquity/SpartacusUprising'
-import { Starving2 } from './antiquity/Starving2'
 import { StatueOfZeus } from './antiquity/StatueOfZeus'
 import { Steppes } from './antiquity/Steppes'
 import { SunTzu } from './antiquity/SunTzu'
@@ -54,6 +54,7 @@ import { Cannibals } from './prehistory/Cannibals'
 import { Crocodile } from './prehistory/Crocodile'
 import { CroMagnon } from './prehistory/CroMagnon'
 import { Earthquake } from './prehistory/Earthquake'
+import { Famine1 } from './prehistory/Famine1'
 import { Fishing } from './prehistory/Fishing'
 import { Forest } from './prehistory/Forest'
 import { FuneralRites } from './prehistory/FuneralRites'
@@ -71,7 +72,6 @@ import { Neanderthal } from './prehistory/Neanderthal'
 import { Peninsula } from './prehistory/Peninsula'
 import { River } from './prehistory/River'
 import { Sedentism } from './prehistory/Sedentism'
-import { Starving } from './prehistory/Starving'
 import { Stonehenge } from './prehistory/Stonehenge'
 import { Swamp } from './prehistory/Swamp'
 import { TheFire } from './prehistory/TheFire'
@@ -120,8 +120,8 @@ export const CardsInfo: Record<Card, CardInfo> = {
   [Card.Wolves]: Wolves,
   [Card.Earthquake]: Earthquake,
   [Card.HarshWinter]: HarshWinter,
-  [Card.Starving]: Starving,
-  [Card.VolcanicEruption]: VolcanicEruption,
+  [Card.Famine1]: Famine1,
+  [Card.VolcanicEruption1]: VolcanicEruption,
 
   [Card.Agriculture]: Agriculture,
   [Card.AlexanderTheGreat]: AlexanderTheGreat,
@@ -163,7 +163,7 @@ export const CardsInfo: Record<Card, CardInfo> = {
   [Card.RomanLegions]: RomanLegions,
   [Card.Sailing]: Sailing,
   [Card.SpartacusUprising]: SpartacusUprising,
-  [Card.Starving2]: Starving2,
+  [Card.Famine2]: Famine2,
   [Card.StatueOfZeus]: StatueOfZeus,
   [Card.Steppes]: Steppes,
   [Card.SunTzu]: SunTzu,
