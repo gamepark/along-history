@@ -136,7 +136,7 @@ export class AchievementsRule extends PlayerTurnRule {
       case Achievement.Bonus6:
         return this.hasBonus(6)
       case Achievement.Gold15:
-        return false // TODO gold
+        return this.material(MaterialType.Coin).player(this.player).getQuantity() >= 15
     }
   }
 
