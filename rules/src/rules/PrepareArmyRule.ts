@@ -1,4 +1,4 @@
-import { CustomMove, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import sumBy from 'lodash/sumBy'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
@@ -38,22 +38,43 @@ export class PrepareArmyRule extends PlayerTurnRule {
     const moves: MaterialMove[] = this.civilisationCards.rotation(undefined)
       .id<CardId>(cardId => CardsInfo[cardId.front].bonus.includes(Bonus.Population))
       .rotateItems(true)
+    moves.push(...this.artillery.moveItems({ type: LocationType.Discard }))
     moves.push(this.rules().customMove(CustomMoveType.Pass))
     return moves
   }
 
   afterItemMove(move: ItemMove) {
-    if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.rotation) {
-      const bonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus
-        .filter(bonus => bonus === Bonus.Population).length
-      this.memorize(Memory.Strength, strength => strength + bonus, this.player)
+    if (isMoveItemType(MaterialType.Card)(move)) {
+      if (move.location.rotation) {
+        const bonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus
+          .filter(bonus => bonus === Bonus.Population).length
+        this.memorize(Memory.Strength, strength => strength + bonus, this.player)
+      } else if (move.location.type === LocationType.Discard) {
+        return this.artilleryEffect
+      }
     }
     return []
   }
 
-  get generals() {
+  get activeCards() {
     return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && l.player === this.player && !l.z)
-      .id<CardId>(id => id && CardsInfo[id.front].effects.some(effect => effect.type === EffectType.General)).length
+  }
+
+  get generals() {
+    return this.activeCards.id<CardId>(id => id && CardsInfo[id.front].effects.some(effect => effect.type === EffectType.General)).length
+  }
+
+  get artillery() {
+    return this.activeCards.id<CardId>(id => CardsInfo[id.front].effects.some(effect => effect.type === EffectType.Artillery))
+  }
+
+  get artilleryEffect() {
+    const attacker = this.remind(Memory.Attacker)
+    const defender = this.remind(Memory.Defender)
+    const opponent = attacker === this.player ? defender : attacker
+    this.memorize(Memory.Strength, 3, this.player)
+    this.memorize(Memory.Strength, 0, opponent)
+    return [this.rules().startRule(RuleId.WarOutcome)]
   }
 
   onCustomMove(move: CustomMove) {

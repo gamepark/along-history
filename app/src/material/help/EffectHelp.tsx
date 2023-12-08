@@ -66,6 +66,11 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <DestroyCardHelp effect={effect}/>
     case EffectType.TradeCard:
       return <TradeCardHelp effect={effect}/>
+    case EffectType.Artillery:
+      return <Trans defaults="effect.artillery">
+        <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
+        <em/>
+      </Trans>
   }
 }
 

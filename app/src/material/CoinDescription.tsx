@@ -38,8 +38,6 @@ class CoinDescription extends TokenDescription {
     return currentAge === Age.Prehistory ? [] : [{ quantity: 19, location: this.stockLocation }]
   }
 
-  //help = BoardHelp // TODO
-
   randomFlipCache: Map<number, boolean> = new Map()
 
   isFlipped(item: Partial<MaterialItem>, context: MaterialContext) {

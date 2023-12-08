@@ -2,6 +2,7 @@ import { Card } from '../../Card'
 import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
+import { artillery } from '../effects/ArtilleryEffect'
 import { ownCard } from '../effects/conditions/OwnCardsCondition'
 import { free } from '../effects/FreeEffect'
 
@@ -11,5 +12,5 @@ export const Artillery: CardInfo = {
   resourcesCost: [Resource.Ingenuity, Resource.Ingenuity],
   victoryPoints: 2,
   bonus: [],
-  effects: [free(ownCard(Card.MarcoPolo))] // TODO
+  effects: [free(ownCard(Card.MarcoPolo)), artillery]
 }

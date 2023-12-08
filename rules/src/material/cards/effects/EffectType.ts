@@ -10,5 +10,6 @@ export enum EffectType {
   CardTypeDiscount,
   General,
   Destroy,
-  TradeCard
+  TradeCard,
+  Artillery
 }
