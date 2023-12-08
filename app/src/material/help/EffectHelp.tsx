@@ -8,6 +8,7 @@ import { DestroyEffect } from '@gamepark/along-history/material/cards/effects/De
 import { Effect } from '@gamepark/along-history/material/cards/effects/Effect'
 import { EffectType } from '@gamepark/along-history/material/cards/effects/EffectType'
 import { LosePopulationEffect } from '@gamepark/along-history/material/cards/effects/LosePopulationEffect'
+import { TradeCardEffect } from '@gamepark/along-history/material/cards/effects/TradeCardEffect'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { Picture, PlayMoveButton } from '@gamepark/react-game'
 import { displayRulesHelp } from '@gamepark/rules-api'
@@ -41,7 +42,7 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
     case EffectType.NonTransmissible:
       return <Trans defaults="effect.non-transmissible"><strong/></Trans>
     case EffectType.WarBonus:
-      return <Trans defaults="effect.war-bonus">
+      return <Trans defaults={effect.defenseOnly ? 'effect.war-defense' : 'effect.war-bonus'} values={{ bonus: effect.bonus }}>
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
         <Picture src={populationIcon} css={roundCss}/>
       </Trans>
@@ -63,6 +64,8 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       </Trans>
     case EffectType.Destroy:
       return <DestroyCardHelp effect={effect}/>
+    case EffectType.TradeCard:
+      return <TradeCardHelp effect={effect}/>
   }
 }
 
@@ -95,6 +98,13 @@ export const DestroyCardHelp = ({ effect }: { effect: DestroyEffect }) => {
   const { t } = useTranslation()
   return <Trans defaults="effect.destroy" values={{ card: t(`card.name.${effect.card}`) }}>
     <em/>
+    <DisplayCardHelpButton card={effect.card}/>
+  </Trans>
+}
+
+export const TradeCardHelp = ({ effect }: { effect: TradeCardEffect }) => {
+  const { t } = useTranslation()
+  return <Trans defaults="effect.trade" values={{ card: t(`card.name.${effect.card}`) }}>
     <DisplayCardHelpButton card={effect.card}/>
   </Trans>
 }

@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
+import { CardId } from '@gamepark/along-history/material/cards/CardId'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { useTranslation } from 'react-i18next'
@@ -12,10 +13,11 @@ export const TradeCardsHeader = () => {
   const player = usePlayerId()
 
   if (player === activePlayer) {
-    if (!rules.material(MaterialType.Card).selected(true).length) {
+    const selectedCard = rules.material(MaterialType.Card).selected(true).getItem<CardId>()
+    if (!selectedCard) {
       return <>{t('header.trade.you')}</>
     } else {
-      return <>{t('header.trade.card2')}</>
+      return <>{t('header.trade.card2', { card: t(`card.name.${selectedCard.id!.front}`) })}</>
     }
   } else {
     return <>{t('header.trade', { player: playerName })}</>

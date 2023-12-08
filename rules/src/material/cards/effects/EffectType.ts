@@ -9,5 +9,6 @@ export enum EffectType {
   GoldCost,
   CardTypeDiscount,
   General,
-  Destroy
+  Destroy,
+  TradeCard
 }
