@@ -6,7 +6,7 @@ import { Memory } from '@gamepark/along-history/rules/Memory'
 import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { useTranslation } from 'react-i18next'
 
-export const CalamityHeader = () => {
+export const HarshWinterHeader = () => {
   const { t } = useTranslation()
   const rules = useRules<AlongHistoryRules>()!
   const activePlayer = rules.game.rule?.player
@@ -16,8 +16,8 @@ export const CalamityHeader = () => {
   const card = t(`card.name.${calamity}`)
 
   if (player === activePlayer) {
-    return <>{t('header.lose-card.you', { card })}</>
+    return <>{t('header.skip-turn.you', { card })}</>
   } else {
-    return <>{t('header.lose-card', { card, player: playerName })}</>
+    return <>{t('header.skip-turn', { card, player: playerName })}</>
   }
 }

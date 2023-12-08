@@ -9,6 +9,7 @@ import { DecayHeader } from './DecayHeader'
 import { EndOfTurnHeader } from './EndOfTurnHeader'
 import { GeneralReRollHeader } from './GeneralReRollHeader'
 import { GoldenAgeHeader } from './GoldenAgeHeader'
+import { HarshWinterHeader } from './HarshWinterHeader'
 import { NewEventsHeader } from './NewEventsHeader'
 import { PayCardHeader } from './PayCardHeader'
 import { PiracyHeader } from './PiracyHeader'
@@ -48,7 +49,7 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.LoseBonusCard]: CalamityHeader,
   [RuleId.LosePopulationBonus]: CalamityHeader,
   [RuleId.EarthquakeFailure]: CalamityHeader,
-  [RuleId.HarshWinterFailure]: CalamityHeader,
+  [RuleId.HarshWinterFailure]: HarshWinterHeader,
   [RuleId.StarvingFailure]: CalamityHeader,
   [RuleId.CivilWarFailure]: CalamityHeader,
   [RuleId.LoseFigure]: CalamityHeader,
