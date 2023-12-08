@@ -6,5 +6,6 @@ export enum Bonus {
   Culture = Resource.Culture,
   Ingenuity = Resource.Ingenuity,
   Strength = Resource.Strength,
-  Gold2 = 12
+  Gold1 = 11,
+  Gold2
 }

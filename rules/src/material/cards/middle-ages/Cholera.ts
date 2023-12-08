@@ -1,0 +1,13 @@
+import { Resource } from '../../Resource'
+import { CardInfo } from '../CardInfo'
+import { CardType } from '../CardType'
+import { nonTransmissible } from '../effects/NonTransmissibleEffect'
+
+export const Cholera: CardInfo = {
+  type: CardType.Calamity,
+  populationCost: 4,
+  resourcesCost: [Resource.Ingenuity, Resource.Ingenuity],
+  victoryPoints: 1,
+  bonus: [],
+  effects: [nonTransmissible] // TODO Avicenne link
+}

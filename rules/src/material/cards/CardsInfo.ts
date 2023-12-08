@@ -48,6 +48,55 @@ import { VolcanicEruption2 } from './antiquity/VolcanicEruption2'
 import { WildIsland } from './antiquity/WildIsland'
 import { Writing } from './antiquity/Writing'
 import { CardInfo } from './CardInfo'
+import { Alchemy } from './middle-ages/Alchemy'
+import { Alembic } from './middle-ages/Alembic'
+import { Alhambra } from './middle-ages/Alhambra'
+import { AlKhawarizmi } from './middle-ages/AlKhawarizmi'
+import { Armor } from './middle-ages/Armor'
+import { Artillery } from './middle-ages/Artillery'
+import { Astrolabe } from './middle-ages/Astrolabe'
+import { Avicenna } from './middle-ages/Avicenna'
+import { Barony } from './middle-ages/Barony'
+import { BlackDeath } from './middle-ages/BlackDeath'
+import { Camelot } from './middle-ages/Camelot'
+import { Castle } from './middle-ages/Castle'
+import { Charlemagne } from './middle-ages/Charlemagne'
+import { Chivalry } from './middle-ages/Chivalry'
+import { Cholera } from './middle-ages/Cholera'
+import { Compass } from './middle-ages/Compass'
+import { County } from './middle-ages/County'
+import { Crossbow } from './middle-ages/Crossbow'
+import { Duchy } from './middle-ages/Duchy'
+import { Famine3 } from './middle-ages/Famine3'
+import { Heresy } from './middle-ages/Heresy'
+import { HimejiCastle } from './middle-ages/HimejiCastle'
+import { Jerusalem } from './middle-ages/Jerusalem'
+import { JoanOfArc } from './middle-ages/JoanOfArc'
+import { KingArthur } from './middle-ages/KingArthur'
+import { Kingdom } from './middle-ages/Kingdom'
+import { LeCid } from './middle-ages/LeCid'
+import { Longbow } from './middle-ages/Longbow'
+import { Mangonel } from './middle-ages/Mangonel'
+import { MarcoPolo } from './middle-ages/MarcoPolo'
+import { Mill } from './middle-ages/Mill'
+import { MinamotoNoYoritomo } from './middle-ages/MinamotoNoYoritomo'
+import { NotreDame } from './middle-ages/NotreDame'
+import { Obscurantism } from './middle-ages/Obscurantism'
+import { Parchment } from './middle-ages/Parchment'
+import { Plough } from './middle-ages/Plough'
+import { Poison } from './middle-ages/Poison'
+import { RichardTheLionheart } from './middle-ages/RichardTheLionheart'
+import { RobinHood } from './middle-ages/RobinHood'
+import { SaintThomasAquinas } from './middle-ages/SaintThomasAquinas'
+import { Saladin } from './middle-ages/Saladin'
+import { Saxons } from './middle-ages/Saxons'
+import { TemplarOrder } from './middle-ages/TemplarOrder'
+import { TheCrusades } from './middle-ages/TheCrusades'
+import { Tithe } from './middle-ages/Tithe'
+import { TowerOfPisa } from './middle-ages/TowerOfPisa'
+import { Vikings } from './middle-ages/Vikings'
+import { WilliamTheConqueror } from './middle-ages/WilliamTheConqueror'
+import { WilliamWallace } from './middle-ages/WilliamWallace'
 import { Australopithecus } from './prehistory/Australopithecus'
 import { Bear } from './prehistory/Bear'
 import { Cannibals } from './prehistory/Cannibals'
@@ -170,5 +219,55 @@ export const CardsInfo: Record<Card, CardInfo> = {
   [Card.TheWheel]: TheWheel,
   [Card.VolcanicEruption2]: VolcanicEruption2,
   [Card.WildIsland]: WildIsland,
-  [Card.Writing]: Writing
+  [Card.Writing]: Writing,
+
+  [Card.Alchemy]: Alchemy,
+  [Card.Alembic]: Alembic,
+  [Card.Alhambra]: Alhambra,
+  [Card.AlKhawarizmi]: AlKhawarizmi,
+  [Card.Armor]: Armor,
+  [Card.Artillery]: Artillery,
+  [Card.Astrolabe]: Astrolabe,
+  [Card.Avicenna]: Avicenna,
+  [Card.Barony]: Barony,
+  [Card.BlackDeath]: BlackDeath,
+  [Card.Camelot]: Camelot,
+  [Card.Castle]: Castle,
+  [Card.Charlemagne]: Charlemagne,
+  [Card.Chivalry]: Chivalry,
+  [Card.Cholera]: Cholera,
+  [Card.Compass]: Compass,
+  [Card.County]: County,
+  [Card.Crossbow]: Crossbow,
+  [Card.Duchy]: Duchy,
+  [Card.Famine3]: Famine3,
+  [Card.Heresy]: Heresy,
+  [Card.HimejiCastle]: HimejiCastle,
+  [Card.Jerusalem]: Jerusalem,
+  [Card.JoanOfArc]: JoanOfArc,
+  [Card.KingArthur]: KingArthur,
+  [Card.Kingdom]: Kingdom,
+  [Card.LeCid]: LeCid,
+  [Card.Longbow]: Longbow,
+  [Card.Mangonel]: Mangonel,
+  [Card.MarcoPolo]: MarcoPolo,
+  [Card.Mill]: Mill,
+  [Card.MinamotoNoYoritomo]: MinamotoNoYoritomo,
+  [Card.NotreDame]: NotreDame,
+  [Card.Obscurantism]: Obscurantism,
+  [Card.Parchment]: Parchment,
+  [Card.Plough]: Plough,
+  [Card.Poison]: Poison,
+  [Card.RichardTheLionheart]: RichardTheLionheart,
+  [Card.RobinHood]: RobinHood,
+  [Card.SaintThomasAquinas]: SaintThomasAquinas,
+  [Card.Saladin]: Saladin,
+  [Card.Saxons]: Saxons,
+  [Card.TemplarOrder]: TemplarOrder,
+  [Card.TheCrusades]: TheCrusades,
+  [Card.Tithe]: Tithe,
+  [Card.TowerOfPisa]: TowerOfPisa,
+  [Card.Vikings]: Vikings,
+  [Card.WilliamTheConqueror]: WilliamTheConqueror,
+  [Card.WilliamWallace]: WilliamWallace
 }
