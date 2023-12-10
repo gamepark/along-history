@@ -27,6 +27,7 @@ export function isEffectWithCondition(effect: Effect): effect is Effect & { cond
     case EffectType.GoldCost:
       return true
     case EffectType.LosePopulation:
+    case EffectType.WarBonus:
       return effect.condition !== undefined
     default:
       return false

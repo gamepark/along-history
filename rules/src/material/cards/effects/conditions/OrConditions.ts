@@ -6,4 +6,4 @@ export type OrConditions = {
   conditions: Condition[]
 }
 
-export const or = (conditions: Condition[]): OrConditions => ({ type: ConditionType.Or, conditions })
+export const or = (...conditions: Condition[]): OrConditions => ({ type: ConditionType.Or, conditions })

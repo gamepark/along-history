@@ -12,3 +12,5 @@ export type WarBonusEffect = {
 export const warBonus = (bonus: number, condition?: Condition): WarBonusEffect => ({ type: EffectType.WarBonus, bonus, condition })
 
 export const defenseBonus = (bonus: number, condition?: Condition): WarBonusEffect => ({ type: EffectType.WarBonus, bonus, condition, defenseOnly: true })
+
+export const attackBonus = (bonus: number, condition?: Condition): WarBonusEffect => ({ type: EffectType.WarBonus, bonus, condition, attackOnly: true })

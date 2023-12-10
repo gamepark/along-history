@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Card } from '@gamepark/along-history/material/Card'
+import { CardType } from '@gamepark/along-history/material/cards/CardType'
 import { CardTypeDiscountEffect } from '@gamepark/along-history/material/cards/effects/CardTypeDiscountEffect'
 import { Condition } from '@gamepark/along-history/material/cards/effects/conditions/Condition'
 import { ConditionType } from '@gamepark/along-history/material/cards/effects/conditions/ConditionType'
+import { OrConditions } from '@gamepark/along-history/material/cards/effects/conditions/OrConditions'
 import { OwnCardsCondition } from '@gamepark/along-history/material/cards/effects/conditions/OwnCardsCondition'
 import { DestroyEffect } from '@gamepark/along-history/material/cards/effects/DestroyEffect'
 import { Effect } from '@gamepark/along-history/material/cards/effects/Effect'
@@ -42,9 +44,12 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
     case EffectType.NonTransmissible:
       return <Trans defaults="effect.non-transmissible"><strong/></Trans>
     case EffectType.WarBonus:
-      return <Trans defaults={effect.defenseOnly ? 'effect.war-defense' : 'effect.war-bonus'} values={{ bonus: effect.bonus }}>
+      const type = effect.defenseOnly ? 'defense' : effect.attackOnly ? 'attack' : 'bonus'
+      return <Trans defaults={`effect.war-${type}${effect.condition ? '.condition' : ''}`}
+                    values={{ bonus: effect.bonus }}>
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
         <Picture src={populationIcon} css={roundCss}/>
+        {effect.condition && <ConditionHelp condition={effect.condition}/>}
       </Trans>
     case EffectType.EarnGold:
       return <Trans defaults="effect.earn-gold" values={{ gold: effect.amount }}>
@@ -118,10 +123,14 @@ export const TradeCardHelp = ({ effect }: { effect: TradeCardEffect }) => {
   </Trans>
 }
 
-export const ConditionHelp = ({ condition }: { condition: Condition }) => {
+export const ConditionHelp = ({ condition, opponent }: { condition: Condition, opponent?: boolean }) => {
   switch (condition.type) {
     case ConditionType.OwnCards:
       return <OwnCardCondition condition={condition}/>
+    case ConditionType.Or:
+      return <OrCondition condition={condition} opponent={opponent}/>
+    case ConditionType.Opponent:
+      return <ConditionHelp condition={condition.condition} opponent={!opponent}/>
     default:
       return <></>
   }
@@ -141,6 +150,14 @@ export const OwnCardCondition = ({ condition }: { condition: OwnCardsCondition }
     }}>
       {condition.cards.map(card => <DisplayCardHelpButton key={card} card={card}/>)}
     </Trans></span>
+  } else if (condition.cards.length === 3 && condition.quantity === 1) {
+    return <span><Trans defaults="condition.own.1of3" values={{
+      card1: t(`card.name.${condition.cards[0]}`),
+      card2: t(`card.name.${condition.cards[1]}`),
+      card3: t(`card.name.${condition.cards[2]}`)
+    }}>
+      {condition.cards.map(card => <DisplayCardHelpButton key={card} card={card}/>)}
+    </Trans></span>
   } else if (condition.cards.length === 3 && condition.quantity === 2) {
     return <span><Trans defaults="condition.own.2of3" values={{
       card1: t(`card.name.${condition.cards[0]}`),
@@ -151,4 +168,16 @@ export const OwnCardCondition = ({ condition }: { condition: OwnCardsCondition }
     </Trans></span>
   }
   return <span>???</span>
+}
+
+export const OrCondition = (_: { condition: OrConditions, opponent?: boolean }) => {
+  const { t } = useTranslation()
+  return <span><Trans defaults={`condition.mangonel`} values={{
+    card1: t(`card.name.${Card.Camelot}`),
+    card2: t(`card.name.${Card.Jerusalem}`)
+  }}>
+      <Picture src={cardTypeIcons[CardType.Land]} css={roundCss}/>
+      <DisplayCardHelpButton card={Card.Camelot}/>
+      <DisplayCardHelpButton card={Card.Jerusalem}/>
+    </Trans></span>
 }

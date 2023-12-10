@@ -3,8 +3,9 @@ import { css } from '@emotion/react'
 import { AgesCards, getCardAge } from '@gamepark/along-history/material/Age'
 import { Card } from '@gamepark/along-history/material/Card'
 import { CardsInfo } from '@gamepark/along-history/material/cards/CardsInfo'
+import { Condition } from '@gamepark/along-history/material/cards/effects/conditions/Condition'
 import { ConditionType } from '@gamepark/along-history/material/cards/effects/conditions/ConditionType'
-import { isCardEffect, isEffectWithCondition } from '@gamepark/along-history/material/cards/effects/Effect'
+import { Effect, isCardEffect, isEffectWithCondition } from '@gamepark/along-history/material/cards/effects/Effect'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { PlayMoveButton } from '@gamepark/react-game'
 import { displayMaterialHelp } from '@gamepark/rules-api'
@@ -15,10 +16,7 @@ import { rulesLinkButton } from '../../styles'
 export const LinkHelp = ({ card }: { card: Card }) => {
   const { t } = useTranslation()
   const links = useMemo(() => AgesCards[getCardAge(card)].filter(otherCard =>
-    CardsInfo[otherCard].effects.some(effect =>
-      (isEffectWithCondition(effect) && effect.condition.type === ConditionType.OwnCards && effect.condition.cards.includes(card))
-      || (isCardEffect(effect) && effect.card === card)
-    )
+    CardsInfo[otherCard].effects.some(effect => isEffectAboutCard(effect, card))
   ), [card])
   if (!links.length) return null
   return <>
@@ -42,3 +40,22 @@ export const DisplayCardHelpButton: FC<{ card: Card }> = ({ card, children }) =>
 const cardLinkButton = [rulesLinkButton, css`
   font-style: italic;
 `]
+
+function isEffectAboutCard(effect: Effect, card: Card): boolean {
+  return (isEffectWithCondition(effect) && isConditionAboutCard(effect.condition, card))
+    || (isCardEffect(effect) && effect.card === card)
+}
+
+function isConditionAboutCard(condition: Condition, card: Card): boolean {
+  switch (condition.type) {
+    case ConditionType.And:
+    case ConditionType.Or:
+      return condition.conditions.some(condition => isConditionAboutCard(condition, card))
+    case ConditionType.Opponent:
+      return isConditionAboutCard(condition.condition, card)
+    case ConditionType.OwnCards:
+      return condition.cards.includes(card)
+    default:
+      return false
+  }
+}
