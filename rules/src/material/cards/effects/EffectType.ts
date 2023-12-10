@@ -12,5 +12,6 @@ export enum EffectType {
   Destroy,
   TradeCard,
   Artillery,
-  Ransom
+  Ransom,
+  Cancel
 }

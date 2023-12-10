@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Card } from '@gamepark/along-history/material/Card'
 import { CardType } from '@gamepark/along-history/material/cards/CardType'
+import { CancelEffect } from '@gamepark/along-history/material/cards/effects/CancelEffect'
 import { CardTypeDiscountEffect } from '@gamepark/along-history/material/cards/effects/CardTypeDiscountEffect'
 import { Condition } from '@gamepark/along-history/material/cards/effects/conditions/Condition'
 import { ConditionType } from '@gamepark/along-history/material/cards/effects/conditions/ConditionType'
@@ -82,6 +83,8 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <Trans defaults="effect.ransom">
         <Picture src={Coin5Head} css={roundCss}/>
       </Trans>
+    case EffectType.Cancel:
+      return <CancelEffectHelp effect={effect}/>
   }
 }
 
@@ -121,6 +124,13 @@ export const DestroyCardHelp = ({ effect }: { effect: DestroyEffect }) => {
 export const TradeCardHelp = ({ effect }: { effect: TradeCardEffect }) => {
   const { t } = useTranslation()
   return <Trans defaults="effect.trade" values={{ card: t(`card.name.${effect.card}`) }}>
+    <DisplayCardHelpButton card={effect.card}/>
+  </Trans>
+}
+
+export const CancelEffectHelp = ({ effect }: { effect: CancelEffect }) => {
+  const { t } = useTranslation()
+  return <Trans defaults="effect.cancel" values={{ card: t(`card.name.${effect.card}`) }}>
     <DisplayCardHelpButton card={effect.card}/>
   </Trans>
 }

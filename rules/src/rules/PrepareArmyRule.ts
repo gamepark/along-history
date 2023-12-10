@@ -3,6 +3,7 @@ import sumBy from 'lodash/sumBy'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
+import { isCancelEffect } from '../material/cards/effects/CancelEffect'
 import { ConditionRules } from '../material/cards/effects/conditions/ConditionRules'
 import { EffectType } from '../material/cards/effects/EffectType'
 import { DiceType } from '../material/Dices'
@@ -21,22 +22,27 @@ export class PrepareArmyRule extends PlayerTurnRule {
   get warBonus() {
     const isAttacker = this.remind(Memory.Attacker) === this.player
     const conditionRules = new ConditionRules(this.game)
-    return sumBy(this.civilisationCards.getItems<CardId>(), item =>
-      sumBy(CardsInfo[item.id!.front].effects, effect => {
+    const cardsCancelled = this.getCivilisationCards(conditionRules.getOpponent(this.player)).getItems<CardId>().flatMap(item =>
+      CardsInfo[item.id!.front].effects.filter(isCancelEffect).map(effect => effect.card)
+    )
+    return sumBy(this.getCivilisationCards().getItems<CardId>(), item => {
+      const card = item.id!.front
+      if (cardsCancelled.includes(card)) return 0
+      return sumBy(CardsInfo[card].effects, effect => {
         if (effect.type !== EffectType.WarBonus || !conditionRules.hasCondition(effect.condition)) return 0
         if ((effect.attackOnly && !isAttacker) || (effect.defenseOnly && isAttacker)) return 0
         const multiplier = effect.multiplier ? conditionRules.countCondition(effect.multiplier) : 1
         return effect.bonus * multiplier
       })
-    )
+    })
   }
 
-  get civilisationCards() {
-    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z).player(this.player)
+  getCivilisationCards(player = this.player) {
+    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z).player(player)
   }
 
   getPlayerMoves() {
-    const moves: MaterialMove[] = this.civilisationCards.rotation(undefined)
+    const moves: MaterialMove[] = this.getCivilisationCards().rotation(undefined)
       .id<CardId>(cardId => CardsInfo[cardId.front].bonus.includes(Bonus.Population))
       .rotateItems(true)
     moves.push(...this.artillery.moveItems({ type: LocationType.Discard }))

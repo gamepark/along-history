@@ -1,5 +1,6 @@
 import { Card } from '../../Card'
 import { ArtilleryEffect } from './ArtilleryEffect'
+import { CancelEffect } from './CancelEffect'
 import { CardTypeDiscountEffect } from './CardTypeDiscountEffect'
 import { Condition } from './conditions/Condition'
 import { DestroyEffect } from './DestroyEffect'
@@ -18,6 +19,7 @@ import { WarBonusEffect } from './WarBonusEffect'
 
 export type Effect = DiscountEffect | FreeEffect | LosePopulationEffect | DiscardEffect | NonTransmissibleEffect | WarBonusEffect
   | EarnGoldEffect | GoldCostEffect | CardTypeDiscountEffect | GeneralEffect | DestroyEffect | TradeCardEffect | ArtilleryEffect | RansomEffect
+  | CancelEffect
 
 export function isEffectWithCondition(effect: Effect): effect is Effect & { condition: Condition } {
   switch (effect.type) {
@@ -38,6 +40,7 @@ export function isCardEffect(effect: Effect): effect is Effect & { card: Card } 
   switch (effect.type) {
     case EffectType.Destroy:
     case EffectType.TradeCard:
+    case EffectType.Cancel:
       return true
     default:
       return false
