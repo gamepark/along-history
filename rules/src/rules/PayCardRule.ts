@@ -280,6 +280,8 @@ export class PayCardRule extends PlayerTurnRule {
       } else if (effect.type === EffectType.Destroy) {
         moves.push(...this.material(MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id?.front === effect.card)
           .moveItems({ type: LocationType.Discard }))
+      } else if (effect.type === EffectType.Ransom) {
+        moves.push(this.rules().startSimultaneousRule(RuleId.Ransom, this.game.players.filter(p => p !== this.player)))
       }
     }
     this.memorize(Memory.CardAcquired, true)

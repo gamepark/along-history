@@ -71,6 +71,10 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
         <em/>
       </Trans>
+    case EffectType.Ransom:
+      return <Trans defaults="effect.ransom">
+        <Picture src={Coin5Head} css={roundCss}/>
+      </Trans>
   }
 }
 

@@ -14,6 +14,7 @@ import { NewEventsHeader } from './NewEventsHeader'
 import { PayCardHeader } from './PayCardHeader'
 import { PiracyHeader } from './PiracyHeader'
 import { PrepareArmyHeader } from './PrepareArmyHeader'
+import { RansomHeader } from './RansomHeader'
 import { RollDiceHeader } from './RollDiceHeader'
 import { TradeCardsHeader } from './TradeCardsHeader'
 import { TransmitCalamityHeader } from './TransmitCalamityHeader'
@@ -46,6 +47,8 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
 
   [RuleId.UseGoldDie]: UseGoldDieHeader,
   [RuleId.UseGoldResultToken]: UseGoldResultTokenHeader,
+
+  [RuleId.Ransom]: RansomHeader,
 
   [RuleId.LoseCard]: CalamityHeader,
   [RuleId.LoseBonusCard]: CalamityHeader,
