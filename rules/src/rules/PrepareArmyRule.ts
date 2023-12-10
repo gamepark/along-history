@@ -25,7 +25,8 @@ export class PrepareArmyRule extends PlayerTurnRule {
       sumBy(CardsInfo[item.id!.front].effects, effect => {
         if (effect.type !== EffectType.WarBonus || !conditionRules.hasCondition(effect.condition)) return 0
         if ((effect.attackOnly && !isAttacker) || (effect.defenseOnly && isAttacker)) return 0
-        return effect.bonus
+        const multiplier = effect.multiplier ? conditionRules.countCondition(effect.multiplier) : 1
+        return effect.bonus * multiplier
       })
     )
   }

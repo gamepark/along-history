@@ -1,4 +1,5 @@
 import { PlayerTurnRule } from '@gamepark/rules-api'
+import { sumBy } from 'lodash'
 import { PlayerColor } from '../../../../PlayerColor'
 import { Memory } from '../../../../rules/Memory'
 import { LocationType } from '../../../LocationType'
@@ -19,10 +20,27 @@ export class ConditionRules extends PlayerTurnRule {
       case ConditionType.OwnCards:
         return this.getActiveCards(player).id<CardId>(id => condition.cards.includes(id.front)).length >= condition.quantity
       case ConditionType.OwnCardType:
-        return this.getActiveCards(player).id<CardId>(id => CardsInfo[id.front].type === condition.cardType).length > 0
+        return this.getActiveCards(player).id<CardId>(id => CardsInfo[id.front].type === condition.cardType).length >= condition.quantity
       case ConditionType.Opponent:
         const opponent = this.getOpponent(player)
         return this.hasCondition(condition.condition, opponent)
+    }
+  }
+
+  countCondition(condition: Condition | undefined, player = this.player): number {
+    if (!condition) return 0
+    switch (condition.type) {
+      case ConditionType.Or:
+        return sumBy(condition.conditions, condition => this.countCondition(condition, player))
+      case ConditionType.And:
+        return Math.min(...condition.conditions.map(condition => this.countCondition(condition, player)))
+      case ConditionType.OwnCards:
+        return Math.floor(this.getActiveCards(player).id<CardId>(id => condition.cards.includes(id.front)).length / condition.quantity)
+      case ConditionType.OwnCardType:
+        return Math.floor(this.getActiveCards(player).id<CardId>(id => CardsInfo[id.front].type === condition.cardType).length / condition.quantity)
+      case ConditionType.Opponent:
+        const opponent = this.getOpponent(player)
+        return this.countCondition(condition.condition, opponent)
     }
   }
 

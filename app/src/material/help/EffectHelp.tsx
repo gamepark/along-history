@@ -45,11 +45,13 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <Trans defaults="effect.non-transmissible"><strong/></Trans>
     case EffectType.WarBonus:
       const type = effect.defenseOnly ? 'defense' : effect.attackOnly ? 'attack' : 'bonus'
-      return <Trans defaults={`effect.war-${type}${effect.condition ? '.condition' : ''}`}
+      const suffix = effect.condition ? '.if' : effect.multiplier ? '.x' : ''
+      return <Trans defaults={`effect.war-${type}${suffix}`}
                     values={{ bonus: effect.bonus }}>
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
         <Picture src={populationIcon} css={roundCss}/>
-        {effect.condition && <ConditionHelp condition={effect.condition}/>}
+        {effect.condition ? <ConditionHelp condition={effect.condition}/>
+          : effect.multiplier && <MultiplierHelp multiplier={effect.multiplier}/>}
       </Trans>
     case EffectType.EarnGold:
       return <Trans defaults="effect.earn-gold" values={{ gold: effect.amount }}>
@@ -132,7 +134,7 @@ export const ConditionHelp = ({ condition, opponent }: { condition: Condition, o
     case ConditionType.Opponent:
       return <ConditionHelp condition={condition.condition} opponent={!opponent}/>
     default:
-      return <></>
+      return <>???</>
   }
 }
 
@@ -140,44 +142,59 @@ export const OwnCardCondition = ({ condition }: { condition: OwnCardsCondition }
   const { t } = useTranslation()
   if (condition.cards.length === 1 && condition.quantity === 1) {
     const card = condition.cards[0]
-    return <span><Trans defaults="condition.own.card" values={{ card: t(`card.name.${card}`) }}>
+    return <Trans defaults="condition.own.card" values={{ card: t(`card.name.${card}`) }}>
       <DisplayCardHelpButton card={card}/>
-    </Trans></span>
+    </Trans>
   } else if (condition.cards.length === 2 && condition.quantity === 1) {
-    return <span><Trans defaults="condition.own.1of2" values={{
+    return <Trans defaults="condition.own.1of2" values={{
       card1: t(`card.name.${condition.cards[0]}`),
       card2: t(`card.name.${condition.cards[1]}`)
     }}>
       {condition.cards.map(card => <DisplayCardHelpButton key={card} card={card}/>)}
-    </Trans></span>
+    </Trans>
   } else if (condition.cards.length === 3 && condition.quantity === 1) {
-    return <span><Trans defaults="condition.own.1of3" values={{
+    return <Trans defaults="condition.own.1of3" values={{
       card1: t(`card.name.${condition.cards[0]}`),
       card2: t(`card.name.${condition.cards[1]}`),
       card3: t(`card.name.${condition.cards[2]}`)
     }}>
       {condition.cards.map(card => <DisplayCardHelpButton key={card} card={card}/>)}
-    </Trans></span>
+    </Trans>
   } else if (condition.cards.length === 3 && condition.quantity === 2) {
-    return <span><Trans defaults="condition.own.2of3" values={{
+    return <Trans defaults="condition.own.2of3" values={{
       card1: t(`card.name.${condition.cards[0]}`),
       card2: t(`card.name.${condition.cards[1]}`),
       card3: t(`card.name.${condition.cards[2]}`)
     }}>
       {condition.cards.map(card => <DisplayCardHelpButton key={card} card={card}/>)}
-    </Trans></span>
+    </Trans>
   }
-  return <span>???</span>
+  return <>???</>
 }
 
 export const OrCondition = (_: { condition: OrConditions, opponent?: boolean }) => {
   const { t } = useTranslation()
-  return <span><Trans defaults={`condition.mangonel`} values={{
+  return <Trans defaults={`condition.mangonel`} values={{
     card1: t(`card.name.${Card.Camelot}`),
     card2: t(`card.name.${Card.Jerusalem}`)
   }}>
-      <Picture src={cardTypeIcons[CardType.Land]} css={roundCss}/>
-      <DisplayCardHelpButton card={Card.Camelot}/>
-      <DisplayCardHelpButton card={Card.Jerusalem}/>
-    </Trans></span>
+    <Picture src={cardTypeIcons[CardType.Land]} css={roundCss}/>
+    <DisplayCardHelpButton card={Card.Camelot}/>
+    <DisplayCardHelpButton card={Card.Jerusalem}/>
+  </Trans>
+}
+
+
+export const MultiplierHelp = ({ multiplier }: { multiplier: Condition }) => {
+  switch (multiplier.type) {
+    case ConditionType.OwnCardType:
+      return <>
+        {multiplier.quantity > 1 && <>{multiplier.quantity}&nbsp;</>}
+        <Trans defaults="multiplier.type">
+          <Picture src={cardTypeIcons[multiplier.cardType]} css={roundCss}/>
+        </Trans>
+      </>
+    default:
+      return <>???</>
+  }
 }
