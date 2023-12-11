@@ -132,7 +132,7 @@ export class ActionsRule extends PlayerTurnRule {
       const card = this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front
       const cardInfo = CardsInfo[card]
       if (this.isFree(card)) {
-        return new PayCardRule(this.game).onCardAcquired(card)
+        return new PayCardRule(this.game).onCardAcquired(move.itemIndex)
       } else {
         this.memorize(Memory.CardToPay, move.itemIndex)
         this.memorize(Memory.PopulationCost, this.getPopulationCost(cardInfo))

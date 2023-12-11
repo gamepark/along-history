@@ -44,7 +44,6 @@ export class TradeCardsRule extends PlayerTurnRule {
       const opponentCard = this.opponentCardSelected
       const playerCard = this.playerCardSelected
       if (opponentCard.length && playerCard.length) {
-        delete playerCard.getItem()!.selected
         return [
           playerCard.moveItem(opponentCard.getItem()!.location),
           opponentCard.moveItem(playerCard.getItem()!.location),

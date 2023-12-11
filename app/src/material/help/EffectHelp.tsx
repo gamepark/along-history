@@ -104,7 +104,8 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       </Trans>
     case EffectType.TradeOnAcquisition:
       return <TradeOnAcquisition effect={effect} card={card}/>
-
+    case EffectType.Swap:
+      return <SwapHelp card={card}/>
   }
 }
 
@@ -160,8 +161,12 @@ export const TurnCoatEffectHelp = ({ card }: { card: Card }) => {
   return <Trans defaults="effect.turn-coat" values={{ card: t(`card.name.${card}`) }}>
     <Picture src={WarIcon} css={roundCss}/>
     <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
-    <DisplayCardHelpButton card={card}/>
   </Trans>
+}
+
+export const SwapHelp = ({ card }: { card: Card }) => {
+  const { t } = useTranslation()
+  return <>{t('effect.swap', { card: t(`card.name.${card}`) })}</>
 }
 
 export const SeizeEffectHelp = ({ effect, card }: { effect: SeizeEffect, card: Card }) => {

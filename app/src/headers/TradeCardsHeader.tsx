@@ -12,14 +12,18 @@ export const TradeCardsHeader = () => {
   const playerName = usePlayerName(activePlayer)
   const player = usePlayerId()
 
+  const selectedCard = rules.material(MaterialType.Card).selected(true).getItem<CardId>()
   if (player === activePlayer) {
-    const selectedCard = rules.material(MaterialType.Card).selected(true).getItem<CardId>()
     if (!selectedCard) {
       return <>{t('header.trade.you')}</>
     } else {
-      return <>{t('header.trade.card2', { card: t(`card.name.${selectedCard.id!.front}`) })}</>
+      return <>{t('header.trade.card.you', { card: t(`card.name.${selectedCard.id!.front}`) })}</>
     }
   } else {
-    return <>{t('header.trade', { player: playerName })}</>
+    if (!selectedCard) {
+      return <>{t('header.trade', { player: playerName })}</>
+    } else {
+      return <>{t('header.trade.card', { player: playerName, card: t(`card.name.${selectedCard.id!.front}`) })}</>
+    }
   }
 }

@@ -1,7 +1,6 @@
 import { isDeleteItemType, isMoveItem, ItemMove, MaterialMove, MoveItem, PlayerTurnRule, playMove } from '@gamepark/rules-api'
 import { intersection } from 'lodash'
 import { AlongHistoryRules } from '../AlongHistoryRules'
-import { Card } from '../material/Card'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
@@ -285,9 +284,10 @@ export class PayCardRule extends PlayerTurnRule {
     this.memorize(Memory.ResourcesCost, [])
   }
 
-  onCardAcquired(card: Card) {
+  onCardAcquired(index = this.remind<number>(Memory.CardToPay)) {
     const moves: MaterialMove[] = []
-    const cardInfo = CardsInfo[card]
+    const card = this.material(MaterialType.Card).index(index)
+    const cardInfo = CardsInfo[card.getItem<CardId>()!.id!.front]
     if (cardInfo.type === CardType.Wonder
       && this.material(MaterialType.UniversalResource).player(this.player).getQuantity() < 2) {
       moves.push(this.material(MaterialType.UniversalResource).location(LocationType.UniversalResourceStock)
@@ -306,9 +306,13 @@ export class PayCardRule extends PlayerTurnRule {
       } else if (effect.type === EffectType.RobinHood) {
         moves.push(this.rules().startRule(RuleId.RobinHood))
       } else if (effect.type === EffectType.TradeOnAcquisition) {
-        const card = this.activeCards.id<CardId>(id => id?.front === effect.card)
-        if (card.length && this.hasNonCalamityCardInEventArea) {
-          moves.push(card.selectItem(), this.rules().startRule(RuleId.TradeOnAcquisition))
+        const targetCard = this.activeCards.id<CardId>(id => id?.front === effect.card)
+        if (targetCard.length && this.hasNonCalamityCardInEventArea) {
+          moves.push(targetCard.selectItem(), this.rules().startRule(RuleId.TradeOnAcquisition))
+        }
+      } else if (effect.type === EffectType.Swap) {
+        if (this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(p => p !== this.player).length > 0) {
+          moves.push(card.selectItem(), this.rules().startRule(RuleId.Swap))
         }
       }
     }
@@ -330,8 +334,7 @@ export class PayCardRule extends PlayerTurnRule {
   }
 
   onRuleEnd() {
-    const card = this.material(MaterialType.Card).getItem<CardId>(this.remind<number>(Memory.CardToPay))!.id!.front
-    const moves: MaterialMove[] = this.onCardAcquired(card)
+    const moves: MaterialMove[] = this.onCardAcquired()
     const gold = this.remind<number | undefined>(Memory.GoldCost)
     if (gold && gold < 0) {
       moves.push(this.getTakeGoldMove(-gold))

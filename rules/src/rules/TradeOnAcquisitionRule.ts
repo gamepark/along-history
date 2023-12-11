@@ -8,7 +8,7 @@ import { TradeCardsRule } from './TradeCardsRule'
 
 export class TradeOnAcquisitionRule extends TradeCardsRule {
   get opponentCardSelected() {
-    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea).selected()
+    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).selected()
   }
 
   get transmissibleCards() {

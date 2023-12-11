@@ -1,6 +1,7 @@
 import { Resource } from '../../Resource'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
+import { swapEffect } from '../effects/SwapEffect'
 
 export const Parchment: CardInfo = {
   type: CardType.Progress,
@@ -8,5 +9,5 @@ export const Parchment: CardInfo = {
   resourcesCost: [Resource.Ingenuity, Resource.Culture],
   victoryPoints: 1,
   bonus: [],
-  effects: [] // TODO: trade with civ card
+  effects: [swapEffect]
 }

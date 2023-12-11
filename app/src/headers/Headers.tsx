@@ -18,6 +18,7 @@ import { PrepareArmyHeader } from './PrepareArmyHeader'
 import { RansomHeader } from './RansomHeader'
 import { RobinHoodHeader } from './RobinHoodHeader'
 import { RollDiceHeader } from './RollDiceHeader'
+import { SwapHeader } from './SwapHeader'
 import { TradeCardsHeader } from './TradeCardsHeader'
 import { TransmitCalamityHeader } from './TransmitCalamityHeader'
 import { UpkeepHeader } from './UpkeepHeader'
@@ -54,6 +55,7 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.Counterattack]: CounterattackHeader,
   [RuleId.RobinHood]: RobinHoodHeader,
   [RuleId.TradeOnAcquisition]: TradeCardsHeader,
+  [RuleId.Swap]: SwapHeader,
 
   [RuleId.LoseCard]: CalamityHeader,
   [RuleId.LoseBonusCard]: CalamityHeader,

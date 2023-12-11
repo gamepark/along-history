@@ -42,6 +42,7 @@ import { RansomRule } from './rules/RansomRule'
 import { RobinHoodRule } from './rules/RobinHoodRule'
 import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
+import { SwapRule } from './rules/SwapRule'
 import { TradeCardsRule } from './rules/TradeCardsRule'
 import { TradeOnAcquisitionRule } from './rules/TradeOnAcquisitionRule'
 import { UpkeepRule } from './rules/UpkeepRule'
@@ -86,6 +87,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.Counterattack]: CounterattackRule,
     [RuleId.RobinHood]: RobinHoodRule,
     [RuleId.TradeOnAcquisition]: TradeOnAcquisitionRule,
+    [RuleId.Swap]: SwapRule,
     [RuleId.LoseCard]: LoseCardRule,
     [RuleId.LoseBonusCard]: LoseBonusCardRule,
     [RuleId.LosePopulationBonus]: LosePopulationBonusRule,

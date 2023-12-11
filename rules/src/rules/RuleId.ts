@@ -6,7 +6,7 @@ export enum RuleId {
 
   UseGoldDie = 30, UseGoldResultToken,
 
-  Ransom = 50, Counterattack, RobinHood, TradeOnAcquisition,
+  Ransom = 50, Counterattack, RobinHood, TradeOnAcquisition, Swap,
 
   LoseCard = 100,
   LoseBonusCard,

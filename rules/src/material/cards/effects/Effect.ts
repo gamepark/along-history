@@ -17,6 +17,7 @@ import { NonTransmissibleEffect } from './NonTransmissibleEffect'
 import { RansomEffect } from './RansomEffect'
 import { RobinHoodEffect } from './RobinHoodEffect'
 import { SeizeEffect } from './SeizeEffect'
+import { SwapEffect } from './SwapEffect'
 import { TradeCalamityEffect } from './TradeCalamityEffect'
 import { TradeOnAcquisitionEffect } from './TradeOnAcquisitionEffect'
 import { TurnCoatEffect } from './TurnCoatEffect'
@@ -24,7 +25,7 @@ import { WarBonusEffect } from './WarBonusEffect'
 
 export type Effect = DiscountEffect | FreeEffect | LosePopulationEffect | DiscardEffect | NonTransmissibleEffect | WarBonusEffect
   | EarnGoldEffect | GoldCostEffect | CardTypeDiscountEffect | GeneralEffect | DestroyEffect | TradeCalamityEffect | ArtilleryEffect | RansomEffect
-  | CancelEffect | TurnCoatEffect | SeizeEffect | CounterattackEffect | RobinHoodEffect | TradeOnAcquisitionEffect
+  | CancelEffect | TurnCoatEffect | SeizeEffect | CounterattackEffect | RobinHoodEffect | TradeOnAcquisitionEffect | SwapEffect
 
 export function isEffectWithCondition(effect: Effect): effect is Effect & { condition: Condition } {
   switch (effect.type) {
