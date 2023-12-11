@@ -297,8 +297,12 @@ export class PayCardRule extends PlayerTurnRule {
       if (effect.type === EffectType.EarnGold) {
         moves.push(this.getTakeGoldMove(effect.amount))
       } else if (effect.type === EffectType.Destroy) {
-        moves.push(...this.material(MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id?.front === effect.card)
-          .moveItems({ type: LocationType.Discard }))
+        moves.push(...this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z)
+          .id<CardId>(id => id?.front === effect.card).moveItems({ type: LocationType.Discard }))
+      } else if (effect.type === EffectType.Seize) {
+        moves.push(...this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z && l.player !== this.player)
+          .id<CardId>(id => id?.front === effect.card)
+          .moveItems(item => ({ type: LocationType.CivilisationArea, player: this.player, rotation: item.location.rotation })))
       } else if (effect.type === EffectType.Ransom) {
         moves.push(this.rules().startSimultaneousRule(RuleId.Ransom, this.game.players.filter(p => p !== this.player)))
       }

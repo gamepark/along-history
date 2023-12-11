@@ -11,10 +11,12 @@ import { DestroyEffect } from '@gamepark/along-history/material/cards/effects/De
 import { Effect } from '@gamepark/along-history/material/cards/effects/Effect'
 import { EffectType } from '@gamepark/along-history/material/cards/effects/EffectType'
 import { LosePopulationEffect } from '@gamepark/along-history/material/cards/effects/LosePopulationEffect'
+import { SeizeEffect } from '@gamepark/along-history/material/cards/effects/SeizeEffect'
 import { TradeCardEffect } from '@gamepark/along-history/material/cards/effects/TradeCardEffect'
+import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { Picture, PlayMoveButton } from '@gamepark/react-game'
-import { displayRulesHelp } from '@gamepark/rules-api'
+import { displayLocationHelp, displayRulesHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
 import WarIcon from '../../images/icons/WarIcon.png'
@@ -88,6 +90,8 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <CancelEffectHelp effect={effect}/>
     case EffectType.TurnCoat:
       return <TurnCoatEffectHelp card={card}/>
+    case EffectType.Seize:
+      return <SeizeEffectHelp effect={effect} card={card}/>
   }
 }
 
@@ -144,6 +148,14 @@ export const TurnCoatEffectHelp = ({ card }: { card: Card }) => {
     <Picture src={WarIcon} css={roundCss}/>
     <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
     <DisplayCardHelpButton card={card}/>
+  </Trans>
+}
+
+export const SeizeEffectHelp = ({ effect, card }: { effect: SeizeEffect, card: Card }) => {
+  const { t } = useTranslation()
+  return <Trans defaults="effect.seize" values={{ card1: t(`card.name.${effect.card}`), card2: t(`card.name.${card}`) }}>
+    <DisplayCardHelpButton card={effect.card}/>
+    <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1 })} local/>
   </Trans>
 }
 
