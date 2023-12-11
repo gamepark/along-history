@@ -20,7 +20,7 @@ export class ConditionRules extends PlayerTurnRule {
       case ConditionType.OwnCards:
         return this.getActiveCards(player).id<CardId>(id => condition.cards.includes(id.front)).length >= condition.quantity
       case ConditionType.OwnCardType:
-        return this.getActiveCards(player).id<CardId>(id => CardsInfo[id.front].type === condition.cardType).length >= condition.quantity
+        return this.getCivCards(player).id<CardId>(id => CardsInfo[id.front].type === condition.cardType).length >= condition.quantity
       case ConditionType.Opponent:
         const opponent = this.getOpponent(player)
         return this.hasCondition(condition.condition, opponent)
@@ -37,15 +37,19 @@ export class ConditionRules extends PlayerTurnRule {
       case ConditionType.OwnCards:
         return Math.floor(this.getActiveCards(player).id<CardId>(id => condition.cards.includes(id.front)).length / condition.quantity)
       case ConditionType.OwnCardType:
-        return Math.floor(this.getActiveCards(player).id<CardId>(id => CardsInfo[id.front].type === condition.cardType).length / condition.quantity)
+        return Math.floor(this.getCivCards(player).id<CardId>(id => CardsInfo[id.front].type === condition.cardType).length / condition.quantity)
       case ConditionType.Opponent:
         const opponent = this.getOpponent(player)
         return this.countCondition(condition.condition, opponent)
     }
   }
 
+  getCivCards(player = this.player) {
+    return this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(player)
+  }
+
   getActiveCards(player = this.player) {
-    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z).player(player)
+    return this.getCivCards(player).location(l => !l.z)
   }
 
   getOpponent(player = this.player) {
