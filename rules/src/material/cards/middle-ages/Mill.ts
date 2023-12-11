@@ -9,6 +9,6 @@ export const Mill: CardInfo = {
   populationCost: 5,
   resourcesCost: [Resource.Ingenuity],
   victoryPoints: 2,
-  bonus: [Bonus.Gold2, Bonus.Population], // TODO: gain gold when tilted for population?
+  bonus: [Bonus.Gold2, Bonus.Population],
   effects: [earnGold(4)]
 }

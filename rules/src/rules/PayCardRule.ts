@@ -1,4 +1,4 @@
-import { isDeleteItemType, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule, playMove } from '@gamepark/rules-api'
+import { isDeleteItemType, isMoveItem, ItemMove, MaterialMove, MoveItem, PlayerTurnRule, playMove } from '@gamepark/rules-api'
 import { intersection } from 'lodash'
 import { AlongHistoryRules } from '../AlongHistoryRules'
 import { Card } from '../material/Card'
@@ -163,40 +163,61 @@ export class PayCardRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove) {
+    const moves: MaterialMove[] = []
     if (isMoveItem(move) && move.itemType === MaterialType.Dice && move.location.type === LocationType.DiscardTile) {
-      const diceSymbol = getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!)
-      if (diceSymbol === DiceSymbol.GoldenAge) {
-        return new UpkeepRule(this.game).unRotateCards
-      } else {
-        this.payDice(diceSymbol)
-      }
+      moves.push(...this.afterDiceDiscarded(move))
     } else {
       this.forget(Memory.DieToMultiply)
       this.forget(Memory.Multiplier)
       if (isMoveItem(move) && move.itemType === MaterialType.ResultToken && move.location.rotation) {
         this.pay(this.material(MaterialType.ResultToken).getItem(move.itemIndex)!.id)
       } else if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.rotation) {
-        const bonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus
-        for (const symbol of bonus) {
-          this.pay(symbol)
-        }
+        moves.push(...this.afterCardTilted(move))
       } else if (isMoveItem(move) && move.itemType === MaterialType.UniversalResource && move.location.type === LocationType.UniversalResourceStock) {
-        const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
-        const resourcesProduction = new ProductionRule(this.game).getResourcesProduction()
-        const nonProducedResourceIndex = resourcesCost.findIndex(resource => !resourcesProduction.includes(resource))
-        if (nonProducedResourceIndex !== -1) {
-          resourcesCost.splice(nonProducedResourceIndex, 1)
-        } else if (this.remind<number>(Memory.PopulationCost) > 0) {
-          this.memorize<number>(Memory.PopulationCost, cost => Math.max(cost - 3, 0))
-        } else {
-          resourcesCost.pop()
-        }
+        moves.push(...this.afterUniversalTokenDiscarded())
       } else if (isDeleteItemType(MaterialType.Coin)(move)) {
         this.onPayGold(move.quantity ?? 1)
       }
     }
     if (this.costPaid) {
-      return [this.rules().startRule(RuleId.Actions)]
+      moves.push(this.rules().startRule(RuleId.Actions))
+    }
+    return moves
+  }
+
+  afterDiceDiscarded(move: MoveItem) {
+    const diceSymbol = getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!)
+    if (diceSymbol === DiceSymbol.GoldenAge) {
+      return new UpkeepRule(this.game).unRotateCards
+    } else {
+      this.payDice(diceSymbol)
+      return []
+    }
+  }
+
+  afterCardTilted(move: MoveItem) {
+    let goldToEarn = 0
+    const bonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus
+    for (const symbol of bonus) {
+      if (isGold(symbol) && this.remind(Memory.GoldCost) === undefined) {
+        goldToEarn += goldAmount(symbol)
+      } else if (isGold(symbol) || this.remind(Memory.PopulationCost) !== undefined) {
+        this.pay(symbol)
+      }
+    }
+    return goldToEarn ? [this.getTakeGoldMove(goldToEarn)] : []
+  }
+
+  afterUniversalTokenDiscarded() {
+    const resourcesCost = this.remind<Resource[]>(Memory.ResourcesCost)
+    const resourcesProduction = new ProductionRule(this.game).getResourcesProduction()
+    const nonProducedResourceIndex = resourcesCost.findIndex(resource => !resourcesProduction.includes(resource))
+    if (nonProducedResourceIndex !== -1) {
+      resourcesCost.splice(nonProducedResourceIndex, 1)
+    } else if (this.remind<number>(Memory.PopulationCost) > 0) {
+      this.memorize<number>(Memory.PopulationCost, cost => Math.max(cost - 3, 0))
+    } else {
+      resourcesCost.pop()
     }
     return []
   }
@@ -274,9 +295,7 @@ export class PayCardRule extends PlayerTurnRule {
     }
     for (const effect of cardInfo.effects) {
       if (effect.type === EffectType.EarnGold) {
-        moves.push(this.material(MaterialType.Coin).createItem(
-          { quantity: effect.amount, location: { type: LocationType.PlayerCoins, player: this.player } }
-        ))
+        moves.push(this.getTakeGoldMove(effect.amount))
       } else if (effect.type === EffectType.Destroy) {
         moves.push(...this.material(MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id?.front === effect.card)
           .moveItems({ type: LocationType.Discard }))
@@ -288,12 +307,16 @@ export class PayCardRule extends PlayerTurnRule {
     return moves
   }
 
+  getTakeGoldMove(quantity: number) {
+    return this.material(MaterialType.Coin).createItem({ quantity, location: { type: LocationType.PlayerCoins, player: this.player } })
+  }
+
   onRuleEnd() {
     const card = this.material(MaterialType.Card).getItem<CardId>(this.remind<number>(Memory.CardToPay))!.id!.front
     const moves: MaterialMove[] = this.onCardAcquired(card)
     const gold = this.remind<number | undefined>(Memory.GoldCost)
     if (gold && gold < 0) {
-      moves.push(this.material(MaterialType.Coin).createItem({ quantity: -gold, location: { type: LocationType.PlayerCoins, player: this.player } }))
+      moves.push(this.getTakeGoldMove(-gold))
     }
     this.forget(Memory.CardToPay)
     this.forget(Memory.PopulationCost)

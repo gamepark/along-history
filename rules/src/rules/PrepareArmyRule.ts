@@ -7,6 +7,7 @@ import { isCancelEffect } from '../material/cards/effects/CancelEffect'
 import { ConditionRules } from '../material/cards/effects/conditions/ConditionRules'
 import { EffectType } from '../material/cards/effects/EffectType'
 import { DiceType } from '../material/Dices'
+import { goldAmount, isGold } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
@@ -53,9 +54,15 @@ export class PrepareArmyRule extends PlayerTurnRule {
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.Card)(move)) {
       if (move.location.rotation) {
-        const bonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus
-          .filter(bonus => bonus === Bonus.Population).length
-        this.memorize(Memory.Strength, strength => strength + bonus, this.player)
+        const bonuses = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus
+        const populationBonus = bonuses.filter(bonus => bonus === Bonus.Population).length
+        this.memorize(Memory.Strength, strength => strength + populationBonus, this.player)
+        const goldToEarn = sumBy(bonuses, bonus => isGold(bonus) ? goldAmount(bonus) : 0)
+        if (goldToEarn) {
+          return [this.material(MaterialType.Coin).createItem(
+            { quantity: goldToEarn, location: { type: LocationType.PlayerCoins, player: move.location.player } }
+          )]
+        }
       } else if (move.location.type === LocationType.Discard) {
         return this.artilleryEffect
       }
