@@ -31,7 +31,7 @@ import { EffectHelp } from './EffectHelp'
 import { LinkHelp } from './LinkHelp'
 
 export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const rules = useRules<AlongHistoryRules>()!
   const card: Card | undefined = item.id.front
   const info = card && CardsInfo[card]
@@ -104,6 +104,8 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
       </p>}
 
       <LinkHelp card={card}/>
+
+      {i18n.exists(`card.history.${card}`) && <p><em>{t(`card.history.${card}`)}</em></p>}
     </>}
   </>
 }
