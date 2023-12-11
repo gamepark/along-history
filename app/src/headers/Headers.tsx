@@ -5,6 +5,7 @@ import { AchievementsHeader } from './AchievementsHeader'
 import { ActionsHeader } from './ActionsHeader'
 import { CalamitiesHeader } from './CalamitiesHeader'
 import { CalamityHeader } from './CalamityHeader'
+import { CounterattackHeader } from './CounterattackHeader'
 import { DecayHeader } from './DecayHeader'
 import { EndOfTurnHeader } from './EndOfTurnHeader'
 import { GeneralReRollHeader } from './GeneralReRollHeader'
@@ -49,6 +50,7 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.UseGoldResultToken]: UseGoldResultTokenHeader,
 
   [RuleId.Ransom]: RansomHeader,
+  [RuleId.Counterattack]: CounterattackHeader,
 
   [RuleId.LoseCard]: CalamityHeader,
   [RuleId.LoseBonusCard]: CalamityHeader,

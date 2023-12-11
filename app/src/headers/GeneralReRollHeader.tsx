@@ -28,6 +28,6 @@ export const GeneralReRollHeader = () => {
       </Trans>
     }
   } else {
-    return <>{t('header.war.reroll', { player: playerName })}</>
+    return <>{t('header.war.reroll', { player: playerName, number: rules?.remind(Memory.GeneralsLeft) })}</>
   }
 }

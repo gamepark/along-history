@@ -31,6 +31,7 @@ import { PiracyFailureRule } from './rules/calamities/PiracyFailureRule'
 import { SpartacusUprisingFailure } from './rules/calamities/SpartacusUprisingFailureRule'
 import { TransmitCalamityRule } from './rules/calamities/TransmitCalamityRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
+import { CounterattackRule } from './rules/CounterattackRule'
 import { DecayRule } from './rules/DecayRule'
 import { EndOfTurnRule } from './rules/EndOfTurnRule'
 import { GeneralReRollRule } from './rules/GeneralReRollRule'
@@ -80,6 +81,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.UseGoldDie]: UseGoldDieRule,
     [RuleId.UseGoldResultToken]: UseGoldResultTokenRule,
     [RuleId.Ransom]: RansomRule,
+    [RuleId.Counterattack]: CounterattackRule,
     [RuleId.LoseCard]: LoseCardRule,
     [RuleId.LoseBonusCard]: LoseBonusCardRule,
     [RuleId.LosePopulationBonus]: LosePopulationBonusRule,

@@ -15,5 +15,6 @@ export enum EffectType {
   Ransom,
   Cancel,
   TurnCoat,
-  Seize
+  Seize,
+  Counterattack
 }

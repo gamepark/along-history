@@ -25,7 +25,15 @@ export class WarOutcomeRule extends PlayerTurnRule {
     } else {
       moves.push(...this.applyTurnCoat(attacker, defender))
     }
-    moves.push(this.rules().startPlayerTurn(RuleId.Wars, attacker))
+
+    if (this.remind(Memory.Counterattack)) {
+      moves.push(this.rules().startPlayerTurn(RuleId.Wars, defender))
+    } else if (attackerStrength > defenderStrength && this.canCounterAttack(defender)) {
+      moves.push(this.rules().startPlayerTurn(RuleId.Counterattack, defender))
+    } else {
+      moves.push(this.rules().startPlayerTurn(RuleId.Wars, attacker))
+    }
+
     return moves
   }
 
@@ -35,14 +43,27 @@ export class WarOutcomeRule extends PlayerTurnRule {
     return tokens.id<Achievement>(id => getAchievementValue(id) === bestValue)
   }
 
+  getActiveCards(player: PlayerColor) {
+    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && l.player === player && !l.z)
+  }
+
   applyTurnCoat(loser: PlayerColor, winner: PlayerColor): MaterialMove[] {
-    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && l.player === loser && !l.z)
-      .id<CardId>(id => CardsInfo[id.front].effects.some(effect => effect.type === EffectType.TurnCoat))
+    return this.getActiveCards(loser).id<CardId>(id => CardsInfo[id.front].effects.some(effect => effect.type === EffectType.TurnCoat))
       .moveItems(item => ({ type: LocationType.CivilisationArea, player: winner, rotation: item.location.rotation }))
   }
 
+  canCounterAttack(player: PlayerColor) {
+    return this.getActiveCards(player).getItems<CardId>().some(card =>
+      CardsInfo[card.id!.front].effects.some(effect => effect.type === EffectType.Counterattack)
+    )
+  }
+
   onRuleEnd() {
-    this.memorize(Memory.Wars, wars => wars - 1)
+    if (this.remind(Memory.Counterattack)) {
+      this.forget(Memory.Counterattack)
+    } else {
+      this.memorize(Memory.Wars, wars => wars - 1)
+    }
     return []
   }
 }

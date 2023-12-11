@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { Card } from '@gamepark/along-history/material/Card'
 import { CardType } from '@gamepark/along-history/material/cards/CardType'
 import { CancelEffect } from '@gamepark/along-history/material/cards/effects/CancelEffect'
@@ -92,6 +93,10 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <TurnCoatEffectHelp card={card}/>
     case EffectType.Seize:
       return <SeizeEffectHelp effect={effect} card={card}/>
+    case EffectType.Counterattack:
+      return <Trans defaults="effect.counterattack">
+        <PlayMoveButton css={[rulesLinkButton, css`font-style: italic`]} move={displayRulesHelp(RuleId.Wars)} local/>
+      </Trans>
   }
 }
 

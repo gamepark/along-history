@@ -2,6 +2,7 @@ import { Resource } from '../../Resource'
 import { Bonus } from '../Bonus'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
+import { counterattack } from '../effects/CounterattackEffect'
 import { general } from '../effects/GeneralEffect'
 
 export const WilliamWallace: CardInfo = {
@@ -11,5 +12,5 @@ export const WilliamWallace: CardInfo = {
   goldCost: 12,
   victoryPoints: 2,
   bonus: [Bonus.Population, Bonus.Strength],
-  effects: [general] // TODO
+  effects: [general, counterattack]
 }
