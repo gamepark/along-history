@@ -2,8 +2,10 @@ import { LocationStrategy, Material, MaterialItem } from '@gamepark/rules-api'
 
 export class CivilisationAreaStrategy implements LocationStrategy {
   addItem(material: Material, item: MaterialItem) {
-    item.location.x = new Set(material.getItems().map(item => item.location.x)).size
-    item.location.z = 0
+    if (item.location.x === undefined) {
+      item.location.x = new Set(material.getItems().map(item => item.location.x)).size
+      item.location.z = 0
+    }
   }
 
   moveItem(material: Material, item: MaterialItem, index: number) {
