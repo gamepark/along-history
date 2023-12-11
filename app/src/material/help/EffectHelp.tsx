@@ -17,6 +17,7 @@ import { Picture, PlayMoveButton } from '@gamepark/react-game'
 import { displayRulesHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
+import WarIcon from '../../images/icons/WarIcon.png'
 import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
 import { roundCss, rulesLinkButton } from '../../styles'
 import { cardTypeIcons } from './CardHelp'
@@ -85,6 +86,8 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       </Trans>
     case EffectType.Cancel:
       return <CancelEffectHelp effect={effect}/>
+    case EffectType.TurnCoat:
+      return <TurnCoatEffectHelp card={card}/>
   }
 }
 
@@ -132,6 +135,15 @@ export const CancelEffectHelp = ({ effect }: { effect: CancelEffect }) => {
   const { t } = useTranslation()
   return <Trans defaults="effect.cancel" values={{ card: t(`card.name.${effect.card}`) }}>
     <DisplayCardHelpButton card={effect.card}/>
+  </Trans>
+}
+
+export const TurnCoatEffectHelp = ({ card }: { card: Card }) => {
+  const { t } = useTranslation()
+  return <Trans defaults="effect.turn-coat" values={{ card: t(`card.name.${card}`) }}>
+    <Picture src={WarIcon} css={roundCss}/>
+    <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
+    <DisplayCardHelpButton card={card}/>
   </Trans>
 }
 
