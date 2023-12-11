@@ -297,20 +297,32 @@ export class PayCardRule extends PlayerTurnRule {
       if (effect.type === EffectType.EarnGold) {
         moves.push(this.getTakeGoldMove(effect.amount))
       } else if (effect.type === EffectType.Destroy) {
-        moves.push(...this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z)
-          .id<CardId>(id => id?.front === effect.card).moveItems({ type: LocationType.Discard }))
+        moves.push(...this.activeCards.id<CardId>(id => id?.front === effect.card).moveItems({ type: LocationType.Discard }))
       } else if (effect.type === EffectType.Seize) {
-        moves.push(...this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z && l.player !== this.player)
-          .id<CardId>(id => id?.front === effect.card)
+        moves.push(...this.activeCards.player(player => player !== this.player).id<CardId>(id => id?.front === effect.card)
           .moveItems(item => ({ type: LocationType.CivilisationArea, player: this.player, rotation: item.location.rotation })))
       } else if (effect.type === EffectType.Ransom) {
         moves.push(this.rules().startSimultaneousRule(RuleId.Ransom, this.game.players.filter(p => p !== this.player)))
       } else if (effect.type === EffectType.RobinHood) {
         moves.push(this.rules().startRule(RuleId.RobinHood))
+      } else if (effect.type === EffectType.TradeOnAcquisition) {
+        const card = this.activeCards.id<CardId>(id => id?.front === effect.card)
+        if (card.length && this.hasNonCalamityCardInEventArea) {
+          moves.push(card.selectItem(), this.rules().startRule(RuleId.TradeOnAcquisition))
+        }
       }
     }
     this.memorize(Memory.CardAcquired, true)
     return moves
+  }
+
+  get activeCards() {
+    return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && !l.z)
+  }
+
+  get hasNonCalamityCardInEventArea() {
+    return this.material(MaterialType.Card).location(LocationType.EventArea).player(this.player)
+      .id<CardId>(id => CardsInfo[id.front].type !== CardType.Calamity).length > 0
   }
 
   getTakeGoldMove(quantity: number) {

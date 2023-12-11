@@ -17,5 +17,6 @@ export enum EffectType {
   TurnCoat,
   Seize,
   Counterattack,
-  RobinHood
+  RobinHood,
+  TradeOnAcquisition
 }

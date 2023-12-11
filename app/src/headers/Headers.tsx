@@ -53,6 +53,7 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.Ransom]: RansomHeader,
   [RuleId.Counterattack]: CounterattackHeader,
   [RuleId.RobinHood]: RobinHoodHeader,
+  [RuleId.TradeOnAcquisition]: TradeCardsHeader,
 
   [RuleId.LoseCard]: CalamityHeader,
   [RuleId.LoseBonusCard]: CalamityHeader,

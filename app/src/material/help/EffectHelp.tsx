@@ -14,6 +14,7 @@ import { EffectType } from '@gamepark/along-history/material/cards/effects/Effec
 import { LosePopulationEffect } from '@gamepark/along-history/material/cards/effects/LosePopulationEffect'
 import { SeizeEffect } from '@gamepark/along-history/material/cards/effects/SeizeEffect'
 import { TradeCalamityEffect } from '@gamepark/along-history/material/cards/effects/TradeCalamityEffect'
+import { TradeOnAcquisitionEffect } from '@gamepark/along-history/material/cards/effects/TradeOnAcquisitionEffect'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { Picture, PlayMoveButton } from '@gamepark/react-game'
@@ -101,6 +102,9 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <Trans defaults="effect.robin-hood">
         <Picture src={Coin5Head} css={roundCss}/>
       </Trans>
+    case EffectType.TradeOnAcquisition:
+      return <TradeOnAcquisition effect={effect} card={card}/>
+
   }
 }
 
@@ -163,6 +167,14 @@ export const TurnCoatEffectHelp = ({ card }: { card: Card }) => {
 export const SeizeEffectHelp = ({ effect, card }: { effect: SeizeEffect, card: Card }) => {
   const { t } = useTranslation()
   return <Trans defaults="effect.seize" values={{ card1: t(`card.name.${effect.card}`), card2: t(`card.name.${card}`) }}>
+    <DisplayCardHelpButton card={effect.card}/>
+    <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1 })} local/>
+  </Trans>
+}
+
+export const TradeOnAcquisition = ({ effect, card }: { effect: TradeOnAcquisitionEffect, card: Card }) => {
+  const { t } = useTranslation()
+  return <Trans defaults="effect.acquire-trade" values={{ card1: t(`card.name.${effect.card}`), card2: t(`card.name.${card}`) }}>
     <DisplayCardHelpButton card={effect.card}/>
     <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1 })} local/>
   </Trans>

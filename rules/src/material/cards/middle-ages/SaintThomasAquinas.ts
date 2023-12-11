@@ -1,7 +1,9 @@
+import { Card } from '../../Card'
 import { Resource } from '../../Resource'
 import { Bonus } from '../Bonus'
 import { CardInfo } from '../CardInfo'
 import { CardType } from '../CardType'
+import { tradeOnAcquisition } from '../effects/TradeOnAcquisitionEffect'
 
 export const SaintThomasAquinas: CardInfo = {
   type: CardType.Figure,
@@ -10,5 +12,5 @@ export const SaintThomasAquinas: CardInfo = {
   goldCost: 10,
   victoryPoints: 2,
   bonus: [Bonus.Culture],
-  effects: [] // TODO
+  effects: [tradeOnAcquisition(Card.Parchment)]
 }
