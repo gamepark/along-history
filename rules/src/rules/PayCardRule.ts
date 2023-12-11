@@ -305,6 +305,8 @@ export class PayCardRule extends PlayerTurnRule {
           .moveItems(item => ({ type: LocationType.CivilisationArea, player: this.player, rotation: item.location.rotation })))
       } else if (effect.type === EffectType.Ransom) {
         moves.push(this.rules().startSimultaneousRule(RuleId.Ransom, this.game.players.filter(p => p !== this.player)))
+      } else if (effect.type === EffectType.RobinHood) {
+        moves.push(this.rules().startRule(RuleId.RobinHood))
       }
     }
     this.memorize(Memory.CardAcquired, true)

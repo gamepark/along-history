@@ -39,6 +39,7 @@ import { NewEventsRule } from './rules/NewEventsRule'
 import { PayCardRule } from './rules/PayCardRule'
 import { PrepareArmyRule } from './rules/PrepareArmyRule'
 import { RansomRule } from './rules/RansomRule'
+import { RobinHoodRule } from './rules/RobinHoodRule'
 import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
 import { TradeCardsRule } from './rules/TradeCardsRule'
@@ -82,6 +83,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.UseGoldResultToken]: UseGoldResultTokenRule,
     [RuleId.Ransom]: RansomRule,
     [RuleId.Counterattack]: CounterattackRule,
+    [RuleId.RobinHood]: RobinHoodRule,
     [RuleId.LoseCard]: LoseCardRule,
     [RuleId.LoseBonusCard]: LoseBonusCardRule,
     [RuleId.LosePopulationBonus]: LosePopulationBonusRule,

@@ -97,6 +97,10 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <Trans defaults="effect.counterattack">
         <PlayMoveButton css={[rulesLinkButton, css`font-style: italic`]} move={displayRulesHelp(RuleId.Wars)} local/>
       </Trans>
+    case EffectType.RobinHood:
+      return <Trans defaults="effect.robin-hood">
+        <Picture src={Coin5Head} css={roundCss}/>
+      </Trans>
   }
 }
 
