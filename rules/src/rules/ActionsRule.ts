@@ -21,7 +21,7 @@ export class ActionsRule extends PlayerTurnRule {
   onRuleStart() {
     for (const card of this.activeCards.getItems<CardId>()) {
       for (const effect of CardsInfo[card.id!.front].effects) {
-        if (effect.type === EffectType.TradeCard) {
+        if (effect.type === EffectType.TradeCalamity) {
           const cardToTrade = this.cardsInEventArea.id<CardId>(id => id.front === effect.card)
           if (cardToTrade.length > 0) {
             return [cardToTrade.selectItem(), this.rules().startRule(RuleId.TradeCards)]

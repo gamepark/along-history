@@ -10,7 +10,7 @@ export enum EffectType {
   CardTypeDiscount,
   General,
   Destroy,
-  TradeCard,
+  TradeCalamity,
   Artillery,
   Ransom,
   Cancel,

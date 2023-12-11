@@ -13,7 +13,7 @@ import { Effect } from '@gamepark/along-history/material/cards/effects/Effect'
 import { EffectType } from '@gamepark/along-history/material/cards/effects/EffectType'
 import { LosePopulationEffect } from '@gamepark/along-history/material/cards/effects/LosePopulationEffect'
 import { SeizeEffect } from '@gamepark/along-history/material/cards/effects/SeizeEffect'
-import { TradeCardEffect } from '@gamepark/along-history/material/cards/effects/TradeCardEffect'
+import { TradeCalamityEffect } from '@gamepark/along-history/material/cards/effects/TradeCalamityEffect'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { Picture, PlayMoveButton } from '@gamepark/react-game'
@@ -76,8 +76,8 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       </Trans>
     case EffectType.Destroy:
       return <DestroyCardHelp effect={effect}/>
-    case EffectType.TradeCard:
-      return <TradeCardHelp effect={effect}/>
+    case EffectType.TradeCalamity:
+      return <TradeCalamityHelp effect={effect}/>
     case EffectType.Artillery:
       return <Trans defaults="effect.artillery">
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
@@ -137,9 +137,9 @@ export const DestroyCardHelp = ({ effect }: { effect: DestroyEffect }) => {
   </Trans>
 }
 
-export const TradeCardHelp = ({ effect }: { effect: TradeCardEffect }) => {
+export const TradeCalamityHelp = ({ effect }: { effect: TradeCalamityEffect }) => {
   const { t } = useTranslation()
-  return <Trans defaults="effect.trade" values={{ card: t(`card.name.${effect.card}`) }}>
+  return <Trans defaults="effect.trade-calamity" values={{ card: t(`card.name.${effect.card}`) }}>
     <DisplayCardHelpButton card={effect.card}/>
   </Trans>
 }

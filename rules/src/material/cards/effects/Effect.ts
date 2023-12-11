@@ -17,12 +17,12 @@ import { NonTransmissibleEffect } from './NonTransmissibleEffect'
 import { RansomEffect } from './RansomEffect'
 import { RobinHoodEffect } from './RobinHoodEffect'
 import { SeizeEffect } from './SeizeEffect'
-import { TradeCardEffect } from './TradeCardEffect'
+import { TradeCalamityEffect } from './TradeCalamityEffect'
 import { TurnCoatEffect } from './TurnCoatEffect'
 import { WarBonusEffect } from './WarBonusEffect'
 
 export type Effect = DiscountEffect | FreeEffect | LosePopulationEffect | DiscardEffect | NonTransmissibleEffect | WarBonusEffect
-  | EarnGoldEffect | GoldCostEffect | CardTypeDiscountEffect | GeneralEffect | DestroyEffect | TradeCardEffect | ArtilleryEffect | RansomEffect
+  | EarnGoldEffect | GoldCostEffect | CardTypeDiscountEffect | GeneralEffect | DestroyEffect | TradeCalamityEffect | ArtilleryEffect | RansomEffect
   | CancelEffect | TurnCoatEffect | SeizeEffect | CounterattackEffect | RobinHoodEffect
 
 export function isEffectWithCondition(effect: Effect): effect is Effect & { condition: Condition } {
@@ -43,7 +43,7 @@ export function isEffectWithCondition(effect: Effect): effect is Effect & { cond
 export function isCardEffect(effect: Effect): effect is Effect & { card: Card } {
   switch (effect.type) {
     case EffectType.Destroy:
-    case EffectType.TradeCard:
+    case EffectType.TradeCalamity:
     case EffectType.Cancel:
     case EffectType.Seize:
       return true
