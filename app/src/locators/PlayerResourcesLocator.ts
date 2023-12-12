@@ -1,3 +1,4 @@
+import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
@@ -9,7 +10,7 @@ class PlayerResourcesLocator extends ItemLocator {
   getPosition(item: MaterialItem, context: ItemContext) {
     const itemIndex = this.getItemIndex(item, context)
     const l = getPlayerLocation(item.location.player!, context)
-    const z = diceDescription.width / 2 + (item.selected ? diceDescription.width : 0)
+    const z = context.type === MaterialType.Dice ? diceDescription.width / 2 + (item.selected ? diceDescription.width : 0) : 0.05
     const deltaX = l.civilisationArea.width - 27.5 + itemIndex * 2.2 - (item.selected ? 0.2 : 0)
     const deltaY = civilisationAreaHeight / 2 - cardDescription.height / 2 - (item.selected ? 0.5 : 0)
     switch (l.orientation) {
