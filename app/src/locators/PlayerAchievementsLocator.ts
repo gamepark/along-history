@@ -51,6 +51,8 @@ class PlayerAchievementsLocator extends LineLocator {
         return { y: -3, z: 0.05 }
     }
   }
+
+  deltaMax = { x: 18, y: 18 }
 }
 
 export const playerAchievementsLocator = new PlayerAchievementsLocator()
