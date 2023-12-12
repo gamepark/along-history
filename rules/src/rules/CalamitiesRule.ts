@@ -74,6 +74,8 @@ export const getCalamityFailureRule = (calamity: Card) => {
       return RuleId.BarbarianInvasionsFailure
     case Card.Cholera:
       return RuleId.CholeraFailure
+    case Card.BlackDeath:
+      return RuleId.BlackDeathFailure
     default:
       throw new Error(`Missing failure rule for calamity ${calamity}`)
   }

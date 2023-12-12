@@ -41,6 +41,7 @@ export const CalamityFailureHelp = ({ ruleId }: { ruleId: RuleId }) => {
         </Trans>
       </li>
     case RuleId.BarbarianInvasionsFailure:
+    case RuleId.BlackDeathFailure:
       return <>
         <li>
           <Trans defaults="calamity.lose-card"><strong/></Trans>
@@ -96,6 +97,11 @@ const LoseCardPriority = ({ ruleId }: { ruleId: RuleId }) => {
       </Trans>
     case RuleId.CholeraFailure:
       return <Trans defaults="calamity.cholera">
+        <DisplayCardHelpButton card={Card.Avicenna}/>
+        <Picture src={cardTypeIcons[CardType.Figure]} css={roundCss}/>
+      </Trans>
+    case RuleId.BlackDeathFailure:
+      return <Trans defaults="calamity.black-death">
         <DisplayCardHelpButton card={Card.Avicenna}/>
         <Picture src={cardTypeIcons[CardType.Figure]} css={roundCss}/>
       </Trans>

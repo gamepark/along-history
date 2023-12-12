@@ -21,5 +21,6 @@ export enum RuleId {
   BarbarianInvasionsFailure,
   TransmitCalamity,
   LoseProgress,
-  CholeraFailure
+  CholeraFailure,
+  BlackDeathFailure
 }
