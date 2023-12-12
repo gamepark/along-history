@@ -142,8 +142,8 @@ function isWonderOrCalamity(cardId: CardId) {
 const AgesBounds: Record<AgesOption, [Age, Age]> = {
   [AgesOption.Prehistory]: [Age.Prehistory, Age.Prehistory],
   [AgesOption.Antiquity]: [Age.Antiquity, Age.Antiquity],
-  [AgesOption.MiddleAges]: [Age.MiddleAges, Age.MiddleAges],
-  [AgesOption.PrehistoryToAntiquity]: [Age.Prehistory, Age.Antiquity],
+  [AgesOption.MiddleAges]: [Age.MiddleAges, Age.MiddleAges]
+  /*[AgesOption.PrehistoryToAntiquity]: [Age.Prehistory, Age.Antiquity],
   [AgesOption.AntiquityToMiddleAges]: [Age.Antiquity, Age.MiddleAges],
-  [AgesOption.PrehistoryToMiddleAges]: [Age.MiddleAges, Age.MiddleAges]
+  [AgesOption.PrehistoryToMiddleAges]: [Age.MiddleAges, Age.MiddleAges]*/
 }

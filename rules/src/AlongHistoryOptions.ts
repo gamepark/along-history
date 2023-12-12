@@ -19,7 +19,7 @@ export type AlongHistoryOptions = {
 }
 
 export enum AgesOption {
-  Prehistory = 1, Antiquity, MiddleAges, PrehistoryToAntiquity, AntiquityToMiddleAges, PrehistoryToMiddleAges
+  Prehistory = 1, Antiquity, MiddleAges/*, PrehistoryToAntiquity, AntiquityToMiddleAges, PrehistoryToMiddleAges*/
 }
 
 /**
