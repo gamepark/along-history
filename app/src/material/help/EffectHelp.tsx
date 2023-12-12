@@ -21,6 +21,7 @@ import { Picture, PlayMoveButton } from '@gamepark/react-game'
 import { displayLocationHelp, displayRulesHelp } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
+import FigureIcon from '../../images/icons/FigureIcon.png'
 import WarIcon from '../../images/icons/WarIcon.png'
 import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
 import { roundCss, rulesLinkButton } from '../../styles'
@@ -106,6 +107,10 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <TradeOnAcquisition effect={effect} card={card}/>
     case EffectType.Swap:
       return <SwapHelp card={card}/>
+    case EffectType.Poison:
+      return <Trans defaults="effect.poison">
+        <Picture src={FigureIcon} css={roundCss}/>
+      </Trans>
   }
 }
 

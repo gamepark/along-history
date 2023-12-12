@@ -38,6 +38,7 @@ import { EndOfTurnRule } from './rules/EndOfTurnRule'
 import { GeneralReRollRule } from './rules/GeneralReRollRule'
 import { NewEventsRule } from './rules/NewEventsRule'
 import { PayCardRule } from './rules/PayCardRule'
+import { PoisonRule } from './rules/PoisonRule'
 import { PrepareArmyRule } from './rules/PrepareArmyRule'
 import { RansomRule } from './rules/RansomRule'
 import { RobinHoodRule } from './rules/RobinHoodRule'
@@ -89,6 +90,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.RobinHood]: RobinHoodRule,
     [RuleId.TradeOnAcquisition]: TradeOnAcquisitionRule,
     [RuleId.Swap]: SwapRule,
+    [RuleId.Poison]: PoisonRule,
     [RuleId.LoseCard]: LoseCardRule,
     [RuleId.LoseBonusCard]: LoseBonusCardRule,
     [RuleId.LosePopulationBonus]: LosePopulationBonusRule,

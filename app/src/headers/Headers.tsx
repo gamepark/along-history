@@ -14,6 +14,7 @@ import { HarshWinterHeader } from './HarshWinterHeader'
 import { NewEventsHeader } from './NewEventsHeader'
 import { PayCardHeader } from './PayCardHeader'
 import { PiracyHeader } from './PiracyHeader'
+import { PoisonHeader } from './PoisonHeader'
 import { PrepareArmyHeader } from './PrepareArmyHeader'
 import { RansomHeader } from './RansomHeader'
 import { RobinHoodHeader } from './RobinHoodHeader'
@@ -56,6 +57,7 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.RobinHood]: RobinHoodHeader,
   [RuleId.TradeOnAcquisition]: TradeCardsHeader,
   [RuleId.Swap]: SwapHeader,
+  [RuleId.Poison]: PoisonHeader,
 
   [RuleId.LoseCard]: CalamityHeader,
   [RuleId.LoseBonusCard]: CalamityHeader,

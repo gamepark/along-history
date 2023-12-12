@@ -62,6 +62,7 @@ export const getCalamityFailureRule = (calamity: Card) => {
     case Card.Heresy:
       return RuleId.CivilWarFailure
     case Card.Epidemic:
+    case Card.Poison:
       return RuleId.LoseFigure
     case Card.Obscurantism:
       return RuleId.LoseProgress

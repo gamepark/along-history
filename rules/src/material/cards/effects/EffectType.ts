@@ -19,5 +19,6 @@ export enum EffectType {
   Counterattack,
   RobinHood,
   TradeOnAcquisition,
-  Swap
+  Swap,
+  Poison
 }

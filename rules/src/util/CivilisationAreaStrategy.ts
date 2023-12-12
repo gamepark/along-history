@@ -36,7 +36,7 @@ export class CivilisationAreaStrategy implements LocationStrategy {
   removeItem(material: Material, item: MaterialItem) {
     const x = item.location.x!
     const z = item.location.z!
-    if (material.location(l => l.x === x && l.z === z)) return // card was just traded
+    if (material.location(l => l.x === x && l.z === z).length) return // card was just traded
     const cardsInPile = material.location(location => location.x === x).getItems()
     if (cardsInPile.length > 0) {
       for (const card of cardsInPile) {

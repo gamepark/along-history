@@ -314,6 +314,11 @@ export class PayCardRule extends PlayerTurnRule {
         if (this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(p => p !== this.player).length > 0) {
           moves.push(card.selectItem(), this.rules().startRule(RuleId.Swap))
         }
+      } else if (effect.type === EffectType.Poison) {
+        if (this.activeCards.player(player => player !== this.player).id<CardId>(id => CardsInfo[id!.front].type === CardType.Figure).length > 0) {
+          this.memorize(Memory.Calamity, index)
+          moves.push(card.selectItem(), this.rules().startRule(RuleId.Poison))
+        }
       }
     }
     this.memorize(Memory.CardAcquired, true)
