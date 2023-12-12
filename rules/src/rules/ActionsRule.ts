@@ -51,9 +51,8 @@ export class ActionsRule extends PlayerTurnRule {
   }
 
   get flipResultTokens() {
-    return this.cardsInEventArea.length > 0 ?
-      this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player).rotation(undefined).rotateItems(true)
-      : []
+    const tokens = this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player).rotation(undefined)
+    return this.cardsInEventArea.length > 0 ? tokens.rotateItems(true) : tokens.id(isGold).rotateItems(true)
   }
 
   get moveAffordableCardsToCivilisationArea(): MaterialMove[] {

@@ -6,6 +6,13 @@ import { RuleId } from './RuleId'
 import { TradeCardsRule } from './TradeCardsRule'
 
 export class UseGoldResultTokenRule extends TradeCardsRule {
+  onRuleStart() {
+    if (this.transmissibleCards.player(this.player).length === 0) {
+      return [this.takeGold()]
+    }
+    return []
+  }
+
   getPlayerMoves() {
     return [this.takeGold(), ...super.getPlayerMoves()]
   }
