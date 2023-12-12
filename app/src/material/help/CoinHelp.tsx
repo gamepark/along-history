@@ -3,14 +3,15 @@ import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { MaterialHelpProps, Picture, PlayMoveButton, PlayMoveButtonProps, useLegalMove, usePlayerId, usePlayerName } from '@gamepark/react-game'
-import { DeleteItem, isDeleteItemType, isMoveItemType, MoveItem } from '@gamepark/rules-api'
+import { CreateItem, DeleteItem, isCreateItemType, isDeleteItemType, isMoveItemType, MoveItem } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
 import { alignIcon, breakSpaces, roundCss } from '../../styles'
 
-export const CoinHelp = ({ item, closeDialog }: MaterialHelpProps) => {
+export const CoinHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) => {
   const { t } = useTranslation()
   const playerId = usePlayerId()
+  const take = useLegalMove<CreateItem>(isCreateItemType(MaterialType.Coin))
   const spend = useLegalMove<DeleteItem>(isDeleteItemType(MaterialType.Coin))
   const give = useLegalMove<MoveItem>(isMoveItemType(MaterialType.Coin))
   const player = usePlayerName(item.location?.player)
@@ -22,12 +23,19 @@ export const CoinHelp = ({ item, closeDialog }: MaterialHelpProps) => {
         <Picture src={Coin5Head} css={roundCss}/>
       </Trans></p>
     }
-    {spend && <p css={alignIcon}><PlayMoveButton move={spend} onPlay={closeDialog} css={css`padding-bottom: 0`}>
+    {item.location?.type === LocationType.CoinsStock && take &&
+      <p css={alignIcon}><PlayMoveButton move={take} onPlay={closeDialog} css={css`padding-bottom: 0`}>
+        <Trans defaults="coin.take" values={{ gold: take.item.quantity ?? 1 }}>
+          <Picture src={Coin5Head} css={roundCss}/>
+        </Trans>
+      </PlayMoveButton></p>
+    }
+    {spend && spend.itemIndex === itemIndex && <p css={alignIcon}><PlayMoveButton move={spend} onPlay={closeDialog} css={css`padding-bottom: 0`}>
       <Trans defaults="coin.spend" values={{ gold: spend.quantity ?? 1 }}>
         <Picture src={Coin5Head} css={roundCss}/>
       </Trans>
     </PlayMoveButton></p>}
-    {give && <p css={alignIcon}><GiveButton move={give} onPlay={closeDialog}/></p>}
+    {give && give.itemIndex === itemIndex && <p css={alignIcon}><GiveButton move={give} onPlay={closeDialog}/></p>}
     <p css={breakSpaces}>{t('coin.rules')}</p>
   </>
 }
