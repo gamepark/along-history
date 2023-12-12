@@ -8,6 +8,7 @@ import VictoryPointIcon from '../../images/icons/VictoryPointIcon.png'
 import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
 import { roundCss } from '../../styles'
 import { cardTypeIcons } from './CardHelp'
+import { DisplayCardHelpButton } from './LinkHelp'
 
 export const CalamityFailureHelp = ({ ruleId }: { ruleId: RuleId }) => {
   switch (ruleId) {
@@ -92,6 +93,11 @@ const LoseCardPriority = ({ ruleId }: { ruleId: RuleId }) => {
     case RuleId.SpartacusUprisingFailure:
       return <Trans defaults="calamity.lose-most-vp">
         <Picture src={VictoryPointIcon} css={roundCss}/>
+      </Trans>
+    case RuleId.CholeraFailure:
+      return <Trans defaults="calamity.cholera">
+        <DisplayCardHelpButton card={Card.Avicenna}/>
+        <Picture src={cardTypeIcons[CardType.Figure]} css={roundCss}/>
       </Trans>
     default:
       return null

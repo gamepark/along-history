@@ -19,6 +19,7 @@ import { PlayerColor } from './PlayerColor'
 import { AchievementsRule } from './rules/AchievementsRule'
 import { ActionsRule } from './rules/ActionsRule'
 import { BarbarianInvasionsFailureRule } from './rules/calamities/BarbarianInvasionsFailureRule'
+import { CholeraFailureRule } from './rules/calamities/CholeraFailureRule'
 import { CivilWarFailureRule } from './rules/calamities/CivilWarFailureRule'
 import { EarthquakeFailureRule } from './rules/calamities/EarthquakeFailureRule'
 import { Famine1FailureRule } from './rules/calamities/Famine1FailureRule'
@@ -103,7 +104,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.PiracyFailure]: PiracyFailureRule,
     [RuleId.BarbarianInvasionsFailure]: BarbarianInvasionsFailureRule,
     [RuleId.TransmitCalamity]: TransmitCalamityRule,
-    [RuleId.LoseProgress]: LoseProgressRule
+    [RuleId.LoseProgress]: LoseProgressRule,
+    [RuleId.CholeraFailure]: CholeraFailureRule
   }
 
   locationsStrategies = {

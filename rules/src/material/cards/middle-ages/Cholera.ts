@@ -9,5 +9,5 @@ export const Cholera: CardInfo = {
   resourcesCost: [Resource.Ingenuity, Resource.Ingenuity],
   victoryPoints: 1,
   bonus: [],
-  effects: [nonTransmissible] // TODO Avicenne link
+  effects: [nonTransmissible]
 }
