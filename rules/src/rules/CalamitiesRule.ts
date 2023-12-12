@@ -80,6 +80,8 @@ export const getCalamityFailureRule = (calamity: Card) => {
       return RuleId.TitheFailure
     case Card.Vikings:
       return RuleId.VikingsFailure
+    case Card.Saxons:
+      return RuleId.SaxonsFailure
     default:
       throw new Error(`Missing failure rule for calamity ${calamity}`)
   }

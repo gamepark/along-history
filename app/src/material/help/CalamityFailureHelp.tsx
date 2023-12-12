@@ -10,7 +10,7 @@ import { roundCss } from '../../styles'
 import { cardTypeIcons } from './CardHelp'
 import { DisplayCardHelpButton } from './LinkHelp'
 
-export const CalamityFailureHelp = ({ ruleId }: { ruleId: RuleId }) => {
+export const CalamityFailureHelp = ({ ruleId, card }: { ruleId: RuleId, card: Card }) => {
   switch (ruleId) {
     case RuleId.EarthquakeFailure:
       return <>
@@ -48,7 +48,17 @@ export const CalamityFailureHelp = ({ ruleId }: { ruleId: RuleId }) => {
           <br/>
           <LoseCardPriority ruleId={ruleId}/>
         </li>
-        <TransmitCalamity card={RuleId.BarbarianInvasionsFailure ? Card.BarbarianInvasions : Card.BlackDeath}/>
+        <TransmitCalamity card={card}/>
+      </>
+    case RuleId.SaxonsFailure:
+      return <>
+        <li>
+          <Trans defaults="calamity.saxons">
+            <DisplayCardHelpButton card={Card.Charlemagne}/>
+          </Trans>&nbsp;
+          <Trans defaults="calamity.lose-card"><strong/></Trans>
+        </li>
+        <TransmitCalamity card={card}/>
       </>
     case RuleId.VikingsFailure:
       return <>
@@ -58,7 +68,7 @@ export const CalamityFailureHelp = ({ ruleId }: { ruleId: RuleId }) => {
         <li>
           <Trans defaults="calamity.lose-gold"><Picture src={Coin5Head} css={roundCss}/></Trans>
         </li>
-        <TransmitCalamity card={Card.Vikings}/>
+        <TransmitCalamity card={card}/>
       </>
     case RuleId.TitheFailure:
       return <li><Trans defaults="calamity.tithe"><Picture src={Coin5Head} css={roundCss}/></Trans></li>

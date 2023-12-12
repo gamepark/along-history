@@ -20,5 +20,6 @@ export enum EffectType {
   RobinHood,
   TradeOnAcquisition,
   Swap,
-  Poison
+  Poison,
+  CostPerBonus
 }

@@ -25,7 +25,7 @@ import ProgressIcon from '../../images/icons/ProgressIcon.png'
 import WonderIcon from '../../images/icons/WonderIcon.png'
 import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
 import { alignIcon, roundCss, rulesLinkButton } from '../../styles'
-import { CalamityFailureHelp } from './CalamityFailtureHelp'
+import { CalamityFailureHelp } from './CalamityFailureHelp'
 import { CardLocationHelp } from './CardLocationHelp'
 import { EffectHelp } from './EffectHelp'
 import { LinkHelp } from './LinkHelp'
@@ -78,7 +78,7 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
       <p>{t(`card.points`, { points: info.victoryPoints })}</p>
 
       <p css={alignIcon}><Trans defaults={info.goldCost ? 'card.cost.gold' : 'card.cost'}
-                                values={{ population: info.populationCost, gold: info.goldCost }}>
+                                values={{ population: isNaN(info.populationCost) ? 'X' : info.populationCost, gold: info.goldCost }}>
         <Picture src={populationIcon} css={roundCss}/>
         <>{info.resourcesCost.map((resource, index) => <Picture key={index} src={bonusIcon[resource]} css={roundCss}/>)}</>
         <Picture src={Coin5Head} css={roundCss}/>
@@ -88,7 +88,7 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
 
       {info.type === CardType.Calamity && <>
         <p>{t('calamity.failure')}</p>
-        <ul css={alignIcon}><CalamityFailureHelp ruleId={getCalamityFailureRule(card)}/></ul>
+        <ul css={alignIcon}><CalamityFailureHelp ruleId={getCalamityFailureRule(card)} card={card}/></ul>
       </>}
 
       {info.bonus.length > 0 && <p css={alignIcon}>

@@ -24,5 +24,6 @@ export enum RuleId {
   CholeraFailure,
   BlackDeathFailure,
   TitheFailure,
-  VikingsFailure
+  VikingsFailure,
+  SaxonsFailure
 }

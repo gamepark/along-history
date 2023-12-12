@@ -111,6 +111,10 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       return <Trans defaults="effect.poison">
         <Picture src={FigureIcon} css={roundCss}/>
       </Trans>
+    case EffectType.CostPerBonus:
+      return <Trans defaults="effect.cost-per-bonus">
+        <Picture src={populationIcon} css={roundCss}/>
+      </Trans>
   }
 }
 

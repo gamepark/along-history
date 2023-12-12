@@ -31,6 +31,7 @@ import { LoseFigureRule } from './rules/calamities/LoseFigureRule'
 import { LosePopulationBonusRule } from './rules/calamities/LosePopulationBonusRule'
 import { LoseProgressRule } from './rules/calamities/LoseProgressRule'
 import { PiracyFailureRule } from './rules/calamities/PiracyFailureRule'
+import { SaxonsFailureRule } from './rules/calamities/SaxonsFailureRule'
 import { SpartacusUprisingFailure } from './rules/calamities/SpartacusUprisingFailureRule'
 import { TitheFailureRule } from './rules/calamities/TitheFailureRule'
 import { TransmitCalamityRule } from './rules/calamities/TransmitCalamityRule'
@@ -111,7 +112,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.CholeraFailure]: CholeraFailureRule,
     [RuleId.BlackDeathFailure]: BlackDeathFailureRule,
     [RuleId.TitheFailure]: TitheFailureRule,
-    [RuleId.VikingsFailure]: VikingsFailureRule
+    [RuleId.VikingsFailure]: VikingsFailureRule,
+    [RuleId.SaxonsFailure]: SaxonsFailureRule
   }
 
   locationsStrategies = {

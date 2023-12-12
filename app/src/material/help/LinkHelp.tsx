@@ -18,6 +18,7 @@ export const LinkHelp = ({ card }: { card: Card }) => {
   const links = useMemo(() => AgesCards[getCardAge(card)].filter(otherCard =>
     CardsInfo[otherCard].effects.some(effect => isEffectAboutCard(effect, card))
     || (card === Card.Avicenna && (otherCard === Card.BlackDeath || otherCard === Card.Cholera))
+    || (card === Card.Charlemagne && otherCard === Card.Saxons)
   ), [card])
   if (!links.length) return null
   return <>

@@ -1,4 +1,5 @@
 import { CustomMove, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { sumBy } from 'lodash'
 import countBy from 'lodash/countBy'
 import parseInt from 'lodash/parseInt'
 import { Card } from '../material/Card'
@@ -79,6 +80,8 @@ export class ActionsRule extends PlayerTurnRule {
     for (const effect of cardInfo.effects) {
       if (effect.type === EffectType.Discount && new ConditionRules(this.game).hasCondition(effect.condition)) {
         cost -= effect.population
+      } else if (effect.type === EffectType.CostPerBonus) {
+        return sumBy(this.activeCards.getItems<CardId>(), card => CardsInfo[card.id!.front].bonus.length)
       }
     }
     for (const card of this.activeCards.getItems<CardId>()) {
