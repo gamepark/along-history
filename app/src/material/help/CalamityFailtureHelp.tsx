@@ -50,6 +50,8 @@ export const CalamityFailureHelp = ({ ruleId }: { ruleId: RuleId }) => {
         </li>
         <TransmitCalamity card={Card.BarbarianInvasions}/>
       </>
+    case RuleId.TitheFailure:
+      return <li><Trans defaults="calamity.tithe"><Picture src={Coin5Head} css={roundCss}/></Trans></li>
     default:
       return <li>
         <Trans defaults="calamity.lose-card"><strong/></Trans>

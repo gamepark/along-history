@@ -24,7 +24,7 @@ import LandIcon from '../../images/icons/LandIcon.png'
 import ProgressIcon from '../../images/icons/ProgressIcon.png'
 import WonderIcon from '../../images/icons/WonderIcon.png'
 import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
-import { alignIcon, roundCss } from '../../styles'
+import { alignIcon, roundCss, rulesLinkButton } from '../../styles'
 import { CalamityFailureHelp } from './CalamityFailtureHelp'
 import { CardLocationHelp } from './CardLocationHelp'
 import { EffectHelp } from './EffectHelp'
@@ -70,7 +70,7 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
         <p css={alignIcon}>
           <Trans defaults="wonders.bonus">
             <Picture src={cardTypeIcons[CardType.Wonder]} css={roundCss}/>
-            <PlayMoveButton move={displayMaterialHelp(MaterialType.UniversalResource)} local/>
+            <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.UniversalResource)} local/>
           </Trans>
         </p>
       }

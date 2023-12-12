@@ -27,11 +27,12 @@ import { Famine1FailureRule } from './rules/calamities/Famine1FailureRule'
 import { HarshWinterFailureRule } from './rules/calamities/HarshWinterFailureRule'
 import { LoseBonusCardRule } from './rules/calamities/LoseBonusCardRule'
 import { LoseCardRule } from './rules/calamities/LoseCardRule'
-import { LoseFigureRule } from './rules/calamities/LoseFigure'
+import { LoseFigureRule } from './rules/calamities/LoseFigureRule'
 import { LosePopulationBonusRule } from './rules/calamities/LosePopulationBonusRule'
-import { LoseProgressRule } from './rules/calamities/LoseProgress'
+import { LoseProgressRule } from './rules/calamities/LoseProgressRule'
 import { PiracyFailureRule } from './rules/calamities/PiracyFailureRule'
 import { SpartacusUprisingFailure } from './rules/calamities/SpartacusUprisingFailureRule'
+import { TitheFailureRule } from './rules/calamities/TitheFailureRule'
 import { TransmitCalamityRule } from './rules/calamities/TransmitCalamityRule'
 import { CalamitiesRule } from './rules/CalamitiesRule'
 import { CounterattackRule } from './rules/CounterattackRule'
@@ -107,7 +108,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.TransmitCalamity]: TransmitCalamityRule,
     [RuleId.LoseProgress]: LoseProgressRule,
     [RuleId.CholeraFailure]: CholeraFailureRule,
-    [RuleId.BlackDeathFailure]: BlackDeathFailureRule
+    [RuleId.BlackDeathFailure]: BlackDeathFailureRule,
+    [RuleId.TitheFailure]: TitheFailureRule
   }
 
   locationsStrategies = {

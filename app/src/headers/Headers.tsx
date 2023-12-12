@@ -20,6 +20,7 @@ import { RansomHeader } from './RansomHeader'
 import { RobinHoodHeader } from './RobinHoodHeader'
 import { RollDiceHeader } from './RollDiceHeader'
 import { SwapHeader } from './SwapHeader'
+import { TitheHeader } from './TitheHeader'
 import { TradeCardsHeader } from './TradeCardsHeader'
 import { TransmitCalamityHeader } from './TransmitCalamityHeader'
 import { UpkeepHeader } from './UpkeepHeader'
@@ -72,5 +73,6 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.BarbarianInvasionsFailure]: CalamityHeader,
   [RuleId.TransmitCalamity]: TransmitCalamityHeader,
   [RuleId.CholeraFailure]: CalamityHeader,
-  [RuleId.BlackDeathFailure]: CalamityHeader
+  [RuleId.BlackDeathFailure]: CalamityHeader,
+  [RuleId.TitheFailure]: TitheHeader
 }
