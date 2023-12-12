@@ -82,8 +82,12 @@ const LoseCardPriority = ({ ruleId }: { ruleId: RuleId }) => {
         <Picture src={cardTypeIcons[CardType.Figure]} css={roundCss}/>
       </Trans>
     case RuleId.LoseFigure:
-      return <Trans defaults="calamity.lose-figure">
+      return <Trans defaults="calamity.lose-type">
         <Picture src={cardTypeIcons[CardType.Figure]} css={roundCss}/>
+      </Trans>
+    case RuleId.LoseProgress:
+      return <Trans defaults="calamity.lose-type">
+        <Picture src={cardTypeIcons[CardType.Progress]} css={roundCss}/>
       </Trans>
     case RuleId.SpartacusUprisingFailure:
       return <Trans defaults="calamity.lose-most-vp">

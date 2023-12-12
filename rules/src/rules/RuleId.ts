@@ -19,5 +19,6 @@ export enum RuleId {
   SpartacusUprisingFailure,
   PiracyFailure,
   BarbarianInvasionsFailure,
-  TransmitCalamity
+  TransmitCalamity,
+  LoseProgress
 }

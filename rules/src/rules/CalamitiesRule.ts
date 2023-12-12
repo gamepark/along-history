@@ -45,6 +45,7 @@ export const getCalamityFailureRule = (calamity: Card) => {
     case Card.Cannibals:
     case Card.Flood:
     case Card.Famine2:
+    case Card.Famine3:
       return RuleId.LosePopulationBonus
     case Card.Earthquake:
       return RuleId.EarthquakeFailure
@@ -58,9 +59,12 @@ export const getCalamityFailureRule = (calamity: Card) => {
     case Card.Wolves:
       return RuleId.LoseCard
     case Card.CivilWar:
+    case Card.Heresy:
       return RuleId.CivilWarFailure
     case Card.Epidemic:
       return RuleId.LoseFigure
+    case Card.Obscurantism:
+      return RuleId.LoseProgress
     case Card.SpartacusUprising:
       return RuleId.SpartacusUprisingFailure
     case Card.Piracy:

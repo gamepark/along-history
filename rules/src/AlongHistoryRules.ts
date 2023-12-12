@@ -27,6 +27,7 @@ import { LoseBonusCardRule } from './rules/calamities/LoseBonusCardRule'
 import { LoseCardRule } from './rules/calamities/LoseCardRule'
 import { LoseFigureRule } from './rules/calamities/LoseFigure'
 import { LosePopulationBonusRule } from './rules/calamities/LosePopulationBonusRule'
+import { LoseProgressRule } from './rules/calamities/LoseProgress'
 import { PiracyFailureRule } from './rules/calamities/PiracyFailureRule'
 import { SpartacusUprisingFailure } from './rules/calamities/SpartacusUprisingFailureRule'
 import { TransmitCalamityRule } from './rules/calamities/TransmitCalamityRule'
@@ -99,7 +100,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.SpartacusUprisingFailure]: SpartacusUprisingFailure,
     [RuleId.PiracyFailure]: PiracyFailureRule,
     [RuleId.BarbarianInvasionsFailure]: BarbarianInvasionsFailureRule,
-    [RuleId.TransmitCalamity]: TransmitCalamityRule
+    [RuleId.TransmitCalamity]: TransmitCalamityRule,
+    [RuleId.LoseProgress]: LoseProgressRule
   }
 
   locationsStrategies = {
