@@ -74,5 +74,6 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.TransmitCalamity]: TransmitCalamityHeader,
   [RuleId.CholeraFailure]: CalamityHeader,
   [RuleId.BlackDeathFailure]: CalamityHeader,
-  [RuleId.TitheFailure]: TitheHeader
+  [RuleId.TitheFailure]: TitheHeader,
+  [RuleId.VikingsFailure]: CalamityHeader
 }

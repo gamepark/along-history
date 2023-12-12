@@ -48,7 +48,17 @@ export const CalamityFailureHelp = ({ ruleId }: { ruleId: RuleId }) => {
           <br/>
           <LoseCardPriority ruleId={ruleId}/>
         </li>
-        <TransmitCalamity card={Card.BarbarianInvasions}/>
+        <TransmitCalamity card={RuleId.BarbarianInvasionsFailure ? Card.BarbarianInvasions : Card.BlackDeath}/>
+      </>
+    case RuleId.VikingsFailure:
+      return <>
+        <li>
+          <Trans defaults="calamity.lose-card"><strong/></Trans>
+        </li>
+        <li>
+          <Trans defaults="calamity.lose-gold"><Picture src={Coin5Head} css={roundCss}/></Trans>
+        </li>
+        <TransmitCalamity card={Card.Vikings}/>
       </>
     case RuleId.TitheFailure:
       return <li><Trans defaults="calamity.tithe"><Picture src={Coin5Head} css={roundCss}/></Trans></li>
