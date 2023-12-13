@@ -18,17 +18,17 @@ export class CivilisationAreaDescription extends LocationDescription {
 
   getExtraCss(location: Location) {
     return css`
-      background-color: ${playerAreaColor[location.player!]};
+      background-color: ${playerAreaColor[location.player ?? PlayerColor.White]};
     `
   }
 
   getSize(location: Location, context: MaterialContext) {
-    const l = getPlayerLocation(location.player!, context)
+    const l = getPlayerLocation(location.player ?? context.rules.game.players[0], context)
     return { width: l.civilisationArea.width, height: civilisationAreaHeight }
   }
 
   getCoordinates(location: Location, context: LocationContext) {
-    const l = getPlayerLocation(location.player!, context)
+    const l = getPlayerLocation(location.player ?? context.rules.game.players[0], context)
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
         return {
@@ -58,7 +58,7 @@ export class CivilisationAreaDescription extends LocationDescription {
   }
 
   getRotateZ(location: Location, context: LocationContext) {
-    const l = getPlayerLocation(location.player!, context)
+    const l = getPlayerLocation(location.player ?? context.rules.game.players[0], context)
     return l.orientation * 90
   }
 }
