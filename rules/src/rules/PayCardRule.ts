@@ -23,7 +23,7 @@ export class PayCardRule extends PlayerTurnRule {
     if (goldCost && !canPayGold(goldCost, production)) {
       this.forget(Memory.GoldCost)
     }
-    if (!canPay({ population: this.remind(Memory.PopulationCost), resources: this.remind(Memory.ResourcesCost) }, production)) {
+    if (!canPay({ population: this.remind(Memory.PopulationCost), resources: this.remind(Memory.ResourcesCost) ?? [] }, production)) {
       this.forget(Memory.PopulationCost)
       this.memorize(Memory.ResourcesCost, [])
     }
