@@ -12,6 +12,7 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Resource } from '../material/Resource'
 import { Memory } from './Memory'
+import { PoisonRule } from './PoisonRule'
 import { BuildCost, Cost, isBuyCost, isChoiceCost, Production, ProductionRule, VersatileProduction } from './ProductionRule'
 import { RuleId } from './RuleId'
 import { UpkeepRule } from './UpkeepRule'
@@ -317,7 +318,11 @@ export class PayCardRule extends PlayerTurnRule {
       } else if (effect.type === EffectType.Poison) {
         if (this.activeCards.player(player => player !== this.player).id<CardId>(id => CardsInfo[id!.front].type === CardType.Figure).length > 0) {
           this.memorize(Memory.Calamity, index)
-          moves.push(card.selectItem(), this.rules().startRule(RuleId.Poison))
+          if (this.game.players.length === 2) {
+            moves.push(...new PoisonRule(this.game).poisonPlayer(this.nextPlayer))
+          } else {
+            moves.push(card.selectItem(), this.rules().startRule(RuleId.Poison))
+          }
         }
       }
     }

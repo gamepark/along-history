@@ -10,19 +10,31 @@ import { RuleId } from './RuleId'
 
 export class PoisonRule extends PlayerTurnRule {
   getPlayerMoves() {
-    return this.game.players.filter(player => player !== this.player && this.hasActiveFigure(player))
+    return this.game.players.filter(player => player !== this.player && this.activeFigures(player).length > 0)
       .map(player => this.rules().customMove(CustomMoveType.ChoosePlayer, player))
   }
 
-  hasActiveFigure(player: PlayerColor) {
+  activeFigures(player: PlayerColor) {
     return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && l.player === player && !l.z)
-      .id<CardId>(id => CardsInfo[id!.front].type === CardType.Figure).length > 0
+      .id<CardId>(id => CardsInfo[id!.front].type === CardType.Figure)
   }
 
   onCustomMove(move: CustomMove) {
     if (move.type === CustomMoveType.ChoosePlayer) {
-      return [this.rules().startPlayerTurn(RuleId.LoseFigure, move.data)]
+      return this.poisonPlayer(move.data)
     }
     return []
+  }
+
+  poisonPlayer(player: PlayerColor) {
+    const activeFigures = this.activeFigures(player)
+    if (activeFigures.length === 1) {
+      return [
+        activeFigures.moveItem({ type: LocationType.Discard }),
+        this.rules().startRule(RuleId.Actions)
+      ]
+    } else {
+      return [this.rules().startPlayerTurn(RuleId.LoseFigure, player)]
+    }
   }
 }
