@@ -175,12 +175,12 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
 
   giveTime(player: PlayerColor): number {
     if (this.game.rule?.id !== RuleId.Actions) {
-      return 20 // 20 minutes / war / player
+      return 20 // 20 seconds / war or secondary choice / player
     }
     if (this.material(MaterialType.DiscardTile).getItem()?.location.player === player) {
-      return 180 // 3 minutes for active player turn
+      return 120 // 3 minutes for active player turn
     } else {
-      return 60 // 1 minute for other players turns
+      return 90 // 1 minute for other players turns
     }
   }
 
