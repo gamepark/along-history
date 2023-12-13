@@ -154,7 +154,13 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
       .location(LocationType.CivilisationArea)
       .player(player)
       .getItems<CardId>()
-    return sumBy(civilisationCards, item => CardsInfo[item.id!.front].victoryPoints)
+    return sumBy(civilisationCards, item => {
+      const victoryPoints = CardsInfo[item.id!.front].victoryPoints
+      if (isNaN(victoryPoints)) { // Al-Khawarizmi
+        return Math.min(Math.floor(this.material(MaterialType.Coin).player(player).getQuantity() / 3), 4)
+      }
+      return victoryPoints
+    })
   }
 
   getDecayMalus(player: PlayerColor) {

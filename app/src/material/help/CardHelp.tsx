@@ -75,7 +75,13 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
         </p>
       }
 
-      <p>{t(`card.points`, { points: info.victoryPoints })}</p>
+      <p css={alignIcon}>{isNaN(info.victoryPoints) ?
+        <Trans defaults="effect.al-khawarizmi">
+          <em/>
+          <Picture src={Coin5Head} css={roundCss}/>
+        </Trans>
+        : t('card.points', { points: info.victoryPoints })
+      }</p>
 
       <p css={alignIcon}><Trans defaults={info.goldCost ? 'card.cost.gold' : 'card.cost'}
                                 values={{ population: isNaN(info.populationCost) ? 'X' : info.populationCost, gold: info.goldCost }}>
