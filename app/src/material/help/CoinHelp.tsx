@@ -2,7 +2,7 @@
 import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { MaterialHelpProps, Picture, PlayMoveButton, PlayMoveButtonProps, useLegalMove, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { MaterialHelpProps, Picture, PlayMoveButton, PlayMoveButtonProps, useLegalMove, useLegalMoves, usePlayerId, usePlayerName } from '@gamepark/react-game'
 import { CreateItem, DeleteItem, isCreateItemType, isDeleteItemType, isMoveItemType, MoveItem } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
@@ -13,7 +13,7 @@ export const CoinHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
   const playerId = usePlayerId()
   const take = useLegalMove<CreateItem>(isCreateItemType(MaterialType.Coin))
   const spend = useLegalMove<DeleteItem>(isDeleteItemType(MaterialType.Coin))
-  const give = useLegalMove<MoveItem>(isMoveItemType(MaterialType.Coin))
+  const giveMoves = useLegalMoves<MoveItem>(isMoveItemType(MaterialType.Coin))
   const player = usePlayerName(item.location?.player)
 
   return <>
@@ -35,7 +35,9 @@ export const CoinHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
         <Picture src={Coin5Head} css={roundCss}/>
       </Trans>
     </PlayMoveButton></p>}
-    {give && give.itemIndex === itemIndex && <p css={alignIcon}><GiveButton move={give} onPlay={closeDialog}/></p>}
+    {giveMoves.map(move =>
+      move.itemIndex === itemIndex && <p key={move.location.player} css={alignIcon}><GiveButton move={move} onPlay={closeDialog}/></p>
+    )}
     <p css={breakSpaces}>{t('coin.rules')}</p>
   </>
 }
