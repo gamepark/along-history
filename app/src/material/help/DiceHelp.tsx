@@ -7,6 +7,10 @@ import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMoves } from '@gamepark/react-game'
 import { displayRulesHelp, isMoveItemType, isRollItemType, isSelectItemType, MaterialMove } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
+import Gold3 from '../../images/dices/gold/Gold3.jpg'
+import Gold4 from '../../images/dices/gold/Gold4.jpg'
+import Gold5 from '../../images/dices/gold/Gold5.jpg'
+import Gold6 from '../../images/dices/gold/Gold6.jpg'
 import Population1 from '../../images/dices/population/Population1.jpg'
 import Population2 from '../../images/dices/population/Population2.jpg'
 import Population3 from '../../images/dices/population/Population3.jpg'
@@ -34,9 +38,10 @@ export const DiceHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
     <p css={[breakSpaces, alignIcon]}>
       <Trans defaults={`dice.type.${item.id}.rules`}>
         <strong/>
-        <Picture src={item.id === DiceType.Population ? Population1 : Ingenuity} css={rounded}/>
-        <Picture src={item.id === DiceType.Population ? Population2 : Strength} css={rounded}/>
-        <Picture src={item.id === DiceType.Population ? Population3 : Culture} css={rounded}/>
+        <Picture src={item.id === DiceType.Population ? Population1 : item.id === DiceType.Resource ? Ingenuity : Gold3} css={rounded}/>
+        <Picture src={item.id === DiceType.Population ? Population2 : item.id === DiceType.Resource ? Strength : Gold4} css={rounded}/>
+        <Picture src={item.id === DiceType.Population ? Population3 : item.id === DiceType.Resource ? Culture : Gold5} css={rounded}/>
+        {item.id === DiceType.Gold && <Picture src={Gold6} css={rounded}/>}
       </Trans>
     </p>
     {item.id === DiceType.Special && <>
