@@ -13,6 +13,7 @@
       "header.actions.you": "You can use your dice or <0>pass</0>",
       "header.actions.other": "{player} can use the result tokens",
       "header.actions.other.you": "You can use the result tokens or <0>pass</0>",
+      "confirm.miss.gold": "You can still earn gold with the dice, the result token or your cards.\nAre you sure you want to pass?",
       "header.use-die": "{player} can re-roll one die or trade a card",
       "header.use-die.you": "You can re-roll one die or trade a card",
       "header.reroll": "{player} can re-roll any number of dice or trade a card",
