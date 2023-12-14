@@ -5,7 +5,7 @@ import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { Picture } from '@gamepark/react-game'
 import { Trans, useTranslation } from 'react-i18next'
 import VictoryPointIcon from '../../images/icons/VictoryPointIcon.png'
-import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
+import Coin from '../../images/tokens/coins/Coin1Head.png'
 import { roundCss } from '../../styles'
 import { cardTypeIcons } from './CardHelp'
 import { DisplayCardHelpButton } from './LinkHelp'
@@ -23,7 +23,7 @@ export const CalamityFailureHelp = ({ ruleId, card }: { ruleId: RuleId, card: Ca
       return <>
         <li>
           <Trans defaults="calamity.lose-half-gold">
-            <Picture src={Coin5Head} css={roundCss}/>
+            <Picture src={Coin} css={roundCss}/>
           </Trans>
         </li>
         <li>
@@ -35,7 +35,7 @@ export const CalamityFailureHelp = ({ ruleId, card }: { ruleId: RuleId, card: Ca
     case RuleId.PiracyFailure:
       return <li>
         <Trans defaults="calamity.piracy">
-          <Picture src={Coin5Head} css={roundCss}/>
+          <Picture src={Coin} css={roundCss}/>
           <strong/>
           <em/>
         </Trans>
@@ -66,12 +66,12 @@ export const CalamityFailureHelp = ({ ruleId, card }: { ruleId: RuleId, card: Ca
           <Trans defaults="calamity.lose-card"><strong/></Trans>
         </li>
         <li>
-          <Trans defaults="calamity.lose-gold"><Picture src={Coin5Head} css={roundCss}/></Trans>
+          <Trans defaults="calamity.lose-gold"><Picture src={Coin} css={roundCss}/></Trans>
         </li>
         <TransmitCalamity card={card}/>
       </>
     case RuleId.TitheFailure:
-      return <li><Trans defaults="calamity.tithe"><Picture src={Coin5Head} css={roundCss}/></Trans></li>
+      return <li><Trans defaults="calamity.tithe"><Picture src={Coin} css={roundCss}/></Trans></li>
     default:
       return <li>
         <Trans defaults="calamity.lose-card"><strong/></Trans>

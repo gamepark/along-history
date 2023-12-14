@@ -4,7 +4,7 @@ import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { Memory } from '@gamepark/along-history/rules/Memory'
 import { Picture, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { Trans, useTranslation } from 'react-i18next'
-import Coin5Head from '../images/tokens/coins/Coin5Head.png'
+import Coin from '../images/tokens/coins/Coin1Head.png'
 
 export const RobinHoodHeader = () => {
   const rules = useRules<AlongHistoryRules>()!
@@ -25,7 +25,7 @@ const RobinHoodChoiceHeader = () => {
     return <>{t('header.robin-hood.tie.you')}</>
   }
   return <Trans defaults="header.robin-hood.you" values={{ gold }}>
-    <Picture src={Coin5Head} css={iconCss}/>
+    <Picture src={Coin} css={iconCss}/>
   </Trans>
 }
 
@@ -34,7 +34,7 @@ const RobinHoodPlayerHeader = () => {
   const gold = rules.remind(Memory.GoldCost)
   const player = usePlayerName(rules.game.rule!.player!)
   return <Trans defaults={`header.robin-hood${!gold ? '.tie' : ''}`} values={{ player, gold }}>
-    <Picture src={Coin5Head} css={iconCss}/>
+    <Picture src={Coin} css={iconCss}/>
   </Trans>
 }
 

@@ -5,7 +5,7 @@ import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { Picture, PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import { Trans } from 'react-i18next'
-import Gold from '../images/tokens/coins/Coin5Head.png'
+import Coin from '../images/tokens/coins/Coin1Head.png'
 
 export const RansomHeader = () => {
   const rules = useRules<AlongHistoryRules>()!
@@ -16,13 +16,13 @@ export const RansomHeader = () => {
 
   if (ransomer === playerId) {
     return <Trans defaults="header.ransom.to-you">
-      <Picture src={Gold} css={iconCss}/>
+      <Picture src={Coin} css={iconCss}/>
     </Trans>
   } else if (ransomedPlayers.includes(playerId)) {
     return <RansomedHeader player={playerName}/>
   } else {
     return <Trans defaults="header.ransom" values={{ player: playerName }}>
-      <Picture src={Gold} css={iconCss}/>
+      <Picture src={Coin} css={iconCss}/>
     </Trans>
   }
 }

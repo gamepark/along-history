@@ -9,7 +9,7 @@ import Population from '../images/dices/population/Population1.jpg'
 import Culture from '../images/dices/resources/Culture.jpg'
 import Ingenuity from '../images/dices/resources/Ingenuity.jpg'
 import Strength from '../images/dices/resources/Strength.jpg'
-import Gold from '../images/tokens/coins/Coin5Head.png'
+import Coin from '../images/tokens/coins/Coin1Head.png'
 
 export const PayCardHeader = () => {
   const rules = useRules<AlongHistoryRules>()!
@@ -29,7 +29,7 @@ export const PayCardHeader = () => {
   return <Trans defaults={key} values={{ population, gold, player: playerName }}>
     <Picture src={Population} css={iconCss}/>
     <>{resources.map((resource, index) => <Picture key={index} src={ResourceImages[resource]} css={iconCss}/>)}</>
-    <Picture src={Gold} css={iconCss}/>
+    <Picture src={Coin} css={iconCss}/>
   </Trans>
 }
 

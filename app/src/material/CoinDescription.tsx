@@ -6,33 +6,17 @@ import { ItemContext, MaterialContext, TokenDescription } from '@gamepark/react-
 import { isDeleteItem, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import Coin1Head from '../images/tokens/coins/Coin1Head.png'
 import Coin1Tail from '../images/tokens/coins/Coin1Tail.png'
-import Coin5Head from '../images/tokens/coins/Coin5Head.png'
-import Coin5Tail from '../images/tokens/coins/Coin5Tail.png'
 import { CoinHelp } from './help/CoinHelp'
 
 class CoinDescription extends TokenDescription {
-  images = {
-    1: Coin1Head,
-    5: Coin5Head
-  }
+  image = Coin1Head
 
-  backImages = {
-    1: Coin1Tail,
-    5: Coin5Tail
-  }
+  backImage = Coin1Tail
 
   width = 2 // TODO Or: 2.5
   borderRadius = 1.25
 
   stockLocation = { type: LocationType.CoinsStock }
-
-  protected getFrontId() {
-    return 1 // TODO Or: 5
-  }
-
-  protected getBackId() {
-    return 1 // TODO Or: 5
-  }
 
   getStaticItems({ rules }: MaterialContext) {
     const currentAge = rules.remind<Age | undefined>(Memory.CurrentAge) ?? Age.Prehistory

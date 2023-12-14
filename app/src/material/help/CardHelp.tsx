@@ -23,7 +23,7 @@ import FigureIcon from '../../images/icons/FigureIcon.png'
 import LandIcon from '../../images/icons/LandIcon.png'
 import ProgressIcon from '../../images/icons/ProgressIcon.png'
 import WonderIcon from '../../images/icons/WonderIcon.png'
-import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
+import Coin from '../../images/tokens/coins/Coin1Head.png'
 import { alignIcon, roundCss, rulesLinkButton } from '../../styles'
 import { CalamityFailureHelp } from './CalamityFailureHelp'
 import { CardLocationHelp } from './CardLocationHelp'
@@ -78,7 +78,7 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
       <p css={alignIcon}>{isNaN(info.victoryPoints) ?
         <Trans defaults="effect.al-khawarizmi">
           <em/>
-          <Picture src={Coin5Head} css={roundCss}/>
+          <Picture src={Coin} css={roundCss}/>
         </Trans>
         : t('card.points', { points: info.victoryPoints })
       }</p>
@@ -87,7 +87,7 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
                                 values={{ population: isNaN(info.populationCost) ? 'X' : info.populationCost, gold: info.goldCost }}>
         <Picture src={populationIcon} css={roundCss}/>
         <>{info.resourcesCost.map((resource, index) => <Picture key={index} src={bonusIcon[resource]} css={roundCss}/>)}</>
-        <Picture src={Coin5Head} css={roundCss}/>
+        <Picture src={Coin} css={roundCss}/>
       </Trans></p>
 
       {info.effects.map((effect, index) => <p key={index} css={alignIcon}><EffectHelp effect={effect} card={card}/></p>)}
@@ -101,7 +101,7 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
         <Trans defaults="card.bonus">
           <>{info.bonus.map((bonus, index) => {
             if (isGold(bonus)) {
-              return <span key={index}>{goldAmount(bonus)} <Picture key={index} src={Coin5Head}/></span>
+              return <span key={index}>{goldAmount(bonus)} <Picture key={index} src={Coin}/></span>
             } else {
               return <Picture key={index} src={bonusIcon[bonus]}/>
             }

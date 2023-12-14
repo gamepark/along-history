@@ -23,7 +23,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
 import FigureIcon from '../../images/icons/FigureIcon.png'
 import WarIcon from '../../images/icons/WarIcon.png'
-import Coin5Head from '../../images/tokens/coins/Coin5Head.png'
+import Coin5 from '../../images/tokens/coins/Coin1Head.png'
 import { roundCss, rulesLinkButton } from '../../styles'
 import { cardTypeIcons } from './CardHelp'
 import { DisplayCardHelpButton } from './LinkHelp'
@@ -62,11 +62,11 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       </Trans>
     case EffectType.EarnGold:
       return <Trans defaults="effect.earn-gold" values={{ gold: effect.amount }}>
-        <Picture src={Coin5Head} css={roundCss}/>
+        <Picture src={Coin5} css={roundCss}/>
       </Trans>
     case EffectType.GoldCost:
       return <Trans defaults="effect.gold-cost" values={{ gold: effect.cost }}>
-        <Picture src={Coin5Head} css={roundCss}/>
+        <Picture src={Coin5} css={roundCss}/>
         <ConditionHelp condition={effect.condition}/>
       </Trans>
     case EffectType.CardTypeDiscount:
@@ -87,7 +87,7 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       </Trans>
     case EffectType.Ransom:
       return <Trans defaults="effect.ransom">
-        <Picture src={Coin5Head} css={roundCss}/>
+        <Picture src={Coin5} css={roundCss}/>
       </Trans>
     case EffectType.Cancel:
       return <CancelEffectHelp effect={effect}/>
@@ -101,7 +101,7 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
       </Trans>
     case EffectType.RobinHood:
       return <Trans defaults="effect.robin-hood">
-        <Picture src={Coin5Head} css={roundCss}/>
+        <Picture src={Coin5} css={roundCss}/>
       </Trans>
     case EffectType.TradeOnAcquisition:
       return <TradeOnAcquisition effect={effect} card={card}/>
