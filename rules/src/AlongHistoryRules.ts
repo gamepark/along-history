@@ -179,6 +179,14 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     return sumBy(achievements, item => getAchievementValue(item.id!))
   }
 
+  getTieBreaker(tieBreaker: number, player: number) {
+    const achievementTokens = this.material(MaterialType.AchievementToken).player(player)
+      .sort(item => -getAchievementValue(item.id)).getItems<Achievement>()
+    const token = achievementTokens[tieBreaker - 1]
+    if (!token || token.id === undefined) return
+    return getAchievementValue(token.id)
+  }
+
   giveTime(player: PlayerColor): number {
     if (this.game.rule?.id !== RuleId.Actions) {
       return 20 // 20 seconds / war or secondary choice / player
