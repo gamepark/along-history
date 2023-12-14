@@ -188,14 +188,28 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
   }
 
   giveTime(player: PlayerColor): number {
-    if (this.game.rule?.id !== RuleId.Actions) {
-      return 20 // 20 seconds / war or secondary choice / player
+    switch (this.game.rule?.id) {
+      case RuleId.Actions:
+        if (this.hasStartedHisActions(player)) {
+          return 0
+        } else if (this.material(MaterialType.DiscardTile).getItem()?.location.player === player) {
+          return 150 // 2.5 minutes for active player turn
+        } else {
+          return 90 // 1.5 minute for other players turns
+        }
+      case RuleId.Achievements:
+        return 0 // no more time after new events revealed
+      default:
+        return 20 // 20 seconds for wars / poison / templar order
     }
-    if (this.material(MaterialType.DiscardTile).getItem()?.location.player === player) {
-      return 120 // 3 minutes for active player turn
-    } else {
-      return 90 // 1 minute for other players turns
+  }
+
+  hasStartedHisActions(player: PlayerColor) {
+    if (this.material(MaterialType.Card).location(LocationType.EventArea).player(player).location(l => l.x! < 3).length < 3) {
+      return false // One card already acquired or discarded
     }
+    const isActivePlayer = this.material(MaterialType.DiscardTile).getItem()?.location.player === player
+    return !(isActivePlayer && this.material(MaterialType.Dice).location(LocationType.DiscardTile).length > 0) // On dice already discarded
   }
 
   countCardType(player: PlayerColor, type: CardType) {
