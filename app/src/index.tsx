@@ -8,7 +8,6 @@ import ReactDOM from 'react-dom'
 import { AlongHistoryAnimations } from './animations/AlongHistoryAnimations'
 import App from './App'
 import { RulesHelp } from './dialogs/RulesHelp'
-import PrehistoryBackground from './images/background/PrehistoryBackground.jpg'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import translations from './translations.json'
@@ -22,12 +21,6 @@ ReactDOM.render(
                   material={Material} locators={Locators} animations={new AlongHistoryAnimations()} tutorial={new Tutorial()}
                   rulesHelp={RulesHelp}
                   theme={{
-                    root: {
-                      background: {
-                        image: PrehistoryBackground,
-                        overlay: 'rgba(0, 0, 0, 0.8)'
-                      }
-                    },
                     dialog: {
                       color: '#6C502B',
                       backgroundColor: '#FCF8EF'
