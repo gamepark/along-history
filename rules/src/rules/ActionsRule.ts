@@ -46,13 +46,13 @@ export class ActionsRule extends PlayerTurnRule {
 
   get discardDice(): MaterialMove[] {
     const dice = this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player)
-    if (dice.length === 1 && getDiceSymbol(dice.getItem()!) !== DiceSymbol.GoldenAge && this.cardsInEventArea.length === 0) return []
+    if (dice.length === 1 && getDiceSymbol(dice.getItem()!) !== DiceSymbol.GoldenAge && this.cardsICanTrade.length === 0) return []
     return dice.moveItems(diceToDiscardTile)
   }
 
   get flipResultTokens() {
     const tokens = this.material(MaterialType.ResultToken).location(LocationType.PlayerResources).player(this.player).rotation(undefined)
-    return this.cardsInEventArea.length > 0 ? tokens.rotateItems(true) : tokens.id(isGold).rotateItems(true)
+    return this.cardsICanTrade.length > 0 ? tokens.rotateItems(true) : tokens.id(isGold).rotateItems(true)
   }
 
   get moveAffordableCardsToCivilisationArea(): MaterialMove[] {
@@ -63,6 +63,10 @@ export class ActionsRule extends PlayerTurnRule {
 
   get cardsInEventArea() {
     return this.material(MaterialType.Card).location(LocationType.EventArea).player(this.player)
+  }
+
+  get cardsICanTrade() {
+    return this.cardsInEventArea.id<CardId>(id => !CardsInfo[id.front].effects.some(effect => effect.type === EffectType.NonTransmissible))
   }
 
   canAfford(card: Card, production: Production) {
