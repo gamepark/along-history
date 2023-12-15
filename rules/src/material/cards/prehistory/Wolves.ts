@@ -12,5 +12,5 @@ export const Wolves: CardInfo = {
   resourcesCost: [Resource.Strength],
   victoryPoints: 1,
   bonus: [],
-  effects: [discard(ownCard(Card.TheFire)), populationDiscount(-2, ownCard(Card.Forest))]
+  effects: [discard(ownCard(Card.TheFire)), populationDiscount(-3, ownCard(Card.Forest))]
 }

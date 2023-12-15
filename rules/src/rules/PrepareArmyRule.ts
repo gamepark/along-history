@@ -56,7 +56,7 @@ export class PrepareArmyRule extends PlayerTurnRule {
       if (move.location.rotation) {
         const bonuses = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus
         const populationBonus = bonuses.filter(bonus => bonus === Bonus.Population).length
-        this.memorize(Memory.Strength, strength => strength + populationBonus, this.player)
+        this.memorize<number>(Memory.Strength, strength => strength + populationBonus, this.player)
         const goldToEarn = sumBy(bonuses, bonus => isGold(bonus) ? goldAmount(bonus) : 0)
         if (goldToEarn) {
           return [this.material(MaterialType.Coin).createItem(

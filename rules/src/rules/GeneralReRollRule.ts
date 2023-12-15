@@ -65,6 +65,6 @@ export class GeneralReRollRule extends PlayerTurnRule {
 
   addDiceStrength() {
     const diceStrength = sum(this.dices.getItems().map(getDiceSymbol))
-    this.memorize(Memory.Strength, strength => strength + diceStrength, this.player)
+    this.memorize<number>(Memory.Strength, strength => strength + diceStrength, this.player)
   }
 }
