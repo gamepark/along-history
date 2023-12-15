@@ -42,7 +42,10 @@ export const AlongHistoryOptionsSpec: OptionsSpec<AlongHistoryOptions> = {
   ages: {
     label: (t: TFunction) => t('ages.option'),
     values: Object.values(AgesOption).filter(isEnumValue),
-    valueSpec: agesOption => ({ label: t => t(`ages.${agesOption}`) })
+    valueSpec: agesOption => ({
+      label: t => t(`ages.${agesOption}`),
+      subscriberRequired: agesOption !== AgesOption.Prehistory
+    }),
   }
 }
 
