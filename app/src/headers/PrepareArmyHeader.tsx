@@ -60,7 +60,7 @@ const PlayerPreparesArmyHeader = () => {
   if (defenderId === activePlayer) {
     const strength = rules.remind(Memory.Strength, attackerId)
     return <>{t('header.war.defense', { defender, strength })}</>
-  } else if (defender === playerId) {
+  } else if (defenderId === playerId) {
     return <>{t('header.war.attacked', { attacker })}</>
   } else {
     return <>{t('header.war', { attacker, defender })}</>
