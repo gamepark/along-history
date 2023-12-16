@@ -1,4 +1,4 @@
-import { isMoveItem, ItemMove, MaterialItem, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
+import { isMoveItem, ItemMove, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
 import { parseInt, sumBy } from 'lodash'
 import { Achievement } from '../material/Achievement'
 import { AchievementBoard, AchievementBoardLocations, AchievementBoardsPath } from '../material/AchievementBoard'
@@ -13,8 +13,9 @@ import { RuleId } from './RuleId'
 
 export class AchievementsRule extends PlayerTurnRule {
   getPlayerMoves() {
-    const moves: MaterialMove[] = this.accessibleTokens.filter(token => this.canAchieve(token.id))
-      .map(token => this.civilisationToken.moveItem(token.location))
+    const moves: MaterialMove[] = this.accessibleForwardSpaces.map(({ x, y }) =>
+      this.civilisationToken.moveItem({ type: LocationType.AchievementsBoard, x, y })
+    )
     moves.push(...this.moveBackCivilisationToken)
     moves.push(this.rules().startRule(RuleId.EndOfTurn))
     return moves
@@ -33,7 +34,7 @@ export class AchievementsRule extends PlayerTurnRule {
         const y = parseInt(yKey)
         if (this.achievementsPaths[x][y].some(({ x, y }) => x === tokenLocation.x && y === tokenLocation.y)) {
           const achievementToken = this.getAchievementTokenAt(x, y)
-          if (!achievementToken.length || this.canAchieve(achievementToken.getItem()!.id)) {
+          if (!achievementToken || this.canAchieve(achievementToken.id!)) {
             availableSpots.push({ x, y })
           }
         }
@@ -46,8 +47,8 @@ export class AchievementsRule extends PlayerTurnRule {
     return AchievementBoardsPath[this.remind<AchievementBoard | undefined>(Memory.Board) ?? AchievementBoard.Front]
   }
 
-  get accessibleTokens() {
-    const tokens: MaterialItem[] = []
+  get accessibleForwardSpaces() {
+    const spaces: XYCoordinates[] = []
     const civTokenLocation = this.civilisationToken.getItem()!.location as XYCoordinates
     const paths = this.achievementsPaths
     const explored: number[][] = AchievementBoardLocations.map(_ => [])
@@ -57,20 +58,22 @@ export class AchievementsRule extends PlayerTurnRule {
       const { x, y } = available.pop()!
       if (!explored[x].includes(y)) {
         const token = this.getAchievementTokenAt(x, y)
-        if (token.length) {
-          tokens.push(token.getItem()!)
-        } else {
+        if (!token || this.canAchieve(token.id!)) {
+          spaces.push({ x, y })
+        }
+        if (!token) {
           available.push(...paths[x][y])
         }
         explored[x].push(y)
       }
     }
-    return tokens
+    return spaces
   }
 
   getAchievementTokenAt(x: number, y: number) {
     return this.material(MaterialType.AchievementToken)
       .location(location => location.type === LocationType.AchievementsBoard && location.x === x && location.y === y)
+      .getItem<Achievement>()
   }
 
   canAchieve(achievement: Achievement) {
