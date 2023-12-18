@@ -206,10 +206,10 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
 
   hasStartedHisActions(player: PlayerColor) {
     if (this.material(MaterialType.Card).location(LocationType.EventArea).player(player).location(l => l.x! < 3).length < 3) {
-      return false // One card already acquired or discarded
+      return true // One card already acquired or discarded
     }
     const isActivePlayer = this.material(MaterialType.DiscardTile).getItem()?.location.player === player
-    return !(isActivePlayer && this.material(MaterialType.Dice).location(LocationType.DiscardTile).length > 0) // On dice already discarded
+    return isActivePlayer && this.material(MaterialType.Dice).location(LocationType.DiscardTile).length > 0 // One dice already discarded
   }
 
   countCardType(player: PlayerColor, type: CardType) {
