@@ -5,6 +5,7 @@ import { Age } from '@gamepark/along-history/material/Age'
 import { Memory } from '@gamepark/along-history/rules/Memory'
 import { FailuresDialog, FullscreenDialog, LoadingScreen, MaterialHeader, Menu, useRules } from '@gamepark/react-game'
 import { useEffect, useState } from 'react'
+import { GameOverHelp } from './dialogs/GameOverHelp'
 import GameDisplay from './GameDisplay'
 import { Headers } from './headers/Headers'
 import AntiquityBackground from './images/background/AntiquityBackground.jpg'
@@ -23,7 +24,7 @@ export default function App() {
       {rules && <GameDisplay players={rules.players.length}/>}
       <LoadingScreen display={loading} author="François Bachelart" artist="Antonio Mainez" graphicDesigner="Julie Gruet"
                      publisher="Nostromo Éditions" developer="Game Park"/>
-      <MaterialHeader rulesStepsHeaders={Headers} loading={loading}/>
+      <MaterialHeader rulesStepsHeaders={Headers} loading={loading} GameOverRule={GameOverHelp}/>
       <Menu/>
       <FailuresDialog/>
       <FullscreenDialog/>
