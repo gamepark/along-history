@@ -52,7 +52,19 @@ class PlayerAchievementsLocator extends LineLocator {
     }
   }
 
-  deltaMax = { x: 18, y: 18 }
+  getDeltaMax(item: MaterialItem, context: ItemContext) {
+    const l = getPlayerLocation(item.location.player!, context)
+    switch (l.orientation) {
+      case Orientation.LEFT_RIGHT:
+        return { x: 18 }
+      case Orientation.TOP_BOTTOM:
+        return { y: 18 }
+      case Orientation.RIGHT_LEFT:
+        return { x: -18 }
+      case Orientation.BOTTOM_TOP:
+        return { y: -18 }
+    }
+  }
 }
 
 export const playerAchievementsLocator = new PlayerAchievementsLocator()
