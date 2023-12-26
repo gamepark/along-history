@@ -8,6 +8,13 @@ import { RuleId } from './RuleId'
 import { UseDiscardedDieRule } from './UseDiscardedDieRule'
 
 export class UseGoldDieRule extends UseDiscardedDieRule {
+  onRuleStart() {
+    if (this.transmissibleCards.player(this.player).length === 0) {
+      return [this.takeGold()]
+    }
+    return []
+  }
+
   getPlayerMoves() {
     const moves: MaterialMove[] = [this.takeGold(), ...this.availableMultipliers.moveItems(diceToDiscardTile)]
     const multiplier = this.remind<number>(Memory.Multiplier)
