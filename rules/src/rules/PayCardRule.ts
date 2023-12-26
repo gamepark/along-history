@@ -1,5 +1,5 @@
 import { isDeleteItemType, isMoveItem, ItemMove, MaterialMove, MoveItem, PlayerTurnRule, playMove } from '@gamepark/rules-api'
-import { intersection } from 'lodash'
+import { intersection, sumBy } from 'lodash'
 import { AlongHistoryRules } from '../AlongHistoryRules'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
@@ -61,7 +61,7 @@ export class PayCardRule extends PlayerTurnRule {
       if (resourcesCost && resourceResultToken.length && resourcesCost.includes(resourceResultToken.getItem()!.id)) {
         moves.push(resourceResultToken.rotateItem(true))
       }
-      moves.push(...this.flipCardWithBonus(!!populationCost, resourcesCost ?? [], !!goldCost))
+      moves.push(...this.useCardWithBonus(!!populationCost, resourcesCost ?? [], !!goldCost))
       if (populationCost || resourcesCost.length) {
         const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
         if (universalResource.length) {
@@ -92,6 +92,10 @@ export class PayCardRule extends PlayerTurnRule {
       .filter((_, index) => index !== cardToPay)
   }
 
+  get legacyCards() {
+    return this.material(MaterialType.Card).location(LocationType.Legacy).player(this.player)
+  }
+
   get payGold() {
     const moves: MaterialMove[] = [
       ...this.playerDice.id(DiceType.Gold).moveItems(diceToDiscardTile),
@@ -114,12 +118,19 @@ export class PayCardRule extends PlayerTurnRule {
     return this.playerResultTokens.id(isPopulationSymbol).rotateItems(true)
   }
 
-  flipCardWithBonus(population: boolean, resources: (Resource | Bonus)[], gold: boolean) {
-    return this.bonusCards.id<CardId>(cardId =>
-      (population && CardsInfo[cardId.front].bonus.includes(Bonus.Population))
-      || intersection(CardsInfo[cardId.front].bonus, resources).length > 0
-      || (gold && CardsInfo[cardId.front].bonus.some(isGold))
-    ).rotateItems(true)
+  useCardWithBonus(population: boolean, resources: (Resource | Bonus)[], gold: boolean) {
+    const moves: MaterialMove[] = []
+
+    const isUsefulBonus = (bonus: Bonus[]) => (population && bonus.includes(Bonus.Population))
+      || intersection(bonus, resources).length > 0 || (gold && bonus.some(isGold))
+
+    moves.push(...this.bonusCards.id<CardId>(cardId => isUsefulBonus(CardsInfo[cardId.front].bonus)).rotateItems(true))
+
+    if (!this.remind(Memory.LegacyUsed)) {
+      moves.push(...this.legacyCards.id<CardId>(cardId => isUsefulBonus(CardsInfo[cardId.front].bonus)).deleteItems())
+    }
+
+    return moves
   }
 
   get canUseMultiplier() {
@@ -162,6 +173,14 @@ export class PayCardRule extends PlayerTurnRule {
       || (this.remind<number>(Memory.PopulationCost) === 0 && this.remind<Resource[]>(Memory.ResourcesCost).length === 0)
   }
 
+  beforeItemMove(move: ItemMove<number, number, number>) {
+    if (isDeleteItemType(MaterialType.Card)(move)) {
+      this.memorize(Memory.LegacyUsed, true)
+      return this.afterBonusUsed(move.itemIndex)
+    }
+    return []
+  }
+
   afterItemMove(move: ItemMove) {
     const moves: MaterialMove[] = []
     if (isMoveItem(move) && move.itemType === MaterialType.Dice && move.location.type === LocationType.DiscardTile) {
@@ -172,7 +191,7 @@ export class PayCardRule extends PlayerTurnRule {
       if (isMoveItem(move) && move.itemType === MaterialType.ResultToken && move.location.rotation) {
         this.pay(this.material(MaterialType.ResultToken).getItem(move.itemIndex)!.id)
       } else if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.rotation) {
-        moves.push(...this.afterCardTilted(move))
+        moves.push(...this.afterBonusUsed(move.itemIndex))
       } else if (isMoveItem(move) && move.itemType === MaterialType.UniversalResource && move.location.type === LocationType.UniversalResourceStock) {
         moves.push(...this.afterUniversalTokenDiscarded())
       } else if (isDeleteItemType(MaterialType.Coin)(move)) {
@@ -195,9 +214,9 @@ export class PayCardRule extends PlayerTurnRule {
     }
   }
 
-  afterCardTilted(move: MoveItem) {
+  afterBonusUsed(cardIndex: number) {
     let goldToEarn = 0
-    const bonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus
+    const bonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(cardIndex)!.id!.front].bonus
     for (const symbol of bonus) {
       if (isGold(symbol) && this.remind(Memory.GoldCost) === undefined) {
         goldToEarn += goldAmount(symbol)
@@ -219,6 +238,7 @@ export class PayCardRule extends PlayerTurnRule {
     } else {
       resourcesCost.pop()
     }
+    this.forget(Memory.GoldCost)
     return []
   }
 
@@ -379,25 +399,51 @@ export function canPay(cost: Cost, production: Production): boolean {
 }
 
 function canPayGold(cost: number, production: Production): boolean {
-  const { gold, goldToMultiply, multipliers } = production
-  return gold + goldToMultiply * (multipliers === 2 ? 3 : multipliers) >= cost
+  const { gold, goldToMultiply, multipliers, pastBonuses } = production
+  const bestPastGoldBonuses = pastBonuses.length ?
+    Math.max(...pastBonuses.map(bonuses => sumBy(bonuses, bonus => isGold(bonus) ? goldAmount(bonus) : 0))) : 0
+  return gold + goldToMultiply * (multipliers === 2 ? 3 : multipliers) + bestPastGoldBonuses >= cost
 }
 
 function canPayWithVersatileProduction({ population, resources }: BuildCost, production: VersatileProduction): boolean {
-  const { populationToMultiply, multipliers, universalResources, resourceDie } = production
+  const { populationToMultiply, multipliers, universalResources, resourceDie, pastBonuses } = production
   if (resources.length === 0) {
-    return universalResources * 3 + populationToMultiply * (multipliers === 2 ? 3 : multipliers) >= population
+    const bestPopPastBonus = pastBonuses.length ?
+      Math.max(...pastBonuses.map(bonuses => bonuses.filter(bonus => bonus === Bonus.Population).length)) : 0
+    return universalResources * 3 + populationToMultiply * (multipliers === 2 ? 3 : multipliers) + bestPopPastBonus >= population
   }
   if (multipliers > 0 && resourceDie && resources.includes(resourceDie) && canPayWithVersatileProduction(
     { population, resources: removeOne(resources, resourceDie) }, { ...production, multipliers: multipliers - 1 })) {
     return true
   }
-  return universalResources >= resources.length && canPayWithVersatileProduction(
+  if (universalResources >= resources.length && canPayWithVersatileProduction(
     { population, resources: [] },
-    { ...production, universalResources: universalResources - resources.length })
+    { ...production, universalResources: universalResources - resources.length })) {
+    return true
+  }
+  for (const pastBonus of pastBonuses) {
+    if ((population > 0 && pastBonus.includes(Bonus.Population)) || intersection<Resource | Bonus>(pastBonus, resources).length > 0) {
+      const popAfterBonus = Math.max(population - sumBy(pastBonus, b => b === Bonus.Population ? 1 : 0), 0)
+      const resourcesAfterBonus = removeMany(resources, pastBonus.filter(isResource))
+      if (canPayWithVersatileProduction({ population: popAfterBonus, resources: resourcesAfterBonus },
+        { ...production, pastBonuses: [] })) {
+        return true
+      }
+    }
+  }
+  return false
 }
 
 function removeOne<T>(array: T[], item: T): T[] {
   const index = array.indexOf(item)
   return array.slice(0, index).concat(array.slice(index + 1))
+}
+
+function removeMany<T>(array: T[], items: T[]): T[] {
+  let result = array
+  for (const item of items) {
+    const index = array.indexOf(item)
+    result = result.slice(0, index).concat(result.slice(index + 1))
+  }
+  return result
 }

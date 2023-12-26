@@ -1,7 +1,8 @@
 import { PlayerTurnRule } from '@gamepark/rules-api'
-import { sum } from 'lodash'
+import { isEqual, sum, uniqWith } from 'lodash'
 import max from 'lodash/max'
 import sumBy from 'lodash/sumBy'
+import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { DiceType, getDiceSymbol } from '../material/Dices'
@@ -16,7 +17,8 @@ export type VersatileProduction = {
   multipliers: number
   resourceDie?: Resource
   goldToMultiply: number
-  populationToMultiply: number
+  populationToMultiply: number,
+  pastBonuses: Bonus[][]
 }
 
 export type Cost = BuildCost | BuyCost | ChoiceCost
@@ -54,12 +56,12 @@ export class ProductionRule extends PlayerTurnRule {
       multipliers: this.getMultipliers(player),
       populationToMultiply: this.getPopulationToMultiply(player),
       resourceDie: this.getResourceDie(player),
-      goldToMultiply: this.getGoldToMultiply(player)
+      goldToMultiply: this.getGoldToMultiply(player),
+      pastBonuses: this.getPastBonuses(player)
     }
   }
 
   getPopulationProduction(player = this.player) {
-    // TODO: from past in multi ages
     return this.getDicePopulationProduction(player) + this.getResultTokensPopulationProduction(player)
       + this.getCivCardsPopulationProduction(player) + this.getGoldenAgesPopulationProduction(player)
   }
@@ -103,7 +105,6 @@ export class ProductionRule extends PlayerTurnRule {
       ...this.getResourcesFromResultTokens(player),
       ...this.getResourcesFromCivCards(player),
       ...this.getResourcesFromGoldenAges(player)
-      // TODO: Cards in the past
     ]
   }
 
@@ -134,7 +135,6 @@ export class ProductionRule extends PlayerTurnRule {
   }
 
   getGoldProduction(player = this.player): number {
-    // TODO: from past in multi ages
     return this.getGoldDieProduction(player) + this.getGoldResultTokenProduction(player)
       + this.getCivCardsGoldProduction(player) + this.getGoldenAgesGoldProduction(player)
   }
@@ -199,5 +199,11 @@ export class ProductionRule extends PlayerTurnRule {
     } else {
       return this.getGoldDieProduction(player)
     }
+  }
+
+  getPastBonuses(player = this.player) {
+    return this.remind(Memory.LegacyUsed) ? []
+      : uniqWith(this.material(MaterialType.Card).location(LocationType.Legacy).player(player).getItems<CardId>()
+        .map(item => CardsInfo[item.id!.front].bonus), isEqual)
   }
 }

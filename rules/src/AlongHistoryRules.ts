@@ -41,14 +41,17 @@ import { CounterattackRule } from './rules/CounterattackRule'
 import { DecayRule } from './rules/DecayRule'
 import { EndOfTurnRule } from './rules/EndOfTurnRule'
 import { GeneralReRollRule } from './rules/GeneralReRollRule'
+import { Memory } from './rules/Memory'
 import { NewEventsRule } from './rules/NewEventsRule'
 import { PayCardRule } from './rules/PayCardRule'
 import { PoisonRule } from './rules/PoisonRule'
 import { PrepareArmyRule } from './rules/PrepareArmyRule'
+import { PrepareNextAgeRule } from './rules/PrepareNextAgeRule'
 import { RansomRule } from './rules/RansomRule'
 import { RobinHoodRule } from './rules/RobinHoodRule'
 import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
+import { SetupAgeRule } from './rules/SetupAgeRule'
 import { SwapRule } from './rules/SwapRule'
 import { TradeCardsRule } from './rules/TradeCardsRule'
 import { TradeOnAcquisitionRule } from './rules/TradeOnAcquisitionRule'
@@ -88,6 +91,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [RuleId.Decay]: DecayRule,
     [RuleId.EndOfTurn]: EndOfTurnRule,
     [RuleId.Upkeep]: UpkeepRule,
+    [RuleId.PrepareNextAge]: PrepareNextAgeRule,
+    [RuleId.SetupAge]: SetupAgeRule,
     [RuleId.UseGoldDie]: UseGoldDieRule,
     [RuleId.UseGoldResultToken]: UseGoldResultTokenRule,
     [RuleId.Ransom]: RansomRule,
@@ -121,7 +126,8 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
       [LocationType.Deck]: new PositiveSequenceStrategy(),
       [LocationType.Discard]: new PositiveSequenceStrategy(),
       [LocationType.EventArea]: new FillGapStrategy(),
-      [LocationType.CivilisationArea]: new CivilisationAreaStrategy()
+      [LocationType.CivilisationArea]: new CivilisationAreaStrategy(),
+      [LocationType.Legacy]: new PositiveSequenceStrategy()
     },
     [MaterialType.CivilisationToken]: {
       [LocationType.AchievementsBoard]: new FillGapZOnlyStrategy()
@@ -146,6 +152,12 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
   }
 
   getScore(player: PlayerColor) {
+    const pastAgesScore = sumBy([Memory.PrehistoryScore, Memory.AntiquityScore, Memory.MiddleAgesScore],
+      memory => this.remind(memory, player) ?? 0)
+    return this.isOver() ? pastAgesScore : pastAgesScore + this.getOngoingAgeScore(player)
+  }
+
+  getOngoingAgeScore(player: PlayerColor) {
     return this.getCivilisationCardsScore(player) - this.getDecayMalus(player) + this.getAchievementsScore(player)
   }
 

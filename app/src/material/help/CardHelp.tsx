@@ -11,7 +11,7 @@ import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { getCalamityFailureRule } from '@gamepark/along-history/rules/CalamitiesRule'
 import { buttonCss, MaterialHelpProps, Picture, PlayMoveButton, PlayMoveButtonProps, useLegalMoves, usePlayerName, useRules } from '@gamepark/react-game'
-import { displayMaterialHelp, isMoveItemType, isSelectItemType, MaterialMove, MoveItem } from '@gamepark/rules-api'
+import { displayMaterialHelp, isDeleteItemType, isMoveItemType, isSelectItemType, MaterialMove, MoveItem } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import { playerButtonColor } from '../../headers/WarsHeader'
 import populationIcon from '../../images/dices/population/Population1.jpg'
@@ -39,8 +39,10 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
   const selectCard = legalMoves.find(move => isSelectItemType(MaterialType.Card)(move) && move.itemIndex === itemIndex)
   const cardMoves = legalMoves.filter(isMoveItemType(MaterialType.Card)).filter(move => move.itemIndex === itemIndex)
   const acquireCard = cardMoves.find(move => move.location.type === LocationType.CivilisationArea && move.location.x === undefined)
-  const discardCard = legalMoves.find(move => isMoveItemType(MaterialType.Card)(move) && move.itemIndex === itemIndex
-    && move.location.type === LocationType.Discard)
+  const discardCard = legalMoves.find(move =>
+    (isMoveItemType(MaterialType.Card)(move) && move.itemIndex === itemIndex && move.location.type === LocationType.Discard)
+    || (isDeleteItemType(MaterialType.Card)(move) && move.itemIndex === itemIndex)
+  )
   const decayMoves = cardMoves.filter(move => move.location.type === LocationType.CivilisationArea && move.location.x !== undefined && move.location.z === 1)
   const giveMoves = cardMoves.filter(move => move.location.type === LocationType.EventArea)
   const tilt = cardMoves.find(move => move.location.type === LocationType.CivilisationArea && move.location.rotation)

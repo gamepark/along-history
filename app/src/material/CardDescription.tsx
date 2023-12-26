@@ -4,7 +4,7 @@ import { Card } from '@gamepark/along-history/material/Card'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { isMoveItem, Location, MaterialItem, MaterialMove } from '@gamepark/rules-api'
+import { isDeleteItemType, isMoveItem, Location, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import AntiquityBack from '../images/cards/antiquity/AntiquityBack.jpg'
 import Agriculture from '../images/cards/antiquity/fr/Agriculture.jpg'
 import AlexanderTheGreat from '../images/cards/antiquity/fr/AlexanderTheGreat.jpg'
@@ -297,6 +297,7 @@ class AlongHistoryCardDescription extends CardDescription {
     return super.canShortClick(move, context) ||
       (isMoveItem(move) && move.itemType === MaterialType.Card && move.itemIndex === context.index
         && move.location.type === LocationType.CivilisationArea && move.location.rotation === true)
+      || (isDeleteItemType(MaterialType.Card)(move) && move.itemIndex === context.index)
   }
 
   getLocations(item: MaterialItem, context: ItemContext): Location[] {
@@ -308,6 +309,8 @@ class AlongHistoryCardDescription extends CardDescription {
   getRotateZ(item: MaterialItem, context: ItemContext) {
     return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
   }
+
+  stockLocation = { type: LocationType.Discard }
 }
 
 export const cardDescription = new AlongHistoryCardDescription()

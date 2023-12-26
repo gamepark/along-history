@@ -19,6 +19,7 @@ import { PrepareArmyHeader } from './PrepareArmyHeader'
 import { RansomHeader } from './RansomHeader'
 import { RobinHoodHeader } from './RobinHoodHeader'
 import { RollDiceHeader } from './RollDiceHeader'
+import { SetupAgeHeader } from './SetupAgeHeader'
 import { SwapHeader } from './SwapHeader'
 import { TitheHeader } from './TitheHeader'
 import { TradeCardsHeader } from './TradeCardsHeader'
@@ -49,6 +50,8 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.Decay]: DecayHeader,
   [RuleId.EndOfTurn]: EndOfTurnHeader,
   [RuleId.Upkeep]: UpkeepHeader,
+  [RuleId.PrepareNextAge]: SetupAgeHeader,
+  [RuleId.SetupAge]: SetupAgeHeader,
 
   [RuleId.UseGoldDie]: UseGoldDieHeader,
   [RuleId.UseGoldResultToken]: UseGoldResultTokenHeader,

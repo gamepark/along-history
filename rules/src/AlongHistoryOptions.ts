@@ -19,7 +19,7 @@ export type AlongHistoryOptions = {
 }
 
 export enum AgesOption {
-  Prehistory = 1, Antiquity, MiddleAges/*, PrehistoryToAntiquity, AntiquityToMiddleAges, PrehistoryToMiddleAges*/
+  Prehistory = 1, Antiquity, MiddleAges, PrehistoryToAntiquity, AntiquityToMiddleAges, PrehistoryToMiddleAges
 }
 
 /**
@@ -42,10 +42,11 @@ export const AlongHistoryOptionsSpec: OptionsSpec<AlongHistoryOptions> = {
   ages: {
     label: (t: TFunction) => t('ages.option'),
     values: Object.values(AgesOption).filter(isEnumValue),
-    valueSpec: agesOption => ({
+    valueSpec: (agesOption = AgesOption.Prehistory) => ({
       label: t => t(`ages.${agesOption}`),
-      subscriberRequired: agesOption !== AgesOption.Prehistory
-    }),
+      subscriberRequired: agesOption !== AgesOption.Prehistory,
+      competitiveDisabled: agesOption > AgesOption.MiddleAges
+    })
   }
 }
 

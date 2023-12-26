@@ -1,4 +1,6 @@
 import { CustomMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { AlongHistoryRules } from '../AlongHistoryRules'
+import { Age } from '../material/Age'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
@@ -34,6 +36,7 @@ export class EndOfTurnRule extends PlayerTurnRule {
     this.forget(Memory.Attacker)
     this.forget(Memory.Defender)
     this.forget(Memory.Strength)
+    this.forget(Memory.LegacyUsed)
     if (this.material(MaterialType.DiscardTile).getItem()?.location.player === this.nextPlayer) {
       return this.endRound
     } else {
@@ -51,12 +54,22 @@ export class EndOfTurnRule extends PlayerTurnRule {
     for (const item of selectedResultToken.getItems()) {
       delete item.selected
     }
-    if (this.ageIsOver) {
+    const ageIsOver = this.ageIsOver
+    const age = this.remind<Age>(Memory.CurrentAge)
+    const gameIsOver = ageIsOver && age === this.remind<Age>(Memory.LastAge)
+    if (ageIsOver) {
+      const scoreMemory = age === Age.Prehistory ? Memory.PrehistoryScore : age === Age.Antiquity ? Memory.AntiquityScore : Memory.MiddleAgesScore
+      const rules = new AlongHistoryRules(this.game)
+      for (const player of this.game.players) {
+        this.memorize(scoreMemory, rules.getOngoingAgeScore(player), player)
+      }
+    }
+    if (gameIsOver) {
       moves.push(this.rules().endGame())
     } else {
       const nextActivePlayer = this.game.players[(this.game.players.indexOf(this.player) + 2) % this.game.players.length]
       moves.push(this.material(MaterialType.DiscardTile).moveItem({ type: LocationType.PlayerDiscardTile, player: nextActivePlayer }))
-      moves.push(this.rules().startPlayerTurn(RuleId.Upkeep, nextActivePlayer))
+      moves.push(this.rules().startPlayerTurn(ageIsOver ? RuleId.PrepareNextAge : RuleId.Upkeep, nextActivePlayer))
     }
     return moves
   }

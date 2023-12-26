@@ -1,4 +1,4 @@
-import { MaterialMove } from '../../../../../workshop/packages/rules-api'
+import { MaterialMove } from '@gamepark/rules-api'
 import { CardId } from '../../material/cards/CardId'
 import { CardsInfo } from '../../material/cards/CardsInfo'
 import { CardType } from '../../material/cards/CardType'

@@ -9,12 +9,6 @@ import { civilisationAreaHeight, getPlayerLocation, Orientation, PlayerLocation 
 class CivilisationAreaLocator extends ItemLocator {
   locationDescription = civilisationAreaDescription
 
-  /**
-   * Calculate absolute position of the elements inside this area, integrating spaces between cards and decay shifts.
-   * @param item
-   * @param context
-   * @returns
-   */
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
     const l = getPlayerLocation(item.location.player!, context)
     const { x, y } = this.getXYCoordinates(l)
@@ -42,7 +36,9 @@ class CivilisationAreaLocator extends ItemLocator {
     const decayDelta = 1
     let deltaX = cardDescription.width + 1
     if (maxX > 0) {
-      deltaX = Math.min(deltaX, (l.civilisationArea.width - decayCards.length * decayDelta - cardDescription.width) / maxX)
+      const hasLegacyCards = context.rules.material(MaterialType.Card).location(LocationType.Legacy).player(item.location.player).length > 0
+      const width = hasLegacyCards ? l.civilisationArea.width - cardDescription.width - 1 : l.civilisationArea.width
+      deltaX = Math.min(deltaX, (width - decayCards.length * decayDelta - cardDescription.width) / maxX)
     }
     return item.location.x! * deltaX + (decayBefore + item.location.z!) * decayDelta
   }
