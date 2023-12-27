@@ -1,3 +1,4 @@
+import { Memory } from '../rules/Memory'
 import { Card, cards } from './Card'
 
 export enum Age {
@@ -159,3 +160,9 @@ export const AgesCards: Record<Age, Card[]> = {
 }
 
 export const getCardAge = (card: Card): Age => Math.ceil(card / 100)
+
+export const agesScoreMemory: Record<Age, Memory> = {
+  [Age.Prehistory]: Memory.PrehistoryScore,
+  [Age.Antiquity]: Memory.AntiquityScore,
+  [Age.MiddleAges]: Memory.MiddleAgesScore,
+}

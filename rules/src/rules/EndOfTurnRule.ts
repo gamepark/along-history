@@ -1,6 +1,6 @@
 import { CustomMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { AlongHistoryRules } from '../AlongHistoryRules'
-import { Age } from '../material/Age'
+import { Age, agesScoreMemory } from '../material/Age'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
@@ -58,10 +58,9 @@ export class EndOfTurnRule extends PlayerTurnRule {
     const age = this.remind<Age>(Memory.CurrentAge)
     const gameIsOver = ageIsOver && age === this.remind<Age>(Memory.LastAge)
     if (ageIsOver) {
-      const scoreMemory = age === Age.Prehistory ? Memory.PrehistoryScore : age === Age.Antiquity ? Memory.AntiquityScore : Memory.MiddleAgesScore
       const rules = new AlongHistoryRules(this.game)
       for (const player of this.game.players) {
-        this.memorize(scoreMemory, rules.getOngoingAgeScore(player), player)
+        this.memorize(agesScoreMemory[age], rules.getCurrentAgeScore(player), player)
       }
     }
     if (gameIsOver) {

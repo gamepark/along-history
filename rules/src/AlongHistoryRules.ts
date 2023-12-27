@@ -10,6 +10,7 @@ import {
 } from '@gamepark/rules-api'
 import { sumBy } from 'lodash'
 import { Achievement, getAchievementValue } from './material/Achievement'
+import { agesScoreMemory } from './material/Age'
 import { CardId } from './material/cards/CardId'
 import { CardsInfo } from './material/cards/CardsInfo'
 import { CardType } from './material/cards/CardType'
@@ -154,10 +155,11 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
   getScore(player: PlayerColor) {
     const pastAgesScore = sumBy([Memory.PrehistoryScore, Memory.AntiquityScore, Memory.MiddleAgesScore],
       memory => this.remind(memory, player) ?? 0)
-    return this.isOver() ? pastAgesScore : pastAgesScore + this.getOngoingAgeScore(player)
+    const currentAgeScored = this.remind(agesScoreMemory[this.remind(Memory.CurrentAge)]) !== undefined || this.game.rule?.id === RuleId.PrepareNextAge
+    return currentAgeScored ? pastAgesScore : pastAgesScore + this.getCurrentAgeScore(player)
   }
 
-  getOngoingAgeScore(player: PlayerColor) {
+  getCurrentAgeScore(player: PlayerColor) {
     return this.getCivilisationCardsScore(player) - this.getDecayMalus(player) + this.getAchievementsScore(player)
   }
 
