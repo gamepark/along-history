@@ -19,21 +19,23 @@ export const PlayerPanels = () => {
   const play = usePlay()
   return (
     <>
-      {players.map((player, index) =>
-        <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index, players.length)}>
-          <div css={vpCounter}><span>{rules?.getScore(player.id)!}</span></div>
-          <ol css={cardTypesList}>
-            {cardTypes.map(type => {
-              const quantity = rules?.countCardType(player.id, type) ?? 0
-              return quantity > 0 ? <li key={type}><Picture src={cardTypeIcons[type]} css={typeIcon}/>{quantity}</li> : null
-            })}
-          </ol>
-          {(player.id === attacker || player.id === defender) &&
-            <div css={warIcon} onClick={() => play(displayRulesHelp(RuleId.Wars), { local: true })}>
-              <span>{rules?.remind(Memory.Strength, player.id)}</span>
-            </div>
-          }
-        </PlayerPanel>
+      {players.map((player, index) => {
+        const score = rules?.getScore(player.id)
+        return <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index, players.length)}>
+            <div css={vpCounter}><span css={vpText(score)}>{score}</span></div>
+            <ol css={cardTypesList}>
+              {cardTypes.map(type => {
+                const quantity = rules?.countCardType(player.id, type) ?? 0
+                return quantity > 0 ? <li key={type}><Picture src={cardTypeIcons[type]} css={typeIcon}/>{quantity}</li> : null
+              })}
+            </ol>
+            {(player.id === attacker || player.id === defender) &&
+              <div css={warIcon} onClick={() => play(displayRulesHelp(RuleId.Wars), { local: true })}>
+                <span>{rules?.remind(Memory.Strength, player.id)}</span>
+              </div>
+            }
+          </PlayerPanel>
+        }
       )}
     </>
   )
@@ -70,15 +72,15 @@ const vpCounter = css`
   background-size: cover;
   width: 6em;
   height: 5.46em;
+`
 
-  > span {
-    font-size: 3em;
-    position: absolute;
-    left: 50%;
-    top: 42%;
-    transform: translate(-50%, -50%);
-    font-weight: bold;
-  }
+const vpText = (score = 0) => css`
+  font-size: ${score < 100 ? 3 : 2.4}em;
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
 `
 
 const cardTypesList = css`
