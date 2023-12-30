@@ -1,4 +1,4 @@
-import { CustomMove, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isDeleteItemType, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { sumBy } from 'lodash'
 import countBy from 'lodash/countBy'
 import parseInt from 'lodash/parseInt'
@@ -40,6 +40,7 @@ export class ActionsRule extends PlayerTurnRule {
       ...this.moveAffordableCardsToCivilisationArea,
       ...this.discardEffects,
       ...this.tiltGoldBonusCards,
+      ...this.spendLegacyGoldBonus,
       this.rules().customMove(CustomMoveType.Pass)
     ]
   }
@@ -127,6 +128,15 @@ export class ActionsRule extends PlayerTurnRule {
     return this.activeCards.rotation(undefined).id<CardId>(id => id.front && CardsInfo[id.front].bonus.some(isGold)).rotateItems(true)
   }
 
+  get spendLegacyGoldBonus() {
+    if (this.remind(Memory.LegacyUsed)) return []
+    return this.legacyCards.id<CardId>(id => id.front && CardsInfo[id.front].bonus.some(isGold)).deleteItems()
+  }
+
+  get legacyCards() {
+    return this.material(MaterialType.Card).location(LocationType.Legacy).player(this.player)
+  }
+
   canDiscard(card: Card) {
     const conditionRules = new ConditionRules(this.game)
     return CardsInfo[card].effects.some(effect => effect.type === EffectType.Discard && conditionRules.hasCondition(effect.condition))
@@ -149,6 +159,9 @@ export class ActionsRule extends PlayerTurnRule {
         }
         return [this.rules().startRule(RuleId.PayCard)]
       }
+    } else if (isDeleteItemType(MaterialType.Card)(move)) {
+      this.memorize(Memory.LegacyUsed, true)
+      return [this.gainBonusGold(move.itemIndex)]
     }
     return []
   }
@@ -177,14 +190,16 @@ export class ActionsRule extends PlayerTurnRule {
         return [this.rules().startRule(RuleId.TradeCards)]
       }
     } else if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.rotation) {
-      const goldBonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!.id!.front].bonus.find(isGold)
-      if (goldBonus) {
-        return [this.material(MaterialType.Coin).createItem(
-          { quantity: goldAmount(goldBonus), location: { type: LocationType.PlayerCoins, player: this.player } }
-        )]
-      }
+      return [this.gainBonusGold(move.itemIndex)]
     }
     return []
+  }
+
+  gainBonusGold(cardIndex: number) {
+    const goldBonus = CardsInfo[this.material(MaterialType.Card).getItem<CardId>(cardIndex)!.id!.front].bonus.find(isGold)!
+    return this.material(MaterialType.Coin).createItem(
+      { quantity: goldAmount(goldBonus), location: { type: LocationType.PlayerCoins, player: this.player } }
+    )
   }
 
   hasRotatedCard() {
