@@ -7,9 +7,11 @@ import { Memory } from '@gamepark/along-history/rules/Memory'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { Picture, PlayerPanel, usePlay, usePlayers, useRules } from '@gamepark/react-game'
 import { displayRulesHelp } from '@gamepark/rules-api'
+import { useState } from 'react'
 import VictoryPointIcon from '../images/icons/VictoryPointIcon.png'
 import WarIconRed from '../images/icons/WarIconRed.png'
 import { cardTypeIcons } from '../material/help/CardHelp'
+import { PlayerDialog } from './PlayerDialog'
 
 export const PlayerPanels = () => {
   const players = usePlayers<PlayerColor>({ sortFromMe: true })
@@ -17,11 +19,13 @@ export const PlayerPanels = () => {
   const attacker = rules?.remind<PlayerColor>(Memory.Attacker)
   const defender = rules?.remind<PlayerColor>(Memory.Defender)
   const play = usePlay()
+  const [playerDialog, setPlayerDialog] = useState<PlayerColor | undefined>()
   return (
     <>
       {players.map((player, index) => {
-        const score = rules?.getScore(player.id)
-        return <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index, players.length)}>
+          const score = rules?.getScore(player.id)
+          return <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index, players.length)}
+                              onClick={() => setPlayerDialog(player.id)}>
             <div css={vpCounter}><span css={vpText(score)}>{score}</span></div>
             <ol css={cardTypesList}>
               {cardTypes.map(type => {
@@ -37,6 +41,7 @@ export const PlayerPanels = () => {
           </PlayerPanel>
         }
       )}
+      <PlayerDialog open={playerDialog !== undefined} player={playerDialog} close={() => setPlayerDialog(undefined)}/>
     </>
   )
 }
@@ -46,6 +51,7 @@ const panelPosition = (index: number, players: number) => css`
   top: ${panelTop(index, players)}em;
   width: 28em;
   height: 16em;
+  cursor: pointer;
 `
 
 const panelTop = (index: number, players: number) => {
