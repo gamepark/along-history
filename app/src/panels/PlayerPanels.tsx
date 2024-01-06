@@ -56,9 +56,9 @@ const panelPosition = (index: number, players: number) => css`
 
 const panelTop = (index: number, players: number) => {
   if (players === 2) {
-    return index === 0 ? 80 : 13
+    return index === 0 ? 80 : 15
   } else {
-    return 9 + index * 18
+    return 15 + index * (players === 5 ? 17 : 18)
   }
 }
 

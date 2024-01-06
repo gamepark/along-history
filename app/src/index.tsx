@@ -5,7 +5,7 @@ import { AlongHistorySetup } from '@gamepark/along-history/AlongHistorySetup'
 import { GameProvider, setupTranslation } from '@gamepark/react-game'
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
-import { AlongHistoryAnimations } from './animations/AlongHistoryAnimations'
+import { alongHistoryAnimations } from './animations/AlongHistoryAnimations'
 import App from './App'
 import { RulesHelp } from './dialogs/RulesHelp'
 import { Locators } from './locators/Locators'
@@ -18,7 +18,7 @@ setupTranslation(translations, { debug: false })
 ReactDOM.render(
   <StrictMode>
     <GameProvider game="along-history" Rules={AlongHistoryRules} optionsSpec={AlongHistoryOptionsSpec} GameSetup={AlongHistorySetup}
-                  material={Material} locators={Locators} animations={new AlongHistoryAnimations()} tutorial={new Tutorial()}
+                  material={Material} locators={Locators} animations={alongHistoryAnimations} tutorial={new Tutorial()}
                   rulesHelp={RulesHelp}
                   theme={{
                     dialog: {
