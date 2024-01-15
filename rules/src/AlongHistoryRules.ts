@@ -3,6 +3,7 @@ import {
   FillGapStrategy,
   HiddenMaterialRules,
   hideFront,
+  isCreateItemsAtOnce,
   MaterialGame,
   MaterialMove,
   PositiveSequenceStrategy,
@@ -150,6 +151,13 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     [MaterialType.Card]: {
       [LocationType.Deck]: hideFront
     }
+  }
+
+  protected isRandomMove(move: MaterialMove<PlayerColor, MaterialType, LocationType>): boolean {
+    if (isCreateItemsAtOnce(move) && move.itemType === MaterialType.AchievementToken) {
+      return true
+    }
+    return super.isRandomMove(move)
   }
 
   getScore(player: PlayerColor) {

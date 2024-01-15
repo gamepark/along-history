@@ -18,11 +18,12 @@ export class PrepareNextAgeRule extends PlayerTurnRule {
     const cards = this.material(MaterialType.Card)
     const moves: MaterialMove[] = []
     moves.push(cards.filter(card => !this.isActiveBonusCard(card)).deleteItemsAtOnce())
-    moves.push(...cards.filter(card => this.isActiveBonusCard(card)).moveItems(item => (
-      { type: LocationType.Legacy, player: item.location.player }
-    )))
     const universalResourceStock = this.material(MaterialType.UniversalResource).location(LocationType.UniversalResourceStock)
     for (const player of this.game.players) {
+      moves.push(
+        cards.filter(card => this.isActiveBonusCard(card) && card.location.player === player)
+          .moveItemsAtOnce({ type: LocationType.Legacy, player })
+      )
       const universalResources = this.material(MaterialType.UniversalResource).player(player)
       const quantity = universalResources.getQuantity()
       if (quantity === 0) {
@@ -41,7 +42,7 @@ export class PrepareNextAgeRule extends PlayerTurnRule {
     }
 
     moves.push(this.material(MaterialType.AchievementToken).deleteItemsAtOnce())
-    moves.push(...this.material(MaterialType.CivilisationToken).moveItems({ type: LocationType.AchievementsBoard, x: 0, y: 0 }))
+    moves.push(this.material(MaterialType.CivilisationToken).moveItemsAtOnce({ type: LocationType.AchievementsBoard, x: 0, y: 0 }))
 
     moves.push(this.rules().startRule(RuleId.SetupAge))
 

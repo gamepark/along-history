@@ -1,4 +1,5 @@
-import { isCreateItemsAtOnce, isShuffle, ItemMove, listingToList, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isCreateItemsAtOnce, isShuffle, ItemMove, listingToList, MaterialItem, PlayerTurnRule } from '@gamepark/rules-api'
+import { shuffle } from 'lodash'
 import { Achievement, achievements, getAchievementValue } from '../material/Achievement'
 import { AchievementBoardLocations } from '../material/AchievementBoard'
 import { Age, AgesCardsListing } from '../material/Age'
@@ -17,9 +18,7 @@ export class SetupAgeRule extends PlayerTurnRule {
 
   createAchievementTokens() {
     const age = this.remind<Age>(Memory.CurrentAge)
-    return this.material(MaterialType.AchievementToken).createItemsAtOnce(this.getAchievements(age).map(achievement => (
-      { id: achievement, location: { type: LocationType.AchievementsBoard, x: 7, y: -3 } }
-    )))
+    return this.material(MaterialType.AchievementToken).createItemsAtOnce(this.getRandomAchievements(age))
   }
 
   createCards(predicate: (card: Card) => boolean) {
@@ -33,37 +32,22 @@ export class SetupAgeRule extends PlayerTurnRule {
     )
   }
 
-  getAchievements(age: Age) {
-    if (age === Age.Prehistory) {
-      return achievements.filter(achievement => achievement !== Achievement.Gold15)
-    } else {
-      return achievements
+  getRandomAchievements(age: Age): MaterialItem[] {
+    const items: MaterialItem[] = []
+    for (let x = 1; x < AchievementBoardLocations.length; x++) {
+      const tokens = shuffle(achievements.filter(achievement =>
+        getAchievementValue(achievement) === x && (achievement !== Achievement.Gold15 || age !== Age.Prehistory)
+      ))
+      for (const y of AchievementBoardLocations[x]) {
+        items.push({ id: tokens.pop(), location: { type: LocationType.AchievementsBoard, x, y } })
+      }
     }
+    return items
   }
 
   afterItemMove(move: ItemMove) {
-    if (move.itemType === MaterialType.AchievementToken) {
-      return this.afterAchievementTokenMove(move)
-    } else if (move.itemType === MaterialType.Card) {
+    if (move.itemType === MaterialType.Card) {
       return this.afterCardMove(move)
-    }
-    return []
-  }
-
-  afterAchievementTokenMove(move: ItemMove) {
-    if (isCreateItemsAtOnce(move)) {
-      return [this.material(MaterialType.AchievementToken).shuffle()]
-    } else if (isShuffle(move)) {
-      const moves: MaterialMove[] = []
-      for (let x = 1; x < AchievementBoardLocations.length; x++) {
-        const deck = this.material(MaterialType.AchievementToken)
-          .location(l => l.type === LocationType.AchievementsBoard && l.x === 7 && l.y === -3)
-          .id<Achievement>(id => getAchievementValue(id) === x).deck()
-        for (const y of AchievementBoardLocations[x]) {
-          moves.push(deck.dealOne({ type: LocationType.AchievementsBoard, x, y }))
-        }
-      }
-      return moves
     }
     return []
   }
