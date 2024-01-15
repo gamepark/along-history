@@ -10,20 +10,20 @@ class LegacyLocator extends LineLocator {
   getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
     const l = getPlayerLocation(item.location.player!, context)
     const { x, y } = this.getXYCoordinates(l)
-    return { x, y, z: -10 }
+    return { x, y, z: 0.01 }
   }
 
   getDelta(item: MaterialItem, context: ItemContext) {
     const l = getPlayerLocation(item.location.player!, context)
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
-        return { y: -1.3, z: 0.05 }
+        return { y: -1.3, z: 0.01 }
       case Orientation.TOP_BOTTOM:
-        return { x: 1.3, z: 0.05 }
+        return { x: 1.3, z: 0.01 }
       case Orientation.RIGHT_LEFT:
-        return { y: 1.3, z: 0.05 }
+        return { y: 1.3, z: 0.01 }
       case Orientation.BOTTOM_TOP:
-        return { x: -1.3, z: 0.05 }
+        return { x: -1.3, z: 0.01 }
     }
   }
 

@@ -34,25 +34,25 @@ export class CivilisationAreaDescription extends LocationDescription {
         return {
           x: l.civilisationArea.x + l.civilisationArea.width / 2,
           y: l.civilisationArea.y + civilisationAreaHeight / 2,
-          z: -20
+          z: 0
         }
       case Orientation.TOP_BOTTOM:
         return {
           x: l.civilisationArea.x - civilisationAreaHeight / 2,
           y: l.civilisationArea.y + l.civilisationArea.width / 2,
-          z: -20
+          z: 0
         }
       case Orientation.RIGHT_LEFT:
         return {
           x: l.civilisationArea.x - l.civilisationArea.width / 2,
           y: l.civilisationArea.y - civilisationAreaHeight / 2,
-          z: -20
+          z: 0
         }
       case Orientation.BOTTOM_TOP:
         return {
           x: l.civilisationArea.x + civilisationAreaHeight / 2,
           y: l.civilisationArea.y - l.civilisationArea.width / 2,
-          z: -20
+          z: 0
         }
     }
   }

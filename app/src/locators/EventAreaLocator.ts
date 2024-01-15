@@ -15,7 +15,7 @@ class EventAreaLocator extends LineLocator {
     return {
       x: x + (item.selected ? -0.2 : 0),
       y: y + (item.selected ? -0.5 : 0),
-      z: item.selected ? 20 : 0
+      z: item.selected ? 2 : 0.5
     }
   }
 
