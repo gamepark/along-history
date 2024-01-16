@@ -8,12 +8,13 @@ import { RuleId } from './RuleId'
 
 export class TradeCardsRule extends PlayerTurnRule {
   getPlayerMoves(): MaterialMove[] {
-    const moves: MaterialMove[] = []
-    if (!this.opponentCardSelected.length) {
-      moves.push(...this.selectOpponentCard)
+    const hasSelectedOwnCard = this.playerCardSelected.length !== 0
+    if (hasSelectedOwnCard) {
+      return this.selectOpponentCard
     }
-    if (!this.playerCardSelected.length) {
-      moves.push(...this.selectPlayerCard)
+    const moves: MaterialMove[] = this.selectPlayerCard
+    if (moves.length > 0 && !this.opponentCardSelected.length) {
+      moves.push(...this.selectOpponentCard)
     }
     return moves
   }
