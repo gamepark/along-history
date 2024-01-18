@@ -18,7 +18,7 @@ export class SpartacusUprisingFailure extends LoseCardRule {
 
   getCardsToLose() {
     const cards = this.activeCards
-    const bestVictoryPoints = Math.max(...cards.getItems<CardId>().map(item => CardsInfo[item.id!.front].victoryPoints))
+    const bestVictoryPoints = Math.max(...cards.getItems<CardId>().map(item => CardsInfo[item.id!.front].victoryPoints ?? 0))
     return cards.id<CardId>(id => CardsInfo[id!.front].victoryPoints === bestVictoryPoints)
   }
 }

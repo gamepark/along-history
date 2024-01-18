@@ -77,7 +77,7 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
         </p>
       }
 
-      <p css={alignIcon}>{isNaN(info.victoryPoints) ?
+      <p css={alignIcon}>{info.victoryPoints === undefined ?
         <Trans defaults="effect.al-khawarizmi">
           <em/>
           <Picture src={Coin} css={roundCss}/>

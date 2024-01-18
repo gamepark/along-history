@@ -8,7 +8,7 @@ export type CardInfo = {
   populationCost: number
   resourcesCost: Resource[]
   goldCost?: number,
-  victoryPoints: number,
+  victoryPoints?: number,
   bonus: Bonus[],
   effects: Effect[]
 }

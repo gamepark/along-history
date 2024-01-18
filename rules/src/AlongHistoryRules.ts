@@ -178,7 +178,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
       .getItems<CardId>()
     return sumBy(civilisationCards, item => {
       const victoryPoints = CardsInfo[item.id!.front].victoryPoints
-      if (isNaN(victoryPoints)) { // Al-Khawarizmi
+      if (victoryPoints === undefined) { // Al-Khawarizmi
         return Math.min(Math.floor(this.material(MaterialType.Coin).player(player).getQuantity() / 3), 4)
       }
       return victoryPoints

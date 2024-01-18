@@ -7,7 +7,6 @@ export const AlKhawarizmi: CardInfo = {
   populationCost: 8,
   resourcesCost: [Resource.Culture],
   goldCost: 12,
-  victoryPoints: NaN,
   bonus: [],
   effects: []
 }

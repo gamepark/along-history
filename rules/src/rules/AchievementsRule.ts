@@ -148,7 +148,7 @@ export class AchievementsRule extends PlayerTurnRule {
   }
 
   hasCardsVictoryPoints(quantity: number) {
-    return sumBy(this.civilisationCards, card => CardsInfo[card].victoryPoints) >= quantity
+    return sumBy(this.civilisationCards, card => CardsInfo[card].victoryPoints ?? 0) >= quantity
   }
 
   hasBonus(quantity = 1) {
