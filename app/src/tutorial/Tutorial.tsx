@@ -294,7 +294,7 @@ export class Tutorial extends MaterialTutorial {
         position: { x: -18, y: 15 }
       },
       focus: (game: MaterialGame) => [
-        { type: MaterialType.Board, item: boardDescription.staticItem },
+        { type: MaterialType.Board, item: boardDescription.frontBoard },
         this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard),
         this.material(game, MaterialType.CivilisationToken),
         this.location(LocationType.CivilisationArea).player(game.players[0])
@@ -306,7 +306,7 @@ export class Tutorial extends MaterialTutorial {
         position: { x: -18, y: 15 }
       },
       focus: (game: MaterialGame) => [
-        { type: MaterialType.Board, item: boardDescription.staticItem },
+        { type: MaterialType.Board, item: boardDescription.frontBoard },
         this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard).id<Achievement>(achievement =>
           new AchievementsRule(game).canAchieve(achievement)
         ),
@@ -796,7 +796,7 @@ export class Tutorial extends MaterialTutorial {
         position: { x: -18, y: 15 }
       },
       focus: (game: MaterialGame) => [
-        { type: MaterialType.Board, item: boardDescription.staticItem },
+        { type: MaterialType.Board, item: boardDescription.frontBoard },
         this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard).id<Achievement>(achievement =>
           getAchievementValue(achievement) === 2 && new AchievementsRule(game).canAchieve(achievement)
         ),
@@ -1023,7 +1023,7 @@ export class Tutorial extends MaterialTutorial {
         position: { x: -15, y: 22 }
       },
       focus: (game: MaterialGame) => [
-        { type: MaterialType.Board, item: boardDescription.staticItem },
+        { type: MaterialType.Board, item: boardDescription.frontBoard },
         this.material(game, MaterialType.AchievementToken).id<Achievement>(id => getAchievementValue(id) === 7),
         this.material(game, MaterialType.CivilisationToken),
         this.location(LocationType.CivilisationArea).player(game.players[0])

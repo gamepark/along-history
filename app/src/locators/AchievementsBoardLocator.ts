@@ -1,4 +1,6 @@
+import { AchievementBoard } from '@gamepark/along-history/material/AchievementBoard'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
+import { Memory } from '@gamepark/along-history/rules/Memory'
 import { ItemContext, ItemLocator, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, Location, MaterialItem, MaterialMove, MaterialRules } from '@gamepark/rules-api'
 import { shallowEqual } from 'react-redux'
@@ -8,6 +10,10 @@ import { AchievementBoardLocationHelp } from './help/AchievementBoardLocationHel
 class AchievementsBoardLocator extends ItemLocator {
   parentItemType = MaterialType.Board
   locationDescription = new AchievementBoardLocationDescription()
+
+  getParentItemId(_location: Location, { rules }: ItemContext) {
+    return rules.remind(Memory.Board) ?? AchievementBoard.Front
+  }
 
   getPositionOnParent(location: Location) {
     const x = location.x!
