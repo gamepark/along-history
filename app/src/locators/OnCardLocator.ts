@@ -1,6 +1,6 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { ItemContext, ItemLocator, LocationDescription } from '@gamepark/react-game'
+import { ItemLocator, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { isMoveItem, Location, MaterialMove } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 
@@ -16,7 +16,7 @@ class OnCardLocationDescription extends LocationDescription {
   borderRadius = cardDescription.borderRadius
   alwaysVisible = false
 
-  couldDrop(move: MaterialMove, location: Location, context: ItemContext) {
+  isMoveToLocation(move: MaterialMove, location: Location, context: MaterialContext) {
     if (isMoveItem(move) && move.itemType === MaterialType.Card
       && move.location.type === LocationType.CivilisationArea && move.location.x !== undefined && move.location.player === context.player) {
       const card = context.rules.material(MaterialType.Card).getItem(location.parent!)!
