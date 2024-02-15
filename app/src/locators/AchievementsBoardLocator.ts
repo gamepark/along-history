@@ -48,7 +48,7 @@ class AchievementBoardLocationDescription extends LocationDescription {
     return { width: size, height: size }
   }
 
-  protected isMoveToLocation(move: MaterialMove<number, number, number>, location: Location<number, number>, context: MaterialContext<number, number, number>): boolean {
+  isMoveToLocation(move: MaterialMove<number, number, number>, location: Location<number, number>, context: MaterialContext<number, number, number>): boolean {
     return !locationHasAchievementToken(location, context.rules) && super.isMoveToLocation(move, location, context)
   }
 }

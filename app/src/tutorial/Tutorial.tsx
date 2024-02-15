@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { Achievement, getAchievementValue } from '@gamepark/along-history/material/Achievement'
 import { Card } from '@gamepark/along-history/material/Card'
 import { CardId } from '@gamepark/along-history/material/cards/CardId'
@@ -96,28 +97,30 @@ export class Tutorial extends MaterialTutorial {
         text: () => <Trans defaults="tuto.event-area"><strong/><em/></Trans>,
         position: { x: 0, y: -32 }
       },
-      focus: (game: MaterialGame) => this.material(game, MaterialType.Card).location(LocationType.EventArea).player(game.players[0])
+      focus: (game: MaterialGame) => ({
+        materials: [this.material(game, MaterialType.Card).location(LocationType.EventArea).player(game.players[0])]
+      })
     },
     {
       popup: {
         text: () => <Trans defaults="tuto.round1"><strong/><em/></Trans>,
         position: { x: 0, y: -28 }
       },
-      focus: (game: MaterialGame) => this.material(game, MaterialType.Dice)
+      focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Dice)] })
     },
     {
       popup: {
         text: () => <Trans defaults="tuto.dice"><strong/><em/></Trans>,
         position: { x: 0, y: -28 }
       },
-      focus: (game: MaterialGame) => this.material(game, MaterialType.Dice)
+      focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Dice)] })
     },
     {
       popup: {
         text: () => <Trans defaults="tuto.pop-dice"><strong/><em/></Trans>,
         position: { x: 0, y: -28 }
       },
-      focus: (game: MaterialGame) => this.material(game, MaterialType.Dice).id(id => id !== DiceType.Special)
+      focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Dice).id(id => id !== DiceType.Special)] })
     },
     {
       popup: {
@@ -128,7 +131,9 @@ export class Tutorial extends MaterialTutorial {
         </Trans>,
         position: { x: 45, y: 0 }
       },
-      focus: (game: MaterialGame) => this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger)
+      focus: (game: MaterialGame) => ({
+        materials: [this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger)]
+      })
     },
     {
       popup: {
@@ -137,7 +142,7 @@ export class Tutorial extends MaterialTutorial {
         </Trans>,
         position: { x: -10, y: 25 }
       },
-      focus: (game: MaterialGame) => this.material(game, MaterialType.Dice).location(l => l.x === 3 || l.x === 5),
+      focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Dice).location(l => l.x === 3 || l.x === 5)] }),
       move: {
         filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && move.itemIndex === 5 && move.location.type === LocationType.DiscardTile
       }
@@ -151,7 +156,7 @@ export class Tutorial extends MaterialTutorial {
           }
         }
       },
-      focus: (game: MaterialGame) => this.material(game, MaterialType.Dice).id(DiceType.Resource)
+      focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Dice).id(DiceType.Resource)] })
     },
     {
       popup: {
@@ -161,7 +166,7 @@ export class Tutorial extends MaterialTutorial {
         </Trans>,
         position: { x: -10, y: 25 }
       },
-      focus: (game: MaterialGame) => this.material(game, MaterialType.Dice).id(DiceType.Resource)
+      focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Dice).id(DiceType.Resource)] })
     },
     {
       popup: {
@@ -171,19 +176,23 @@ export class Tutorial extends MaterialTutorial {
         </Trans>,
         position: { x: 10, y: -10 }
       },
-      focus: (game: MaterialGame) => [
-        this.material(game, MaterialType.Dice).index(1),
-        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Hunting)
-      ],
+      focus: (game: MaterialGame) => ({
+        materials: [
+          this.material(game, MaterialType.Dice).index(1),
+          this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Hunting)
+        ]
+      }),
       move: {
         filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && move.itemIndex === 1 && move.location.type === LocationType.DiscardTile
       }
     },
     {
-      focus: (game: MaterialGame) => [
-        this.material(game, MaterialType.Dice).index(1),
-        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Hunting)
-      ],
+      focus: (game: MaterialGame) => ({
+        materials: [
+          this.material(game, MaterialType.Dice).index(1),
+          this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Hunting)
+        ]
+      }),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => {
           if (!isSelectItemType(MaterialType.Card)(move)) return false
@@ -193,10 +202,12 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      focus: (game: MaterialGame) => [
-        this.material(game, MaterialType.Dice).index(1),
-        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Hunting)
-      ],
+      focus: (game: MaterialGame) => ({
+        materials: [
+          this.material(game, MaterialType.Dice).index(1),
+          this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Hunting)
+        ]
+      }),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => {
           if (!isSelectItemType(MaterialType.Card)(move)) return false
@@ -210,10 +221,10 @@ export class Tutorial extends MaterialTutorial {
         text: () => <Trans defaults="tuto.forest"><strong/><em/></Trans>,
         position: { x: 10, y: -10 }
       },
-      focus: (game: MaterialGame) => [
-        this.location(LocationType.CivilisationArea).player(game.players[0]),
-        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Forest)
-      ],
+      focus: (game: MaterialGame) => ({
+        locations: [{ type: LocationType.CivilisationArea, player: game.players[0] }],
+        materials: [this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Forest)]
+      }),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move)
           && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Forest
@@ -227,48 +238,56 @@ export class Tutorial extends MaterialTutorial {
         </Trans>,
         position: { x: -20, y: -20 }
       },
-      focus: (game: MaterialGame) => this.material(game, MaterialType.Dice).id(DiceType.Special)
+      focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Dice).id(DiceType.Special)] })
     },
     {
       popup: {
         text: () => <Trans defaults="tuto.forest.pay"><strong/><em/></Trans>,
         position: { x: 0, y: -20 }
       },
-      focus: (game: MaterialGame) => [
-        this.material(game, MaterialType.Dice).location(LocationType.PlayerResources),
-        this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Forest),
-        this.material(game, MaterialType.DiscardTile)
-      ],
+      focus: (game: MaterialGame) => ({
+        materials: [
+          this.material(game, MaterialType.Dice).location(LocationType.PlayerResources),
+          this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Forest),
+          this.material(game, MaterialType.DiscardTile)
+        ]
+      }),
       move: {
         filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && (move.itemIndex === 0 || move.itemIndex === 2)
       }
     },
     {
-      focus: (game: MaterialGame) => [
-        this.material(game, MaterialType.Dice).location(LocationType.PlayerResources),
-        this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Forest),
-        this.material(game, MaterialType.DiscardTile)
-      ],
+      focus: (game: MaterialGame) => ({
+        materials: [
+          this.material(game, MaterialType.Dice).location(LocationType.PlayerResources),
+          this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Forest),
+          this.material(game, MaterialType.DiscardTile)
+        ]
+      }),
       move: {
         filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && (move.itemIndex === 0 || move.itemIndex === 2)
       }
     },
     {
-      focus: (game: MaterialGame) => [
-        this.material(game, MaterialType.Dice).location(LocationType.PlayerResources),
-        this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Forest),
-        this.material(game, MaterialType.DiscardTile)
-      ],
+      focus: (game: MaterialGame) => ({
+        materials: [
+          this.material(game, MaterialType.Dice).location(LocationType.PlayerResources),
+          this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Forest),
+          this.material(game, MaterialType.DiscardTile)
+        ]
+      }),
       move: {
         filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && move.itemIndex === 4
       }
     },
     {
-      focus: (game: MaterialGame) => [
-        this.material(game, MaterialType.Dice).location(LocationType.PlayerResources),
-        this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Forest),
-        this.material(game, MaterialType.DiscardTile)
-      ],
+      focus: (game: MaterialGame) => ({
+        materials: [
+          this.material(game, MaterialType.Dice).location(LocationType.PlayerResources),
+          this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Forest),
+          this.material(game, MaterialType.DiscardTile)
+        ]
+      }),
       move: {
         filter: (move: MaterialMove) => isMoveItemType(MaterialType.Dice)(move) && move.itemIndex === 3
       }
@@ -286,33 +305,37 @@ export class Tutorial extends MaterialTutorial {
         text: () => <Trans defaults="tuto.event-area.refill"><strong/><em/></Trans>,
         position: { x: 0, y: -32 }
       },
-      focus: (game: MaterialGame) => this.material(game, MaterialType.Card).location(LocationType.EventArea).player(game.players[0])
+      focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Card).location(LocationType.EventArea).player(game.players[0])] })
     },
     {
       popup: {
         text: () => <Trans defaults="tuto.success"><strong/><em/></Trans>,
         position: { x: -18, y: 15 }
       },
-      focus: (game: MaterialGame) => [
-        { type: MaterialType.Board, item: boardDescription.frontBoard },
-        this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard),
-        this.material(game, MaterialType.CivilisationToken),
-        this.location(LocationType.CivilisationArea).player(game.players[0])
-      ]
+      focus: (game: MaterialGame) => ({
+        staticItems: [{ type: MaterialType.Board, item: boardDescription.frontBoard }],
+        materials: [
+          this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard),
+          this.material(game, MaterialType.CivilisationToken)
+        ],
+        locations: [{ type: LocationType.CivilisationArea, player: game.players[0] }]
+      })
     },
     {
       popup: {
         text: () => <Trans defaults="tuto.success.take"><strong/><em/></Trans>,
         position: { x: -18, y: 15 }
       },
-      focus: (game: MaterialGame) => [
-        { type: MaterialType.Board, item: boardDescription.frontBoard },
-        this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard).id<Achievement>(achievement =>
-          new AchievementsRule(game).canAchieve(achievement)
-        ),
-        this.material(game, MaterialType.CivilisationToken),
-        this.location(LocationType.CivilisationArea).player(game.players[0])
-      ],
+      focus: (game: MaterialGame) => ({
+        staticItems: [{ type: MaterialType.Board, item: boardDescription.frontBoard }],
+        materials: [
+          this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard).id<Achievement>(achievement =>
+            new AchievementsRule(game).canAchieve(achievement)
+          ),
+          this.material(game, MaterialType.CivilisationToken)
+        ],
+        locations: [{ type: LocationType.CivilisationArea, player: game.players[0] }]
+      }),
       move: {
         filter: isMoveItemType(MaterialType.CivilisationToken)
       }
@@ -326,10 +349,12 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: { text: () => <Trans defaults="tuto.result-tokens"><strong/><em/></Trans> },
-      focus: (game: MaterialGame) => [
-        this.material(game, MaterialType.Dice),
-        this.material(game, MaterialType.ResultToken)
-      ]
+      focus: (game: MaterialGame) => ({
+        materials: [
+          this.material(game, MaterialType.Dice),
+          this.material(game, MaterialType.ResultToken)
+        ]
+      })
     },
     {
       move: {
@@ -395,7 +420,8 @@ export class Tutorial extends MaterialTutorial {
     {
       move: {
         player: PlayerColor.Blue,
-        filter: isMoveItemType(MaterialType.CivilisationToken)
+        filter: (move, game) => isMoveItemType(MaterialType.CivilisationToken)(move)
+          && new AlongHistoryRules(game).material(MaterialType.AchievementToken).location(l => l.x === move.location.x && l.y === move.location.y).length > 0
       }
     },
     {
@@ -636,33 +662,27 @@ export class Tutorial extends MaterialTutorial {
         </Trans>,
         position: { x: 0, y: 32 }
       },
-      focus: (game: MaterialGame) => [
-        this.location(LocationType.CivilisationArea).player(game.players[0]),
-        this.material(game, MaterialType.ResultToken).player(PlayerColor.Green).id(DiceSymbol.Population1),
-        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Wildcrafting)
-      ],
+      focus: (game: MaterialGame) => ({
+        locations: [{ type: LocationType.CivilisationArea, player: game.players[0] }],
+        materials: [
+          this.material(game, MaterialType.ResultToken).player(PlayerColor.Green).id(DiceSymbol.Population1),
+          this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Wildcrafting)
+        ]
+      }),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.ResultToken)(move)
           && this.material(game, MaterialType.ResultToken).getItem<DiceSymbol>(move.itemIndex)?.id === DiceSymbol.Population1
       }
     },
     {
-      focus: (game: MaterialGame) => [
-        this.location(LocationType.CivilisationArea).player(game.players[0]),
-        this.material(game, MaterialType.ResultToken).player(PlayerColor.Green).id(DiceSymbol.Population1),
-        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Wildcrafting)
-      ],
+      focus: (game: MaterialGame) => this.steps[game.tutorialStep! - 1].focus!(game),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
           && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Tiger
       }
     },
     {
-      focus: (game: MaterialGame) => [
-        this.location(LocationType.CivilisationArea).player(game.players[0]),
-        this.material(game, MaterialType.ResultToken).player(PlayerColor.Green).id(DiceSymbol.Population1),
-        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Tiger || id.front === Card.Wildcrafting)
-      ],
+      focus: (game: MaterialGame) => this.steps[game.tutorialStep! - 1].focus!(game),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
           && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Wildcrafting
@@ -673,10 +693,10 @@ export class Tutorial extends MaterialTutorial {
         text: () => <Trans defaults="tuto.wildcrafting"><strong/><em/></Trans>,
         position: { x: 40, y: -10 }
       },
-      focus: (game: MaterialGame) => [
-        this.location(LocationType.CivilisationArea).player(game.players[0]),
-        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Wildcrafting)
-      ],
+      focus: (game: MaterialGame) => ({
+        locations: [{ type: LocationType.CivilisationArea, player: game.players[0] }],
+        materials: [this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Wildcrafting)]
+      }),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move)
           && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Wildcrafting
@@ -687,9 +707,11 @@ export class Tutorial extends MaterialTutorial {
         text: () => <Trans defaults="tuto.bonus.forest"><strong/><em/></Trans>,
         position: { x: 0, y: -20 }
       },
-      focus: (game: MaterialGame) => [
-        this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Forest)
-      ],
+      focus: (game: MaterialGame) => ({
+        materials: [
+          this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Forest)
+        ]
+      }),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move)
           && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Forest
@@ -702,10 +724,12 @@ export class Tutorial extends MaterialTutorial {
           <Picture src={Population3} css={[inlineIcon, rounded]}/>
         </Trans>
       },
-      focus: (game: MaterialGame) => [
-        this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Wildcrafting),
-        this.material(game, MaterialType.ResultToken).location(LocationType.PlayerResources).id(DiceSymbol.Population3)
-      ],
+      focus: (game: MaterialGame) => ({
+        materials: [
+          this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).id<CardId>(id => id.front === Card.Wildcrafting),
+          this.material(game, MaterialType.ResultToken).location(LocationType.PlayerResources).id(DiceSymbol.Population3)
+        ]
+      }),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.ResultToken)(move) &&
           this.material(game, move.itemType).getItem(move.itemIndex)?.id === DiceSymbol.Population3
@@ -719,49 +743,41 @@ export class Tutorial extends MaterialTutorial {
         </Trans>,
         position: { x: 0, y: -20 }
       },
-      focus: (game: MaterialGame) => [
-        this.location(LocationType.CivilisationArea).player(game.players[0]),
-        this.material(game, MaterialType.Card).player(PlayerColor.Green).id<CardId>(id =>
-          id.front === Card.Wildcrafting || id.front === Card.Australopithecus
-        )
-      ],
+      focus: (game: MaterialGame) => ({
+        locations: [{ type: LocationType.CivilisationArea, player: game.players[0] }],
+        materials: [
+          this.material(game, MaterialType.Card).player(PlayerColor.Green).id<CardId>(id =>
+            id.front === Card.Wildcrafting || id.front === Card.Australopithecus
+          )
+        ]
+      }),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move)
           && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Australopithecus
       }
     },
     {
-      focus: (game: MaterialGame) => [
-        this.location(LocationType.CivilisationArea).player(game.players[0]),
-        this.material(game, MaterialType.Card).player(PlayerColor.Green).id<CardId>(id =>
-          id.front === Card.Wildcrafting || id.front === Card.Australopithecus
-        ),
-        this.material(game, MaterialType.ResultToken).location(LocationType.PlayerResources)
-      ],
+      focus: (game: MaterialGame) => ({
+        locations: [{ type: LocationType.CivilisationArea, player: game.players[0] }],
+        materials: [
+          this.material(game, MaterialType.Card).player(PlayerColor.Green).id<CardId>(id =>
+            id.front === Card.Wildcrafting || id.front === Card.Australopithecus
+          ),
+          this.material(game, MaterialType.ResultToken).location(LocationType.PlayerResources)
+        ]
+      }),
       move: {
         filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
       }
     },
     {
-      focus: (game: MaterialGame) => [
-        this.location(LocationType.CivilisationArea).player(game.players[0]),
-        this.material(game, MaterialType.Card).player(PlayerColor.Green).id<CardId>(id =>
-          id.front === Card.Wildcrafting || id.front === Card.Australopithecus
-        ),
-        this.material(game, MaterialType.ResultToken).location(LocationType.PlayerResources)
-      ],
+      focus: (game: MaterialGame) => this.steps[game.tutorialStep! - 1].focus!(game),
       move: {
         filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
       }
     },
     {
-      focus: (game: MaterialGame) => [
-        this.location(LocationType.CivilisationArea).player(game.players[0]),
-        this.material(game, MaterialType.Card).player(PlayerColor.Green).id<CardId>(id =>
-          id.front === Card.Wildcrafting || id.front === Card.Australopithecus
-        ),
-        this.material(game, MaterialType.ResultToken).location(LocationType.PlayerResources)
-      ],
+      focus: (game: MaterialGame) => this.steps[game.tutorialStep! - 1].focus!(game),
       move: {
         filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
       }
@@ -781,7 +797,7 @@ export class Tutorial extends MaterialTutorial {
         </Trans>,
         position: { x: -15, y: -28 }
       },
-      focus: (game: MaterialGame) => this.material(game, MaterialType.UniversalResource).player(PlayerColor.Green)
+      focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.UniversalResource).player(PlayerColor.Green)] })
     },
     {
       popup: {
@@ -795,14 +811,16 @@ export class Tutorial extends MaterialTutorial {
         text: () => <Trans defaults="tuto.success2"><strong/><em/></Trans>,
         position: { x: -18, y: 15 }
       },
-      focus: (game: MaterialGame) => [
-        { type: MaterialType.Board, item: boardDescription.frontBoard },
-        this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard).id<Achievement>(achievement =>
-          getAchievementValue(achievement) === 2 && new AchievementsRule(game).canAchieve(achievement)
-        ),
-        this.material(game, MaterialType.CivilisationToken),
-        this.location(LocationType.CivilisationArea).player(game.players[0])
-      ],
+      focus: (game: MaterialGame) => ({
+        staticItems: [{ type: MaterialType.Board, item: boardDescription.frontBoard }],
+        materials: [
+          this.material(game, MaterialType.AchievementToken).location(LocationType.AchievementsBoard).id<Achievement>(achievement =>
+            getAchievementValue(achievement) === 2 && new AchievementsRule(game).canAchieve(achievement)
+          ),
+          this.material(game, MaterialType.CivilisationToken)
+        ],
+        locations: [{ type: LocationType.CivilisationArea, player: game.players[0] }]
+      }),
       move: {
         filter: (move: MaterialMove) => isMoveItemType(MaterialType.CivilisationToken)(move) && move.location.x === 2
       }
@@ -812,10 +830,10 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: { text: () => <Trans defaults="tuto.decay.2"><strong/><em/></Trans> },
-      focus: (game: MaterialGame) => [
-        this.location(LocationType.CivilisationArea).player(game.players[0]),
-        this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).player(PlayerColor.Green)
-      ],
+      focus: (game: MaterialGame) => ({
+        locations: [{ type: LocationType.CivilisationArea, player: game.players[0] }],
+        materials: [this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).player(PlayerColor.Green)]
+      }),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isMoveItemType(MaterialType.Card)(move)
           && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Australopithecus
@@ -1005,8 +1023,9 @@ export class Tutorial extends MaterialTutorial {
         text: () => <Trans defaults="tuto.calamity"><strong/><em/></Trans>,
         position: { x: 48, y: 0 }
       },
-      focus: (game: MaterialGame) =>
-        this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Wolves)
+      focus: (game: MaterialGame) => ({
+        materials: [this.material(game, MaterialType.Card).location(LocationType.EventArea).id<CardId>(id => id.front === Card.Wolves)]
+      })
     },
     {
       popup: { text: () => <Trans defaults="tuto.universal.gain1"><strong/><em/></Trans> }
@@ -1022,12 +1041,14 @@ export class Tutorial extends MaterialTutorial {
         text: () => <Trans defaults="tuto.age-end"><strong/><em/></Trans>,
         position: { x: -15, y: 22 }
       },
-      focus: (game: MaterialGame) => [
-        { type: MaterialType.Board, item: boardDescription.frontBoard },
-        this.material(game, MaterialType.AchievementToken).id<Achievement>(id => getAchievementValue(id) === 7),
-        this.material(game, MaterialType.CivilisationToken),
-        this.location(LocationType.CivilisationArea).player(game.players[0])
-      ]
+      focus: (game: MaterialGame) => ({
+        staticItems: [{ type: MaterialType.Board, item: boardDescription.frontBoard }],
+        materials: [
+          this.material(game, MaterialType.AchievementToken).id<Achievement>(id => getAchievementValue(id) === 7),
+          this.material(game, MaterialType.CivilisationToken)
+        ],
+        locations: [{ type: LocationType.CivilisationArea, players: game.players[0] }]
+      })
     },
     {
       popup: { text: () => <Trans defaults="tuto.good-luck"><strong/><em/></Trans> }
