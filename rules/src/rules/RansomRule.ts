@@ -25,8 +25,7 @@ export class RansomRule extends SimultaneousRule {
     return this.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && l.player === player && !l.z)
   }
 
-  getLegalMoves(player: PlayerColor) {
-    if (!this.isTurnToPlay(player)) return []
+  getActivePlayerLegalMoves(player: PlayerColor) {
     const moves: MaterialMove[] = this.getActiveCards(player).moveItems({ type: LocationType.Discard })
     const coins = this.material(MaterialType.Coin).player(player)
     const gold = coins.getQuantity()
