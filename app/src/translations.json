@@ -246,7 +246,7 @@
       "player.dialog.score.antiquity": "{score} points for Antiquity",
       "player.dialog.score.middle-ages": "{score} points for Middle Ages",
       "player.dialog.score.cards": "{score} points for the cards",
-      "player.dialog.score.achievements": "{score} points for the Achivement tokens",
+      "player.dialog.score.achievements": "{score} points for the Achievement tokens",
       "player.dialog.score.decay": "{score} points for the bonus in decay",
       "player.dialog.score.decay.help": "Each bonus (losange) on a card under decay is worth -2 points",
       "player.dialog.card-type": "{player} has {cards, plural, one{# card} other{# cards}} of type {type}",
