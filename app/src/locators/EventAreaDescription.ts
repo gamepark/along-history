@@ -14,7 +14,7 @@ export class EventAreaDescription extends LocationDescription {
     return rules.players.map(player => ({ type: LocationType.EventArea, player }))
   }
 
-  getSize(location: Location, context: MaterialContext) {
+  getLocationSize(location: Location, context: MaterialContext) {
     const l = getPlayerLocation(location.player!, context)
     return { width: l.eventArea.width - discardTileDescription.width - 1, height: cardDescription.height }
   }

@@ -43,7 +43,7 @@ class AchievementBoardLocationDescription extends LocationDescription {
 
   help = AchievementBoardLocationHelp
 
-  getSize(location: Location) {
+  getLocationSize(location: Location) {
     const size = location.x === 0 ? 3.5 : achievementTokenDescription.width
     return { width: size, height: size }
   }

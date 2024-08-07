@@ -22,7 +22,7 @@ export class CivilisationAreaDescription extends LocationDescription {
     `
   }
 
-  getSize(location: Location, context: MaterialContext) {
+  getLocationSize(location: Location, context: MaterialContext) {
     const l = getPlayerLocation(location.player ?? context.rules.game.players[0], context)
     return { width: l.civilisationArea.width, height: civilisationAreaHeight }
   }
