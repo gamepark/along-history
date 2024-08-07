@@ -153,11 +153,11 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
     }
   }
 
-  protected isRandomMove(move: MaterialMove<PlayerColor, MaterialType, LocationType>): boolean {
+  isUnpredictableMove(move: MaterialMove<PlayerColor, MaterialType, LocationType>, player: PlayerColor): boolean {
     if (isCreateItemsAtOnce(move) && move.itemType === MaterialType.AchievementToken) {
       return true
     }
-    return super.isRandomMove(move)
+    return super.isUnpredictableMove(move, player)
   }
 
   getScore(player: PlayerColor) {
