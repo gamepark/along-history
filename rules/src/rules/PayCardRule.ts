@@ -1,4 +1,4 @@
-import { isDeleteItemType, isMoveItem, ItemMove, MaterialMove, MoveItem, PlayerTurnRule, playMove } from '@gamepark/rules-api'
+import { isDeleteItemType, isMoveItem, ItemMove, MaterialMove, MoveItem, playAction, PlayerTurnRule } from '@gamepark/rules-api'
 import { intersection, sumBy } from 'lodash'
 import { AlongHistoryRules } from '../AlongHistoryRules'
 import { Bonus } from '../material/cards/Bonus'
@@ -156,7 +156,7 @@ export class PayCardRule extends PlayerTurnRule {
   willBeAbleToPay(move: MaterialMove) {
     const futureGame = JSON.parse(JSON.stringify(this.game))
     const rules = new AlongHistoryRules(futureGame)
-    playMove(rules, move)
+    playAction(rules, move, this.player)
     const production = new ProductionRule(futureGame).getProduction(this.player)
     const goldCost = rules.remind<number | undefined>(Memory.GoldCost)
     if (goldCost !== undefined && canPayGold(goldCost, production)) return true
