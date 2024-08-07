@@ -1,10 +1,10 @@
-import { ItemContext, ItemLocator } from '@gamepark/react-game'
+import { ItemContext, Locator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
 import { getPlayerLocation, Orientation } from './PlayerLocator'
 
-class PlayerDiscardTileLocator extends ItemLocator {
+class PlayerDiscardTileLocator extends Locator {
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
     const { x, y } = this.getXYCoordinates(item, context)
     return { x, y, z: 0 }

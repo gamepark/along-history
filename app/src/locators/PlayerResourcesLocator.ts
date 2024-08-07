@@ -1,11 +1,11 @@
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { ItemContext, ItemLocator } from '@gamepark/react-game'
+import { ItemContext, Locator } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { diceDescription } from '../material/DiceDescription'
 import { civilisationAreaHeight, getPlayerLocation, Orientation } from './PlayerLocator'
 
-class PlayerResourcesLocator extends ItemLocator {
+class PlayerResourcesLocator extends Locator {
 
   getPosition(item: MaterialItem, context: ItemContext) {
     const itemIndex = this.getItemIndex(item, context)

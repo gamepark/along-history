@@ -1,10 +1,10 @@
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { ItemLocator, LocationDescription, MaterialContext } from '@gamepark/react-game'
+import { Locator, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { isMoveItem, Location, MaterialMove } from '@gamepark/rules-api'
 import { shallowEqual } from 'react-redux'
 import { achievementTokenDescription } from '../material/AchievementTokenDescription'
 
-class AchievementTokenLocator extends ItemLocator {
+class AchievementTokenLocator extends Locator {
   parentItemType = MaterialType.AchievementToken
   positionOnParent = { x: 50, y: 50 }
   locationDescription = new AchievementTokenLocationDescription()

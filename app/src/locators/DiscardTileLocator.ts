@@ -1,11 +1,11 @@
 import { Age } from '@gamepark/along-history/material/Age'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { Memory } from '@gamepark/along-history/rules/Memory'
-import { ItemLocator, MaterialContext } from '@gamepark/react-game'
+import { Locator, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { diceDescription } from '../material/DiceDescription'
 
-class DiscardTileLocator extends ItemLocator {
+class DiscardTileLocator extends Locator {
   parentItemType = MaterialType.DiscardTile
 
   getPositionOnParent(location: Location, { rules }: MaterialContext) {

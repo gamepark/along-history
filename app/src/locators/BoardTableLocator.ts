@@ -1,7 +1,7 @@
-import { ItemLocator } from '@gamepark/react-game'
+import { Locator } from '@gamepark/react-game'
 import { boardDescription } from '../material/BoardDescription'
 
-class BoardTableLocator extends ItemLocator {
+class BoardTableLocator extends Locator {
   position = {
     x: boardDescription.width / 2,
     y: boardDescription.height / 2,

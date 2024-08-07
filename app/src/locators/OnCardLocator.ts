@@ -1,10 +1,10 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { ItemLocator, LocationDescription, MaterialContext } from '@gamepark/react-game'
+import { Locator, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { isMoveItem, Location, MaterialMove } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 
-class OnCardLocator extends ItemLocator {
+class OnCardLocator extends Locator {
   parentItemType = MaterialType.Card
   positionOnParent = { x: 50, y: 50 }
   locationDescription = new OnCardLocationDescription()
