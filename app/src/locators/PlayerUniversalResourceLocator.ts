@@ -1,7 +1,7 @@
 import { ItemContext, LineLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
-import { civilisationAreaHeight, getPlayerLocation, Orientation } from './PlayerLocator'
+import { civilisationAreaHeight, getPlayerLocation, getPlayerRotation, Orientation } from './PlayerLocator'
 
 class PlayerUniversalResourceLocator extends LineLocator {
   getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
@@ -47,6 +47,10 @@ class PlayerUniversalResourceLocator extends LineLocator {
       case Orientation.BOTTOM_TOP:
         return { y: 2, z: 0.05 }
     }
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    return getPlayerRotation(item, context) + 45
   }
 }
 

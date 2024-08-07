@@ -4,7 +4,7 @@ import { ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { civilisationAreaDescription } from './CivilisationAreaDescription'
-import { civilisationAreaHeight, getPlayerLocation, Orientation, PlayerLocation } from './PlayerLocator'
+import { civilisationAreaHeight, getPlayerLocation, getPlayerRotation, Orientation, PlayerLocation } from './PlayerLocator'
 
 class CivilisationAreaLocator extends Locator {
   locationDescription = civilisationAreaDescription
@@ -28,7 +28,6 @@ class CivilisationAreaLocator extends Locator {
       case Orientation.BOTTOM_TOP:
         return { x: x, y: y - delta, z }
     }
-
   }
 
   getDelta(item: MaterialItem, context: ItemContext): number {
@@ -70,6 +69,10 @@ class CivilisationAreaLocator extends Locator {
           y: l.civilisationArea.y - cardDescription.width / 2
         }
     }
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
   }
 }
 

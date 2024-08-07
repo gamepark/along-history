@@ -5,7 +5,7 @@ import { Coordinates, Location, MaterialItem, XYCoordinates } from '@gamepark/ru
 import { cardDescription } from '../material/CardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
 import { eventAreaDescription } from './EventAreaDescription'
-import { getPlayerLocation, Orientation } from './PlayerLocator'
+import { getPlayerLocation, getPlayerRotation, Orientation } from './PlayerLocator'
 
 class EventAreaLocator extends LineLocator {
   locationDescription = eventAreaDescription
@@ -71,6 +71,10 @@ class EventAreaLocator extends LineLocator {
   getDeltaMax(item: MaterialItem, context: ItemContext) {
     const l = getPlayerLocation(item.location.player!, context)
     return { x: l.eventArea.width - cardDescription.width - discardTileDescription.width - 1 }
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
   }
 }
 

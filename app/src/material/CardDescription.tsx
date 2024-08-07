@@ -141,7 +141,6 @@ import Wolves from '../images/cards/prehistory/fr/Wolves.jpg'
 import Woodlands from '../images/cards/prehistory/fr/Woodlands.jpg'
 import WoollyRhinoceros from '../images/cards/prehistory/fr/WoollyRhinoceros.jpg'
 import PrehistoryBack from '../images/cards/prehistory/PrehistoryBack.jpg'
-import { getPlayerRotation } from '../locators/PlayerLocator'
 import { CardHelp } from './help/CardHelp'
 
 class AlongHistoryCardDescription extends CardDescription {
@@ -304,10 +303,6 @@ class AlongHistoryCardDescription extends CardDescription {
     return item.location.type === LocationType.CivilisationArea && item.location.z === 0 && item.location.player === context.player
       ? [{ type: LocationType.OnCard, parent: context.index }]
       : []
-  }
-
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
   }
 
   stockLocation = { type: LocationType.Discard }

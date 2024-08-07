@@ -2,7 +2,7 @@ import { ItemContext, Locator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
-import { getPlayerLocation, Orientation } from './PlayerLocator'
+import { getPlayerLocation, getPlayerRotation, Orientation } from './PlayerLocator'
 
 class PlayerDiscardTileLocator extends Locator {
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
@@ -34,6 +34,10 @@ class PlayerDiscardTileLocator extends Locator {
           y: l.eventArea.y - l.eventArea.width + discardTileDescription.width / 2
         }
     }
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
   }
 }
 

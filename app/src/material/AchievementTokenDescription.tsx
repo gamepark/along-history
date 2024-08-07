@@ -40,7 +40,6 @@ import VictoryPoints4 from '../images/tokens/achievement/VictoryPoints4.jpg'
 import VictoryPoints8 from '../images/tokens/achievement/VictoryPoints8.jpg'
 import Wonder from '../images/tokens/achievement/Wonder.jpg'
 import Wonders2 from '../images/tokens/achievement/Wonders2.jpg'
-import { getPlayerRotation } from '../locators/PlayerLocator'
 import { AchievementTokenHelp } from './help/AchievementTokenHelp'
 
 class AchievementTokenDescription extends TokenDescription {
@@ -101,10 +100,6 @@ class AchievementTokenDescription extends TokenDescription {
 
   isFlipped(item: Partial<MaterialItem>): boolean {
     return item.location?.player !== undefined
-  }
-
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    return getPlayerRotation(item, context)
   }
 
   help = AchievementTokenHelp

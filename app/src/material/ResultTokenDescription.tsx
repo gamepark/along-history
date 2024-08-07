@@ -22,7 +22,6 @@ import Population1Back from '../images/tokens/resources/Population1Back.jpg'
 import Population2Back from '../images/tokens/resources/Population2Back.jpg'
 import Population3Back from '../images/tokens/resources/Population3Back.jpg'
 import StrengthBack from '../images/tokens/resources/StrengthBack.jpg'
-import { getPlayerRotation } from '../locators/PlayerLocator'
 import { ResultTokenHelp } from './help/ResultTokenHelp'
 
 class ResultTokenDescription extends TokenDescription {
@@ -57,10 +56,6 @@ class ResultTokenDescription extends TokenDescription {
 
   isFlipped(item: Partial<MaterialItem>): boolean {
     return item.location?.rotation
-  }
-
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    return getPlayerRotation(item, context)
   }
 
   help = ResultTokenHelp

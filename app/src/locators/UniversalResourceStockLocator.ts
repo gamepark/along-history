@@ -12,6 +12,8 @@ class UniversalResourceStockLocator extends LineLocator {
   }
 
   delta = { x: -0.1, y: -0.1, z: 0.1 }
+
+  rotateZ = 45
 }
 
 class UniversalResourceStockDescription extends LocationDescription {

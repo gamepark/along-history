@@ -2,7 +2,7 @@ import { ItemContext, LineLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { civilisationAreaDescription } from './CivilisationAreaDescription'
-import { civilisationAreaHeight, getPlayerLocation, Orientation, PlayerLocation } from './PlayerLocator'
+import { civilisationAreaHeight, getPlayerLocation, getPlayerRotation, Orientation, PlayerLocation } from './PlayerLocator'
 
 class LegacyLocator extends LineLocator {
   locationDescription = civilisationAreaDescription
@@ -64,6 +64,10 @@ class LegacyLocator extends LineLocator {
           y: l.civilisationArea.y - l.civilisationArea.width + cardDescription.width / 2
         }
     }
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
   }
 }
 

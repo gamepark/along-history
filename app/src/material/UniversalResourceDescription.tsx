@@ -4,7 +4,6 @@ import { ItemContext, MaterialContext, TokenDescription } from '@gamepark/react-
 import { isMoveItem, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import UniversalResourceBack from '../images/tokens/resources/UniversalResourceBack.jpg'
 import UniversalResourceFront from '../images/tokens/resources/UniversalResourceFront.jpg'
-import { getPlayerRotation } from '../locators/PlayerLocator'
 import { UniversalResourceHelp } from './help/UniversalResourceHelp'
 
 class UniversalResourceDescription extends TokenDescription {
@@ -21,10 +20,6 @@ class UniversalResourceDescription extends TokenDescription {
       this.randomFlipCache.set(index, { location: item.location?.type, flipped: Math.random() < 0.5 })
     }
     return this.randomFlipCache.get(index)?.flipped === true
-  }
-
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    return getPlayerRotation(item, context) + 45
   }
 
   canShortClick(move: MaterialMove, { index }: ItemContext) {

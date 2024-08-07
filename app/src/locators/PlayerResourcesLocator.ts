@@ -3,7 +3,7 @@ import { ItemContext, Locator } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { diceDescription } from '../material/DiceDescription'
-import { civilisationAreaHeight, getPlayerLocation, Orientation } from './PlayerLocator'
+import { civilisationAreaHeight, getPlayerLocation, getPlayerRotation, Orientation } from './PlayerLocator'
 
 class PlayerResourcesLocator extends Locator {
 
@@ -39,6 +39,10 @@ class PlayerResourcesLocator extends Locator {
           z
         }
     }
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    return getPlayerRotation(item, context)
   }
 }
 

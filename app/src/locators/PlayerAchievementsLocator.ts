@@ -2,7 +2,7 @@ import { ItemContext, LineLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { achievementTokenDescription } from '../material/AchievementTokenDescription'
 import { cardDescription } from '../material/CardDescription'
-import { civilisationAreaHeight, getPlayerLocation, Orientation } from './PlayerLocator'
+import { civilisationAreaHeight, getPlayerLocation, getPlayerRotation, Orientation } from './PlayerLocator'
 
 class PlayerAchievementsLocator extends LineLocator {
   getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
@@ -64,6 +64,10 @@ class PlayerAchievementsLocator extends LineLocator {
       case Orientation.BOTTOM_TOP:
         return { y: -18 }
     }
+  }
+
+  getRotateZ(item: MaterialItem, context: ItemContext) {
+    return getPlayerRotation(item, context)
   }
 }
 
