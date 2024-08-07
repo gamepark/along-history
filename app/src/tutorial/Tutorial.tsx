@@ -675,14 +675,14 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      focus: (game: MaterialGame) => this.steps[game.tutorialStep! - 1].focus!(game),
+      focus: (game: MaterialGame) => this.steps[game.tutorial!.step - 1].focus!(game),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
           && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Tiger
       }
     },
     {
-      focus: (game: MaterialGame) => this.steps[game.tutorialStep! - 2].focus!(game),
+      focus: (game: MaterialGame) => this.steps[game.tutorial!.step - 2].focus!(game),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
           && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Wildcrafting
@@ -771,13 +771,13 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      focus: (game: MaterialGame) => this.steps[game.tutorialStep! - 1].focus!(game),
+      focus: (game: MaterialGame) => this.steps[game.tutorial!.step - 1].focus!(game),
       move: {
         filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
       }
     },
     {
-      focus: (game: MaterialGame) => this.steps[game.tutorialStep! - 2].focus!(game),
+      focus: (game: MaterialGame) => this.steps[game.tutorial!.step - 2].focus!(game),
       move: {
         filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
       }
