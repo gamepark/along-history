@@ -1,4 +1,4 @@
-import { isEnumValue, OptionsSpec } from '@gamepark/rules-api'
+import { getEnumValues, OptionsSpec } from '@gamepark/rules-api'
 import { TFunction } from 'i18next'
 import { AchievementBoard } from './material/AchievementBoard'
 import { PlayerColor, playerColors } from './PlayerColor'
@@ -41,7 +41,7 @@ export const AlongHistoryOptionsSpec: OptionsSpec<AlongHistoryOptions> = {
   },
   ages: {
     label: (t: TFunction) => t('ages.option'),
-    values: Object.values(AgesOption).filter(isEnumValue),
+    values: getEnumValues(AgesOption),
     valueSpec: (agesOption = AgesOption.Prehistory) => ({
       label: t => t(`ages.${agesOption}`),
       subscriberRequired: agesOption !== AgesOption.Prehistory,

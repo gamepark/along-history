@@ -1,4 +1,4 @@
-import { isEnumValue } from '@gamepark/rules-api'
+import { getEnumValues } from '@gamepark/rules-api'
 
 export enum Achievement {
   Land = 10,
@@ -34,6 +34,6 @@ export enum Achievement {
   Gold15
 }
 
-export const achievements = Object.values(Achievement).filter(isEnumValue)
+export const achievements = getEnumValues(Achievement)
 
 export const getAchievementValue = (achievement: Achievement) => Math.floor(achievement / 10)
