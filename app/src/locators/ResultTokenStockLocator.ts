@@ -1,10 +1,10 @@
-import { GridLocator, ItemContext } from '@gamepark/react-game'
+import { FlexLocator, ItemContext } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
 import { resultTokenDescription } from '../material/ResultTokenDescription'
 
-class ResultTokenStockLocator extends GridLocator {
+class ResultTokenStockLocator extends FlexLocator {
   getItemIndex(item: MaterialItem) {
     const x = item.location.x!
     if (x < 12) {
