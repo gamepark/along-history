@@ -6,12 +6,13 @@ import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { Memory } from '@gamepark/along-history/rules/Memory'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { Picture, PlayerPanel, usePlay, usePlayers, useRules } from '@gamepark/react-game'
-import { displayRulesHelp } from '@gamepark/rules-api'
+import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { useState } from 'react'
 import VictoryPointIcon from '../images/icons/VictoryPointIcon.png'
 import WarIconRed from '../images/icons/WarIconRed.png'
 import { cardTypeIcons } from '../material/help/CardHelp'
 import { PlayerDialog } from './PlayerDialog'
+import displayRulesHelp = MaterialMoveBuilder.displayRulesHelp
 
 export const PlayerPanels = () => {
   const players = usePlayers<PlayerColor>({ sortFromMe: true })

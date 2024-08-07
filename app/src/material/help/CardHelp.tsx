@@ -11,7 +11,7 @@ import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { getCalamityFailureRule } from '@gamepark/along-history/rules/CalamitiesRule'
 import { buttonCss, MaterialHelpProps, Picture, PlayMoveButton, PlayMoveButtonProps, useLegalMoves, usePlayerName, useRules } from '@gamepark/react-game'
-import { displayMaterialHelp, isDeleteItemType, isMoveItemType, isSelectItemType, MaterialMove, MoveItem } from '@gamepark/rules-api'
+import { isDeleteItemType, isMoveItemType, isSelectItemType, MaterialMove, MaterialMoveBuilder, MoveItem } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import { playerButtonColor } from '../../headers/WarsHeader'
 import populationIcon from '../../images/dices/population/Population1.jpg'
@@ -29,6 +29,7 @@ import { CalamityFailureHelp } from './CalamityFailureHelp'
 import { CardLocationHelp } from './CardLocationHelp'
 import { EffectHelp } from './EffectHelp'
 import { LinkHelp } from './LinkHelp'
+import displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
 export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) => {
   const { t, i18n } = useTranslation()

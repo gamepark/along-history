@@ -4,11 +4,13 @@ import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { MaterialHelpProps, PlayMoveButton, useLegalMove, usePlayerId, usePlayerName } from '@gamepark/react-game'
-import { displayLocationHelp, displayRulesHelp, isMoveItemType, MaterialMove } from '@gamepark/rules-api'
+import { isMoveItemType, MaterialMove, MaterialMoveBuilder } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { shallowEqual } from 'react-redux'
 import { rulesLinkButton } from '../../styles'
+import displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
+import displayRulesHelp = MaterialMoveBuilder.displayRulesHelp
 
 export const AchievementTokenHelp = ({ item, closeDialog }: MaterialHelpProps) => {
   const { t } = useTranslation()

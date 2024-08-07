@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { LocationHelpProps, PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
-import { displayLocationHelp } from '@gamepark/rules-api'
+import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
-
 import { breakSpaces, rulesLinkButton } from '../../styles'
 import { DecayHelp } from './DecayHelp'
+import displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
 
 export const CivilisationAreaHelp = ({ location }: LocationHelpProps) => {
   const { t } = useTranslation()

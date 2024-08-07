@@ -5,9 +5,12 @@ import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { PlayMoveButton, usePlayerId, useRules } from '@gamepark/react-game'
-import { displayLocationHelp, displayMaterialHelp, displayRulesHelp } from '@gamepark/rules-api'
+import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import { breakSpaces, rulesLinkButton } from '../../styles'
+import displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
+import displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
+import displayRulesHelp = MaterialMoveBuilder.displayRulesHelp
 
 export const BoardHelp = () => {
   const { t } = useTranslation()

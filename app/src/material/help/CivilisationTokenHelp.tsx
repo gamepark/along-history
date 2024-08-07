@@ -2,9 +2,11 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { MaterialHelpProps, PlayMoveButton, usePlayerName } from '@gamepark/react-game'
-import { displayLocationHelp, displayRulesHelp } from '@gamepark/rules-api'
+import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import { breakSpaces, rulesLinkButton } from '../../styles'
+import displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
+import displayRulesHelp = MaterialMoveBuilder.displayRulesHelp
 
 export const CivilisationTokenHelp = ({ item }: MaterialHelpProps) => {
   const { t } = useTranslation()

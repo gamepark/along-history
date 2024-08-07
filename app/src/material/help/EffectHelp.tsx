@@ -18,7 +18,7 @@ import { TradeOnAcquisitionEffect } from '@gamepark/along-history/material/cards
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { Picture, PlayMoveButton } from '@gamepark/react-game'
-import { displayLocationHelp, displayRulesHelp } from '@gamepark/rules-api'
+import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import populationIcon from '../../images/dices/population/Population1.jpg'
 import FigureIcon from '../../images/icons/FigureIcon.png'
@@ -27,6 +27,8 @@ import Coin5 from '../../images/tokens/coins/Coin1Head.png'
 import { roundCss, rulesLinkButton } from '../../styles'
 import { cardTypeIcons } from './CardHelp'
 import { DisplayCardHelpButton } from './LinkHelp'
+import displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
+import displayRulesHelp = MaterialMoveBuilder.displayRulesHelp
 
 export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => {
   switch (effect.type) {

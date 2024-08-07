@@ -4,8 +4,9 @@ import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { MaterialComponent, pointerCursorCss, usePlay, useRules } from '@gamepark/react-game'
-import { displayMaterialHelp } from '@gamepark/rules-api'
+import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { useTranslation } from 'react-i18next'
+import displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
 export const DiscardHelp = () => {
   const { t } = useTranslation()

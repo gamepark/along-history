@@ -5,7 +5,7 @@ import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMoves } from '@gamepark/react-game'
-import { displayRulesHelp, isMoveItemType, isRollItemType, isSelectItemType, MaterialMove } from '@gamepark/rules-api'
+import { isMoveItemType, isRollItemType, isSelectItemType, MaterialMove, MaterialMoveBuilder } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import Gold3 from '../../images/dices/gold/Gold3.jpg'
 import Gold4 from '../../images/dices/gold/Gold4.jpg'
@@ -22,6 +22,7 @@ import Multiplier from '../../images/dices/special/Multiplier.jpg'
 import Reroll from '../../images/dices/special/Reroll.jpg'
 import War from '../../images/dices/special/War.jpg'
 import { alignIcon, breakSpaces, rulesLinkButton } from '../../styles'
+import displayRulesHelp = MaterialMoveBuilder.displayRulesHelp
 
 export const DiceHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) => {
   const { t } = useTranslation()

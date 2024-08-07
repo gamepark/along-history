@@ -4,13 +4,14 @@ import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMove } from '@gamepark/react-game'
-import { displayRulesHelp, isMoveItemType, MaterialMove } from '@gamepark/rules-api'
+import { isMoveItemType, MaterialMove, MaterialMoveBuilder } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
 import population3Icon from '../../images/dices/population/Population3.jpg'
 import cultureIcon from '../../images/dices/resources/Culture.jpg'
 import ingenuityIcon from '../../images/dices/resources/Ingenuity.jpg'
 import strengthIcon from '../../images/dices/resources/Strength.jpg'
 import { alignIcon, breakSpaces, rulesLinkButton } from '../../styles'
+import displayRulesHelp = MaterialMoveBuilder.displayRulesHelp
 
 export const UniversalResourceHelp = ({ itemIndex, closeDialog }: MaterialHelpProps) => {
   const { t } = useTranslation()

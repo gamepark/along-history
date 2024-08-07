@@ -8,10 +8,11 @@ import { ConditionType } from '@gamepark/along-history/material/cards/effects/co
 import { Effect, isCardEffect, isEffectWithCondition } from '@gamepark/along-history/material/cards/effects/Effect'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { PlayMoveButton } from '@gamepark/react-game'
-import { displayMaterialHelp } from '@gamepark/rules-api'
+import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { FC, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { rulesLinkButton } from '../../styles'
+import displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
 export const LinkHelp = ({ card }: { card: Card }) => {
   const { t } = useTranslation()
