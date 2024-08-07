@@ -4,6 +4,7 @@ import { coinDescription } from '../material/CoinDescription'
 import { resultTokenStockLocator } from './ResultTokenStockLocator'
 
 class CoinStockLocator extends PileLocator {
+  location = coinDescription.stockLocation
   locationDescription = new CoinsStockDescription()
 
   getCoordinates(item: MaterialItem, context: ItemContext) {
@@ -22,8 +23,6 @@ class CoinsStockDescription extends LocationDescription {
     const { x, y } = resultTokenStockLocator.getBaseCoordinates(players.length)
     return { x: x + 11, y: y + 5, z: 5 }
   }
-
-  location = coinDescription.stockLocation
 }
 
 export const coinsStockLocator = new CoinStockLocator()

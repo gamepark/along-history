@@ -1,6 +1,6 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { ItemContext, Locator } from '@gamepark/react-game'
+import { ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { civilisationAreaDescription } from './CivilisationAreaDescription'
@@ -8,6 +8,10 @@ import { civilisationAreaHeight, getPlayerLocation, Orientation, PlayerLocation 
 
 class CivilisationAreaLocator extends Locator {
   locationDescription = civilisationAreaDescription
+
+  getLocations({ rules }: MaterialContext) {
+    return rules.players.map(player => ({ type: LocationType.CivilisationArea, player }))
+  }
 
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
     const l = getPlayerLocation(item.location.player!, context)

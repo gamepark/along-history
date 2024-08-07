@@ -6,6 +6,7 @@ import { getDeckCoordinates } from './DeckLocator'
 import { DiscardHelp } from './help/DiscardHelp'
 
 class DiscardLocator extends DeckLocator {
+  location = { type: LocationType.Discard }
   locationDescription = new DiscardLocationDescription()
 
   getCoordinates(_item: MaterialItem, context: ItemContext) {
@@ -16,7 +17,6 @@ class DiscardLocator extends DeckLocator {
 }
 
 class DiscardLocationDescription extends LocationDescription {
-  location = { type: LocationType.Discard }
   width = cardDescription.width
   height = cardDescription.height
   borderRadius = cardDescription.borderRadius

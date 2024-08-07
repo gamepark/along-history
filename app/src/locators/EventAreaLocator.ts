@@ -1,6 +1,6 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { ItemContext, LineLocator } from '@gamepark/react-game'
+import { ItemContext, LineLocator, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, Location, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
@@ -9,6 +9,10 @@ import { getPlayerLocation, Orientation } from './PlayerLocator'
 
 class EventAreaLocator extends LineLocator {
   locationDescription = eventAreaDescription
+
+  getLocations({ rules }: MaterialContext) {
+    return rules.players.map(player => ({ type: LocationType.EventArea, player }))
+  }
 
   getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
     const { x, y } = this.getXYCoordinates(item, context)

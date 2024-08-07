@@ -1,5 +1,4 @@
 import { css } from '@emotion/react'
-import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
@@ -11,10 +10,6 @@ export class CivilisationAreaDescription extends LocationDescription {
   alwaysVisible = true
   borderRadius = cardDescription.borderRadius
   help = CivilisationAreaHelp
-
-  getLocations({ rules }: MaterialContext) {
-    return rules.players.map(player => ({ type: LocationType.CivilisationArea, player }))
-  }
 
   getExtraCss(location: Location) {
     return css`

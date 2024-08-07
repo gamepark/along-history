@@ -4,6 +4,7 @@ import { Location, MaterialItem } from '@gamepark/rules-api'
 import { resultTokenStockLocator } from './ResultTokenStockLocator'
 
 class UniversalResourceStockLocator extends LineLocator {
+  location = { type: LocationType.UniversalResourceStock }
   locationDescription = new UniversalResourceStockDescription()
 
   getCoordinates(_item: MaterialItem, context: ItemContext) {
@@ -22,8 +23,6 @@ class UniversalResourceStockDescription extends LocationDescription {
     const { x, y } = resultTokenStockLocator.getBaseCoordinates(players.length)
     return { x: x + 9, y: y + 1, z: 5 }
   }
-
-  location = { type: LocationType.UniversalResourceStock }
 }
 
 export const universalResourceStockLocator = new UniversalResourceStockLocator()

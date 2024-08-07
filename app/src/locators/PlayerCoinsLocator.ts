@@ -7,6 +7,10 @@ import { civilisationAreaHeight, getPlayerLocation, Orientation } from './Player
 class PlayerCoinsLocator extends PileLocator {
   locationDescription = new PlayerCoinsDescription()
 
+  getLocations({ rules }: MaterialContext) {
+    return rules.players.map(player => ({ type: LocationType.PlayerCoins, player }))
+  }
+
   getCoordinates(item: MaterialItem, context: ItemContext) {
     return { ...this.locationDescription.getCoordinates(item.location, context), z: 0.1 }
   }
@@ -25,10 +29,6 @@ class PlayerCoinsDescription extends LocationDescription {
   width = 8
   height = 4.2
   borderRadius = 3
-
-  getLocations({ rules }: MaterialContext) {
-    return rules.players.map(player => ({ type: LocationType.PlayerCoins, player }))
-  }
 
   getCoordinates(location: Location, context: LocationContext) {
     const l = getPlayerLocation(location.player!, context)

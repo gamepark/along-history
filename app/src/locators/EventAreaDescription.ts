@@ -1,4 +1,3 @@
-import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
@@ -9,10 +8,6 @@ import { getPlayerLocation, Orientation } from './PlayerLocator'
 export class EventAreaDescription extends LocationDescription {
   borderRadius = cardDescription.borderRadius
   help = EventAreaHelp
-
-  getLocations({ rules }: MaterialContext) {
-    return rules.players.map(player => ({ type: LocationType.EventArea, player }))
-  }
 
   getLocationSize(location: Location, context: MaterialContext) {
     const l = getPlayerLocation(location.player!, context)
