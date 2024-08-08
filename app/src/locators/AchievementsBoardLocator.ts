@@ -5,14 +5,15 @@ import { ItemContext, Locator, LocationDescription, MaterialContext } from '@gam
 import { Coordinates, Location, MaterialItem, MaterialMove, MaterialRules } from '@gamepark/rules-api'
 import { shallowEqual } from 'react-redux'
 import { achievementTokenDescription } from '../material/AchievementTokenDescription'
+import { boardDescription } from '../material/BoardDescription'
 import { AchievementBoardLocationHelp } from './help/AchievementBoardLocationHelp'
 
 class AchievementsBoardLocator extends Locator {
   parentItemType = MaterialType.Board
   locationDescription = new AchievementBoardLocationDescription()
 
-  getParentItemId(_location: Location, { rules }: ItemContext) {
-    return rules.remind(Memory.Board) ?? AchievementBoard.Front
+  getParentItem(_location: Location, { rules }: ItemContext) {
+    return rules.remind(Memory.Board) === AchievementBoard.Back ? boardDescription.backBoard : boardDescription.frontBoard
   }
 
   getPositionOnParent(location: Location) {
