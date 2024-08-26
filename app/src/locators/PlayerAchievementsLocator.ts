@@ -1,19 +1,13 @@
-import { ItemContext, LineLocator } from '@gamepark/react-game'
-import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
+import { ItemContext, ListLocator, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
 import { achievementTokenDescription } from '../material/AchievementTokenDescription'
 import { cardDescription } from '../material/CardDescription'
-import { civilisationAreaHeight, getPlayerLocation, getPlayerRotation, Orientation } from './PlayerLocator'
+import { civilisationAreaHeight, getPlayerLocation, getPlayerRotateZ, Orientation } from './PlayerLocator'
 
-class PlayerAchievementsLocator extends LineLocator {
-  getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
-    const { x, y } = this.getXYCoordinates(item, context)
-    return { x: x, y: y, z: 0.5 }
-  }
-
-  getXYCoordinates(item: MaterialItem, context: ItemContext): XYCoordinates {
-    const l = getPlayerLocation(item.location.player!, context)
-    const deltaX = achievementTokenDescription.width / 2 + 1
-    const deltaY = (civilisationAreaHeight - cardDescription.height) / 2
+class PlayerAchievementsLocator extends ListLocator {
+  getCoordinates(location: Location, context: MaterialContext, deltaX = achievementTokenDescription.width / 2 + 1) {
+    const l = getPlayerLocation(context, location.player)
+    const deltaY = civilisationAreaHeight / 2 - cardDescription.height / 2
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
         return {
@@ -38,22 +32,22 @@ class PlayerAchievementsLocator extends LineLocator {
     }
   }
 
-  getDelta(item: MaterialItem, context: ItemContext) {
-    const l = getPlayerLocation(item.location.player!, context)
+  getGap(location: Location, context: MaterialContext) {
+    const l = getPlayerLocation(context, location.player)
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
-        return { x: 3, z: 0.05 }
+        return { x: 3 }
       case Orientation.TOP_BOTTOM:
-        return { y: 3, z: 0.05 }
+        return { y: 3 }
       case Orientation.RIGHT_LEFT:
-        return { x: -3, z: 0.05 }
+        return { x: -3 }
       case Orientation.BOTTOM_TOP:
-        return { y: -3, z: 0.05 }
+        return { y: -3 }
     }
   }
 
-  getDeltaMax(item: MaterialItem, context: ItemContext) {
-    const l = getPlayerLocation(item.location.player!, context)
+  getMaxGap(location: Location, context: MaterialContext) {
+    const l = getPlayerLocation(context, location.player)
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
         return { x: 18 }
@@ -66,8 +60,8 @@ class PlayerAchievementsLocator extends LineLocator {
     }
   }
 
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    return getPlayerRotation(item, context)
+  getRotateZ(location: Location, context: ItemContext) {
+    return getPlayerRotateZ(context, location.player)
   }
 }
 

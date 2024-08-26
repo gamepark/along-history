@@ -3,7 +3,7 @@ import { Age } from '@gamepark/along-history/material/Age'
 import { Card } from '@gamepark/along-history/material/Card'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { CardDescription, ItemContext } from '@gamepark/react-game'
+import { CardDescription, ItemContext, MaterialContext } from '@gamepark/react-game'
 import { isDeleteItemType, isMoveItem, Location, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import AntiquityBack from '../images/cards/antiquity/AntiquityBack.jpg'
 import Agriculture from '../images/cards/antiquity/fr/Agriculture.jpg'
@@ -299,13 +299,21 @@ class AlongHistoryCardDescription extends CardDescription {
       || (isDeleteItemType(MaterialType.Card)(move) && move.itemIndex === context.index)
   }
 
-  getLocations(item: MaterialItem, context: ItemContext): Location[] {
-    return item.location.type === LocationType.CivilisationArea && item.location.z === 0 && item.location.player === context.player
-      ? [{ type: LocationType.OnCard, parent: context.index }]
-      : []
+  stockLocation = { type: LocationType.Discard }
+
+  getDropLocations(item: MaterialItem, move: MaterialMove, context: ItemContext): Location[] {
+    if (isMoveItem(move) && move.itemType === MaterialType.Card && move.itemIndex === context.index
+      && move.location.type === LocationType.CivilisationArea && move.location.x !== undefined) {
+      const card = context.rules.material(MaterialType.Card).location(LocationType.CivilisationArea).player(context.player)
+        .location(l => l.x === move.location.x && l.z === 0)
+      if (card.length) return [{ type: LocationType.OnCard, parent: card.getIndex() }]
+    }
+    return super.getDropLocations(item, move, context)
   }
 
-  stockLocation = { type: LocationType.Discard }
+  isFlippedOnTable(item: Partial<MaterialItem>, context: MaterialContext) {
+    return item.location?.type === LocationType.Deck || super.isFlippedOnTable(item, context)
+  }
 }
 
 export const cardDescription = new AlongHistoryCardDescription()

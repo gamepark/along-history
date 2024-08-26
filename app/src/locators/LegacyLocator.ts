@@ -1,34 +1,28 @@
-import { ItemContext, LineLocator } from '@gamepark/react-game'
-import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
+import { ItemContext, ListLocator, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { civilisationAreaDescription } from './CivilisationAreaDescription'
-import { civilisationAreaHeight, getPlayerLocation, getPlayerRotation, Orientation, PlayerLocation } from './PlayerLocator'
+import { civilisationAreaHeight, getPlayerLocation, getPlayerRotateZ, Orientation } from './PlayerLocator'
 
-class LegacyLocator extends LineLocator {
+class LegacyLocator extends ListLocator {
   locationDescription = civilisationAreaDescription
 
-  getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
-    const l = getPlayerLocation(item.location.player!, context)
-    const { x, y } = this.getXYCoordinates(l)
-    return { x, y, z: 0.01 }
-  }
-
-  getDelta(item: MaterialItem, context: ItemContext) {
-    const l = getPlayerLocation(item.location.player!, context)
+  getGap(location: Location, context: MaterialContext) {
+    const l = getPlayerLocation(context, location.player)
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
-        return { y: -1.3, z: 0.01 }
+        return { y: -1.3 }
       case Orientation.TOP_BOTTOM:
-        return { x: 1.3, z: 0.01 }
+        return { x: 1.3 }
       case Orientation.RIGHT_LEFT:
-        return { y: 1.3, z: 0.01 }
+        return { y: 1.3 }
       case Orientation.BOTTOM_TOP:
-        return { x: -1.3, z: 0.01 }
+        return { x: -1.3 }
     }
   }
 
-  getDeltaMax(item: MaterialItem, context: ItemContext) {
-    const l = getPlayerLocation(item.location.player!, context)
+  getMaxGap(location: Location, context: MaterialContext) {
+    const l = getPlayerLocation(context, location.player)
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
         return { y: -11.5 }
@@ -41,7 +35,8 @@ class LegacyLocator extends LineLocator {
     }
   }
 
-  getXYCoordinates(l: PlayerLocation): XYCoordinates {
+  getCoordinates(location: Location, context: ItemContext) {
+    const l = getPlayerLocation(context, location.player)
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
         return {
@@ -66,9 +61,7 @@ class LegacyLocator extends LineLocator {
     }
   }
 
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
-  }
+  getRotateZ = (location: Location, context: ItemContext) => getPlayerRotateZ(context, location.player)
 }
 
 export const legacyLocator = new LegacyLocator()

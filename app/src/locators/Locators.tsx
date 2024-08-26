@@ -2,17 +2,16 @@ import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { Locator } from '@gamepark/react-game'
+import { boardDescription } from '../material/BoardDescription'
 import { achievementsBoardLocator } from './AchievementsBoardLocator'
-import { achievementTokenLocator } from './AchievementTokenLocator'
-import { boardTableLocator } from './BoardTableLocator'
 import { civilisationAreaLocator } from './CivilisationAreaLocator'
 import { coinsStockLocator } from './CoinsStockLocator'
 import { deckLocator } from './DeckLocator'
 import { discardLocator } from './DiscardLocator'
 import { discardTileLocator } from './DiscardTileLocator'
 import { eventAreaLocator } from './EventAreaLocator'
-import { onCardLocator } from './OnCardLocator'
 import { legacyLocator } from './LegacyLocator'
+import { onCardLocator } from './OnCardLocator'
 import { playerAchievementsLocator } from './PlayerAchievementsLocator'
 import { playerCoinsLocator } from './PlayerCoinsLocator'
 import { playerDiscardTileLocator } from './PlayerDiscardTileLocator'
@@ -22,7 +21,7 @@ import { resultTokenStockLocator } from './ResultTokenStockLocator'
 import { universalResourceStockLocator } from './UniversalResourceStockLocator'
 
 export const Locators: Partial<Record<LocationType, Locator<PlayerColor, MaterialType, LocationType>>> = {
-  [LocationType.Table]: boardTableLocator,
+  [LocationType.Table]: new Locator({ coordinates: { x: boardDescription.width / 2, y: boardDescription.height / 2 } }),
   [LocationType.Deck]: deckLocator,
   [LocationType.AchievementsBoard]: achievementsBoardLocator,
   [LocationType.DiscardTile]: discardTileLocator,
@@ -34,7 +33,6 @@ export const Locators: Partial<Record<LocationType, Locator<PlayerColor, Materia
   [LocationType.PlayerDiscardTile]: playerDiscardTileLocator,
   [LocationType.PlayerResources]: playerResourcesLocator,
   [LocationType.CivilisationArea]: civilisationAreaLocator,
-  [LocationType.AchievementToken]: achievementTokenLocator,
   [LocationType.PlayerAchievements]: playerAchievementsLocator,
   [LocationType.OnCard]: onCardLocator,
   [LocationType.PlayerCoins]: playerCoinsLocator,

@@ -69,7 +69,7 @@ class DiceDescription extends CubicDiceDescription {
 
   getRotations(item: MaterialItem, context: ItemContext) {
     const player = item.location.player ?? context.rules.material(MaterialType.DiscardTile).getItem()!.location.player!
-    const playerLocation = getPlayerLocation(player, context)
+    const playerLocation = getPlayerLocation(context, player)
     const rotations: string[] = []
     rotations.push(this.getPerspective(playerLocation.orientation))
     rotations.push(...super.getRotations(item, context))

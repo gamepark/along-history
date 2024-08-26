@@ -3,15 +3,13 @@ import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { Memory } from '@gamepark/along-history/rules/Memory'
 import { Locator, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
-import { diceDescription } from '../material/DiceDescription'
 
 class DiscardTileLocator extends Locator {
   parentItemType = MaterialType.DiscardTile
 
-  getPositionOnParent(location: Location, { rules }: MaterialContext) {
-    const x = location.x
+  getPositionOnParent({ x }: Location, { rules }: MaterialContext) {
     if (x === undefined) return { x: 50, y: 50 }
-    if (rules.remind(Memory.CurrentAge) == Age.Prehistory) {
+    if (rules.remind(Memory.CurrentAge) === Age.Prehistory) {
       return { x: 30 + 40 * (x % 2), y: 20 + Math.floor(x / 2) * 30 }
     } else {
       switch (x) {
@@ -32,10 +30,6 @@ class DiscardTileLocator extends Locator {
           return { x: 70, y: 80 }
       }
     }
-  }
-
-  getPosition() {
-    return { x: 0, y: 0, z: diceDescription.width }
   }
 }
 

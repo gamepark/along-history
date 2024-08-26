@@ -17,8 +17,7 @@ export class SetupAgeRule extends PlayerTurnRule {
   }
 
   createAchievementTokens() {
-    const age = this.remind<Age>(Memory.CurrentAge)
-    return this.material(MaterialType.AchievementToken).createItemsAtOnce(this.getRandomAchievements(age))
+    return this.material(MaterialType.AchievementToken).createItemsAtOnce(this.getRandomAchievements())
   }
 
   createCards(predicate: (card: Card) => boolean) {
@@ -32,17 +31,29 @@ export class SetupAgeRule extends PlayerTurnRule {
     )
   }
 
-  getRandomAchievements(age: Age): MaterialItem[] {
+  getRandomAchievements(): MaterialItem[] {
+    console.log('getRandomAchievements', this.game.tutorial)
     const items: MaterialItem[] = []
     for (let x = 1; x < AchievementBoardLocations.length; x++) {
-      const tokens = shuffle(achievements.filter(achievement =>
-        getAchievementValue(achievement) === x && (achievement !== Achievement.Gold15 || age !== Age.Prehistory)
-      ))
+      const tokens = this.getRandomAchievementsOfValue(x)
       for (const y of AchievementBoardLocations[x]) {
         items.push({ id: tokens.pop(), location: { type: LocationType.AchievementsBoard, x, y } })
       }
     }
     return items
+  }
+
+  getRandomAchievementsOfValue(value: number) {
+    if (this.game.tutorial && value === 2) return [Achievement.Cards3, Achievement.VictoryPoints4, Achievement.CardTypes2]
+    return shuffle(this.getAchievementsOfValue(value))
+  }
+
+  getAchievementsOfValue(value: number) {
+    const result = achievements.filter(achievement => getAchievementValue(achievement) === value)
+    if (value === 7 && this.remind<Age>(Memory.CurrentAge) === Age.Prehistory) {
+      return result.filter(achievement => achievement !== Achievement.Gold15)
+    }
+    return result
   }
 
   afterItemMove(move: ItemMove) {

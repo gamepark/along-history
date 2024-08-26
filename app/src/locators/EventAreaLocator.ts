@@ -1,26 +1,18 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { ItemContext, LineLocator, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, Location, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
+import { ItemContext, ListLocator, MaterialContext } from '@gamepark/react-game'
+import { Coordinates, Location, MaterialItem } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
 import { eventAreaDescription } from './EventAreaDescription'
-import { getPlayerLocation, getPlayerRotation, Orientation } from './PlayerLocator'
+import { getPlayerLocation, getPlayerRotateZ, Orientation } from './PlayerLocator'
 
-class EventAreaLocator extends LineLocator {
+class EventAreaLocator extends ListLocator {
   locationDescription = eventAreaDescription
 
-  getLocations({ rules }: MaterialContext) {
-    return rules.players.map(player => ({ type: LocationType.EventArea, player }))
-  }
-
-  getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
-    const { x, y } = this.getXYCoordinates(item, context)
-    return {
-      x: x + (item.selected ? -0.2 : 0),
-      y: y + (item.selected ? -0.5 : 0),
-      z: item.selected ? 2 : 0.5
-    }
+  getItemCoordinates(item: MaterialItem<number, number>, context: ItemContext<number, number, number>): Partial<Coordinates> {
+    const { x = 0, y = 0, z = 0 } = super.getItemCoordinates(item, context)
+    return item.selected ? { x: x - 0.2, y: y - 0.5, z: z + 1 } : { x, y }
   }
 
   countItems(location: Location, { rules }: ItemContext) {
@@ -28,8 +20,8 @@ class EventAreaLocator extends LineLocator {
     return areaXPositions.length > 0 ? Math.max(...areaXPositions) + 1 : 0
   }
 
-  getXYCoordinates(item: MaterialItem, context: ItemContext): XYCoordinates {
-    const l = getPlayerLocation(item.location.player!, context)
+  getCoordinates(location: Location, context: MaterialContext) {
+    const l = getPlayerLocation(context, location.player)
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
         return {
@@ -54,27 +46,38 @@ class EventAreaLocator extends LineLocator {
     }
   }
 
-  getDelta(item: MaterialItem, context: ItemContext) {
-    const l = getPlayerLocation(item.location.player!, context)
+  getGap(location: Location, context: MaterialContext) {
+    const gap = cardDescription.width + 1
+    const l = getPlayerLocation(context, location.player)
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
-        return { x: cardDescription.width + 1, z: 0.05 }
+        return { x: gap }
       case Orientation.TOP_BOTTOM:
-        return { y: cardDescription.width + 1, z: 0.05 }
+        return { y: gap }
       case Orientation.RIGHT_LEFT:
-        return { x: -cardDescription.width - 1, z: 0.05 }
+        return { x: -gap }
       case Orientation.BOTTOM_TOP:
-        return { y: -cardDescription.width - 1, z: 0.05 }
+        return { y: -gap }
     }
   }
 
-  getDeltaMax(item: MaterialItem, context: ItemContext) {
-    const l = getPlayerLocation(item.location.player!, context)
-    return { x: l.eventArea.width - cardDescription.width - discardTileDescription.width - 1 }
+  getMaxGap(location: Location, context: MaterialContext) {
+    const l = getPlayerLocation(context, location.player)
+    const max = l.eventArea.width - cardDescription.width - discardTileDescription.width - 1
+    switch (l.orientation) {
+      case Orientation.LEFT_RIGHT:
+        return { x: max }
+      case Orientation.TOP_BOTTOM:
+        return { y: max }
+      case Orientation.RIGHT_LEFT:
+        return { x: -max }
+      case Orientation.BOTTOM_TOP:
+        return { y: -max }
+    }
   }
 
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
+  getRotateZ(location: Location, context: ItemContext) {
+    return getPlayerRotateZ(context, location.player) + (location.rotation ? 45 : 0)
   }
 }
 

@@ -1,17 +1,12 @@
-import { ItemContext, Locator } from '@gamepark/react-game'
-import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
+import { Locator, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { discardTileDescription } from '../material/DiscardTileDescription'
-import { getPlayerLocation, getPlayerRotation, Orientation } from './PlayerLocator'
+import { getPlayerLocation, getPlayerRotateZ, Orientation } from './PlayerLocator'
 
 class PlayerDiscardTileLocator extends Locator {
-  getPosition(item: MaterialItem, context: ItemContext): Coordinates {
-    const { x, y } = this.getXYCoordinates(item, context)
-    return { x, y, z: 0 }
-  }
-
-  getXYCoordinates(item: MaterialItem, context: ItemContext): XYCoordinates {
-    const l = getPlayerLocation(item.location.player!, context)
+  getCoordinates(location: Location, context: MaterialContext) {
+    const l = getPlayerLocation(context, location.player)
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
         return {
@@ -36,8 +31,8 @@ class PlayerDiscardTileLocator extends Locator {
     }
   }
 
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
+  getRotateZ(location: Location, context: MaterialContext) {
+    return getPlayerRotateZ(context, location.player) + (location.rotation ? 45 : 0)
   }
 }
 

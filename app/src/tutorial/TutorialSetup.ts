@@ -1,6 +1,5 @@
 import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { AlongHistorySetup } from '@gamepark/along-history/AlongHistorySetup'
-import { Achievement } from '@gamepark/along-history/material/Achievement'
 import { Card } from '@gamepark/along-history/material/Card'
 import { CardId } from '@gamepark/along-history/material/cards/CardId'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
@@ -20,9 +19,6 @@ class TutorialRandomizerRule extends AlongHistoryRules {
           [Card.Forest, Card.Swamp, Card.Tiger, Card.River, Card.Hunting, Card.HomoErectus, Card.Wildcrafting, Card.Fishing, Card.Mammoth]
           : [Card.Australopithecus, Card.Hills, Card.Megaliths, Card.FuneralRites, Card.Mountain, Card.Wolves]
         const newIndexes = this.putCardsOnTop(topCards, move.indexes)
-        return { ...move, newIndexes }
-      } else if (move.itemType === MaterialType.AchievementToken) {
-        const newIndexes = this.putAchievementsOnTop([Achievement.Cards3, Achievement.VictoryPoints4, Achievement.CardTypes2], move.indexes)
         return { ...move, newIndexes }
       }
     }
@@ -53,21 +49,6 @@ class TutorialRandomizerRule extends AlongHistoryRules {
     const expectedIndexes = this.material(MaterialType.Card).indexes(indexes).sort(item => item.location.x!).getIndexes()
     for (const card of cards) {
       const index = indexes.findIndex(i => this.material(MaterialType.Card).getItem<CardId>(i)?.id?.front === card)
-      const expectedNewIndex = expectedIndexes.pop()!
-      if (expectedNewIndex !== result[index]) {
-        result[result.indexOf(expectedNewIndex)] = result[index]
-        result[index] = expectedNewIndex
-      }
-    }
-    return result
-  }
-
-  putAchievementsOnTop(achievements: Achievement[], indexes: number[]) {
-    const result = shuffle(indexes)
-    const expectedIndexes = this.material(MaterialType.AchievementToken).indexes(indexes)
-      .sort(item => item.location.x!).getIndexes()
-    for (const achievement of achievements) {
-      const index = indexes.findIndex(i => this.material(MaterialType.AchievementToken).getItem<Achievement>(i)?.id === achievement)
       const expectedNewIndex = expectedIndexes.pop()!
       if (expectedNewIndex !== result[index]) {
         result[result.indexOf(expectedNewIndex)] = result[index]

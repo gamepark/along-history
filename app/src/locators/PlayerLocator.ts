@@ -1,6 +1,6 @@
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
-import { getRelativePlayerIndex, ItemContext, MaterialContext } from '@gamepark/react-game'
-import { MaterialItem, XYCoordinates } from '@gamepark/rules-api'
+import { getRelativePlayerIndex, MaterialContext } from '@gamepark/react-game'
+import { XYCoordinates } from '@gamepark/rules-api'
 import { boardDescription } from '../material/BoardDescription'
 import { cardDescription } from '../material/CardDescription'
 
@@ -18,7 +18,7 @@ export type PlayerLocation = {
   civilisationArea: Area
 }
 
-export function getPlayerLocation(player: PlayerColor, context: MaterialContext) {
+export function getPlayerLocation(context: MaterialContext, player: PlayerColor = context.rules.game.players[0]) {
   const index = getRelativePlayerIndex(context, player)
   switch (context.rules.players.length) {
     case 2:
@@ -32,13 +32,7 @@ export function getPlayerLocation(player: PlayerColor, context: MaterialContext)
   }
 }
 
-export function getPlayerRotation(item: MaterialItem, context: ItemContext) {
-  if (item.location.player) {
-    const playerLocation = getPlayerLocation(item.location.player!, context)
-    return playerLocation.orientation * 90
-  }
-  return 0
-}
+export const getPlayerRotateZ = (context: MaterialContext, player?: PlayerColor) => getPlayerLocation(context, player).orientation * 90
 
 export const civilisationAreaHeight = 13
 export const civilisationAreaWidth = civilisationAreaHeight + cardDescription.height * 2 + boardDescription.height + 3
@@ -123,7 +117,7 @@ const playersLocationAt3Players: PlayerLocation[] = [
     },
     civilisationArea: {
       width: boardDescription.width + cardDescription.height * 2 + 2,
-      x: - cardDescription.height - 1,
+      x: -cardDescription.height - 1,
       y: boardDescription.height + cardDescription.height + 2
     }
   },

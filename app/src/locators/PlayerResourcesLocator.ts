@@ -1,49 +1,35 @@
-import { MaterialType } from '@gamepark/along-history/material/MaterialType'
-import { ItemContext, Locator } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
-import { cardDescription } from '../material/CardDescription'
+import { ItemContext, ListLocator, MaterialContext } from '@gamepark/react-game'
+import { Location, MaterialItem } from '@gamepark/rules-api'
 import { diceDescription } from '../material/DiceDescription'
-import { civilisationAreaHeight, getPlayerLocation, getPlayerRotation, Orientation } from './PlayerLocator'
+import { playerAchievementsLocator } from './PlayerAchievementsLocator'
+import { getPlayerLocation, getPlayerRotateZ, Orientation } from './PlayerLocator'
 
-class PlayerResourcesLocator extends Locator {
+class PlayerResourcesLocator extends ListLocator {
+  getCoordinates(location: Location, context: MaterialContext) {
+    const l = getPlayerLocation(context, location.player)
+    return playerAchievementsLocator.getCoordinates(location, context, l.civilisationArea.width - 27.5)
+  }
 
-  getPosition(item: MaterialItem, context: ItemContext) {
-    const itemIndex = this.getItemIndex(item, context)
-    const l = getPlayerLocation(item.location.player!, context)
-    const z = context.type === MaterialType.Dice ? diceDescription.width / 2 + (item.selected ? diceDescription.width : 0) : 0.05
-    const deltaX = l.civilisationArea.width - 27.5 + itemIndex * 2.2 - (item.selected ? 0.2 : 0)
-    const deltaY = civilisationAreaHeight / 2 - cardDescription.height / 2 - (item.selected ? 0.5 : 0)
+  getGap(location: Location, context: MaterialContext) {
+    const l = getPlayerLocation(context, location.player)
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
-        return {
-          x: l.civilisationArea.x + deltaX,
-          y: l.civilisationArea.y + deltaY,
-          z
-        }
+        return { x: 2.2 }
       case Orientation.TOP_BOTTOM:
-        return {
-          x: l.civilisationArea.x - deltaY,
-          y: l.civilisationArea.y + deltaX,
-          z
-        }
+        return { y: 2.2 }
       case Orientation.RIGHT_LEFT:
-        return {
-          x: l.civilisationArea.x - deltaX,
-          y: l.civilisationArea.y - deltaY,
-          z
-        }
+        return { x: -2.2 }
       case Orientation.BOTTOM_TOP:
-        return {
-          x: l.civilisationArea.x + deltaY,
-          y: l.civilisationArea.y - deltaX,
-          z
-        }
+        return { y: -2.2 }
     }
   }
 
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    return getPlayerRotation(item, context)
+  getItemCoordinates(item: MaterialItem, context: ItemContext) {
+    const { x = 0, y = 0, z = 0 } = super.getItemCoordinates(item, context)
+    return item.selected ? { x: x - 0.2, y: y - 0.5, z: z + diceDescription.width } : { x, y, z }
   }
+
+  getRotateZ = (location: Location, context: ItemContext) => getPlayerRotateZ(context, location.player)
 }
 
 export const playerResourcesLocator = new PlayerResourcesLocator()

@@ -1,10 +1,10 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
+import { Location, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { civilisationAreaDescription } from './CivilisationAreaDescription'
-import { civilisationAreaHeight, getPlayerLocation, getPlayerRotation, Orientation, PlayerLocation } from './PlayerLocator'
+import { civilisationAreaHeight, getPlayerLocation, getPlayerRotateZ, Orientation, PlayerLocation } from './PlayerLocator'
 
 class CivilisationAreaLocator extends Locator {
   locationDescription = civilisationAreaDescription
@@ -13,11 +13,37 @@ class CivilisationAreaLocator extends Locator {
     return rules.players.map(player => ({ type: LocationType.CivilisationArea, player }))
   }
 
-  getPosition(item: MaterialItem, context: ItemContext): Coordinates {
-    const l = getPlayerLocation(item.location.player!, context)
+  getLocationCoordinates(location: Location, context: MaterialContext) {
+    const l = getPlayerLocation(context, location.player)
+    switch (l.orientation) {
+      case Orientation.LEFT_RIGHT:
+        return {
+          x: l.civilisationArea.x + l.civilisationArea.width / 2,
+          y: l.civilisationArea.y + civilisationAreaHeight / 2
+        }
+      case Orientation.TOP_BOTTOM:
+        return {
+          x: l.civilisationArea.x - civilisationAreaHeight / 2,
+          y: l.civilisationArea.y + l.civilisationArea.width / 2
+        }
+      case Orientation.RIGHT_LEFT:
+        return {
+          x: l.civilisationArea.x - l.civilisationArea.width / 2,
+          y: l.civilisationArea.y - civilisationAreaHeight / 2
+        }
+      case Orientation.BOTTOM_TOP:
+        return {
+          x: l.civilisationArea.x + civilisationAreaHeight / 2,
+          y: l.civilisationArea.y - l.civilisationArea.width / 2
+        }
+    }
+  }
+
+  getItemCoordinates(item: MaterialItem, context: ItemContext) {
+    const l = getPlayerLocation(context, item.location.player)
     const { x, y } = this.getXYCoordinates(l)
     const delta = this.getDelta(item, context)
-    const z = 5 - item.location.z! * 0.1 - item.location.x! * 0.05
+    const z = 3 - item.location.z! * 0.1 - item.location.x! * 0.05
     switch (l.orientation) {
       case Orientation.LEFT_RIGHT:
         return { x: x + delta, y, z }
@@ -31,7 +57,7 @@ class CivilisationAreaLocator extends Locator {
   }
 
   getDelta(item: MaterialItem, context: ItemContext): number {
-    const l = getPlayerLocation(item.location.player!, context)
+    const l = getPlayerLocation(context, item.location.player)
     const cards = context.rules.material(MaterialType.Card).location(l => l.type === LocationType.CivilisationArea && l.player === item.location.player)
     const maxX = cards.sort(item => -item.location.x!).getItem()?.location.x ?? 0
     const decayCards = cards.location(l => l.z !== 0)
@@ -71,8 +97,8 @@ class CivilisationAreaLocator extends Locator {
     }
   }
 
-  getRotateZ(item: MaterialItem, context: ItemContext) {
-    return getPlayerRotation(item, context) + (item.location.rotation ? 45 : 0)
+  getRotateZ(location: Location, context: MaterialContext) {
+    return getPlayerRotateZ(context, location.player) + (location.rotation ? 45 : 0)
   }
 }
 
