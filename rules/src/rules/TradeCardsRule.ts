@@ -48,10 +48,10 @@ export class TradeCardsRule extends PlayerTurnRule {
         return [
           playerCard.moveItem(opponentCard.getItem()!.location),
           opponentCard.moveItem(playerCard.getItem()!.location),
-          this.rules().startRule(RuleId.Actions)
+          this.startRule(RuleId.Actions)
         ]
       } else {
-        return [this.rules().startRule(RuleId.TradeCards)]
+        return [this.startRule(RuleId.TradeCards)]
       }
     } else if (isMoveItem(move) && move.itemType === MaterialType.Card) {
       delete this.material(MaterialType.Card).getItem(move.itemIndex)?.selected

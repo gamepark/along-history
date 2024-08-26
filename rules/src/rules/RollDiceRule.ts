@@ -6,7 +6,7 @@ import { RuleId } from './RuleId'
 export class RollDiceRule extends PlayerTurnRule {
   onRuleStart(): MaterialMove[] {
     const moves: MaterialMove[] = this.material(MaterialType.Dice).rollItems({ type: LocationType.PlayerResources, player: this.player })
-    moves.push(this.rules().startPlayerTurn(RuleId.Actions, this.player))
+    moves.push(this.startPlayerTurn(RuleId.Actions, this.player))
     return moves
   }
 }

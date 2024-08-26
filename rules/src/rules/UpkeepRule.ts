@@ -13,9 +13,9 @@ export class UpkeepRule extends PlayerTurnRule {
     }
     const moves = this.unRotateCards
     if (this.isActivePlayer) {
-      moves.push(this.rules().startRule(RuleId.RollDice))
+      moves.push(this.startRule(RuleId.RollDice))
     } else {
-      moves.push(this.rules().startRule(RuleId.Actions))
+      moves.push(this.startRule(RuleId.Actions))
     }
     return moves
   }

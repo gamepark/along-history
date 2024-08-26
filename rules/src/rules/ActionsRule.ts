@@ -25,7 +25,7 @@ export class ActionsRule extends PlayerTurnRule {
         if (effect.type === EffectType.TradeCalamity) {
           const cardToTrade = this.cardsInEventArea.id<CardId>(id => id.front === effect.card)
           if (cardToTrade.length > 0) {
-            return [cardToTrade.selectItem(), this.rules().startRule(RuleId.TradeCards)]
+            return [cardToTrade.selectItem(), this.startRule(RuleId.TradeCards)]
           }
         }
       }
@@ -41,7 +41,7 @@ export class ActionsRule extends PlayerTurnRule {
       ...this.discardEffects,
       ...this.tiltGoldBonusCards,
       ...this.spendLegacyGoldBonus,
-      this.rules().customMove(CustomMoveType.Pass)
+      this.customMove(CustomMoveType.Pass)
     ]
   }
 
@@ -157,7 +157,7 @@ export class ActionsRule extends PlayerTurnRule {
         if (this.getPopulationToLose() > 0) {
           this.memorize(Memory.PopulationLost, true)
         }
-        return [this.rules().startRule(RuleId.PayCard)]
+        return [this.startRule(RuleId.PayCard)]
       }
     } else if (isDeleteItemType(MaterialType.Card)(move)) {
       this.memorize(Memory.LegacyUsed, true)
@@ -175,19 +175,19 @@ export class ActionsRule extends PlayerTurnRule {
     if (isMoveItem(move) && move.itemType === MaterialType.Dice) {
       const diceSymbol = getDiceSymbol(this.material(MaterialType.Dice).getItem(move.itemIndex)!)
       if (diceSymbol === DiceSymbol.ReRoll) {
-        return [this.rules().startRule(RuleId.UseReRollDie)]
+        return [this.startRule(RuleId.UseReRollDie)]
       } else if (diceSymbol === DiceSymbol.GoldenAge && this.hasRotatedCard()) {
-        return [this.rules().startRule(RuleId.UseGoldenAgeDie)]
+        return [this.startRule(RuleId.UseGoldenAgeDie)]
       } else if (isGold(diceSymbol)) {
-        return [this.rules().startRule(RuleId.UseGoldDie)]
+        return [this.startRule(RuleId.UseGoldDie)]
       } else {
-        return [this.rules().startRule(RuleId.UseDiscardedDie)]
+        return [this.startRule(RuleId.UseDiscardedDie)]
       }
     } else if (isMoveItem(move) && move.itemType === MaterialType.ResultToken && move.location.rotation) {
       if (isGold(this.material(MaterialType.ResultToken).getItem<DiceSymbol>(move.itemIndex)!.id!)) {
-        return [this.rules().startRule(RuleId.UseGoldResultToken)]
+        return [this.startRule(RuleId.UseGoldResultToken)]
       } else {
-        return [this.rules().startRule(RuleId.TradeCards)]
+        return [this.startRule(RuleId.TradeCards)]
       }
     } else if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.rotation) {
       return [this.gainBonusGold(move.itemIndex)]
@@ -222,9 +222,9 @@ export class ActionsRule extends PlayerTurnRule {
             .id(parseInt(diceSymbol)).limit(diceSymbolCount[diceSymbol])
             .selectItems())
         }
-        moves.push(this.rules().startRule(RuleId.Calamities))
+        moves.push(this.startRule(RuleId.Calamities))
       } else {
-        moves.push(this.rules().startRule(RuleId.Wars))
+        moves.push(this.startRule(RuleId.Wars))
       }
     }
     return moves

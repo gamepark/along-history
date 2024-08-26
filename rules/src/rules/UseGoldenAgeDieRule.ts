@@ -13,7 +13,7 @@ export class UseGoldenAgeDieRule extends UseDiscardedDieRule {
   afterItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.Card)(move) && move.location.type === LocationType.CivilisationArea) {
       return [
-        this.rules().startRule(RuleId.Actions),
+        this.startRule(RuleId.Actions),
         ...new UpkeepRule(this.game).unRotateCards
       ]
     } else {

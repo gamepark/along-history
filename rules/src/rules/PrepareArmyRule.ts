@@ -47,7 +47,7 @@ export class PrepareArmyRule extends PlayerTurnRule {
       .id<CardId>(cardId => CardsInfo[cardId.front].bonus.includes(Bonus.Population))
       .rotateItems(true)
     moves.push(...this.artillery.moveItems({ type: LocationType.Discard }))
-    moves.push(this.rules().customMove(CustomMoveType.Pass))
+    moves.push(this.customMove(CustomMoveType.Pass))
     return moves
   }
 
@@ -88,7 +88,7 @@ export class PrepareArmyRule extends PlayerTurnRule {
     const opponent = attacker === this.player ? defender : attacker
     this.memorize(Memory.Strength, 3, this.player)
     this.memorize(Memory.Strength, 0, opponent)
-    return [this.rules().startRule(RuleId.WarOutcome)]
+    return [this.startRule(RuleId.WarOutcome)]
   }
 
   onCustomMove(move: CustomMove) {
@@ -97,7 +97,7 @@ export class PrepareArmyRule extends PlayerTurnRule {
       const moves: MaterialMove[] = this.material(MaterialType.Dice).id(DiceType.Population)
         .rollItems(() => ({ type: LocationType.PlayerResources, player: this.player, x: x++ }))
       this.memorize(Memory.GeneralsLeft, this.generals)
-      moves.push(this.rules().startRule(RuleId.GeneralReRoll))
+      moves.push(this.startRule(RuleId.GeneralReRoll))
       return moves
     }
     return []

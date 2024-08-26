@@ -12,7 +12,7 @@ export class SaxonsFailureRule extends LoseCardRule {
   }
 
   getEndRuleMoves() {
-    return [this.rules().startRule(RuleId.TransmitCalamity)]
+    return [this.startRule(RuleId.TransmitCalamity)]
   }
 
   onRuleEnd() {

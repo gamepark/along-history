@@ -8,7 +8,7 @@ import { TradeCardsRule } from './TradeCardsRule'
 export class UseReRollDieRule extends TradeCardsRule {
   getPlayerMoves() {
     if (this.selectedDice.length > 0) {
-      return this.selectDices.concat(this.rules().customMove(CustomMoveType.Reroll))
+      return this.selectDices.concat(this.customMove(CustomMoveType.Reroll))
     } else {
       return super.getPlayerMoves().concat(this.selectDices)
     }
@@ -29,7 +29,7 @@ export class UseReRollDieRule extends TradeCardsRule {
       for (const item of selectedDice.getItems()) {
         delete item.selected
       }
-      moves.push(this.rules().startRule(RuleId.Actions))
+      moves.push(this.startRule(RuleId.Actions))
       return moves
     }
     return []

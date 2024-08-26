@@ -12,7 +12,7 @@ export class RansomRule extends SimultaneousRule {
       for (const player of move.players) {
         const legalMoves = this.getLegalMoves(player)
         if (legalMoves.length === 0) {
-          moves.push(this.rules().endPlayerTurn(player))
+          moves.push(this.endPlayerTurn(player))
         } else if (legalMoves.length === 1) {
           moves.push(legalMoves[0])
         }
@@ -38,13 +38,13 @@ export class RansomRule extends SimultaneousRule {
   beforeItemMove(move: ItemMove) {
     if (isMoveItem(move)) {
       const item = this.material(move.itemType).getItem(move.itemIndex)
-      return [this.rules().endPlayerTurn(item!.location.player!)]
+      return [this.endPlayerTurn(item!.location.player!)]
     }
     return []
   }
 
   getMovesAfterPlayersDone() {
-    return [this.rules().startPlayerTurn(RuleId.Actions, this.game.rule!.player!)]
+    return [this.startPlayerTurn(RuleId.Actions, this.game.rule!.player!)]
   }
 
 }

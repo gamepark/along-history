@@ -22,7 +22,7 @@ export class EndOfTurnRule extends PlayerTurnRule {
   }
 
   getPlayerMoves() {
-    return [this.rules().customMove(CustomMoveType.Pass)]
+    return [this.customMove(CustomMoveType.Pass)]
   }
 
   onCustomMove(move: CustomMove) {
@@ -43,7 +43,7 @@ export class EndOfTurnRule extends PlayerTurnRule {
       return [
         ...this.material(MaterialType.ResultToken).selected(true)
           .moveItems({ type: LocationType.PlayerResources, player: this.nextPlayer }),
-        this.rules().startPlayerTurn(RuleId.Upkeep, this.nextPlayer)
+        this.startPlayerTurn(RuleId.Upkeep, this.nextPlayer)
       ]
     }
   }
@@ -64,11 +64,11 @@ export class EndOfTurnRule extends PlayerTurnRule {
       }
     }
     if (gameIsOver) {
-      moves.push(this.rules().endGame())
+      moves.push(this.endGame())
     } else {
       const nextActivePlayer = this.game.players[(this.game.players.indexOf(this.player) + 2) % this.game.players.length]
       moves.push(this.material(MaterialType.DiscardTile).moveItem({ type: LocationType.PlayerDiscardTile, player: nextActivePlayer }))
-      moves.push(this.rules().startPlayerTurn(ageIsOver ? RuleId.PrepareNextAge : RuleId.Upkeep, nextActivePlayer))
+      moves.push(this.startPlayerTurn(ageIsOver ? RuleId.PrepareNextAge : RuleId.Upkeep, nextActivePlayer))
     }
     return moves
   }

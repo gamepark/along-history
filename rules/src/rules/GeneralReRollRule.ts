@@ -15,7 +15,7 @@ export class GeneralReRollRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const moves = this.selectDices
-    moves.push(this.rules().customMove(this.selectedDice.length === 0 ? CustomMoveType.Pass : CustomMoveType.Reroll))
+    moves.push(this.customMove(this.selectedDice.length === 0 ? CustomMoveType.Pass : CustomMoveType.Reroll))
     return moves
   }
 
@@ -55,7 +55,7 @@ export class GeneralReRollRule extends PlayerTurnRule {
 
   get nextRule() {
     const defender = this.remind(Memory.Defender)
-    return this.player !== defender ? this.rules().startPlayerTurn(RuleId.PrepareArmy, defender) : this.rules().startRule(RuleId.WarOutcome)
+    return this.player !== defender ? this.startPlayerTurn(RuleId.PrepareArmy, defender) : this.startRule(RuleId.WarOutcome)
   }
 
   onRuleEnd() {

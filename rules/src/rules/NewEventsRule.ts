@@ -13,7 +13,7 @@ export class NewEventsRule extends PlayerTurnRule {
         eventCard.location.x = [0, 1, 2].find(x => !eventCards.some(card => card.location.x === x))
       }
     }
-    moves.push(this.rules().startRule(RuleId.Achievements))
+    moves.push(this.startRule(RuleId.Achievements))
     return moves
   }
 }

@@ -7,7 +7,7 @@ import { TradeCardsRule } from './TradeCardsRule'
 
 export class SwapRule extends TradeCardsRule {
   getPlayerMoves(): MaterialMove[] {
-    return super.getPlayerMoves().concat(this.rules().customMove(CustomMoveType.Pass))
+    return super.getPlayerMoves().concat(this.customMove(CustomMoveType.Pass))
   }
 
   get opponentCardSelected() {
@@ -25,7 +25,7 @@ export class SwapRule extends TradeCardsRule {
   onCustomMove(move: CustomMove) {
     if (move.type === CustomMoveType.Pass) {
       delete this.playerCardSelected.getItem()!.selected
-      return [this.rules().startRule(RuleId.Actions)]
+      return [this.startRule(RuleId.Actions)]
     }
     return []
   }

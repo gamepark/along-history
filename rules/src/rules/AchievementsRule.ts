@@ -17,7 +17,7 @@ export class AchievementsRule extends PlayerTurnRule {
       this.civilisationToken.moveItem({ type: LocationType.AchievementsBoard, x, y })
     )
     moves.push(...this.moveBackCivilisationToken)
-    moves.push(this.rules().startRule(RuleId.EndOfTurn))
+    moves.push(this.startRule(RuleId.EndOfTurn))
     return moves
   }
 
@@ -183,9 +183,9 @@ export class AchievementsRule extends PlayerTurnRule {
         moves.push(achievementToken.moveItem({ type: LocationType.PlayerAchievements, player: this.player }))
       }
       if (achievementToken.length && this.nonDecayCards.length > 1) {
-        moves.push(this.rules().startRule(RuleId.Decay))
+        moves.push(this.startRule(RuleId.Decay))
       } else {
-        moves.push(this.rules().startRule(RuleId.EndOfTurn))
+        moves.push(this.startRule(RuleId.EndOfTurn))
       }
       return moves
     }

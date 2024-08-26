@@ -74,7 +74,7 @@ export class SetupAgeRule extends PlayerTurnRule {
           this.createCards(card => isWonderOrCalamity(card))
         ]
       } else {
-        return [this.rules().startRule(RuleId.RollDice)]
+        return [this.startRule(RuleId.RollDice)]
       }
     }
     return []

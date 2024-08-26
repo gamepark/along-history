@@ -11,7 +11,7 @@ import { RuleId } from './RuleId'
 export class PoisonRule extends PlayerTurnRule {
   getPlayerMoves() {
     return this.game.players.filter(player => player !== this.player && this.activeFigures(player).length > 0)
-      .map(player => this.rules().customMove(CustomMoveType.ChoosePlayer, player))
+      .map(player => this.customMove(CustomMoveType.ChoosePlayer, player))
   }
 
   activeFigures(player: PlayerColor) {
@@ -31,10 +31,10 @@ export class PoisonRule extends PlayerTurnRule {
     if (activeFigures.length === 1) {
       return [
         activeFigures.moveItem({ type: LocationType.Discard }),
-        this.rules().startRule(RuleId.Actions)
+        this.startRule(RuleId.Actions)
       ]
     } else {
-      return [this.rules().startPlayerTurn(RuleId.LoseFigure, player)]
+      return [this.startPlayerTurn(RuleId.LoseFigure, player)]
     }
   }
 }

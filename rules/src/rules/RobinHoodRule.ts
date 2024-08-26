@@ -9,7 +9,7 @@ export class RobinHoodRule extends TradeCardsRule {
   onRuleStart() {
     const richestOpponents = this.richestOpponents
     if (richestOpponents.length === 0) {
-      return [this.rules().startRule(RuleId.Actions)]
+      return [this.startRule(RuleId.Actions)]
     } else if (richestOpponents.length === 1) {
       const coins = this.material(MaterialType.Coin).player(richestOpponents[0])
       return [coins.moveItem({ type: LocationType.PlayerCoins, player: this.player }, coins.getQuantity())]
@@ -48,7 +48,7 @@ export class RobinHoodRule extends TradeCardsRule {
       if (gold === undefined && (move.quantity ?? 1) > 1) {
         this.memorize(Memory.GoldCost, Math.floor(move.quantity! / 2))
       } else {
-        return [this.rules().startRule(RuleId.Actions)]
+        return [this.startRule(RuleId.Actions)]
       }
     }
     return []

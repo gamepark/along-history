@@ -17,7 +17,7 @@ export class LoseFigureRule extends LoseCardRule {
   getEndRuleMoves(): MaterialMove[] {
     const calamity = this.calamity.getItem()!
     if (calamity.location.type === LocationType.CivilisationArea) { // Poison
-      return [this.rules().startPlayerTurn(RuleId.Actions, calamity.location.player!)]
+      return [this.startPlayerTurn(RuleId.Actions, calamity.location.player!)]
     } else {
       return super.getEndRuleMoves()
     }

@@ -199,7 +199,7 @@ export class PayCardRule extends PlayerTurnRule {
       }
     }
     if (this.costPaid) {
-      moves.push(this.rules().startRule(RuleId.Actions))
+      moves.push(this.startRule(RuleId.Actions))
     }
     return moves
   }
@@ -323,17 +323,17 @@ export class PayCardRule extends PlayerTurnRule {
         moves.push(...this.activeCards.player(player => player !== this.player).id<CardId>(id => id?.front === effect.card)
           .moveItems(item => ({ type: LocationType.CivilisationArea, player: this.player, rotation: item.location.rotation })))
       } else if (effect.type === EffectType.Ransom) {
-        moves.push(this.rules().startSimultaneousRule(RuleId.Ransom, this.game.players.filter(p => p !== this.player)))
+        moves.push(this.startSimultaneousRule(RuleId.Ransom, this.game.players.filter(p => p !== this.player)))
       } else if (effect.type === EffectType.RobinHood) {
-        moves.push(this.rules().startRule(RuleId.RobinHood))
+        moves.push(this.startRule(RuleId.RobinHood))
       } else if (effect.type === EffectType.TradeOnAcquisition) {
         const targetCard = this.activeCards.id<CardId>(id => id?.front === effect.card)
         if (targetCard.length && this.hasNonCalamityCardInEventArea) {
-          moves.push(targetCard.selectItem(), this.rules().startRule(RuleId.TradeOnAcquisition))
+          moves.push(targetCard.selectItem(), this.startRule(RuleId.TradeOnAcquisition))
         }
       } else if (effect.type === EffectType.Swap) {
         if (this.material(MaterialType.Card).location(LocationType.CivilisationArea).player(p => p !== this.player).length > 0) {
-          moves.push(card.selectItem(), this.rules().startRule(RuleId.Swap))
+          moves.push(card.selectItem(), this.startRule(RuleId.Swap))
         }
       } else if (effect.type === EffectType.Poison) {
         if (this.activeCards.player(player => player !== this.player).id<CardId>(id => CardsInfo[id!.front].type === CardType.Figure).length > 0) {
@@ -341,7 +341,7 @@ export class PayCardRule extends PlayerTurnRule {
           if (this.game.players.length === 2) {
             moves.push(...new PoisonRule(this.game).poisonPlayer(this.nextPlayer))
           } else {
-            moves.push(card.selectItem(), this.rules().startRule(RuleId.Poison))
+            moves.push(card.selectItem(), this.startRule(RuleId.Poison))
           }
         }
       }

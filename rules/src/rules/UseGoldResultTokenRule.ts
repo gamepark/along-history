@@ -27,7 +27,7 @@ export class UseGoldResultTokenRule extends TradeCardsRule {
 
   afterItemMove(move: ItemMove) {
     if (isCreateItemType(MaterialType.Coin)(move)) {
-      return [this.rules().startRule(RuleId.Actions)]
+      return [this.startRule(RuleId.Actions)]
     } else {
       return super.afterItemMove(move)
     }

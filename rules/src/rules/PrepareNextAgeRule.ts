@@ -44,7 +44,7 @@ export class PrepareNextAgeRule extends PlayerTurnRule {
     moves.push(this.material(MaterialType.AchievementToken).deleteItemsAtOnce())
     moves.push(this.material(MaterialType.CivilisationToken).moveItemsAtOnce({ type: LocationType.AchievementsBoard, x: 0, y: 0 }))
 
-    moves.push(this.rules().startRule(RuleId.SetupAge))
+    moves.push(this.startRule(RuleId.SetupAge))
 
     return moves
   }

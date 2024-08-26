@@ -27,11 +27,11 @@ export class WarOutcomeRule extends PlayerTurnRule {
     }
 
     if (this.remind(Memory.Counterattack)) {
-      moves.push(this.rules().startPlayerTurn(RuleId.Wars, defender))
+      moves.push(this.startPlayerTurn(RuleId.Wars, defender))
     } else if (attackerStrength > defenderStrength && this.canCounterAttack(defender)) {
-      moves.push(this.rules().startPlayerTurn(RuleId.Counterattack, defender))
+      moves.push(this.startPlayerTurn(RuleId.Counterattack, defender))
     } else {
-      moves.push(this.rules().startPlayerTurn(RuleId.Wars, attacker))
+      moves.push(this.startPlayerTurn(RuleId.Wars, attacker))
     }
 
     return moves

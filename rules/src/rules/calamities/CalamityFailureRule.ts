@@ -18,7 +18,7 @@ export class CalamityFailureRule extends PlayerTurnRule {
   }
 
   get endRule() {
-    return this.rules().startRule(RuleId.Calamities)
+    return this.startRule(RuleId.Calamities)
   }
 
   onRuleEnd(): MaterialMove[] {

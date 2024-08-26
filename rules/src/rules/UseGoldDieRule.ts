@@ -48,7 +48,7 @@ export class UseGoldDieRule extends UseDiscardedDieRule {
       }
     } else if (isCreateItemType(MaterialType.Coin)(move)) {
       this.forget(Memory.Multiplier)
-      return [this.rules().startRule(RuleId.Actions)]
+      return [this.startRule(RuleId.Actions)]
     } else {
       return super.afterItemMove(move)
     }

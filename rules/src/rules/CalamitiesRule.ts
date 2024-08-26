@@ -13,9 +13,9 @@ export class CalamitiesRule extends PlayerTurnRule {
     const calamities = this.calamities
     if (calamities.length === 1) {
       this.memorize(Memory.Calamity, calamities.getIndex())
-      return [this.rules().startRule(getCalamityFailureRule(calamities.getItem<CardId>()!.id!.front))]
+      return [this.startRule(getCalamityFailureRule(calamities.getItem<CardId>()!.id!.front))]
     } else if (calamities.length === 0) {
-      return [this.rules().startRule(RuleId.Wars)]
+      return [this.startRule(RuleId.Wars)]
     }
     return []
   }
@@ -34,7 +34,7 @@ export class CalamitiesRule extends PlayerTurnRule {
       this.memorize(Memory.Calamity, move.itemIndex)
       const card = this.material(MaterialType.Card).getItem<CardId>(move.itemIndex)!
       delete card.selected
-      return [this.rules().startRule(getCalamityFailureRule(card.id!.front))]
+      return [this.startRule(getCalamityFailureRule(card.id!.front))]
     }
     return []
   }

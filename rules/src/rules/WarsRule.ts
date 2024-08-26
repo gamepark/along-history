@@ -9,7 +9,7 @@ import { RuleId } from './RuleId'
 export class WarsRule extends PlayerTurnRule {
   onRuleStart() {
     if (!this.wars && !this.universalResources) {
-      return [this.rules().startRule(RuleId.NewEvents)]
+      return [this.startRule(RuleId.NewEvents)]
     }
     return []
   }
@@ -24,13 +24,13 @@ export class WarsRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const moves: MaterialMove[] = this.wars ? this.declareWar : [this.spendUniversalResource]
-    moves.push(this.rules().customMove(CustomMoveType.Pass))
+    moves.push(this.customMove(CustomMoveType.Pass))
     return moves
   }
 
   get declareWar() {
     return this.game.players.filter(player => player !== this.player)
-      .map(player => this.rules().customMove(CustomMoveType.ChoosePlayer, player))
+      .map(player => this.customMove(CustomMoveType.ChoosePlayer, player))
   }
 
   get spendUniversalResource() {
@@ -45,7 +45,7 @@ export class WarsRule extends PlayerTurnRule {
       this.memorize(Memory.Attacker, this.player)
       this.memorize(Memory.Defender, move.data)
       this.forget(Memory.Strength)
-      return [this.rules().startRule(RuleId.PrepareArmy)]
+      return [this.startRule(RuleId.PrepareArmy)]
     }
     return []
   }
@@ -58,6 +58,6 @@ export class WarsRule extends PlayerTurnRule {
   }
 
   get endWars() {
-    return this.rules().startRule(RuleId.NewEvents)
+    return this.startRule(RuleId.NewEvents)
   }
 }

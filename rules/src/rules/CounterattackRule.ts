@@ -6,14 +6,14 @@ import { RuleId } from './RuleId'
 export class CounterattackRule extends PlayerTurnRule {
   getPlayerMoves() {
     return [
-      this.rules().startRule(RuleId.PrepareArmy),
-      this.rules().customMove(CustomMoveType.Pass)
+      this.startRule(RuleId.PrepareArmy),
+      this.customMove(CustomMoveType.Pass)
     ]
   }
 
   onCustomMove(move: CustomMove) {
     if (move.type === CustomMoveType.Pass) {
-      return [this.rules().startPlayerTurn(RuleId.Wars, this.remind(Memory.Attacker))]
+      return [this.startPlayerTurn(RuleId.Wars, this.remind(Memory.Attacker))]
     }
     return []
   }
