@@ -8,7 +8,7 @@ import Yellow from '../images/tokens/civilisation/Yellow.png'
 import { CivilisationTokenHelp } from './help/CivilisationTokenHelp'
 
 class CivilisationTokenDescription extends TokenDescription {
-  ratio = 1 / 1.4
+  width = 1.43
   height = 2
   borderRadius = 0.5
 
