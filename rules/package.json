@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/along-history",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "The rules of Along History adapted for Game Park",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
