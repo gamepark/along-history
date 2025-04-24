@@ -1,13 +1,11 @@
 import { listingToList, MaterialItem, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { Age } from '../material/Age'
-import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'
 import { DiceType } from '../material/Dices'
 import { isGold } from '../material/DiceSymbol'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { ResultTokens } from '../material/ResultTokens'
-import { PlayerColor } from '../PlayerColor'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
@@ -49,7 +47,7 @@ export class PrepareNextAgeRule extends PlayerTurnRule {
     return moves
   }
 
-  isActiveBonusCard(card: MaterialItem<PlayerColor, LocationType, CardId>) {
+  isActiveBonusCard(card: MaterialItem) {
     return card.location.type === LocationType.CivilisationArea && card.location.z === 0 && card.id !== undefined && CardsInfo[card.id.front].bonus.length > 0
   }
 }

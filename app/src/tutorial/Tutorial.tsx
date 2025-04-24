@@ -15,7 +15,7 @@ import { ClotheType, EyebrowType, EyeType, FacialHairType, GraphicType, MouthTyp
 import ClotheColorName from '@gamepark/avataaars/dist/avatar/clothes/ClotheColorName'
 import SkinColor from '@gamepark/avataaars/dist/avatar/SkinColor'
 import HairColorName from '@gamepark/avataaars/dist/avatar/top/HairColorName'
-import { MaterialTutorial, Picture, TutorialStep } from '@gamepark/react-game'
+import { MaterialContext, MaterialTutorial, Picture, TutorialStep } from '@gamepark/react-game'
 import {
   isCustomMoveType,
   isMoveItemType,
@@ -675,14 +675,14 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      focus: (game: MaterialGame) => this.steps[game.tutorial!.step - 1].focus!(game),
+      focus: (game: MaterialGame, context: MaterialContext) => this.steps[game.tutorial!.step - 1].focus!(game, context),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
           && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Tiger
       }
     },
     {
-      focus: (game: MaterialGame) => this.steps[game.tutorial!.step - 2].focus!(game),
+      focus: (game: MaterialGame, context: MaterialContext) => this.steps[game.tutorial!.step - 2].focus!(game, context),
       move: {
         filter: (move: MaterialMove, game: MaterialGame) => isSelectItemType(MaterialType.Card)(move)
           && this.material(game, move.itemType).getItem<CardId>(move.itemIndex)?.id?.front === Card.Wildcrafting
@@ -771,13 +771,13 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      focus: (game: MaterialGame) => this.steps[game.tutorial!.step - 1].focus!(game),
+      focus: (game: MaterialGame, context: MaterialContext) => this.steps[game.tutorial!.step - 1].focus!(game, context),
       move: {
         filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
       }
     },
     {
-      focus: (game: MaterialGame) => this.steps[game.tutorial!.step - 2].focus!(game),
+      focus: (game: MaterialGame, context: MaterialContext) => this.steps[game.tutorial!.step - 2].focus!(game, context),
       move: {
         filter: (move: MaterialMove) => !isMoveItemType(MaterialType.UniversalResource)(move)
       }

@@ -1,7 +1,8 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
+import { isDecayMove } from '@gamepark/along-history/rules/DecayRule'
 import { ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
-import { Location, MaterialItem, XYCoordinates } from '@gamepark/rules-api'
+import { Location, MaterialItem, MoveItem, XYCoordinates } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { civilisationAreaDescription } from './CivilisationAreaDescription'
 import { civilisationAreaHeight, getPlayerLocation, getPlayerRotateZ, Orientation, PlayerLocation } from './PlayerLocator'
@@ -99,6 +100,19 @@ class CivilisationAreaLocator extends Locator {
 
   getRotateZ(location: Location, context: MaterialContext) {
     return getPlayerRotateZ(context, location.player) + (location.rotation ? 45 : 0)
+  }
+
+  getDropLocations(moves: MoveItem[], context: ItemContext) {
+    if (moves.some(isDecayMove)) {
+      return moves.map((move) => this.getDecayDropLocation(move, context))
+    }
+    return super.getDropLocations(moves, context)
+  }
+
+  getDecayDropLocation(move: MoveItem, context: MaterialContext) {
+    const parent = context.rules.material(MaterialType.Card).location(LocationType.CivilisationArea).player(context.player)
+      .location(l => l.x === move.location.x && l.z === 0).getIndex()
+    return { type: LocationType.OnCard, parent }
   }
 }
 

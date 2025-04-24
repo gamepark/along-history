@@ -1,4 +1,4 @@
-import { ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove, MoveItem, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { RuleId } from './RuleId'
@@ -23,4 +23,8 @@ export class DecayRule extends PlayerTurnRule {
     delete this.game.droppedItem
     return [this.startRule(RuleId.EndOfTurn)]
   }
+}
+
+export function isDecayMove(move: MaterialMove): move is MoveItem {
+  return isMoveItemType(MaterialType.Card)(move) && move.location.type === LocationType.CivilisationArea && move.location.x !== undefined
 }

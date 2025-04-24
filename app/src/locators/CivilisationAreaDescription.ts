@@ -1,7 +1,8 @@
 import { css } from '@emotion/react'
 import { PlayerColor } from '@gamepark/along-history/PlayerColor'
-import { DropAreaDescription, MaterialContext } from '@gamepark/react-game'
-import { Location } from '@gamepark/rules-api'
+import { isDecayMove } from '@gamepark/along-history/rules/DecayRule'
+import { DropAreaDescription, ItemContext, MaterialContext } from '@gamepark/react-game'
+import { Location, MaterialMove } from '@gamepark/rules-api'
 import { cardDescription } from '../material/CardDescription'
 import { CivilisationAreaHelp } from './help/CivilisationAreaHelp'
 import { civilisationAreaHeight, getPlayerLocation } from './PlayerLocator'
@@ -25,6 +26,11 @@ export class CivilisationAreaDescription extends DropAreaDescription {
   getLocationSize(location: Location, context: MaterialContext) {
     const l = getPlayerLocation(context, location.player)
     return { width: l.civilisationArea.width, height: civilisationAreaHeight }
+  }
+
+  canDrop(move: MaterialMove, location: Location, context: ItemContext) {
+    if (isDecayMove(move)) return false
+    return super.canDrop(move, location, context)
   }
 }
 
