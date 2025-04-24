@@ -32,7 +32,6 @@ export class SetupAgeRule extends PlayerTurnRule {
   }
 
   getRandomAchievements(): MaterialItem[] {
-    console.log('getRandomAchievements', this.game.tutorial)
     const items: MaterialItem[] = []
     for (let x = 1; x < AchievementBoardLocations.length; x++) {
       const tokens = this.getRandomAchievementsOfValue(x)
@@ -78,14 +77,6 @@ export class SetupAgeRule extends PlayerTurnRule {
       }
     }
     return []
-  }
-
-  onRuleEnd() {
-    return [
-      this.material(MaterialType.AchievementToken)
-        .location(l => l.type === LocationType.AchievementsBoard && l.x === 7 && l.y === -3)
-        .deleteItemsAtOnce()
-    ]
   }
 }
 

@@ -1,4 +1,4 @@
-import { isDeleteItemType, isMoveItem, ItemMove, MaterialMove, MoveItem, playAction, PlayerTurnRule } from '@gamepark/rules-api'
+import { isDeleteItemType, isMoveItem, ItemMove, MaterialMove, MoveItem, MoveKind, playAction, PlayerTurnRule } from '@gamepark/rules-api'
 import { intersection, sumBy } from 'lodash'
 import { AlongHistoryRules } from '../AlongHistoryRules'
 import { Bonus } from '../material/cards/Bonus'
@@ -193,13 +193,21 @@ export class PayCardRule extends PlayerTurnRule {
       } else if (isMoveItem(move) && move.itemType === MaterialType.Card && move.location.rotation) {
         moves.push(...this.afterBonusUsed(move.itemIndex))
       } else if (isMoveItem(move) && move.itemType === MaterialType.UniversalResource && move.location.type === LocationType.UniversalResourceStock) {
-        moves.push(...this.afterUniversalTokenDiscarded())
+        this.afterUniversalTokenDiscarded()
       } else if (isDeleteItemType(MaterialType.Coin)(move)) {
         this.onPayGold(move.quantity ?? 1)
       }
     }
-    if (this.costPaid) {
-      moves.push(this.startRule(RuleId.Actions))
+    if (!this.remind(Memory.CardPaid) && this.costPaid) {
+      this.memorize(Memory.CardPaid, true)
+      const gold = this.remind<number | undefined>(Memory.GoldCost)
+      if (gold && gold < 0) {
+        moves.push(this.getTakeGoldMove(-gold))
+      }
+      moves.push(...this.onCardAcquired())
+      if (!moves.some(move => move.kind === MoveKind.RulesMove)) {
+        moves.push(this.startRule(RuleId.Actions))
+      }
     }
     return moves
   }
@@ -239,7 +247,6 @@ export class PayCardRule extends PlayerTurnRule {
       resourcesCost.pop()
     }
     this.forget(Memory.GoldCost)
-    return []
   }
 
   payDice(symbol: DiceSymbol) {
@@ -364,18 +371,14 @@ export class PayCardRule extends PlayerTurnRule {
   }
 
   onRuleEnd() {
-    const moves: MaterialMove[] = this.onCardAcquired()
-    const gold = this.remind<number | undefined>(Memory.GoldCost)
-    if (gold && gold < 0) {
-      moves.push(this.getTakeGoldMove(-gold))
-    }
     this.forget(Memory.CardToPay)
+    this.forget(Memory.CardPaid)
     this.forget(Memory.PopulationCost)
     this.forget(Memory.ResourcesCost)
     this.forget(Memory.GoldCost)
     this.forget(Memory.DieToMultiply)
     this.forget(Memory.Multiplier)
-    return moves
+    return []
   }
 }
 

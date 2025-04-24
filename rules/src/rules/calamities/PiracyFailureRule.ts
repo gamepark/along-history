@@ -1,6 +1,7 @@
-import { isDeleteItemType, ItemMove, MaterialMove } from '@gamepark/rules-api'
+import { isDeleteItemType, isMoveItemsAtOnce, isMoveItemType, isShuffle, ItemMove, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
+import { Memory } from '../Memory'
 import { LoseCardRule } from './LoseCardRule'
 
 export class PiracyFailureRule extends LoseCardRule {
@@ -25,18 +26,20 @@ export class PiracyFailureRule extends LoseCardRule {
     return moves
   }
 
+  getEndRuleMoves(): MaterialMove[] {
+    return [this.discardCalamity]
+  }
+
   afterItemMove(move: ItemMove) {
     if (isDeleteItemType(MaterialType.Coin)(move)) {
       return this.getEndRuleMoves()
+    } else if (isMoveItemType(MaterialType.Card)(move) && move.itemIndex === this.remind(Memory.Calamity) && move.location.type === LocationType.Discard) {
+      return [this.material(MaterialType.Card).location(LocationType.Discard).moveItemsAtOnce({ type: LocationType.Deck })]
+    } else if (isMoveItemsAtOnce(move) && move.itemType === MaterialType.Card && move.location.type === LocationType.Deck) {
+      return [this.material(MaterialType.Card).location(LocationType.Deck).shuffle()]
+    } else if (isShuffle(move)) {
+      return [this.endRule]
     }
     return []
-  }
-
-  onRuleEnd() {
-    super.onRuleEnd()
-    return [
-      ...this.material(MaterialType.Card).location(LocationType.Discard).moveItems({ type: LocationType.Deck }),
-      this.material(MaterialType.Card).location(l => l.type === LocationType.Deck || l.type === LocationType.Discard).shuffle()
-    ]
   }
 }
