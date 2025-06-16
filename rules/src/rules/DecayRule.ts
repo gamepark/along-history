@@ -20,7 +20,7 @@ export class DecayRule extends PlayerTurnRule {
   }
 
   afterItemMove(_move: ItemMove): MaterialMove[] {
-    delete this.game.droppedItem
+    delete this.game.droppedItems
     return [this.startRule(RuleId.EndOfTurn)]
   }
 }
