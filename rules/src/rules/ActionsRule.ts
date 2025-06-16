@@ -152,7 +152,7 @@ export class ActionsRule extends PlayerTurnRule {
       } else {
         this.memorize(Memory.CardToPay, move.itemIndex)
         this.memorize(Memory.PopulationCost, this.getPopulationCost(cardInfo))
-        this.memorize(Memory.ResourcesCost, cardInfo.resourcesCost)
+        this.memorize(Memory.ResourcesCost, JSON.parse(JSON.stringify(cardInfo.resourcesCost)))
         this.memorize(Memory.GoldCost, this.getGoldCost(cardInfo))
         if (this.getPopulationToLose() > 0) {
           this.memorize(Memory.PopulationLost, true)
