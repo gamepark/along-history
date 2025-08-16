@@ -10,7 +10,7 @@ export const Jerusalem: CardInfo = {
   type: CardType.Land,
   populationCost: 7,
   resourcesCost: [Resource.Ingenuity],
-  goldCost: 12,
+  goldCost: 15,
   victoryPoints: 3,
   bonus: [Bonus.Culture],
   effects: [free(ownOneOfCards(Card.TheCrusades, Card.TemplarOrder))]
