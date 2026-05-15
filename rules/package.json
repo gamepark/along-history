@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/along-history",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "The rules of Along History adapted for Game Park",
   "sideEffects": false,
   "type": "module",
