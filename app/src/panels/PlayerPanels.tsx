@@ -11,6 +11,7 @@ import { useState } from 'react'
 import VictoryPointIcon from '../images/icons/VictoryPointIcon.png'
 import WarIconRed from '../images/icons/WarIconRed.png'
 import { cardTypeIcons } from '../material/help/CardHelp'
+import { playerGradients, playerTextColor } from '../theme/playerGradients'
 import { PlayerDialog } from './PlayerDialog'
 import displayRulesHelp = MaterialMoveBuilder.displayRulesHelp
 
@@ -25,7 +26,8 @@ export const PlayerPanels = () => {
     <>
       {players.map((player, index) => {
           const score = rules?.getScore(player.id)
-          return <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index, players.length)}
+          return <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]}
+                              css={[panelPosition(index, players.length), panelBackground(player.id)]}
                               onClick={() => setPlayerDialog(player.id)}>
             <div css={vpCounter}><span css={vpText(score)}>{score}</span></div>
             <ol css={cardTypesList}>
@@ -53,6 +55,14 @@ const panelPosition = (index: number, players: number) => css`
   width: 28em;
   height: 16em;
   cursor: pointer;
+`
+
+const panelBackground = (player: PlayerColor) => css`
+  background: ${playerGradients[player]};
+  color: ${playerTextColor[player]};
+  box-shadow:
+    0 0.25em 0.6em rgba(0, 0, 0, 0.45),
+    inset 0 0.05em 0 rgba(255, 250, 235, 0.18);
 `
 
 const panelTop = (index: number, players: number) => {

@@ -9,13 +9,14 @@ import App from './App'
 import { RulesHelp } from './dialogs/RulesHelp'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
+import { theme } from './theme'
 import { Tutorial } from './tutorial/Tutorial'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GameProvider game="along-history" Rules={AlongHistoryRules} optionsSpec={AlongHistoryOptionsSpec} GameSetup={AlongHistorySetup}
                   material={Material} locators={Locators} animations={alongHistoryAnimations} tutorial={new Tutorial()}
-                  rulesHelp={RulesHelp}>
+                  rulesHelp={RulesHelp} theme={theme}>
       <App/>
     </GameProvider>
   </StrictMode>
