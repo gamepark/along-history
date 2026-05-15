@@ -59,5 +59,5 @@ export const Dices: Record<DiceType, DiceSymbol[]> = {
   [DiceType.Gold]: GoldDice
 }
 
-export const getDiceSymbol = (dice: MaterialItem): DiceSymbol => Dices[dice.id][dice.location.rotation]
+export const getDiceSymbol = (dice: MaterialItem): DiceSymbol => Dices[dice.id as DiceType][dice.location.rotation]
 export const diceToDiscardTile = (dice: MaterialItem) => ({ type: LocationType.DiscardTile, parent: 0, rotation: dice.location.rotation })
