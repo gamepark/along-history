@@ -15,13 +15,13 @@ export const RansomHeader = () => {
   const playerName = usePlayerName(ransomer)
 
   if (ransomer === playerId) {
-    return <Trans defaults="header.ransom.to-you">
+    return <Trans i18nKey="header.ransom.to-you">
       <Picture src={Coin} css={iconCss}/>
     </Trans>
   } else if (ransomedPlayers.includes(playerId)) {
     return <RansomedHeader player={playerName}/>
   } else {
-    return <Trans defaults="header.ransom" values={{ player: playerName }}>
+    return <Trans i18nKey="header.ransom" values={{ player: playerName }}>
       <Picture src={Coin} css={iconCss}/>
     </Trans>
   }
@@ -29,7 +29,7 @@ export const RansomHeader = () => {
 
 const RansomedHeader = ({ player }: { player: string }) => {
   const giveGold = useLegalMove<MaterialMove>(isMoveItemType(MaterialType.Coin))
-  return <Trans defaults="header.ransom.you" values={{ player }}>
+  return <Trans i18nKey="header.ransom.you" values={{ player }}>
     <PlayMoveButton move={giveGold}/>
   </Trans>
 }

@@ -1,5 +1,5 @@
 import { isCreateItemsAtOnce, isShuffle, ItemMove, listingToList, MaterialItem, PlayerTurnRule } from '@gamepark/rules-api'
-import { shuffle } from 'lodash'
+import { shuffle } from 'es-toolkit/compat'
 import { Achievement, achievements, getAchievementValue } from '../material/Achievement'
 import { AchievementBoardLocations } from '../material/AchievementBoard'
 import { Age, AgesCardsListing } from '../material/Age'

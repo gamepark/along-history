@@ -1,5 +1,5 @@
 import { CustomMove, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import sumBy from 'lodash/sumBy'
+import { sumBy } from 'es-toolkit/compat'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'

@@ -7,7 +7,7 @@ export const DiscardTileHelp = () => {
   return <>
     <h2>{t('discard-tile')}</h2>
     <p css={breakSpaces}>
-      <Trans defaults="discard-tile.rules"/>
+      <Trans i18nKey="discard-tile.rules"/>
     </p>
   </>
 }

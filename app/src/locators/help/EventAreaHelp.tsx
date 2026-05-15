@@ -11,7 +11,7 @@ export const EventAreaHelp = ({ location }: LocationHelpProps) => {
   return <>
     <h2>{t('event-area')}</h2>
     <p css={breakSpaces}>
-      <Trans defaults="event-area.rules">
+      <Trans i18nKey="event-area.rules">
         <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, player: location.player })} local/>
       </Trans>
     </p>

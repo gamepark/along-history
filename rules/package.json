@@ -2,6 +2,7 @@
   "name": "@gamepark/along-history",
   "version": "1.3.0",
   "description": "The rules of Along History adapted for Game Park",
+  "sideEffects": false,
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,18 +15,21 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "tsc"
+    "test": "vitest",
+    "check:cycles": "madge --circular --extensions ts src",
+    "build": "yarn check:cycles && tsc",
+    "prepublishOnly": "yarn check:cycles && tsc",
+    "publish": "lerna publish",
+    "lint": "eslint --fix"
   },
   "peerDependencies": {
-    "@gamepark/rules-api": ">=6.32"
+    "@gamepark/rules-api": ">=7",
+    "es-toolkit": "^1.45.1"
   },
   "devDependencies": {
-    "@gamepark/rules-api": "~6.38.0",
-    "@types/lodash": "^4.14.199",
-    "i18next": "^22.0.3"
-  },
-  "dependencies": {
-    "lodash": "^4.17.21"
+    "@gamepark/rules-api": "~7.6.3",
+    "es-toolkit": "^1.46.1",
+    "madge": "^8.0.0",
+    "vitest": "^4.1.6"
   }
 }

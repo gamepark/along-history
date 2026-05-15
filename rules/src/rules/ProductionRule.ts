@@ -1,7 +1,5 @@
 import { PlayerTurnRule } from '@gamepark/rules-api'
-import { isEqual, sum, uniqWith } from 'lodash'
-import max from 'lodash/max'
-import sumBy from 'lodash/sumBy'
+import { isEqual, max, sum, sumBy, uniqWith } from 'es-toolkit/compat'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'
 import { CardsInfo } from '../material/cards/CardsInfo'

@@ -17,7 +17,7 @@ export const SwapHeader = () => {
 
   const selectedCard = rules.material(MaterialType.Card).selected(true).getItem<CardId>()!
   if (player === activePlayer) {
-    return <Trans defaults="header.swap.you" values={{ card: t(`card.name.${selectedCard.id!.front}`) }}>
+    return <Trans i18nKey="header.swap.you" values={{ card: t(`card.name.${selectedCard.id!.front}`) }}>
       <PlayMoveButton move={pass}/>
     </Trans>
   } else {

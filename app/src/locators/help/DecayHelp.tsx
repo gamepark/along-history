@@ -7,7 +7,7 @@ export const DecayHelp = () => {
   return <>
     <h2>{t('decay.title')}</h2>
     <p css={breakSpaces}>
-      <Trans defaults="decay.rules">
+      <Trans i18nKey="decay.rules">
         <strong/>
       </Trans>
     </p>

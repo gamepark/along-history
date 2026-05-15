@@ -1,5 +1,5 @@
 import { isMoveItem, ItemMove, MaterialMove, PlayerTurnRule, XYCoordinates } from '@gamepark/rules-api'
-import { parseInt, sumBy } from 'lodash'
+import { parseInt, sumBy } from 'es-toolkit/compat'
 import { Achievement } from '../material/Achievement'
 import { AchievementBoard, AchievementBoardLocations, AchievementBoardsPath } from '../material/AchievementBoard'
 import { Bonus } from '../material/cards/Bonus'

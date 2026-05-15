@@ -5,7 +5,7 @@ import { CardId } from '@gamepark/along-history/material/cards/CardId'
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { isShuffle, MaterialMove, RollItem } from '@gamepark/rules-api'
-import shuffle from 'lodash/shuffle'
+import { shuffle } from 'es-toolkit/compat'
 
 export class TutorialSetup extends AlongHistorySetup {
   Rules = TutorialRandomizerRule

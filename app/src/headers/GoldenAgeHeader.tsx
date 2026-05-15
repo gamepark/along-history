@@ -14,7 +14,7 @@ export const GoldenAgeHeader = () => {
   const move = useLegalMove(move => isMoveItemType(MaterialType.Card)(move) && move.location.type === LocationType.CivilisationArea)
 
   if (move) {
-    return <Trans defaults="header.golden-age.you"><PlayMoveButton move={move}/></Trans>
+    return <Trans i18nKey="header.golden-age.you"><PlayMoveButton move={move}/></Trans>
   } else {
     return <>{t('header.golden-age', { player: playerName })}</>
   }

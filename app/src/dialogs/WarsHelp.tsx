@@ -11,12 +11,12 @@ export function WarsHelp() {
   return <>
     <h2>{t('war.rules.title')}</h2>
     <p>
-      <Trans defaults="war.rules.1">
+      <Trans i18nKey="war.rules.1">
         <strong/><em/>
       </Trans>
     </p>
     <p>
-      <Trans defaults="war.rules.2">
+      <Trans i18nKey="war.rules.2">
         <strong/><em/>
         <Picture src={WarIcon} css={iconCss}/>
         <Picture src={Multiplier} css={diceFaceCss}/>
@@ -24,7 +24,7 @@ export function WarsHelp() {
       </Trans>
     </p>
     <p>
-      <Trans defaults="war.rules.3">
+      <Trans i18nKey="war.rules.3">
         <strong/><em/>
       </Trans>
     </p>

@@ -9,7 +9,7 @@ import {
   PositiveSequenceStrategy,
   TimeLimit
 } from '@gamepark/rules-api'
-import { sumBy } from 'lodash'
+import { sumBy } from 'es-toolkit/compat'
 import { Achievement, getAchievementValue } from './material/Achievement'
 import { agesScoreMemory } from './material/Age'
 import { CardId } from './material/cards/CardId'

@@ -34,28 +34,28 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
   switch (effect.type) {
     case EffectType.Discount:
       if (effect.population > 0) {
-        return <Trans defaults="effect.discount" values={{ population: effect.population }}>
+        return <Trans i18nKey="effect.discount" values={{ population: effect.population }}>
           <Picture src={populationIcon} css={roundCss}/>
           <ConditionHelp condition={effect.condition}/>
         </Trans>
       } else {
-        return <Trans defaults="effect.overcost" values={{ population: -effect.population }}>
+        return <Trans i18nKey="effect.overcost" values={{ population: -effect.population }}>
           <Picture src={populationIcon} css={roundCss}/>
           <ConditionHelp condition={effect.condition}/>
         </Trans>
       }
     case EffectType.Free:
-      return <Trans defaults="effect.free"><ConditionHelp condition={effect.condition}/></Trans>
+      return <Trans i18nKey="effect.free"><ConditionHelp condition={effect.condition}/></Trans>
     case EffectType.LosePopulation:
       return <LosePopulationHelp effect={effect} card={card}/>
     case EffectType.Discard:
-      return <Trans defaults="effect.discard"><ConditionHelp condition={effect.condition}/></Trans>
+      return <Trans i18nKey="effect.discard"><ConditionHelp condition={effect.condition}/></Trans>
     case EffectType.NonTransmissible:
-      return <Trans defaults="effect.non-transmissible"><strong/></Trans>
+      return <Trans i18nKey="effect.non-transmissible"><strong/></Trans>
     case EffectType.WarBonus:
       const type = effect.defenseOnly ? 'defense' : effect.attackOnly ? 'attack' : 'bonus'
       const suffix = effect.condition ? '.if' : effect.multiplier ? '.x' : ''
-      return <Trans defaults={`effect.war-${type}${suffix}`}
+      return <Trans i18nKey={`effect.war-${type}${suffix}`}
                     values={{ bonus: effect.bonus }}>
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
         <Picture src={populationIcon} css={roundCss}/>
@@ -63,18 +63,18 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
           : effect.multiplier && <MultiplierHelp multiplier={effect.multiplier}/>}
       </Trans>
     case EffectType.EarnGold:
-      return <Trans defaults="effect.earn-gold" values={{ gold: effect.amount }}>
+      return <Trans i18nKey="effect.earn-gold" values={{ gold: effect.amount }}>
         <Picture src={Coin5} css={roundCss}/>
       </Trans>
     case EffectType.GoldCost:
-      return <Trans defaults="effect.gold-cost" values={{ gold: effect.cost }}>
+      return <Trans i18nKey="effect.gold-cost" values={{ gold: effect.cost }}>
         <Picture src={Coin5} css={roundCss}/>
         <ConditionHelp condition={effect.condition}/>
       </Trans>
     case EffectType.CardTypeDiscount:
       return <CardTypeDiscountHelp effect={effect}/>
     case EffectType.General:
-      return <Trans defaults="effect.general">
+      return <Trans i18nKey="effect.general">
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
         <strong/>
       </Trans>
@@ -83,12 +83,12 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
     case EffectType.TradeCalamity:
       return <TradeCalamityHelp effect={effect}/>
     case EffectType.Artillery:
-      return <Trans defaults="effect.artillery">
+      return <Trans i18nKey="effect.artillery">
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
         <em/>
       </Trans>
     case EffectType.Ransom:
-      return <Trans defaults="effect.ransom">
+      return <Trans i18nKey="effect.ransom">
         <Picture src={Coin5} css={roundCss}/>
       </Trans>
     case EffectType.Cancel:
@@ -98,11 +98,11 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
     case EffectType.Seize:
       return <SeizeEffectHelp effect={effect} card={card}/>
     case EffectType.Counterattack:
-      return <Trans defaults="effect.counterattack">
+      return <Trans i18nKey="effect.counterattack">
         <PlayMoveButton css={[rulesLinkButton, css`font-style: italic`]} move={displayRulesHelp(RuleId.Wars)} local/>
       </Trans>
     case EffectType.RobinHood:
-      return <Trans defaults="effect.robin-hood">
+      return <Trans i18nKey="effect.robin-hood">
         <Picture src={Coin5} css={roundCss}/>
       </Trans>
     case EffectType.TradeOnAcquisition:
@@ -110,11 +110,11 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
     case EffectType.Swap:
       return <SwapHelp card={card}/>
     case EffectType.Poison:
-      return <Trans defaults="effect.poison">
+      return <Trans i18nKey="effect.poison">
         <Picture src={FigureIcon} css={roundCss}/>
       </Trans>
     case EffectType.CostPerBonus:
-      return <Trans defaults="effect.cost-per-bonus">
+      return <Trans i18nKey="effect.cost-per-bonus">
         <Picture src={populationIcon} css={roundCss}/>
       </Trans>
   }
@@ -123,13 +123,13 @@ export const EffectHelp = ({ effect, card }: { effect: Effect, card: Card }) => 
 export const LosePopulationHelp = ({ effect, card }: { effect: LosePopulationEffect, card: Card }) => {
   const { t } = useTranslation()
   if (effect.condition) {
-    return <Trans defaults="effect.lose-pop-if" values={{ card: t(`card.name.${card}`) }}>
+    return <Trans i18nKey="effect.lose-pop-if" values={{ card: t(`card.name.${card}`) }}>
       <em/>
       <Picture src={populationIcon} css={roundCss}/>
       <ConditionHelp condition={effect.condition}/>
     </Trans>
   } else {
-    return <Trans defaults="effect.lose-pop" values={{ card: t(`card.name.${card}`) }}>
+    return <Trans i18nKey="effect.lose-pop" values={{ card: t(`card.name.${card}`) }}>
       <em/>
       <Picture src={populationIcon} css={roundCss}/>
     </Trans>
@@ -139,7 +139,7 @@ export const LosePopulationHelp = ({ effect, card }: { effect: LosePopulationEff
 
 export const CardTypeDiscountHelp = ({ effect }: { effect: CardTypeDiscountEffect }) => {
   const { t } = useTranslation()
-  return <Trans defaults="effect.card-type-discount" values={{ type: t(`card.type.${effect.cardType}`), discount: effect.discount }}>
+  return <Trans i18nKey="effect.card-type-discount" values={{ type: t(`card.type.${effect.cardType}`), discount: effect.discount }}>
     <Picture src={cardTypeIcons[effect.cardType]} css={roundCss}/>
     <Picture src={populationIcon} css={roundCss}/>
   </Trans>
@@ -147,7 +147,7 @@ export const CardTypeDiscountHelp = ({ effect }: { effect: CardTypeDiscountEffec
 
 export const DestroyCardHelp = ({ effect }: { effect: DestroyEffect }) => {
   const { t } = useTranslation()
-  return <Trans defaults="effect.destroy" values={{ card: t(`card.name.${effect.card}`) }}>
+  return <Trans i18nKey="effect.destroy" values={{ card: t(`card.name.${effect.card}`) }}>
     <em/>
     <DisplayCardHelpButton card={effect.card}/>
   </Trans>
@@ -155,21 +155,21 @@ export const DestroyCardHelp = ({ effect }: { effect: DestroyEffect }) => {
 
 export const TradeCalamityHelp = ({ effect }: { effect: TradeCalamityEffect }) => {
   const { t } = useTranslation()
-  return <Trans defaults="effect.trade-calamity" values={{ card: t(`card.name.${effect.card}`) }}>
+  return <Trans i18nKey="effect.trade-calamity" values={{ card: t(`card.name.${effect.card}`) }}>
     <DisplayCardHelpButton card={effect.card}/>
   </Trans>
 }
 
 export const CancelEffectHelp = ({ effect }: { effect: CancelEffect }) => {
   const { t } = useTranslation()
-  return <Trans defaults="effect.cancel" values={{ card: t(`card.name.${effect.card}`) }}>
+  return <Trans i18nKey="effect.cancel" values={{ card: t(`card.name.${effect.card}`) }}>
     <DisplayCardHelpButton card={effect.card}/>
   </Trans>
 }
 
 export const TurnCoatEffectHelp = ({ card }: { card: Card }) => {
   const { t } = useTranslation()
-  return <Trans defaults="effect.turn-coat" values={{ card: t(`card.name.${card}`) }}>
+  return <Trans i18nKey="effect.turn-coat" values={{ card: t(`card.name.${card}`) }}>
     <Picture src={WarIcon} css={roundCss}/>
     <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
   </Trans>
@@ -182,7 +182,7 @@ export const SwapHelp = ({ card }: { card: Card }) => {
 
 export const SeizeEffectHelp = ({ effect, card }: { effect: SeizeEffect, card: Card }) => {
   const { t } = useTranslation()
-  return <Trans defaults="effect.seize" values={{ card1: t(`card.name.${effect.card}`), card2: t(`card.name.${card}`) }}>
+  return <Trans i18nKey="effect.seize" values={{ card1: t(`card.name.${effect.card}`), card2: t(`card.name.${card}`) }}>
     <DisplayCardHelpButton card={effect.card}/>
     <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1 })} local/>
   </Trans>
@@ -190,7 +190,7 @@ export const SeizeEffectHelp = ({ effect, card }: { effect: SeizeEffect, card: C
 
 export const TradeOnAcquisition = ({ effect, card }: { effect: TradeOnAcquisitionEffect, card: Card }) => {
   const { t } = useTranslation()
-  return <Trans defaults="effect.acquire-trade" values={{ card1: t(`card.name.${effect.card}`), card2: t(`card.name.${card}`) }}>
+  return <Trans i18nKey="effect.acquire-trade" values={{ card1: t(`card.name.${effect.card}`), card2: t(`card.name.${card}`) }}>
     <DisplayCardHelpButton card={effect.card}/>
     <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1 })} local/>
   </Trans>
@@ -213,18 +213,18 @@ export const OwnCardCondition = ({ condition }: { condition: OwnCardsCondition }
   const { t } = useTranslation()
   if (condition.cards.length === 1 && condition.quantity === 1) {
     const card = condition.cards[0]
-    return <Trans defaults="condition.own.card" values={{ card: t(`card.name.${card}`) }}>
+    return <Trans i18nKey="condition.own.card" values={{ card: t(`card.name.${card}`) }}>
       <DisplayCardHelpButton card={card}/>
     </Trans>
   } else if (condition.cards.length === 2 && condition.quantity === 1) {
-    return <Trans defaults="condition.own.1of2" values={{
+    return <Trans i18nKey="condition.own.1of2" values={{
       card1: t(`card.name.${condition.cards[0]}`),
       card2: t(`card.name.${condition.cards[1]}`)
     }}>
       {condition.cards.map(card => <DisplayCardHelpButton key={card} card={card}/>)}
     </Trans>
   } else if (condition.cards.length === 3 && condition.quantity === 1) {
-    return <Trans defaults="condition.own.1of3" values={{
+    return <Trans i18nKey="condition.own.1of3" values={{
       card1: t(`card.name.${condition.cards[0]}`),
       card2: t(`card.name.${condition.cards[1]}`),
       card3: t(`card.name.${condition.cards[2]}`)
@@ -232,7 +232,7 @@ export const OwnCardCondition = ({ condition }: { condition: OwnCardsCondition }
       {condition.cards.map(card => <DisplayCardHelpButton key={card} card={card}/>)}
     </Trans>
   } else if (condition.cards.length === 3 && condition.quantity === 2) {
-    return <Trans defaults="condition.own.2of3" values={{
+    return <Trans i18nKey="condition.own.2of3" values={{
       card1: t(`card.name.${condition.cards[0]}`),
       card2: t(`card.name.${condition.cards[1]}`),
       card3: t(`card.name.${condition.cards[2]}`)
@@ -245,7 +245,7 @@ export const OwnCardCondition = ({ condition }: { condition: OwnCardsCondition }
 
 export const OrCondition = (_: { condition: OrConditions, opponent?: boolean }) => {
   const { t } = useTranslation()
-  return <Trans defaults={`condition.mangonel`} values={{
+  return <Trans i18nKey={`condition.mangonel`} values={{
     card1: t(`card.name.${Card.Camelot}`),
     card2: t(`card.name.${Card.Jerusalem}`)
   }}>
@@ -261,7 +261,7 @@ export const MultiplierHelp = ({ multiplier }: { multiplier: Condition }) => {
     case ConditionType.OwnCardType:
       return <>
         {multiplier.quantity > 1 && <>{multiplier.quantity}&nbsp;</>}
-        <Trans defaults="multiplier.type">
+        <Trans i18nKey="multiplier.type">
           <Picture src={cardTypeIcons[multiplier.cardType]} css={roundCss}/>
         </Trans>
       </>

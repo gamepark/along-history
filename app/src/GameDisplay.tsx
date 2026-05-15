@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { pointerWithin } from '@dnd-kit/core'
 import { css } from '@emotion/react'
-import { GameTable, GameTableNavigation } from '@gamepark/react-game'
+import { DevToolsHub, GameTable, GameTableNavigation } from '@gamepark/react-game'
 import { civilisationAreaHeight, civilisationAreaWidth, eventAreaWidth2Players } from './locators/PlayerLocator'
 import { boardDescription } from './material/BoardDescription'
 import { cardDescription } from './material/CardDescription'
@@ -12,6 +12,7 @@ export default function GameDisplay({ players }: { players: number }) {
     <GameTable {...getBounds(players)} collisionAlgorithm={pointerWithin}
                margin={{ top: 7, left: 0, right: players > 2 ? 30 : 0, bottom: 0 }}>
       <GameTableNavigation css={navigationCss}/>
+      {process.env.NODE_ENV === 'development' && <DevToolsHub fabBottom="calc(5em)"/>}
     </GameTable>
     <PlayerPanels/>
   </>

@@ -43,7 +43,7 @@ const PlayerDeclareWarDuelHeader = () => {
   const declareWar = legalMoves.find(isCustomMoveType(CustomMoveType.ChoosePlayer))
   const player = usePlayerName(declareWar?.data)
   return <>
-    <Trans defaults="header.wars.duel" values={{ player }}>
+    <Trans i18nKey="header.wars.duel" values={{ player }}>
       <PlayMoveButton move={declareWar}/>
       <PlayMoveButton move={pass}/>
     </Trans>
@@ -56,7 +56,7 @@ const PlayerDeclareWarDialogHeader = () => {
   const pass = legalMoves.find(isCustomMoveType(CustomMoveType.Pass))
   const [warDialogOpen, setWarDialogOpen] = useState(false)
   return <>
-    <Trans defaults="header.wars.you">
+    <Trans i18nKey="header.wars.you">
       <ThemeButton onClick={() => setWarDialogOpen(true)}/>
       <PlayMoveButton move={pass}/>
     </Trans>
@@ -72,7 +72,7 @@ const PlayerDeclareWarDialogHeader = () => {
 const DeclareWarButton = ({ move }: { move: CustomMove }) => {
   const player = usePlayerName(move.data)
   return <PlayMoveButton move={move} css={buttonCss(playerButtonColor[move.data], '', '')}>
-    <Trans defaults="war.button" values={{ player }}>
+    <Trans i18nKey="war.button" values={{ player }}>
       <Avatar playerId={move.data} css={avatarCss}/>
     </Trans>
   </PlayMoveButton>
@@ -80,7 +80,7 @@ const DeclareWarButton = ({ move }: { move: CustomMove }) => {
 
 const PlayerPayWarHeader = () => {
   const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
-  return <Trans defaults="header.wars.pay"><PlayMoveButton move={pass}/></Trans>
+  return <Trans i18nKey="header.wars.pay"><PlayMoveButton move={pass}/></Trans>
 }
 
 const DefaultWarsHeader = ({ player }: { player: PlayerColor }) => {

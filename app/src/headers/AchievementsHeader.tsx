@@ -12,7 +12,7 @@ export const AchievementsHeader = () => {
   const playerName = usePlayerName(rules.game.rule?.player)
 
   if (rules.game.rule?.player === playerId) {
-    return <Trans defaults="header.achievements.you"><PlayMoveButton move={pass}/></Trans>
+    return <Trans i18nKey="header.achievements.you"><PlayMoveButton move={pass}/></Trans>
   } else {
     return <>{t('header.achievements', { player: playerName })}</>
   }

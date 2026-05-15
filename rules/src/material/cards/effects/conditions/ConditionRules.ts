@@ -1,5 +1,5 @@
 import { PlayerTurnRule } from '@gamepark/rules-api'
-import { sumBy } from 'lodash'
+import { sumBy } from 'es-toolkit/compat'
 import { PlayerColor } from '../../../../PlayerColor'
 import { Memory } from '../../../../rules/Memory'
 import { LocationType } from '../../../LocationType'

@@ -19,7 +19,7 @@ export const UseGoldDieHeader = () => {
   const multiplied = rules.remind(Memory.Multiplier) !== undefined
 
   if (player === activePlayer) {
-    return <Trans defaults={multiplied ? 'header.gold-multiplied.you' : 'header.gold-die.you'} values={{ gold }}>
+    return <Trans i18nKey={multiplied ? 'header.gold-multiplied.you' : 'header.gold-die.you'} values={{ gold }}>
       <PlayMoveButton move={takeGold}/>
     </Trans>
   } else {

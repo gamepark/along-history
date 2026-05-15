@@ -22,8 +22,7 @@ export default function App() {
   return (
     <>
       {rules && <GameDisplay players={rules.players.length}/>}
-      <LoadingScreen display={loading} author="François Bachelart" artist="Antonio Mainez" graphicDesigner="Julie Gruet"
-                     publisher="Nostromo Éditions" developer="Game Park"/>
+      <LoadingScreen display={loading}/>
       <MaterialHeader rulesStepsHeaders={Headers} loading={loading} GameOverRule={GameOverHelp}/>
       <Menu/>
       <FailuresDialog/>

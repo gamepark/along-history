@@ -31,9 +31,9 @@ const MyActionsHeader = () => {
     || rules.material(MaterialType.Dice).player(activePlayer).id(DiceType.Gold).length > 0
   const confirmation = canGainGold ? { text: t('confirm.miss.gold') } : undefined
   if (isActivePlayerTurn) {
-    return <Trans defaults="header.actions.you"><PlayMoveButton move={pass} confirmation={confirmation}/></Trans>
+    return <Trans i18nKey="header.actions.you"><PlayMoveButton move={pass} confirmation={confirmation}/></Trans>
   } else {
-    return <Trans defaults="header.actions.other.you"><PlayMoveButton move={pass} confirmation={confirmation}/></Trans>
+    return <Trans i18nKey="header.actions.other.you"><PlayMoveButton move={pass} confirmation={confirmation}/></Trans>
   }
 }
 

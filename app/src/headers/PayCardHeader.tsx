@@ -26,7 +26,7 @@ export const PayCardHeader = () => {
   else if (!population) key += '.resources'
   if (player === rules.game.rule?.player) key += '.you'
 
-  return <Trans defaults={key} values={{ population, gold, player: playerName }}>
+  return <Trans i18nKey={key} values={{ population, gold, player: playerName }}>
     <Picture src={Population} css={iconCss}/>
     <>{resources.map((resource, index) => <Picture key={index} src={ResourceImages[resource]} css={iconCss}/>)}</>
     <Picture src={Coin} css={iconCss}/>

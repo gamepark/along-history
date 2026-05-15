@@ -19,19 +19,19 @@ export const CoinHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
   return <>
     <h2>{t('coin.gold')}</h2>
     {item.location?.type === LocationType.PlayerCoins &&
-      <p css={alignIcon}><Trans defaults={item.location.player === playerId ? 'coin.you' : 'coin.player'} values={{ player, gold: item.quantity ?? 1 }}>
+      <p css={alignIcon}><Trans i18nKey={item.location.player === playerId ? 'coin.you' : 'coin.player'} values={{ player, gold: item.quantity ?? 1 }}>
         <Picture src={Coin} css={roundCss}/>
       </Trans></p>
     }
     {item.location?.type === LocationType.CoinsStock && take &&
       <p css={alignIcon}><PlayMoveButton move={take} onPlay={closeDialog} css={css`padding-bottom: 0`}>
-        <Trans defaults="coin.take" values={{ gold: take.item.quantity ?? 1 }}>
+        <Trans i18nKey="coin.take" values={{ gold: take.item.quantity ?? 1 }}>
           <Picture src={Coin} css={roundCss}/>
         </Trans>
       </PlayMoveButton></p>
     }
     {spend && spend.itemIndex === itemIndex && <p css={alignIcon}><PlayMoveButton move={spend} onPlay={closeDialog} css={css`padding-bottom: 0`}>
-      <Trans defaults="coin.spend" values={{ gold: spend.quantity ?? 1 }}>
+      <Trans i18nKey="coin.spend" values={{ gold: spend.quantity ?? 1 }}>
         <Picture src={Coin} css={roundCss}/>
       </Trans>
     </PlayMoveButton></p>}
@@ -45,7 +45,7 @@ export const CoinHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
 const GiveButton = (props: { move: MoveItem } & PlayMoveButtonProps) => {
   const player = usePlayerName((props.move as MoveItem).location.player)
   return <PlayMoveButton css={css`padding-bottom: 0`} {...props}>
-    <Trans defaults="coin.give" values={{ gold: props.move.quantity ?? 1, player }}>
+    <Trans i18nKey="coin.give" values={{ gold: props.move.quantity ?? 1, player }}>
       <Picture src={Coin} css={roundCss}/>
     </Trans>
   </PlayMoveButton>

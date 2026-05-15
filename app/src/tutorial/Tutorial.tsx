@@ -81,20 +81,20 @@ export class Tutorial extends MaterialTutorial {
 
   steps: TutorialStep[] = [
     {
-      popup: { text: () => <Trans defaults="tuto.welcome"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.welcome"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.options"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.options"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.setup"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.setup"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.goal"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.goal"><strong/><em/></Trans> }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.event-area"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.event-area"><strong/><em/></Trans>,
         position: { x: 0, y: -32 }
       },
       focus: (game: MaterialGame) => ({
@@ -103,28 +103,28 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.round1"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.round1"><strong/><em/></Trans>,
         position: { x: 0, y: -28 }
       },
       focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Dice)] })
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.dice"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.dice"><strong/><em/></Trans>,
         position: { x: 0, y: -28 }
       },
       focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Dice)] })
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.pop-dice"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.pop-dice"><strong/><em/></Trans>,
         position: { x: 0, y: -28 }
       },
       focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Dice).id(id => id !== DiceType.Special)] })
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.card-cost">
+        text: () => <Trans i18nKey="tuto.card-cost">
           <strong/><em/>
           <Picture src={Population1} css={[inlineIcon, rounded]}/>
           <Picture src={Strength} css={[inlineIcon, rounded]}/>
@@ -137,7 +137,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.reroll"><strong/><em/>
+        text: () => <Trans i18nKey="tuto.reroll"><strong/><em/>
           <Picture src={Ingenuity} css={[inlineIcon, rounded]}/>
         </Trans>,
         position: { x: -10, y: 25 }
@@ -160,7 +160,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.reroll-success">
+        text: () => <Trans i18nKey="tuto.reroll-success">
           <strong/><em/>
           <Picture src={Ingenuity} css={[inlineIcon, rounded]}/>
         </Trans>,
@@ -170,7 +170,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.trade1">
+        text: () => <Trans i18nKey="tuto.trade1">
           <strong/><em/>
           <Picture src={Population1} css={[inlineIcon, rounded]}/>
         </Trans>,
@@ -218,7 +218,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.forest"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.forest"><strong/><em/></Trans>,
         position: { x: 10, y: -10 }
       },
       focus: (game: MaterialGame) => ({
@@ -232,7 +232,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.special-dice">
+        text: () => <Trans i18nKey="tuto.special-dice">
           <strong/><em/>
           <Picture src={Population2} css={[inlineIcon, rounded]}/>
         </Trans>,
@@ -242,7 +242,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.forest.pay"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.forest.pay"><strong/><em/></Trans>,
         position: { x: 0, y: -20 }
       },
       focus: (game: MaterialGame) => ({
@@ -293,23 +293,23 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.action1.pass"><strong/><em/></Trans> },
+      popup: { text: () => <Trans i18nKey="tuto.action1.pass"><strong/><em/></Trans> },
       move: { filter: isCustomMoveType(CustomMoveType.Pass) }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.war1.pass"><strong/><em/></Trans> },
+      popup: { text: () => <Trans i18nKey="tuto.war1.pass"><strong/><em/></Trans> },
       move: { filter: isCustomMoveType(CustomMoveType.Pass) }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.event-area.refill"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.event-area.refill"><strong/><em/></Trans>,
         position: { x: 0, y: -32 }
       },
       focus: (game: MaterialGame) => ({ materials: [this.material(game, MaterialType.Card).location(LocationType.EventArea).player(game.players[0])] })
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.success"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.success"><strong/><em/></Trans>,
         position: { x: -18, y: 15 }
       },
       focus: (game: MaterialGame) => ({
@@ -323,7 +323,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.success.take"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.success.take"><strong/><em/></Trans>,
         position: { x: -18, y: 15 }
       },
       focus: (game: MaterialGame) => ({
@@ -341,14 +341,14 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.success.vp"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.success.vp"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.turn1.over"><strong/><em/></Trans> },
+      popup: { text: () => <Trans i18nKey="tuto.turn1.over"><strong/><em/></Trans> },
       move: {}
     },
     {
-      popup: { text: () => <Trans defaults="tuto.result-tokens"><strong/><em/></Trans> },
+      popup: { text: () => <Trans i18nKey="tuto.result-tokens"><strong/><em/></Trans> },
       focus: (game: MaterialGame) => ({
         materials: [
           this.material(game, MaterialType.Dice),
@@ -378,7 +378,7 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round1.player2.1"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.round1.player2.1"><strong/><em/></Trans> }
     },
     {
       move: {
@@ -425,7 +425,7 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round1.player2.2"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.round1.player2.2"><strong/><em/></Trans> }
     },
     {
       move: {
@@ -435,7 +435,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.round1.player3.1"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.round1.player3.1"><strong/><em/></Trans>,
         position: { x: -20, y: 0 }
       }
     },
@@ -485,10 +485,10 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round1.player3.2"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.round1.player3.2"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round1.over"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.round1.over"><strong/><em/></Trans> }
     },
     {
       move: {
@@ -564,7 +564,7 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round2.player1"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.round2.player1"><strong/><em/></Trans> }
     },
     {
       move: {
@@ -574,7 +574,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.round2.player2"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.round2.player2"><strong/><em/></Trans>,
         position: { x: -20, y: 0 }
       }
     },
@@ -643,7 +643,7 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round2.player2.over"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.round2.player2.over"><strong/><em/></Trans> }
     },
     {
       move: {
@@ -652,11 +652,11 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round2.you"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.round2.you"><strong/><em/></Trans> }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.trade2">
+        text: () => <Trans i18nKey="tuto.trade2">
           <strong/><em/>
           <Picture src={Population1} css={[inlineIcon, rounded]}/>
         </Trans>,
@@ -690,7 +690,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.wildcrafting"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.wildcrafting"><strong/><em/></Trans>,
         position: { x: 40, y: -10 }
       },
       focus: (game: MaterialGame) => ({
@@ -704,7 +704,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.bonus.forest"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.bonus.forest"><strong/><em/></Trans>,
         position: { x: 0, y: -20 }
       },
       focus: (game: MaterialGame) => ({
@@ -719,7 +719,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.wildcrafting.pay">
+        text: () => <Trans i18nKey="tuto.wildcrafting.pay">
           <strong/><em/>
           <Picture src={Population3} css={[inlineIcon, rounded]}/>
         </Trans>
@@ -737,7 +737,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.bonus.wildcrafting">
+        text: () => <Trans i18nKey="tuto.bonus.wildcrafting">
           <strong/><em/>
           <Picture src={Population1} css={[inlineIcon, rounded]}/>
         </Trans>,
@@ -783,12 +783,12 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round2.actions.over"><strong/><em/></Trans> },
+      popup: { text: () => <Trans i18nKey="tuto.round2.actions.over"><strong/><em/></Trans> },
       move: { filter: isCustomMoveType(CustomMoveType.Pass) }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.universal">
+        text: () => <Trans i18nKey="tuto.universal">
           <strong/><em/>
           <Picture src={Strength} css={[inlineIcon, rounded]}/>
           <Picture src={Ingenuity} css={[inlineIcon, rounded]}/>
@@ -801,14 +801,14 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.war2.pass"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.war2.pass"><strong/><em/></Trans>,
         position: { x: -15, y: -20 }
       },
       move: { filter: isCustomMoveType(CustomMoveType.Pass) }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.success2"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.success2"><strong/><em/></Trans>,
         position: { x: -18, y: 15 }
       },
       focus: (game: MaterialGame) => ({
@@ -826,10 +826,10 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.decay.1"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.decay.1"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.decay.2"><strong/><em/></Trans> },
+      popup: { text: () => <Trans i18nKey="tuto.decay.2"><strong/><em/></Trans> },
       focus: (game: MaterialGame) => ({
         locations: [{ type: LocationType.CivilisationArea, player: game.players[0] }],
         materials: [this.material(game, MaterialType.Card).location(LocationType.CivilisationArea).player(PlayerColor.Green)]
@@ -840,16 +840,16 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.decay.3"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.decay.3"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.decay.4"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.decay.4"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.decay.5"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.decay.5"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.round2.pass"><strong/><em/></Trans> },
+      popup: { text: () => <Trans i18nKey="tuto.round2.pass"><strong/><em/></Trans> },
       move: {
         filter: isCustomMoveType(CustomMoveType.Pass),
         randomize: (move: MaterialMoveRandomized) => {
@@ -935,19 +935,19 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.war.1"><strong/><em/>
+        text: () => <Trans i18nKey="tuto.war.1"><strong/><em/>
           <Picture src={War} css={[inlineIcon, rounded]}/>
         </Trans>
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.war.2"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.war.2"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.war.3"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.war.3"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.war.4"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.war.4"><strong/><em/></Trans> }
     },
     {
       move: {
@@ -971,10 +971,10 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.war.5"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.war.5"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.war.6"><strong/><em/></Trans> },
+      popup: { text: () => <Trans i18nKey="tuto.war.6"><strong/><em/></Trans> },
       move: {
         filter: isCustomMoveType(CustomMoveType.Pass),
         randomize: (move: MaterialMoveRandomized) => {
@@ -995,7 +995,7 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.war.7"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.war.7"><strong/><em/></Trans> }
     },
     {
       move: {
@@ -1004,7 +1004,7 @@ export class Tutorial extends MaterialTutorial {
       }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.war.8"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.war.8"><strong/><em/></Trans> }
     },
     {
       move: {
@@ -1016,11 +1016,11 @@ export class Tutorial extends MaterialTutorial {
       move: { player: PlayerColor.Red }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.turn3"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.turn3"><strong/><em/></Trans> }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.calamity"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.calamity"><strong/><em/></Trans>,
         position: { x: 48, y: 0 }
       },
       focus: (game: MaterialGame) => ({
@@ -1028,17 +1028,17 @@ export class Tutorial extends MaterialTutorial {
       })
     },
     {
-      popup: { text: () => <Trans defaults="tuto.universal.gain1"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.universal.gain1"><strong/><em/></Trans> }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.universal.gain2"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.universal.gain2"><strong/><em/></Trans>,
         position: { x: -20, y: 0 }
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.age-end"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.age-end"><strong/><em/></Trans>,
         position: { x: -15, y: 22 }
       },
       focus: (game: MaterialGame) => ({
@@ -1051,7 +1051,7 @@ export class Tutorial extends MaterialTutorial {
       })
     },
     {
-      popup: { text: () => <Trans defaults="tuto.good-luck"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.good-luck"><strong/><em/></Trans> }
     }
   ]
 }

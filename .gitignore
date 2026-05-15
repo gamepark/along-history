@@ -9,7 +9,7 @@ node_modules/
 /coverage
 
 # production
-/app/build/
+/app/dist/
 /rules/dist/
 
 # misc
@@ -18,6 +18,21 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Claude Code temporary files
+tmpclaude-*
+
+# Yarn v2+/Berry
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 
 npm-debug.log*
 yarn-debug.log*

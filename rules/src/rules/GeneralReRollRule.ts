@@ -1,5 +1,5 @@
 import { CustomMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { sum } from 'lodash'
+import { sum } from 'es-toolkit/compat'
 import { getDiceSymbol } from '../material/Dices'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'

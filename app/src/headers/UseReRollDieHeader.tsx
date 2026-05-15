@@ -17,7 +17,7 @@ export const UseReRollDieHeader = () => {
   const reroll = legalMoves.find(isCustomMoveType(CustomMoveType.Reroll))
 
   if (reroll) {
-    return <Trans defaults="header.reroll.selection" values={{ dices: rules?.material(MaterialType.Dice).selected().length }}>
+    return <Trans i18nKey="header.reroll.selection" values={{ dices: rules?.material(MaterialType.Dice).selected().length }}>
       <PlayMoveButton move={reroll}/>
     </Trans>
   } else if (player === activePlayer) {

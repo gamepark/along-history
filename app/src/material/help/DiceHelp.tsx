@@ -37,7 +37,7 @@ export const DiceHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
     {discardDie && <p><PlayMoveButton move={discardDie} onPlay={closeDialog}>{t('die.discard')}</PlayMoveButton></p>}
     {selectDie && <p><PlayMoveButton move={selectDie} onPlay={closeDialog}>{t('die.select')}</PlayMoveButton></p>}
     <p css={[breakSpaces, alignIcon]}>
-      <Trans defaults={`dice.type.${item.id}.rules`}>
+      <Trans i18nKey={`dice.type.${item.id}.rules`}>
         <strong/>
         <Picture src={item.id === DiceType.Population ? Population1 : item.id === DiceType.Resource ? Ingenuity : Gold3} css={rounded}/>
         <Picture src={item.id === DiceType.Population ? Population2 : item.id === DiceType.Resource ? Strength : Gold4} css={rounded}/>
@@ -46,17 +46,17 @@ export const DiceHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
       </Trans>
     </p>
     {item.id === DiceType.Special && <>
-      <p css={[breakSpaces, alignIcon]}><Trans defaults="die.reroll.rule">
+      <p css={[breakSpaces, alignIcon]}><Trans i18nKey="die.reroll.rule">
         <Picture src={Reroll} css={rounded}/>
       </Trans></p>
-      <p css={[breakSpaces, alignIcon]}><Trans defaults="die.multiplier.rule">
+      <p css={[breakSpaces, alignIcon]}><Trans i18nKey="die.multiplier.rule">
         <Picture src={Multiplier} css={rounded}/>
       </Trans></p>
-      <p css={[breakSpaces, alignIcon]}><Trans defaults="die.war.rule">
+      <p css={[breakSpaces, alignIcon]}><Trans i18nKey="die.war.rule">
         <Picture src={War} css={rounded}/>
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
       </Trans></p>
-      <p css={[breakSpaces, alignIcon]}><Trans defaults="die.golden-age.rule">
+      <p css={[breakSpaces, alignIcon]}><Trans i18nKey="die.golden-age.rule">
         <Picture src={GoldenAge} css={rounded}/>
       </Trans></p>
     </>}

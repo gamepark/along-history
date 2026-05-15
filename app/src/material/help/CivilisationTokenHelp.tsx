@@ -14,7 +14,7 @@ export const CivilisationTokenHelp = ({ item }: MaterialHelpProps) => {
   return <>
     <h2>{t('civ-token', { player })}</h2>
     <p css={breakSpaces}>
-      <Trans defaults="achievements.rules">
+      <Trans i18nKey="achievements.rules">
         <strong/>
         <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1 })} local/>
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>

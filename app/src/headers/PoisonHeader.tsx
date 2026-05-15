@@ -25,7 +25,7 @@ const PlayerPoisonHeader = () => {
   const legalMoves = useLegalMoves()
   const [warDialogOpen, setDialogOpen] = useState(true)
   return <>
-    <Trans defaults="header.poison.you">
+    <Trans i18nKey="header.poison.you">
       <ThemeButton onClick={() => setDialogOpen(true)}/>
       <Picture src={FigureIcon} css={iconCss}/>
     </Trans>
@@ -41,7 +41,7 @@ const PlayerPoisonHeader = () => {
 const PoisonButton = ({ move }: { move: CustomMove }) => {
   const player = usePlayerName(move.data)
   return <PlayMoveButton move={move} css={buttonCss(playerButtonColor[move.data], '', '')}>
-    <Trans defaults="poison.button" values={{ player }}>
+    <Trans i18nKey="poison.button" values={{ player }}>
       <Avatar playerId={move.data} css={avatarCss}/>
     </Trans>
   </PlayMoveButton>
@@ -49,7 +49,7 @@ const PoisonButton = ({ move }: { move: CustomMove }) => {
 
 const DefaultPoisonHeader = ({ player }: { player: PlayerColor }) => {
   const playerName = usePlayerName(player)
-  return <Trans defaults="header.poison" values={{ player: playerName }}>
+  return <Trans i18nKey="header.poison" values={{ player: playerName }}>
     <Picture src={FigureIcon} css={iconCss}/>
   </Trans>
 }

@@ -71,7 +71,7 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
 
       {info.type === CardType.Wonder &&
         <p css={alignIcon}>
-          <Trans defaults="wonders.bonus">
+          <Trans i18nKey="wonders.bonus">
             <Picture src={cardTypeIcons[CardType.Wonder]} css={roundCss}/>
             <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.UniversalResource)} local/>
           </Trans>
@@ -79,14 +79,14 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
       }
 
       <p css={alignIcon}>{info.victoryPoints === undefined ?
-        <Trans defaults="effect.al-khawarizmi">
+        <Trans i18nKey="effect.al-khawarizmi">
           <em/>
           <Picture src={Coin} css={roundCss}/>
         </Trans>
         : t('card.points', { points: info.victoryPoints })
       }</p>
 
-      <p css={alignIcon}><Trans defaults={info.goldCost ? 'card.cost.gold' : 'card.cost'}
+      <p css={alignIcon}><Trans i18nKey={info.goldCost ? 'card.cost.gold' : 'card.cost'}
                                 values={{ population: isNaN(info.populationCost) ? 'X' : info.populationCost, gold: info.goldCost }}>
         <Picture src={populationIcon} css={roundCss}/>
         <>{info.resourcesCost.map((resource, index) => <Picture key={index} src={bonusIcon[resource]} css={roundCss}/>)}</>
@@ -101,7 +101,7 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
       </>}
 
       {info.bonus.length > 0 && <p css={alignIcon}>
-        <Trans defaults="card.bonus">
+        <Trans i18nKey="card.bonus">
           <>{info.bonus.map((bonus, index) => {
             if (isGold(bonus)) {
               return <span key={index}>{goldAmount(bonus)} <Picture key={index} src={Coin}/></span>

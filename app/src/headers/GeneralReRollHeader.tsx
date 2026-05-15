@@ -18,12 +18,12 @@ export const GeneralReRollHeader = () => {
   if (player === activePlayer) {
     const reroll = legalMoves.find(isCustomMoveType(CustomMoveType.Reroll))
     if (reroll) {
-      return <Trans defaults="header.reroll.selection" values={{ dices: rules?.material(MaterialType.Dice).selected().length }}>
+      return <Trans i18nKey="header.reroll.selection" values={{ dices: rules?.material(MaterialType.Dice).selected().length }}>
         <PlayMoveButton move={reroll}/>
       </Trans>
     } else {
       const pass = legalMoves.find(isCustomMoveType(CustomMoveType.Pass))
-      return <Trans defaults="header.war.reroll.you" values={{ number: rules?.remind(Memory.GeneralsLeft) }}>
+      return <Trans i18nKey="header.war.reroll.you" values={{ number: rules?.remind(Memory.GeneralsLeft) }}>
         <PlayMoveButton move={pass}/>
       </Trans>
     }

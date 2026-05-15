@@ -14,7 +14,7 @@ export const EndOfTurnHeader = () => {
   const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
 
   if (activePlayer === playerId) {
-    return <Trans defaults="header.end-turn.you"><PlayMoveButton move={pass}/></Trans>
+    return <Trans i18nKey="header.end-turn.you"><PlayMoveButton move={pass}/></Trans>
   } else {
     return <>{t('header.end-turn', { player: playerName })}</>
   }

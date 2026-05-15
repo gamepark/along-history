@@ -14,7 +14,7 @@ export const PiracyHeader = () => {
   const pay = useLegalMove<MaterialMove>(isDeleteItemType(MaterialType.Coin))
 
   if (player === activePlayer) {
-    return <Trans defaults="header.piracy.you">
+    return <Trans i18nKey="header.piracy.you">
       <PlayMoveButton move={pay}/>
     </Trans>
   } else {

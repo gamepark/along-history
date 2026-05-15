@@ -14,21 +14,21 @@ export const CardLocationHelp = ({ location }: { location: Location }) => {
     case LocationType.Deck:
       return <DeckHelp/>
     case LocationType.Discard:
-      return <p><Trans defaults="card.discard-pile">
+      return <p><Trans i18nKey="card.discard-pile">
         <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp(location)} local/>
       </Trans></p>
     case LocationType.EventArea:
-      return <p><Trans defaults={location.player === playerId ? 'card.event-area.you' : 'card.event-area'} values={{ player }}>
+      return <p><Trans i18nKey={location.player === playerId ? 'card.event-area.you' : 'card.event-area'} values={{ player }}>
         <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp(location)} local/>
       </Trans></p>
     case LocationType.CivilisationArea:
       if (location.z) {
-        return <p><Trans defaults={location.player === playerId ? 'card.decayed.you' : 'card.decayed'} values={{ player }}>
+        return <p><Trans i18nKey={location.player === playerId ? 'card.decayed.you' : 'card.decayed'} values={{ player }}>
           <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp(location)} local/>
           <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, player: location.player })} local/>
         </Trans></p>
       } else {
-        return <p><Trans defaults={location.player === playerId ? 'card.civ-area.you' : 'card.civ-area'} values={{ player }}>
+        return <p><Trans i18nKey={location.player === playerId ? 'card.civ-area.you' : 'card.civ-area'} values={{ player }}>
           <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp(location)} local/>
         </Trans></p>
       }

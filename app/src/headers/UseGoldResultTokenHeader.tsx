@@ -17,7 +17,7 @@ export const UseGoldResultTokenHeader = () => {
   const takeGold = legalMoves.find(isCreateItemType(MaterialType.Coin))
 
   if (player === activePlayer) {
-    return <Trans defaults="header.gold.you" values={{ gold }}>
+    return <Trans i18nKey="header.gold.you" values={{ gold }}>
       <PlayMoveButton move={takeGold}/>
     </Trans>
   } else {

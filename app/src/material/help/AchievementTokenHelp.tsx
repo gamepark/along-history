@@ -31,7 +31,7 @@ export const AchievementTokenHelp = ({ item, closeDialog }: MaterialHelpProps) =
     }
     {item.location?.type === LocationType.PlayerAchievements &&
       <p>
-        <Trans defaults={item.location.player === playerId ? 'achievement.steal.you' : 'achievement.steal'} values={{ player }}>
+        <Trans i18nKey={item.location.player === playerId ? 'achievement.steal.you' : 'achievement.steal'} values={{ player }}>
           <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>
         </Trans>
       </p>
@@ -43,66 +43,66 @@ const AchievementHelp: FC<{ achievement: Achievement }> = ({ achievement, childr
   const { t } = useTranslation()
   switch (achievement) {
     case Achievement.Land:
-      return <Trans defaults="achievement.card-type" values={{ cards: 1, type: t('card.type.1') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 1, type: t('card.type.1') }}>{children}</Trans>
     case Achievement.Figure:
-      return <Trans defaults="achievement.card-type" values={{ cards: 1, type: t('card.type.2') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 1, type: t('card.type.2') }}>{children}</Trans>
     case Achievement.VictoryPoints2:
-      return <Trans defaults="achievement.victory-points" values={{ number: 2 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.victory-points" values={{ number: 2 }}>{children}</Trans>
     case Achievement.PopulationBonus:
-      return <Trans defaults="achievement.bonus.pop" values={{ bonus: 1 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.bonus.pop" values={{ bonus: 1 }}>{children}</Trans>
     case Achievement.Progress:
-      return <Trans defaults="achievement.card-type" values={{ cards: 1, type: t('card.type.3') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 1, type: t('card.type.3') }}>{children}</Trans>
     case Achievement.Bonus1:
-      return <Trans defaults="achievement.bonus" values={{ bonus: 1 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.bonus" values={{ bonus: 1 }}>{children}</Trans>
     case Achievement.Cards3:
-      return <Trans defaults="achievement.cards" values={{ cards: 3 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.cards" values={{ cards: 3 }}>{children}</Trans>
     case Achievement.CardTypes2:
-      return <Trans defaults="achievement.diff-types" values={{ types: 2 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.diff-types" values={{ types: 2 }}>{children}</Trans>
     case Achievement.VictoryPoints4:
-      return <Trans defaults="achievement.victory-points" values={{ number: 4 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.victory-points" values={{ number: 4 }}>{children}</Trans>
     case Achievement.Progress2:
-      return <Trans defaults="achievement.card-type" values={{ cards: 1, type: t('card.type.3') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 1, type: t('card.type.3') }}>{children}</Trans>
     case Achievement.Lands2:
-      return <Trans defaults="achievement.card-type" values={{ cards: 2, type: t('card.type.1') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 2, type: t('card.type.1') }}>{children}</Trans>
     case Achievement.Figures2:
-      return <Trans defaults="achievement.card-type" values={{ cards: 2, type: t('card.type.2') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 2, type: t('card.type.2') }}>{children}</Trans>
     case Achievement.PopulationBonus2:
-      return <Trans defaults="achievement.bonus.pop" values={{ bonus: 2 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.bonus.pop" values={{ bonus: 2 }}>{children}</Trans>
     case Achievement.Cards4:
-      return <Trans defaults="achievement.cards" values={{ cards: 4 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.cards" values={{ cards: 4 }}>{children}</Trans>
     case Achievement.VictoryPoints8:
-      return <Trans defaults="achievement.victory-points" values={{ number: 8 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.victory-points" values={{ number: 8 }}>{children}</Trans>
     case Achievement.Cards5:
-      return <Trans defaults="achievement.cards" values={{ cards: 5 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.cards" values={{ cards: 5 }}>{children}</Trans>
     case Achievement.CardTypes3:
-      return <Trans defaults="achievement.diff-types" values={{ types: 3 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.diff-types" values={{ types: 3 }}>{children}</Trans>
     case Achievement.Wonder:
-      return <Trans defaults="achievement.card-type" values={{ cards: 1, type: t('card.type.4') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 1, type: t('card.type.4') }}>{children}</Trans>
     case Achievement.Figures3:
-      return <Trans defaults="achievement.card-type" values={{ cards: 3, type: t('card.type.2') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 3, type: t('card.type.2') }}>{children}</Trans>
     case Achievement.VictoryPoints12:
-      return <Trans defaults="achievement.victory-points" values={{ number: 12 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.victory-points" values={{ number: 12 }}>{children}</Trans>
     case Achievement.Bonus4:
-      return <Trans defaults="achievement.bonus" values={{ bonus: 4 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.bonus" values={{ bonus: 4 }}>{children}</Trans>
     case Achievement.Progress3:
-      return <Trans defaults="achievement.card-type" values={{ cards: 3, type: t('card.type.3') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 3, type: t('card.type.3') }}>{children}</Trans>
     case Achievement.Calamity:
-      return <Trans defaults="achievement.card-type" values={{ cards: 1, type: t('card.type.5') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 1, type: t('card.type.5') }}>{children}</Trans>
     case Achievement.Cards6:
-      return <Trans defaults="achievement.cards" values={{ cards: 6 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.cards" values={{ cards: 6 }}>{children}</Trans>
     case Achievement.Wonders2:
-      return <Trans defaults="achievement.card-type" values={{ cards: 2, type: t('card.type.4') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 2, type: t('card.type.4') }}>{children}</Trans>
     case Achievement.Cards7:
-      return <Trans defaults="achievement.cards" values={{ cards: 7 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.cards" values={{ cards: 7 }}>{children}</Trans>
     case Achievement.Calamities2:
-      return <Trans defaults="achievement.card-type" values={{ cards: 2, type: t('card.type.5') }}>{children}</Trans>
+      return <Trans i18nKey="achievement.card-type" values={{ cards: 2, type: t('card.type.5') }}>{children}</Trans>
     case Achievement.CardTypes4:
-      return <Trans defaults="achievement.diff-types" values={{ types: 4 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.diff-types" values={{ types: 4 }}>{children}</Trans>
     case Achievement.VictoryPoints15:
-      return <Trans defaults="achievement.victory-points" values={{ number: 15 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.victory-points" values={{ number: 15 }}>{children}</Trans>
     case Achievement.Bonus6:
-      return <Trans defaults="achievement.bonus" values={{ bonus: 6 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.bonus" values={{ bonus: 6 }}>{children}</Trans>
     case Achievement.Gold15:
-      return <Trans defaults="achievement.gold" values={{ gold: 15 }}>{children}</Trans>
+      return <Trans i18nKey="achievement.gold" values={{ gold: 15 }}>{children}</Trans>
   }
 }

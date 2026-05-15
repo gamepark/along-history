@@ -21,7 +21,7 @@ export const UniversalResourceHelp = ({ itemIndex, closeDialog }: MaterialHelpPr
     <h2>{t('universal-resource')}</h2>
     {spend && <p><PlayMoveButton move={spend} onPlay={closeDialog}>{t('token.spend')}</PlayMoveButton></p>}
     <p css={[alignIcon, breakSpaces]}>
-      <Trans defaults="universal-resource.rules">
+      <Trans i18nKey="universal-resource.rules">
         <Picture src={population3Icon} css={radius}/>
         <Picture src={ingenuityIcon} css={radius}/>
         <Picture src={cultureIcon} css={radius}/>

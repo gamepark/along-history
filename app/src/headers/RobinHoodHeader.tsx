@@ -24,7 +24,7 @@ const RobinHoodChoiceHeader = () => {
   if (!gold) {
     return <>{t('header.robin-hood.tie.you')}</>
   }
-  return <Trans defaults="header.robin-hood.you" values={{ gold }}>
+  return <Trans i18nKey="header.robin-hood.you" values={{ gold }}>
     <Picture src={Coin} css={iconCss}/>
   </Trans>
 }
@@ -33,7 +33,7 @@ const RobinHoodPlayerHeader = () => {
   const rules = useRules<AlongHistoryRules>()!
   const gold = rules.remind(Memory.GoldCost)
   const player = usePlayerName(rules.game.rule!.player!)
-  return <Trans defaults={`header.robin-hood${!gold ? '.tie' : ''}`} values={{ player, gold }}>
+  return <Trans i18nKey={`header.robin-hood${!gold ? '.tie' : ''}`} values={{ player, gold }}>
     <Picture src={Coin} css={iconCss}/>
   </Trans>
 }

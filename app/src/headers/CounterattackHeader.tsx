@@ -21,7 +21,7 @@ const CounterattackChoiceHeader = () => {
   const { t } = useTranslation()
   const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
   const counterattack = useLegalMove(isStartRule)
-  return <Trans defaults="header.counterattack.you" values={{ card: t(`card.name.${Card.WilliamWallace}`) }}>
+  return <Trans i18nKey="header.counterattack.you" values={{ card: t(`card.name.${Card.WilliamWallace}`) }}>
     <PlayMoveButton move={counterattack}/>
     <PlayMoveButton move={pass}/>
   </Trans>

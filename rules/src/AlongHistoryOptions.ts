@@ -1,5 +1,4 @@
 import { getEnumValues, OptionsSpec } from '@gamepark/rules-api'
-import { TFunction } from 'i18next'
 import { AchievementBoard } from './material/AchievementBoard'
 import { PlayerColor, playerColors } from './PlayerColor'
 
@@ -29,18 +28,18 @@ export enum AgesOption {
 export const AlongHistoryOptionsSpec: OptionsSpec<AlongHistoryOptions> = {
   players: {
     id: {
-      label: (t: TFunction) => t('Player color'),
+      label: (t) => t('Player color'),
       values: playerColors,
       valueSpec: color => ({ label: t => getPlayerName(color, t) })
     }
   },
   board: {
-    label: (t: TFunction) => t('board.option'),
+    label: (t) => t('board.option'),
     values: [AchievementBoard.Front, AchievementBoard.Back],
     valueSpec: board => ({ label: t => t(`board.${board}`), help: t => t(`board.${board}.help`) })
   },
   ages: {
-    label: (t: TFunction) => t('ages.option'),
+    label: (t) => t('ages.option'),
     values: getEnumValues(AgesOption),
     valueSpec: (agesOption = AgesOption.Prehistory) => ({
       label: t => t(`ages.${agesOption}`),
@@ -50,7 +49,7 @@ export const AlongHistoryOptionsSpec: OptionsSpec<AlongHistoryOptions> = {
   }
 }
 
-export function getPlayerName(playerId: PlayerColor, t: TFunction) {
+export function getPlayerName(playerId: PlayerColor, t: (key: string) => string) {
   switch (playerId) {
     case PlayerColor.White:
       return t('White')

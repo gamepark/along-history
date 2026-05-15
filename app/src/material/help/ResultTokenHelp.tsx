@@ -13,7 +13,7 @@ export const ResultTokenHelp = ({ item, itemIndex, closeDialog }: MaterialHelpPr
     {use && <p><PlayMoveButton move={use} onPlay={closeDialog}>{t('token.use')}</PlayMoveButton></p>}
     {item.location?.rotation && <p>{t('result-token.flipped')}</p>}
     <p css={breakSpaces}>
-      <Trans defaults="result-token.rules"/>
+      <Trans i18nKey="result-token.rules"/>
     </p>
   </>
 }

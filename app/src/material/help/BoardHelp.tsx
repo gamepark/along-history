@@ -19,7 +19,7 @@ export const BoardHelp = () => {
   return <>
     <h2>{t('board.title')}</h2>
     <p css={breakSpaces}>
-      <Trans defaults="achievements.rules">
+      <Trans i18nKey="achievements.rules">
         <PlayMoveButton css={rulesLinkButton} move={displayMaterialHelp(MaterialType.CivilisationToken, { id: player })} local/>
         <PlayMoveButton css={rulesLinkButton} move={displayLocationHelp({ type: LocationType.CivilisationArea, x: 0, z: 1 })} local/>
         <PlayMoveButton css={rulesLinkButton} move={displayRulesHelp(RuleId.Wars)} local/>

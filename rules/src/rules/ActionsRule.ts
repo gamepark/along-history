@@ -1,7 +1,5 @@
 import { CustomMove, isDeleteItemType, isMoveItem, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { sumBy } from 'lodash'
-import countBy from 'lodash/countBy'
-import parseInt from 'lodash/parseInt'
+import { countBy, parseInt, sumBy } from 'es-toolkit/compat'
 import { Card } from '../material/Card'
 import { CardId } from '../material/cards/CardId'
 import { CardInfo } from '../material/cards/CardInfo'

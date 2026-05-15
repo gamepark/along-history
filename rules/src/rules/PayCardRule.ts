@@ -1,5 +1,5 @@
 import { isDeleteItemType, isMoveItem, ItemMove, MaterialMove, MoveItem, MoveKind, playAction, PlayerTurnRule } from '@gamepark/rules-api'
-import { intersection, sumBy } from 'lodash'
+import { intersection, sumBy } from 'es-toolkit/compat'
 import { AlongHistoryRules } from '../AlongHistoryRules'
 import { Bonus } from '../material/cards/Bonus'
 import { CardId } from '../material/cards/CardId'

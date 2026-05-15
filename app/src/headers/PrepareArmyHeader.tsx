@@ -24,7 +24,7 @@ const PrepareYourArmyHeader = () => {
   const playerId = usePlayerId()
   const pass = useLegalMove(isCustomMoveType(CustomMoveType.Pass))
   return <>
-    <Trans defaults="header.war.prepare" values={{ bonus: rules.remind(Memory.Strength, playerId) }}>
+    <Trans i18nKey="header.war.prepare" values={{ bonus: rules.remind(Memory.Strength, playerId) }}>
       <span/>
       <PlayMoveButton move={pass}/>
     </Trans>
@@ -42,8 +42,8 @@ const AttackedInfoDialog = () => {
   return <RulesDialog open={open} close={() => setOpen(false)}>
     <div css={dialogCss}>
       <h2>{t('attacked')}</h2>
-      <p><Trans defaults="attacked.detail" values={{ player, strength }}><strong/></Trans></p>
-      <p><ThemeButton onClick={() => setOpen(false)}>{t('OK')}</ThemeButton></p>
+      <p><Trans i18nKey="attacked.detail" values={{ player, strength }}><strong/></Trans></p>
+      <p><ThemeButton onClick={() => setOpen(false)}>{t('OK', { ns: 'common' })}</ThemeButton></p>
     </div>
   </RulesDialog>
 }

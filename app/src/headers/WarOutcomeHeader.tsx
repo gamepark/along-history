@@ -18,7 +18,7 @@ export const WarOutcomeHeader = () => {
 
   if (!animation || !isMoveItemType(MaterialType.AchievementToken)(animation.move)) return null
 
-  return <Trans defaults={player === attackerId ? 'header.war.win' : player === defenderId ? 'header.war.lose' : 'header.war.outcome'}
+  return <Trans i18nKey={player === attackerId ? 'header.war.win' : player === defenderId ? 'header.war.lose' : 'header.war.outcome'}
                 values={{ attacker, defender }}>
     <MaterialComponent type={MaterialType.AchievementToken} itemId={rules.material(MaterialType.AchievementToken).getItem(animation.move.itemIndex)!.id}
                        css={inlineToken}/>
