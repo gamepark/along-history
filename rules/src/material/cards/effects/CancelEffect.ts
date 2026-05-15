@@ -1,5 +1,5 @@
 import { Card } from '../../Card'
-import { Effect } from './Effect'
+import type { Effect } from './Effect'
 import { EffectType } from './EffectType'
 
 export type CancelEffect = {

@@ -1,5 +1,5 @@
-import { Bonus } from './cards/Bonus'
-import { Resource } from './Resource'
+import type { Bonus } from './cards/Bonus'
+import type { Resource } from './Resource'
 
 export enum DiceSymbol {
   Population1 = 1,
