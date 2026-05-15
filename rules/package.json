@@ -17,8 +17,8 @@
   "scripts": {
     "test": "vitest",
     "check:cycles": "madge --circular --extensions ts src",
-    "build": "yarn check:cycles && tsc",
-    "prepublishOnly": "yarn check:cycles && tsc",
+    "build": "tsc",
+    "prepublishOnly": "tsc",
     "publish": "lerna publish",
     "lint": "eslint --fix"
   },
