@@ -40,7 +40,7 @@ const PlayerPoisonHeader = () => {
 
 const PoisonButton = ({ move }: { move: CustomMove }) => {
   const player = usePlayerName(move.data)
-  return <PlayMoveButton move={move} css={buttonCss(playerButtonColor[move.data], '', '')}>
+  return <PlayMoveButton move={move} css={buttonCss(playerButtonColor[move.data as PlayerColor], '', '')}>
     <Trans i18nKey="poison.button" values={{ player }}>
       <Avatar playerId={move.data} css={avatarCss}/>
     </Trans>

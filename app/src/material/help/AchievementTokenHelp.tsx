@@ -5,7 +5,7 @@ import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
 import { MaterialHelpProps, PlayMoveButton, useLegalMove, usePlayerId, usePlayerName } from '@gamepark/react-game'
 import { isMoveItemType, MaterialMove, MaterialMoveBuilder } from '@gamepark/rules-api'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { shallowEqual } from 'react-redux'
 import { rulesLinkButton } from '../../styles'
@@ -39,7 +39,7 @@ export const AchievementTokenHelp = ({ item, closeDialog }: MaterialHelpProps) =
   </>
 }
 
-const AchievementHelp: FC<{ achievement: Achievement }> = ({ achievement, children }) => {
+const AchievementHelp: FC<PropsWithChildren<{ achievement: Achievement }>> = ({ achievement, children }) => {
   const { t } = useTranslation()
   switch (achievement) {
     case Achievement.Land:

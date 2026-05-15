@@ -12,10 +12,10 @@ export class CivilisationAreaDescription extends DropAreaDescription {
   help = CivilisationAreaHelp
 
   getExtraCss = ({ player = PlayerColor.White }: Location) => css`
-    background-color: ${this.playerAreaColor[player]};
+    background-color: ${this.playerAreaColor[player as PlayerColor]};
   `
 
-  playerAreaColor = {
+  playerAreaColor: Record<PlayerColor, string> = {
     [PlayerColor.White]: 'rgba(255, 255, 255, 0.2)',
     [PlayerColor.Yellow]: 'rgba(255, 255, 0, 0.2)',
     [PlayerColor.Blue]: 'rgba(0, 0, 255, 0.2)',

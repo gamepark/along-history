@@ -9,7 +9,7 @@ import { Effect, isCardEffect, isEffectWithCondition } from '@gamepark/along-his
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { PlayMoveButton } from '@gamepark/react-game'
 import { MaterialMoveBuilder } from '@gamepark/rules-api'
-import { FC, useMemo } from 'react'
+import { FC, PropsWithChildren, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { rulesLinkButton } from '../../styles'
 import displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
@@ -34,7 +34,7 @@ export const LinkHelp = ({ card }: { card: Card }) => {
   </>
 }
 
-export const DisplayCardHelpButton: FC<{ card: Card }> = ({ card, children }) => {
+export const DisplayCardHelpButton: FC<PropsWithChildren<{ card: Card }>> = ({ card, children }) => {
   return <PlayMoveButton css={cardLinkButton} move={displayMaterialHelp(MaterialType.Card, { id: { front: card, back: getCardAge(card) } })} local>
     {children}
   </PlayMoveButton>

@@ -3,6 +3,7 @@ import { css } from '@emotion/react'
 import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { Card } from '@gamepark/along-history/material/Card'
 import { Bonus } from '@gamepark/along-history/material/cards/Bonus'
+import { PlayerColor } from '@gamepark/along-history/PlayerColor'
 import { CardId } from '@gamepark/along-history/material/cards/CardId'
 import { CardsInfo } from '@gamepark/along-history/material/cards/CardsInfo'
 import { CardType } from '@gamepark/along-history/material/cards/CardType'
@@ -122,12 +123,12 @@ export const CardHelp = ({ item, itemIndex, closeDialog }: MaterialHelpProps) =>
 const GiveToPlayerButton = ({ move, ...props }: { move: MoveItem } & PlayMoveButtonProps) => {
   const { t } = useTranslation()
   const player = usePlayerName(move.location.player)
-  return <PlayMoveButton move={move} css={[inlineButtonMargin, buttonCss(playerButtonColor[move.location.player], '', '')]} {...props}>
+  return <PlayMoveButton move={move} css={[inlineButtonMargin, buttonCss(playerButtonColor[move.location.player as PlayerColor], '', '')]} {...props}>
     {t('card.give', { player })}
   </PlayMoveButton>
 }
 
-const bonusIcon: Record<Bonus, string> = {
+const bonusIcon: Partial<Record<Bonus, string>> = {
   [Bonus.Population]: populationIcon,
   [Bonus.Culture]: cultureIcon,
   [Bonus.Ingenuity]: ingenuityIcon,

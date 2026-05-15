@@ -23,7 +23,7 @@ const PlayerDialogIndicator: FC<PlayerDialogIndicatorProps> = (props) => {
   return (
     <div css={indicator}>
       <div
-        css={[iconStyle(ratio, width), !!image && iconImageStyle(image, radius), !!image && shadow && shadowCss(image)]}>
+        css={[iconStyle(ratio, width), !!image && iconImageStyle(image, radius), !!image && shadow && shadowCss]}>
         {!!icon && <FontAwesomeIcon icon={faStar} css={fontIcon} fill="#28B8CE"/>}
       </div>
       <div css={detail}>
