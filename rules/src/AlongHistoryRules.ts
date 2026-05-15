@@ -11,7 +11,7 @@ import {
 } from '@gamepark/rules-api'
 import { sumBy } from 'es-toolkit/compat'
 import { Achievement, getAchievementValue } from './material/Achievement'
-import { agesScoreMemory } from './material/Age'
+import { Age, agesScoreMemory } from './material/Age'
 import { CardId } from './material/cards/CardId'
 import { CardsInfo } from './material/cards/CardsInfo'
 import { CardType } from './material/cards/CardType'
@@ -53,6 +53,7 @@ import { RansomRule } from './rules/RansomRule'
 import { RobinHoodRule } from './rules/RobinHoodRule'
 import { RollDiceRule } from './rules/RollDiceRule'
 import { RuleId } from './rules/RuleId'
+import { Scoring } from './rules/Scoring'
 import { SetupAgeRule } from './rules/SetupAgeRule'
 import { SwapRule } from './rules/SwapRule'
 import { TradeCardsRule } from './rules/TradeCardsRule'
@@ -163,7 +164,7 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
   getScore(player: PlayerColor) {
     const pastAgesScore = sumBy([Memory.PrehistoryScore, Memory.AntiquityScore, Memory.MiddleAgesScore],
       memory => this.remind(memory, player) ?? 0)
-    const currentAgeScored = this.remind(agesScoreMemory[this.remind(Memory.CurrentAge)]) !== undefined || this.game.rule?.id === RuleId.PrepareNextAge
+    const currentAgeScored = this.remind(agesScoreMemory[this.remind<Age>(Memory.CurrentAge)]) !== undefined || this.game.rule?.id === RuleId.PrepareNextAge
     return currentAgeScored ? pastAgesScore : pastAgesScore + this.getCurrentAgeScore(player)
   }
 
@@ -172,33 +173,15 @@ export class AlongHistoryRules extends HiddenMaterialRules<PlayerColor, Material
   }
 
   getCivilisationCardsScore(player: PlayerColor) {
-    const civilisationCards = this.material(MaterialType.Card)
-      .location(LocationType.CivilisationArea)
-      .player(player)
-      .getItems<CardId>()
-    return sumBy(civilisationCards, item => {
-      const victoryPoints = CardsInfo[item.id!.front].victoryPoints
-      if (victoryPoints === undefined) { // Al-Khawarizmi
-        return Math.min(Math.floor(this.material(MaterialType.Coin).player(player).getQuantity() / 3), 4)
-      }
-      return victoryPoints
-    })
+    return new Scoring(this.game).getCivilisationCardsScore(player)
   }
 
   getDecayMalus(player: PlayerColor) {
-    const decayCards = this.material(MaterialType.Card)
-      .location(l => l.type === LocationType.CivilisationArea && l.z !== 0)
-      .player(player)
-      .getItems<CardId>()
-    return sumBy(decayCards, (card) => CardsInfo[card.id!.front].bonus.length * 2)
+    return new Scoring(this.game).getDecayMalus(player)
   }
 
   getAchievementsScore(player: PlayerColor) {
-    const achievements = this.material(MaterialType.AchievementToken)
-      .location(LocationType.PlayerAchievements)
-      .player(player)
-      .getItems<Achievement>()
-    return sumBy(achievements, item => getAchievementValue(item.id!))
+    return new Scoring(this.game).getAchievementsScore(player)
   }
 
   getTieBreaker(tieBreaker: number, player: number) {
