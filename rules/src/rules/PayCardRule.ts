@@ -65,7 +65,7 @@ export class PayCardRule extends PlayerTurnRule {
       if (populationCost || resourcesCost.length) {
         const universalResource = this.material(MaterialType.UniversalResource).player(this.player)
         if (universalResource.length) {
-          moves.push(universalResource.moveItem({ type: LocationType.UniversalResourceStock }))
+          moves.push(universalResource.moveItem({ type: LocationType.UniversalResourceStock }, 1))
         }
       }
       if (this.hasRotatedCards) {
