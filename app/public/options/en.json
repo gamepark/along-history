@@ -1,0 +1,20 @@
+{
+  "identities": "Player color",
+  "identities.1": "White",
+  "identities.2": "Yellow",
+  "identities.3": "Blue",
+  "identities.4": "Green",
+  "identities.5": "Red",
+  "option.ages": "Played Age(s)",
+  "option.ages.1": "Prehistory",
+  "option.ages.2": "Antiquity",
+  "option.ages.3": "Middle Ages",
+  "option.ages.4": "Prehistory & Antiquity",
+  "option.ages.5": "Antiquity & Middle Ages",
+  "option.ages.6": "All 3 ages!",
+  "option.board": "Board choice",
+  "option.board.1": "Front face",
+  "option.board.1.help": "There are several ways of accessing the last Accomplishment token",
+  "option.board.2": "Back face",
+  "option.board.2.help": "Access to the last Accomplishment token is less straightforward"
+}

@@ -1,0 +1,20 @@
+{
+  "identities": "Colore del giocatore",
+  "identities.1": "Bianco",
+  "identities.2": "Giallo",
+  "identities.3": "Blu",
+  "identities.4": "Verde",
+  "identities.5": "Rosso",
+  "option.ages": "Era/Ere giocate",
+  "option.ages.1": "Preistoria",
+  "option.ages.2": "Antichità",
+  "option.ages.3": "Medioevo",
+  "option.ages.4": "Preistoria e Antichità",
+  "option.ages.5": "Antichità e Medioevo",
+  "option.ages.6": "Tutte e 3 le ere!",
+  "option.board": "Scelta del tabellone",
+  "option.board.1": "Lato fronte",
+  "option.board.1.help": "Ci sono diversi modi di raggiungere l’ultimo segnalino Impresa",
+  "option.board.2": "Lato retro",
+  "option.board.2.help": "L’accesso all’ultimo segnalino Impresa è meno diretto"
+}

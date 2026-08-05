@@ -1,0 +1,20 @@
+{
+  "identities": "Couleur du joueur",
+  "identities.1": "Blanc",
+  "identities.2": "Jaune",
+  "identities.3": "Bleu",
+  "identities.4": "Vert",
+  "identities.5": "Rouge",
+  "option.ages": "Âge(s) joués",
+  "option.ages.1": "Préhistoire",
+  "option.ages.2": "Antiquité",
+  "option.ages.3": "Moyen Âge",
+  "option.ages.4": "Préhistoire et Antiquité",
+  "option.ages.5": "Antiquité et Moyen Âge",
+  "option.ages.6": "Les 3 âges !",
+  "option.board": "Choix du plateau",
+  "option.board.1": "Recto",
+  "option.board.1.help": "L'accès au dernier jeton Accomplissement est possible par plusieurs chemins",
+  "option.board.2": "Verso",
+  "option.board.2.help": "L'accès au dernier jeton Accomplissement est moins direct"
+}

@@ -1,0 +1,20 @@
+{
+  "identities": "Color del jugador",
+  "identities.1": "Blanco",
+  "identities.2": "Amarillo",
+  "identities.3": "Azul",
+  "identities.4": "Verde",
+  "identities.5": "Rojo",
+  "option.ages": "Era(s) jugada(s)",
+  "option.ages.1": "Prehistoria",
+  "option.ages.2": "Antigüedad",
+  "option.ages.3": "Edad Media",
+  "option.ages.4": "Prehistoria y Antigüedad",
+  "option.ages.5": "Antigüedad y Edad Media",
+  "option.ages.6": "¡Las 3 eras!",
+  "option.board": "Elección del tablero",
+  "option.board.1": "Cara frontal",
+  "option.board.1.help": "Hay varias maneras de acceder a la última ficha de Logro",
+  "option.board.2": "Cara trasera",
+  "option.board.2.help": "El acceso a la última ficha de Logro es menos directo"
+}

@@ -1,0 +1,20 @@
+{
+  "identities": "Spielerfarbe",
+  "identities.1": "Weiß",
+  "identities.2": "Gelb",
+  "identities.3": "Blau",
+  "identities.4": "Grün",
+  "identities.5": "Rot",
+  "option.ages": "Gespielte Epoche(n)",
+  "option.ages.1": "Vorgeschichte",
+  "option.ages.2": "Antike",
+  "option.ages.3": "Mittelalter",
+  "option.ages.4": "Vorgeschichte & Antike",
+  "option.ages.5": "Antike & Mittelalter",
+  "option.ages.6": "Alle 3 Epochen!",
+  "option.board": "Wahl des Spielplans",
+  "option.board.1": "Vorderseite",
+  "option.board.1.help": "Es gibt mehrere Wege zum letzten Errungenschaftsplättchen",
+  "option.board.2": "Rückseite",
+  "option.board.2.help": "Der Zugang zum letzten Errungenschaftsplättchen ist weniger direkt"
+}
