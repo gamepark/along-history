@@ -1,4 +1,4 @@
-import { AlongHistoryOptionsSpec } from '@gamepark/along-history/AlongHistoryOptions'
+import { AlongHistoryOptionsSpecV2 } from '@gamepark/along-history/AlongHistoryOptions'
 import { AlongHistoryRules } from '@gamepark/along-history/AlongHistoryRules'
 import { AlongHistorySetup } from '@gamepark/along-history/AlongHistorySetup'
 import { GameProvider } from '@gamepark/react-game'
@@ -14,7 +14,7 @@ import { Tutorial } from './tutorial/Tutorial'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <GameProvider game="along-history" Rules={AlongHistoryRules} optionsSpec={AlongHistoryOptionsSpec} GameSetup={AlongHistorySetup}
+    <GameProvider game="along-history" Rules={AlongHistoryRules} optionsSpec={AlongHistoryOptionsSpecV2} GameSetup={AlongHistorySetup}
                   material={Material} locators={Locators} animations={alongHistoryAnimations} tutorial={new Tutorial()}
                   rulesHelp={RulesHelp} theme={theme}>
       <App/>

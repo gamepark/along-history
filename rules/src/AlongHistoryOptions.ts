@@ -1,4 +1,4 @@
-import { getEnumValues, OptionsSpec } from '@gamepark/rules-api'
+import { getEnumValues, OptionsSpecV2 } from '@gamepark/rules-api'
 import { AchievementBoard } from './material/AchievementBoard'
 import { PlayerColor, playerColors } from './PlayerColor'
 
@@ -22,30 +22,21 @@ export enum AgesOption {
 }
 
 /**
- * This object describes all the options a game can have, and will be used by GamePark website to create automatically forms for you game
- * (forms for friendly games, or forms for matchmaking preferences, for instance).
+ * The option space of along-history: structure only.
+ *
+ * Labels live in the game's presentation document, published beside its translations at
+ * `/options/<locale>.json` and keyed by convention. Subscription and competitive gates live in
+ * the platform database, so they can change without releasing the game again.
+ *
+ * That is where the subscription gates and the competitive settings went.
  */
-export const AlongHistoryOptionsSpec: OptionsSpec<AlongHistoryOptions> = {
-  players: {
-    id: {
-      label: (t) => t('Player color'),
-      values: playerColors,
-      valueSpec: color => ({ label: t => getPlayerName(color, t) })
-    }
-  },
-  board: {
-    label: (t) => t('board.option'),
-    values: [AchievementBoard.Front, AchievementBoard.Back],
-    valueSpec: board => ({ label: t => t(`board.${board}`), help: t => t(`board.${board}.help`) })
-  },
-  ages: {
-    label: (t) => t('ages.option'),
-    values: getEnumValues(AgesOption),
-    valueSpec: (agesOption = AgesOption.Prehistory) => ({
-      label: t => t(`ages.${agesOption}`),
-      subscriberRequired: agesOption !== AgesOption.Prehistory,
-      competitiveDisabled: agesOption > AgesOption.MiddleAges
-    })
+export const AlongHistoryOptionsSpecV2: OptionsSpecV2 = {
+  specVersion: 2,
+  players: { min: 2, max: 5 },
+  identities: { values: playerColors },
+  options: {
+    board: { kind: 'enum', values: [AchievementBoard.Front, AchievementBoard.Back] },
+    ages: { kind: 'enum', values: getEnumValues(AgesOption) }
   }
 }
 

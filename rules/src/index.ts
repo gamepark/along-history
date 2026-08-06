@@ -1,3 +1,3 @@
 export { AlongHistoryRules } from './AlongHistoryRules'
-export { AlongHistoryOptionsSpec } from './AlongHistoryOptions'
+export { AlongHistoryOptionsSpecV2 } from './AlongHistoryOptions'
 export { AlongHistorySetup } from './AlongHistorySetup'
