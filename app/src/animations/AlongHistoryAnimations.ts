@@ -1,17 +1,18 @@
 import { LocationType } from '@gamepark/along-history/material/LocationType'
 import { MaterialType } from '@gamepark/along-history/material/MaterialType'
 import { RuleId } from '@gamepark/along-history/rules/RuleId'
-import { MaterialGameAnimations } from '@gamepark/react-game'
+import { and, isMyMove, isRule, MaterialGameAnimations } from '@gamepark/react-game'
 import { isMoveItemType } from '@gamepark/rules-api'
 
 export const alongHistoryAnimations = new MaterialGameAnimations()
 
-alongHistoryAnimations.when().rule(RuleId.PayCard).move(isMoveItemType(MaterialType.Dice)).mine().none()
+alongHistoryAnimations.configure(and(isRule(RuleId.PayCard), isMoveItemType(MaterialType.Dice), isMyMove())).skip()
 
-alongHistoryAnimations.when().rule(RuleId.PayCard).move(isMoveItemType(MaterialType.Card)).mine().none()
+alongHistoryAnimations.configure(and(isRule(RuleId.PayCard), isMoveItemType(MaterialType.Card), isMyMove())).skip()
 
-alongHistoryAnimations.when().rule(RuleId.PayCard).move(isMoveItemType(MaterialType.ResultToken)).mine().none()
+alongHistoryAnimations.configure(and(isRule(RuleId.PayCard), isMoveItemType(MaterialType.ResultToken), isMyMove())).skip()
 
-alongHistoryAnimations.when().move(move =>
-  isMoveItemType(MaterialType.UniversalResource)(move) && move.location.type === LocationType.UniversalResourceStock
-).mine().none()
+alongHistoryAnimations.configure(and(move =>
+  isMoveItemType(MaterialType.UniversalResource)(move) && move.location.type === LocationType.UniversalResourceStock,
+  isMyMove()
+)).skip()
