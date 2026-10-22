@@ -26,7 +26,7 @@ class CoinDescription extends TokenDescription {
   randomFlipCache: Map<number, boolean> = new Map()
 
   isFlipped(item: Partial<MaterialItem>, context: MaterialContext) {
-    const cacheKey = (item.location?.type === LocationType.CoinsStock ? 0 : item.location?.player!) * 100 + ((context as ItemContext).displayIndex ?? 0)
+    const cacheKey = (item.location?.type === LocationType.CoinsStock ? 0 : (item.location?.player ?? 0)) * 100 + ((context as ItemContext).displayIndex ?? 0)
     if (!this.randomFlipCache.has(cacheKey)) {
       this.randomFlipCache.set(cacheKey, Math.random() < 0.5)
     }
