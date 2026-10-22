@@ -45,7 +45,8 @@ export class ActionsRule extends PlayerTurnRule {
 
   get discardDice(): MaterialMove[] {
     const dice = this.material(MaterialType.Dice).location(LocationType.PlayerResources).player(this.player)
-    if (dice.length === 1 && getDiceSymbol(dice.getItem()!) !== DiceSymbol.GoldenAge && this.cardsICanTrade.length === 0) return []
+    const symbol = dice.length === 1 ? getDiceSymbol(dice.getItem()!) : undefined
+    if (symbol && symbol !== DiceSymbol.GoldenAge && !isGold(symbol) && this.cardsICanTrade.length === 0) return []
     return dice.moveItems(diceToDiscardTile)
   }
 
